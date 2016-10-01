@@ -8,7 +8,6 @@ public class User {
     private String firstName;
     private String lastName;
     private Date date;
-    private enum sex{MR,MRS,MISS,MS;};
     private String country;
     private String city;
     private List<String> address;
@@ -19,7 +18,7 @@ public class User {
     private String securityQuestion;
     private String answer;
     private String email;
-    private Balans userBalanse;
+    private Balance userBalanse;
 
     public int getId() {
         return id;
@@ -133,14 +132,19 @@ public class User {
         this.email = email;
     }
 
-    public Balans getUserBalanse() {
+    public Balance getUserBalanse() {
         return userBalanse;
     }
 
-    public void setUserBalanse(Balans userBalanse) {
+    public void setUserBalanse(Balance userBalanse) {
         this.userBalanse = userBalanse;
     }
 
-
-
+    private enum sex{
+        MR("Mr"),MRS("Mrs"),MISS("Miss"),MS("Ms");
+        private String sex;
+        sex(String sex) {
+            this.sex=sex;
+        }
+    }
 }

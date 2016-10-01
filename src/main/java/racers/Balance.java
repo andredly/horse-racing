@@ -1,6 +1,6 @@
 package racers;
 
-public class Balans {
+public class Balance {
     private int money;
 
     public int getMoney() {
