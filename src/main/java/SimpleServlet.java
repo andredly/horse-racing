@@ -3,14 +3,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/hello")
 public class SimpleServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("id",id);
-        req.getRequestDispatcher("/hello.jsp");
+
+        req.getRequestDispatcher("/hello.jsp").forward(req,resp);
     }
 }
