@@ -16,7 +16,6 @@ public class User {
     private String postCode;
     private String login;
     private String password;
-    private String currency;
     private String securityQuestion;
     private String answer;
     private String email;
@@ -109,14 +108,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public String getSecurityQuestion() {
