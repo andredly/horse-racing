@@ -1,4 +1,4 @@
-package racers;
+package racers.entity.user;
 
 public class Balance {
     private int money;

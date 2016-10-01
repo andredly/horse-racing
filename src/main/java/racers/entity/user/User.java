@@ -1,4 +1,6 @@
-package racers;
+package racers.entity.user;
+
+import racers.entity.user.Balance;
 
 import java.util.Date;
 import java.util.List;
