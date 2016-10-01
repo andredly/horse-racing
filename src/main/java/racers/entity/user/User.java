@@ -21,6 +21,15 @@ public class User {
     private String answer;
     private String email;
     private Balance userBalanse;
+    private String mobileNumber;
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
     public int getId() {
         return id;
