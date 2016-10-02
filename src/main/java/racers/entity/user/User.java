@@ -1,12 +1,10 @@
 package racers.entity.user;
 
-import racers.entity.user.Balance;
-
 import java.util.Date;
 import java.util.List;
 
 public class User {
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private Date date;
@@ -21,6 +19,22 @@ public class User {
     private String email;
     private Balance userBalanse;
     private String mobileNumber;
+    private int securLevel;
+
+    public User() {
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getSecurLevel() {
+        return securLevel;
+    }
+
+    public void setSecurLevel(int securLevel) {
+        this.securLevel = securLevel;
+    }
 
     public String getMobileNumber() {
         return mobileNumber;
@@ -30,7 +44,7 @@ public class User {
         this.mobileNumber = mobileNumber;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -138,15 +152,29 @@ public class User {
         return userBalanse;
     }
 
-    public void setUserBalanse(Balance userBalanse) {
+    public void setUserBalanse(Balance userBalanse)
+    {
         this.userBalanse = userBalanse;
     }
 
-    private enum sex{
+    private enum Sex {
         MR("Mr"),MRS("Mrs"),MISS("Miss"),MS("Ms");
         private String sex;
-        sex(String sex) {
+        Sex(String sex) {
             this.sex=sex;
+        }
+
+        static public Sex getType(String pType) {
+            for (Sex type: Sex.values()) {
+                if (type.getTypeValue().equals(pType)) {
+                    return type;
+                }
+            }
+            return null;
+        }
+
+        public String getTypeValue() {
+            return sex;
         }
     }
 }
