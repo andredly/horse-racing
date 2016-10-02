@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class User {
-    private long id;
+    private long userId;
     private String firstName;
     private String lastName;
     private Date date;
@@ -21,11 +21,15 @@ public class User {
     private String mobileNumber;
     private int securLevel;
 
-    public User() {
+    public User(long userId) {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getUserId() {
+        return userId;
     }
 
     public int getSecurLevel() {
@@ -42,14 +46,6 @@ public class User {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -152,20 +148,20 @@ public class User {
         return userBalanse;
     }
 
-    public void setUserBalanse(Balance userBalanse)
-    {
+    public void setUserBalanse(Balance userBalanse) {
         this.userBalanse = userBalanse;
     }
 
     private enum Sex {
-        MR("Mr"),MRS("Mrs"),MISS("Miss"),MS("Ms");
+        MR("Mr"), MRS("Mrs"), MISS("Miss"), MS("Ms");
         private String sex;
+
         Sex(String sex) {
-            this.sex=sex;
+            this.sex = sex;
         }
 
         static public Sex getType(String pType) {
-            for (Sex type: Sex.values()) {
+            for (Sex type : Sex.values()) {
                 if (type.getTypeValue().equals(pType)) {
                     return type;
                 }

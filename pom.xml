@@ -60,7 +60,7 @@
         <version>2.10</version>
         <executions>
           <execution>
-            <id>copy</id>
+            <userId>copy</userId>
             <phase>install</phase>
             <goals>
               <goal>copy-dependencies</goal>

@@ -1,4 +1,5 @@
 package racers.entity.racesobject.racecousce;
 
-public class HorseStatistics {
+public class StatisticJockey {
+
 }
