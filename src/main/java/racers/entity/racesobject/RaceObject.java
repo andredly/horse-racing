@@ -1,5 +1,5 @@
 package racers.entity.racesobject;
 
-public interface Racesobject {
+public interface RaceObject {
 
 }

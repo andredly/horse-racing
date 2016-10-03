@@ -20,6 +20,7 @@ public class User {
     private Balance userBalanse;
     private String mobileNumber;
     private int securLevel;
+    private boolean sex;
 
     public User(long userId) {
     }
@@ -152,25 +153,11 @@ public class User {
         this.userBalanse = userBalanse;
     }
 
-    private enum Sex {
-        MR("Mr"), MRS("Mrs"), MISS("Miss"), MS("Ms");
-        private String sex;
+    public boolean isSex() {
+        return sex;
+    }
 
-        Sex(String sex) {
-            this.sex = sex;
-        }
-
-        static public Sex getType(String pType) {
-            for (Sex type : Sex.values()) {
-                if (type.getTypeValue().equals(pType)) {
-                    return type;
-                }
-            }
-            return null;
-        }
-
-        public String getTypeValue() {
-            return sex;
-        }
+    public void setSex(boolean sex) {
+        this.sex = sex;
     }
 }

@@ -1,14 +1,14 @@
 package racers.entity.user;
 
-public class Balance {
-    private int money;
+class Balance {
+    private double money;
     private String currency;
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
