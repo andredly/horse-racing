@@ -6,17 +6,35 @@ import racers.entity.racesobject.Trainer;
 
 class Horse implements Running {
     private int idHorse;
-    private String name;
-    private int weight;
+    private String nickName;
     private int age;
+    private int equipmentWeight;
     private String form;
-    private boolean sex;
-    private String additionalInformation;
-    private Jockey jockey;
-    private Trainer trainer;
-    private StatisticsHorse statistics;
+    private enum Sex{
+        MAIL(1),FEMALE(0);
+        private int sex;
+        Sex(int sex) {
+            this.sex=sex;
+        }
+        static public Sex getType(int sex) {
+            for (Sex type : Sex.values()) {
+                if (type.getTypeValue()==sex) {
+                    return type;
+                }
+            }
+            return null;
+        }
+
+        public int getTypeValue() {
+            return sex;
+        }
+    };
+    private int rating;
+    private String discription;
+//    private Jockey jockey;
+//    private Trainer trainer;
     private Owner owner;
-    private String rating;
+
 
     public Horse() {
     }
@@ -29,20 +47,20 @@ class Horse implements Running {
         this.idHorse = idHorse;
     }
 
-    public String getName() {
-        return name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getEquipmentWeight() {
+        return equipmentWeight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setEquipmentWeight(int equipmentWeight) {
+        this.equipmentWeight = equipmentWeight;
     }
 
     public int getAge() {
@@ -61,45 +79,30 @@ class Horse implements Running {
         this.form = form;
     }
 
-    public boolean isSex() {
-        return sex;
+    public String getDiscription() {
+        return discription;
     }
 
-    public void setSex(boolean sex) {
-        this.sex = sex;
+    public void setDiscription(String discription) {
+        this.discription = discription;
     }
 
-    public String getAdditionalInformation() {
-        return additionalInformation;
-    }
+//    public Jockey getJockey() {
+//        return jockey;
+//    }
+//
+//    public void setJockey(Jockey jockey) {
+//        this.jockey = jockey;
+//    }
+//
+//    public Trainer getTrainer() {
+//        return trainer;
+//    }
+//
+//    public void setTrainer(Trainer trainer) {
+//        this.trainer = trainer;
+//    }
 
-    public void setAdditionalInformation(String additionalInformation) {
-        this.additionalInformation = additionalInformation;
-    }
-
-    public Jockey getJockey() {
-        return jockey;
-    }
-
-    public void setJockey(Jockey jockey) {
-        this.jockey = jockey;
-    }
-
-    public Trainer getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(Trainer trainer) {
-        this.trainer = trainer;
-    }
-
-    public StatisticsHorse getStatistics() {
-        return statistics;
-    }
-
-    public void setStatistics(StatisticsHorse statistics) {
-        this.statistics = statistics;
-    }
 
     public Owner getOwner() {
         return owner;
@@ -109,11 +112,11 @@ class Horse implements Running {
         this.owner = owner;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 }

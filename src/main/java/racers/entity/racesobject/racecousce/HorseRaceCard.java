@@ -4,16 +4,14 @@ import racers.entity.racesobject.Racecard;
 import racers.entity.racesobject.RaceObject;
 
 import java.util.Date;
-import java.util.List;
 
 class HorseRaceCard implements Racecard{
     private int idRacecard;
-    private RaceObject raceObject;
-    private Date date;
-    private List<Horse> horseList;
+    private Date dateRace;
+//    private List<Horse> horseList;
     private String distance;
     private int counterHorse;
-
+    private RaceObject raceObject;
     public HorseRaceCard() {
     }
 
@@ -67,21 +65,12 @@ class HorseRaceCard implements Racecard{
         this.idRacecard = idRacecard;
     }
 
-
-    public Date getDate() {
-        return date;
+    public Date getDateRace() {
+        return dateRace;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public List<Horse> getHorseList() {
-        return horseList;
-    }
-
-    public void setHorseList(List<Horse> horseList) {
-        this.horseList = horseList;
+    public void setDateRace(Date dateRace) {
+        this.dateRace = dateRace;
     }
 
     public String getDistance() {

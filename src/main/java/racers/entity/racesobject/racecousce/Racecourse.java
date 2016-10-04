@@ -1,5 +1,6 @@
 package racers.entity.racesobject.racecousce;
 
+import racers.entity.racesobject.Country;
 import racers.entity.racesobject.RaceObject;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public class Racecourse implements RaceObject {
     private int id;
     private String name;
-    private String country;
+    private Country country;
     private List<HorseRaceCard> listRacers;
 
     public Racecourse() {
@@ -29,11 +30,19 @@ public class Racecourse implements RaceObject {
         this.name = name;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public List<HorseRaceCard> getListRacers() {
+        return listRacers;
+    }
+
+    public void setListRacers(List<HorseRaceCard> listRacers) {
+        this.listRacers = listRacers;
     }
 }

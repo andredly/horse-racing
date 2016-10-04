@@ -1,4 +1,4 @@
 package racers.entity.racesobject;
 
-public interface Racecard {
+public interface RaceCard {
 }

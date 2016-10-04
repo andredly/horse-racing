@@ -10,7 +10,7 @@ public class User {
     private Date date;
     private String country;
     private String city;
-    private List<String> address;
+    private String address;
     private String postCode;
     private String login;
     private String password;
@@ -89,11 +89,11 @@ public class User {
         this.city = city;
     }
 
-    public List<String> getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(List<String> address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

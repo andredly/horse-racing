@@ -1,14 +1,10 @@
 package racers.entity.racesobject.racecousce;
 
-import com.sun.org.glassfish.external.statistics.Statistic;
-
 class Jockey {
     private int idJockey;
     private String nickName;
     private int age;
     private int weight;
-    private String drawUrl;
-    private StatisticJockey statistic;
 
     public Jockey() {
     }
@@ -45,19 +41,4 @@ class Jockey {
         this.weight = weight;
     }
 
-    public String getDrawUrl() {
-        return drawUrl;
-    }
-
-    public void setDrawUrl(String drawUrl) {
-        this.drawUrl = drawUrl;
-    }
-
-    public StatisticJockey getStatistic() {
-        return statistic;
-    }
-
-    public void setStatistic(StatisticJockey statistic) {
-        this.statistic = statistic;
-    }
 }
