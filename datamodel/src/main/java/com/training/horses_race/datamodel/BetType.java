@@ -1,5 +1,5 @@
-package racers.entity.bet;
+package com.training.horses_race.datamodel;
 
 public enum BetType {
-    WIN, PLACE, SHOW, DOUBLE, EXACTA, QUINELLA, TRIFECTA;
+    WIN, PLACE_1_2, PLACE_1_3;
 }

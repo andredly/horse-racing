@@ -1,13 +1,36 @@
-package racers.entity.racesobject.racecousce;
+package com.training.horses_race.datamodel;
 
-import racers.entity.racesobject.RaceCard;
-import racers.entity.racesobject.Running;
+import java.util.Date;
 
-import java.util.List;
-import java.util.Map;
+public class Race extends AbstractModel{
+    private int numberStartBox;
+    private Date dateFinish;
+    private int result;
 
-public class Race {
-    private RaceCard racecard;
-    private Map<Integer,Running> listRunning;
-    //// TODO: 04.10.2016 не ясно мапа или лист
+    public Race() {
+    }
+
+    public int getNumberStartBox() {
+        return numberStartBox;
+    }
+
+    public void setNumberStartBox(int numberStartBox) {
+        this.numberStartBox = numberStartBox;
+    }
+
+    public Date getDateFinish() {
+        return dateFinish;
+    }
+
+    public void setDateFinish(Date dateFinish) {
+        this.dateFinish = dateFinish;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
 }

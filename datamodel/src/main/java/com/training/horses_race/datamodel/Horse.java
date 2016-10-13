@@ -1,50 +1,17 @@
-package racers.entity.racesobject.racecousce;
+package com.training.horses_race.datamodel;
 
-import racers.entity.racesobject.Owner;
-import racers.entity.racesobject.Running;
-import racers.entity.racesobject.Trainer;
+class Horse extends AbstractModel{
 
-class Horse implements Running {
-    private int idHorse;
     private String nickName;
-    private int age;
-    private int equipmentWeight;
+    private Integer age;
+    private Integer equipmentWeight;
     private String form;
-    private enum Sex{
-        MAIL(1),FEMALE(0);
-        private int sex;
-        Sex(int sex) {
-            this.sex=sex;
-        }
-        static public Sex getType(int sex) {
-            for (Sex type : Sex.values()) {
-                if (type.getTypeValue()==sex) {
-                    return type;
-                }
-            }
-            return null;
-        }
-
-        public int getTypeValue() {
-            return sex;
-        }
-    };
-    private int rating;
-    private String discription;
-//    private Jockey jockey;
-//    private Trainer trainer;
-    private Owner owner;
+    private Integer rating;
+    private String description;
+    private String owner;
 
 
     public Horse() {
-    }
-
-    public int getIdHorse() {
-        return idHorse;
-    }
-
-    public void setIdHorse(int idHorse) {
-        this.idHorse = idHorse;
     }
 
     public String getNickName() {
@@ -55,20 +22,20 @@ class Horse implements Running {
         this.nickName = nickName;
     }
 
-    public int getEquipmentWeight() {
-        return equipmentWeight;
-    }
-
-    public void setEquipmentWeight(int equipmentWeight) {
-        this.equipmentWeight = equipmentWeight;
-    }
-
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getEquipmentWeight() {
+        return equipmentWeight;
+    }
+
+    public void setEquipmentWeight(Integer equipmentWeight) {
+        this.equipmentWeight = equipmentWeight;
     }
 
     public String getForm() {
@@ -79,44 +46,27 @@ class Horse implements Running {
         this.form = form;
     }
 
-    public String getDiscription() {
-        return discription;
-    }
-
-    public void setDiscription(String discription) {
-        this.discription = discription;
-    }
-
-//    public Jockey getJockey() {
-//        return jockey;
-//    }
-//
-//    public void setJockey(Jockey jockey) {
-//        this.jockey = jockey;
-//    }
-//
-//    public Trainer getTrainer() {
-//        return trainer;
-//    }
-//
-//    public void setTrainer(Trainer trainer) {
-//        this.trainer = trainer;
-//    }
-
-
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

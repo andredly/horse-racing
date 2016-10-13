@@ -1,4 +1,4 @@
-package com.epam.training.library.datamodel;
+package com.training.horses_race.datamodel;
 
 public class AbstractModel {
 

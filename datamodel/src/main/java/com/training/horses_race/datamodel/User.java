@@ -1,52 +1,15 @@
-package racers.entity.user;
+package com.training.horses_race.datamodel;
 
 import java.util.Date;
-import java.util.List;
 
-public class User {
-    private long userId;
+public class User extends AbstractModel{
     private String firstName;
     private String lastName;
     private Date date;
-    private String country;
-    private String city;
     private String address;
-    private String postCode;
-    private String login;
-    private String password;
-    private String securityQuestion;
-    private String answer;
-    private String email;
-    private Balance userBalanse;
-    private String mobileNumber;
-    private int securLevel;
-    private boolean sex;
+    private String gender;
 
-    public User(long userId) {
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public int getSecurLevel() {
-        return securLevel;
-    }
-
-    public void setSecurLevel(int securLevel) {
-        this.securLevel = securLevel;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public User() {
     }
 
     public String getFirstName() {
@@ -73,22 +36,6 @@ public class User {
         this.date = date;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -97,67 +44,12 @@ public class User {
         this.address = address;
     }
 
-    public String getPostCode() {
-        return postCode;
+    public String getGender() {
+        return gender;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSecurityQuestion() {
-        return securityQuestion;
-    }
-
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion = securityQuestion;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Balance getUserBalanse() {
-        return userBalanse;
-    }
-
-    public void setUserBalanse(Balance userBalanse) {
-        this.userBalanse = userBalanse;
-    }
-
-    public boolean isSex() {
-        return sex;
-    }
-
-    public void setSex(boolean sex) {
-        this.sex = sex;
-    }
 }
