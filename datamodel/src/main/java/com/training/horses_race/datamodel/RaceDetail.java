@@ -7,7 +7,7 @@ public class RaceDetail extends AbstractModel{
     private int numberStartBox;
     private Date dateFinish;
     private int result;
-    private Horse horse;
+    private List<Horse> horses;
     private RaceCard raceCard;
 
     public RaceDetail() {
@@ -21,12 +21,12 @@ public class RaceDetail extends AbstractModel{
         this.raceCard = raceCard;
     }
 
-    public Horse getHorse() {
-        return horse;
+    public List<Horse> getHorses() {
+        return horses;
     }
 
-    public void setHorse(Horse horse) {
-        this.horse = horse;
+    public void setHorses(List<Horse> horses) {
+        this.horses = horses;
     }
 
     public int getNumberStartBox() {
