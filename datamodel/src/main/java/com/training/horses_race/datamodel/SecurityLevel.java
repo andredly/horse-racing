@@ -1,18 +1,18 @@
 package com.training.horses_race.datamodel;
 
 public class SecurityLevel extends AbstractModel{
-    private Integer securityLevel;
+    private Integer level;
     private String userStatus;
 
     public SecurityLevel() {
     }
 
-    public Integer getSecurityLevel() {
-        return securityLevel;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setSecurityLevel(Integer securityLevel) {
-        this.securityLevel = securityLevel;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getUserStatus() {
@@ -22,4 +22,5 @@ public class SecurityLevel extends AbstractModel{
     public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
+
 }

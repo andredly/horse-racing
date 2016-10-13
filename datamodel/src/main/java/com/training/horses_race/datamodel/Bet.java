@@ -1,6 +1,7 @@
 package com.training.horses_race.datamodel;
 
 import java.util.Date;
+import java.util.List;
 
 public class Bet extends AbstractModel{
 
@@ -9,8 +10,27 @@ public class Bet extends AbstractModel{
     private Double sum;
     private Boolean isWin;
     private Double calculation;
+    private User user;
+    private Event event;
 
     public Bet() {
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public Date getDateBet() {

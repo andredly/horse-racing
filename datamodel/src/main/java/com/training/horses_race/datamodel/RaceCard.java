@@ -7,6 +7,7 @@ public class RaceCard extends AbstractModel {
     private String raceType;
     private String racecourse;
     private Integer counterHorse;
+
     public RaceCard() {
     }
 

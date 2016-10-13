@@ -9,9 +9,18 @@ class Horse extends AbstractModel{
     private Integer rating;
     private String description;
     private String owner;
+    private Command command;
 
 
     public Horse() {
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
     public String getNickName() {

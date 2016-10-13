@@ -1,13 +1,32 @@
 package com.training.horses_race.datamodel;
 
 import java.util.Date;
+import java.util.List;
 
-public class Race extends AbstractModel{
+public class RaceDetail extends AbstractModel{
     private int numberStartBox;
     private Date dateFinish;
     private int result;
+    private Horse horse;
+    private RaceCard raceCard;
 
-    public Race() {
+    public RaceDetail() {
+    }
+
+    public RaceCard getRaceCard() {
+        return raceCard;
+    }
+
+    public void setRaceCard(RaceCard raceCard) {
+        this.raceCard = raceCard;
+    }
+
+    public Horse getHorse() {
+        return horse;
+    }
+
+    public void setHorse(Horse horse) {
+        this.horse = horse;
     }
 
     public int getNumberStartBox() {

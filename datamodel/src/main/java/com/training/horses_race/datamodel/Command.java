@@ -5,8 +5,17 @@ public class Command {
     private String jockey;
     private String trainer;
     private String urlImageColor;
+    private Horse horse;
 
     public Command() {
+    }
+
+    public Horse getHorse() {
+        return horse;
+    }
+
+    public void setHorse(Horse horse) {
+        this.horse = horse;
     }
 
     public Integer getIdCommand() {
