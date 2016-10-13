@@ -1,11 +1,11 @@
 package racers.entity.racesobject.racecousce;
 
-import racers.entity.racesobject.Racecard;
+import racers.entity.racesobject.RaceCard;
 import racers.entity.racesobject.RaceObject;
 
 import java.util.Date;
 
-class HorseRaceCard implements Racecard{
+class HorseRaceCard implements RaceCard{
     private int idRacecard;
     private Date dateRace;
 //    private List<Horse> horseList;
