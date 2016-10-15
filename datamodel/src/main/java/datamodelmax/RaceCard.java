@@ -1,4 +1,4 @@
-package com.training.horses_race.datamodel;
+package datamodelmax;
 
 import java.util.Date;
 
