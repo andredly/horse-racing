@@ -43,8 +43,8 @@ CREATE TABLE "race_detail" (
 	"race_card_id" bigint NOT NULL,
 	"horse_id" bigint NOT NULL,
 	"number_start_box" int NOT NULL,
-	"date_finish" DATE NOT NULL,
-	"result" int NOT NULL,
+	"date_finish" DATE,
+	"result" int,
 	CONSTRAINT race_detail_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -121,8 +121,6 @@ CREATE TABLE "security_level" (
 );
 
 
-
-
 ALTER TABLE "command" ADD CONSTRAINT "command_fk0" FOREIGN KEY ("id") REFERENCES "horse"("id");
 
 ALTER TABLE "race_detail" ADD CONSTRAINT "race_detail_fk0" FOREIGN KEY ("race_card_id") REFERENCES "race_card"("id");
@@ -139,3 +137,8 @@ ALTER TABLE "account" ADD CONSTRAINT "account_fk0" FOREIGN KEY ("id") REFERENCES
 ALTER TABLE "account" ADD CONSTRAINT "account_fk1" FOREIGN KEY ("security_level_id") REFERENCES "security_level"("id");
 
 
+
+ALTER TABLE bet ALTER COLUMN is_win SET DEFAULT FALSE;
+ALTER TABLE bet ALTER COLUMN is_win DROP NOT NULL;
+ALTER TABLE bet ALTER COLUMN calculate SET DEFAULT 0;
+ALTER TABLE bet ALTER COLUMN calculate DROP NOT NULL;

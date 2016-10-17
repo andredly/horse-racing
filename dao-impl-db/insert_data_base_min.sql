@@ -41,3 +41,84 @@ INSERT INTO command (id,treiner,jockey,url_image_color) VALUES (5,'dor','jus','h
 INSERT INTO command (id,treiner,jockey,url_image_color) VALUES (6,'ver','vuy','http6');
 INSERT INTO command (id,treiner,jockey,url_image_color) VALUES (7,'low','qer','http7');
 INSERT INTO command (id,treiner,jockey,url_image_color) VALUES (8,'петя1','коля1','http8');
+
+INSERT INTO race_card (date,race_type,racecource,count_horce,country) VALUES ('17.10.16','1000','denv',6,'rus');
+INSERT INTO race_card (date,race_type,racecource,count_horce,country) VALUES ('17.10.16','1500','hits',6,'ger');
+INSERT INTO race_card (date,race_type,racecource,count_horce,country) VALUES ('17.10.16','1600','colo',6,'usa');
+
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,1,1,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,2,2,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,3,3,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,4,4,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,5,5,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,6,6,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,7,7,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (1,8,8,NULL ,NULL );
+
+
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,1,1,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,2,2,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,3,3,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,4,4,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,5,5,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,6,6,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (2,7,7,NULL ,NULL );
+
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (3,1,1,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (3,2,2,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (3,3,3,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (3,4,4,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (3,5,5,NULL ,NULL );
+INSERT INTO race_detail (race_card_id,horse_id,number_start_box,date_finish,result) VALUES (3,6,6,NULL ,NULL );
+
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,1,'win','17.10.2016',2.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,2,'win','17.10.2016',1.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,3,'win','17.10.2016',1.5,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,4,'win','17.10.2016',0.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,5,'win','17.10.2016',1.0,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,6,'win','17.10.2016',2.9,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,7,'win','17.10.2016',3.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,8,'win','17.10.2016',0.7,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,1,'win','17.10.2016',2.8,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,3,'win','17.10.2016',1.7,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,4,'win','17.10.2016',2.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,5,'win','17.10.2016',2.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,6,'win','17.10.2016',2.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,7,'win','17.10.2016',2.6,'dred');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,7,'place','17.10.2016',1.6,'dred1');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,6,'place','17.10.2016',2.6,'dred1');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (2,4,'place','17.10.2016',2.0,'dred1');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,8,'place','17.10.2016',3.6,'dred1');
+INSERT INTO event (race_card_id,horse_id,event_type,data_register,coefficient,bookmaker)
+VALUES (1,1,'place','17.10.2016',2.1,'dred1');
+
+
+
+
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',1,1,'winer',10,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',2,1,'winer',20,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',2,2,'place',50,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',2,3,'winer',10,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',5,1,'winer',100,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',6,3,'winer',30,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',6,2,'winer',15,NULL ,NULL );
+INSERT INTO bet (date,event_id,user_id,bet_type,sum,is_win,calculate) VALUES ('17.10.2016',10,1,'winer',60,NULL ,NULL );
+
