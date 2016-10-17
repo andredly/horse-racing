@@ -81,7 +81,6 @@ public class TestSql {
             String address = resultSet.getString("address");
             Date date = resultSet.getDate("date");
             System.out.println(first_nameName + " " + last_name + " " + gender + " " + address + " " + date);
-
         }
 
 

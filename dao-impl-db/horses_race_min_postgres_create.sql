@@ -4,19 +4,18 @@ CREATE TABLE "race_card" (
 	"race_type" character varying(64) NOT NULL,
 	"racecource" character varying(64) NOT NULL,
 	"count_horce" int NOT NULL,
+	"country" VARCHAR(64) NOT NULL,
 	CONSTRAINT race_card_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
-
-
 
 CREATE TABLE "horse" (
 	"id" serial NOT NULL,
 	"nick_name" character varying(18) NOT NULL,
 	"age" int NOT NULL,
 	"equiptement_weight" int NOT NULL,
-	"form" character varying(32) NOT NULL,
+	"form" character varying(32),
 	"racing" int NOT NULL,
 	"discription" character varying(256),
 	"owner" character varying(256) NOT NULL,
@@ -68,7 +67,7 @@ CREATE TABLE "event" (
 
 
 
-CREATE TABLE "bet_slip" (
+CREATE TABLE "bet" (
 	"id" serial NOT NULL,
 	"date" DATE NOT NULL,
 	"event_id" bigint NOT NULL,
@@ -77,7 +76,7 @@ CREATE TABLE "bet_slip" (
 	"sum" double PRECISION NOT NULL,
 	"is_win" BOOLEAN NOT NULL,
 	"calculate" double PRECISION NOT NULL,
-	CONSTRAINT bet_slip_pk PRIMARY KEY ("id")
+	CONSTRAINT bet_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -123,8 +122,6 @@ CREATE TABLE "security_level" (
 
 
 
-ALTER TABLE "race_card" ADD CONSTRAINT "race_card_fk0" FOREIGN KEY ("count_horce") REFERENCES "horse"("id");
-
 
 ALTER TABLE "command" ADD CONSTRAINT "command_fk0" FOREIGN KEY ("id") REFERENCES "horse"("id");
 
@@ -134,8 +131,8 @@ ALTER TABLE "race_detail" ADD CONSTRAINT "race_detail_fk1" FOREIGN KEY ("horse_i
 ALTER TABLE "event" ADD CONSTRAINT "event_fk0" FOREIGN KEY ("race_card_id") REFERENCES "race_card"("id");
 ALTER TABLE "event" ADD CONSTRAINT "event_fk1" FOREIGN KEY ("horse_id") REFERENCES "horse"("id");
 
-ALTER TABLE "bet_slip" ADD CONSTRAINT "bet_slip_fk0" FOREIGN KEY ("event_id") REFERENCES "event"("id");
-ALTER TABLE "bet_slip" ADD CONSTRAINT "bet_slip_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE bet ADD CONSTRAINT "bet_fk0" FOREIGN KEY ("event_id") REFERENCES "event"("id");
+ALTER TABLE bet ADD CONSTRAINT "bet_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 
 ALTER TABLE "account" ADD CONSTRAINT "account_fk0" FOREIGN KEY ("id") REFERENCES "user"("id");
