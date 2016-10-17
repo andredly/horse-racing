@@ -9,11 +9,13 @@ public class User extends AbstractModel{
     private Date date;
     private String address;
     private String gender;
+
     private Account account;
     private List<Bet> bets;
 
     public User() {
     }
+
 
     public List<Bet> getBets() {
         return bets;

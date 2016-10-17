@@ -10,12 +10,21 @@ public class Bet extends AbstractModel{
     private Double sum;
     private Boolean isWin;
     private Double calculation;
+
     private User user;
     private Event event;
+    private BetType betType;
 
     public Bet() {
     }
 
+    public BetType getBetType() {
+        return betType;
+    }
+
+    public void setBetType(BetType betType) {
+        this.betType = betType;
+    }
 
     public User getUser() {
         return user;

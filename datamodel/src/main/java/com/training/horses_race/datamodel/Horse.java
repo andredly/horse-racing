@@ -9,6 +9,7 @@ class Horse extends AbstractModel{
     private Integer rating;
     private String description;
     private String owner;
+
     private Command command;
 
 

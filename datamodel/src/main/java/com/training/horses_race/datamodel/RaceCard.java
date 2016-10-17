@@ -4,11 +4,21 @@ import java.util.Date;
 
 public class RaceCard extends AbstractModel {
     private Date dateRace;
-    private RaceType raceType;
     private String racecourse;
     private Integer counterHorse;
 
+    private RaceType raceType;
+    private RaceDetail raceDetail;
+
     public RaceCard() {
+    }
+
+    public RaceDetail getRaceDetail() {
+        return raceDetail;
+    }
+
+    public void setRaceDetail(RaceDetail raceDetail) {
+        this.raceDetail = raceDetail;
     }
 
     private enum RaceType {

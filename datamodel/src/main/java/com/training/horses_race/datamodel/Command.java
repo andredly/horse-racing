@@ -1,10 +1,10 @@
 package com.training.horses_race.datamodel;
 
-public class Command {
-    private Integer idCommand;
+public class Command extends AbstractModel{
     private String jockey;
     private String trainer;
     private String urlImageColor;
+
     private Horse horse;
 
     public Command() {
@@ -16,14 +16,6 @@ public class Command {
 
     public void setHorse(Horse horse) {
         this.horse = horse;
-    }
-
-    public Integer getIdCommand() {
-        return idCommand;
-    }
-
-    public void setIdCommand(Integer idCommand) {
-        this.idCommand = idCommand;
     }
 
     public String getJockey() {

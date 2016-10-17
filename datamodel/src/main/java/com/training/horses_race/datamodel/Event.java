@@ -7,6 +7,7 @@ public class Event extends AbstractModel{
     private Date dateRegister;
     private Double coefficientEvent;
     private String bookmaker;
+
     private RaceCard raceCard;
     private Horse horse;
 

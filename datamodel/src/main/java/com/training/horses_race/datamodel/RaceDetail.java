@@ -4,36 +4,21 @@ import java.util.Date;
 import java.util.List;
 
 public class RaceDetail extends AbstractModel{
-    private int numberStartBox;
+    private Integer numberStartBox;
     private Date dateFinish;
-    private int result;
+    private Integer result;
+
     private List<Horse> horses;
     private RaceCard raceCard;
 
     public RaceDetail() {
     }
 
-    public RaceCard getRaceCard() {
-        return raceCard;
-    }
-
-    public void setRaceCard(RaceCard raceCard) {
-        this.raceCard = raceCard;
-    }
-
-    public List<Horse> getHorses() {
-        return horses;
-    }
-
-    public void setHorses(List<Horse> horses) {
-        this.horses = horses;
-    }
-
-    public int getNumberStartBox() {
+    public Integer getNumberStartBox() {
         return numberStartBox;
     }
 
-    public void setNumberStartBox(int numberStartBox) {
+    public void setNumberStartBox(Integer numberStartBox) {
         this.numberStartBox = numberStartBox;
     }
 
@@ -45,11 +30,27 @@ public class RaceDetail extends AbstractModel{
         this.dateFinish = dateFinish;
     }
 
-    public int getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(Integer result) {
         this.result = result;
+    }
+
+    public List<Horse> getHorses() {
+        return horses;
+    }
+
+    public void setHorses(List<Horse> horses) {
+        this.horses = horses;
+    }
+
+    public RaceCard getRaceCard() {
+        return raceCard;
+    }
+
+    public void setRaceCard(RaceCard raceCard) {
+        this.raceCard = raceCard;
     }
 }
