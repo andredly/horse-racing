@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.training.horsesRace2016</groupId>
+	<groupId>com.charniauski.training.horsesRace2016</groupId>
 	<artifactId>parent-project</artifactId>
 	<version>1.0.0</version>
 
@@ -26,38 +26,38 @@
 		<dependencies>
 			<!-- Project modules -->
 			<dependency>
-				<groupId>com.training.horsesRace2016</groupId>
+				<groupId>com.charniauski.training.horsesRace2016</groupId>
 				<artifactId>datamodel</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.training.horsesRace2016</groupId>
+				<groupId>com.charniauski.training.horsesRace2016</groupId>
 				<artifactId>dao-api</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.training.horsesRace2016</groupId>
+				<groupId>com.charniauski.training.horsesRace2016</groupId>
 				<artifactId>dao-impl-db</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.training.horsesRace2016</groupId>
+				<groupId>com.charniauski.training.horsesRace2016</groupId>
 				<artifactId>dao-impl-xml</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 
 			<dependency>
-				<groupId>com.training.horsesRace2016</groupId>
+				<groupId>com.charniauski.training.horsesRace2016</groupId>
 				<artifactId>services</artifactId>
 				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.training.horsesRace2016</groupId>
+				<groupId>com.charniauski.training.horsesRace2016</groupId>
 				<artifactId>webapp</artifactId>
 				<version>1.0.0</version>
 			</dependency>
@@ -67,6 +67,7 @@
 				<artifactId>postgresql</artifactId>
 				<version>9.4-1201-jdbc4</version>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

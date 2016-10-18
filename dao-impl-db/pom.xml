@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.training.horsesRace2016</groupId>
+		<groupId>com.charniauski.training.horsesRace2016</groupId>
 		<artifactId>parent-project</artifactId>
 		<version>1.0.0</version>
 	</parent>
@@ -14,7 +14,10 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1201-jdbc4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.charniauski.training.horsesRace2016</groupId>
+			<artifactId>datamodel</artifactId>
 		</dependency>
 	</dependencies>
 
