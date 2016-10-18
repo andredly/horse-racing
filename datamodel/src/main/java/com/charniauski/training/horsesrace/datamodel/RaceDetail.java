@@ -8,8 +8,8 @@ public class RaceDetail extends AbstractModel{
     private Date dateFinish;
     private Integer result;
 
-    private List<Horse> horses;
-    private RaceCard raceCard;
+//    private List<Horse> horses;
+//    private RaceCard raceCard;
 
     public RaceDetail() {
     }
@@ -38,19 +38,4 @@ public class RaceDetail extends AbstractModel{
         this.result = result;
     }
 
-    public List<Horse> getHorses() {
-        return horses;
-    }
-
-    public void setHorses(List<Horse> horses) {
-        this.horses = horses;
-    }
-
-    public RaceCard getRaceCard() {
-        return raceCard;
-    }
-
-    public void setRaceCard(RaceCard raceCard) {
-        this.raceCard = raceCard;
-    }
 }

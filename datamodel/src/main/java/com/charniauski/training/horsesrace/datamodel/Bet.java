@@ -10,8 +10,8 @@ public class Bet extends AbstractModel{
     private Boolean isWin;
     private Double calculation;
 
-    private User user;
-    private Event event;
+//    private User user;
+//    private Event event;
     private BetType betType;
 
     public Bet() {
@@ -23,22 +23,6 @@ public class Bet extends AbstractModel{
 
     public void setBetType(BetType betType) {
         this.betType = betType;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
     }
 
     public Date getDateBet() {
@@ -81,13 +65,4 @@ public class Bet extends AbstractModel{
         this.calculation = calculation;
     }
 
-    public boolean isWinning() {
-        // TODO: 04.10.2016
-        return false;
-    }
-
-    public int calculateWinnings() {
-        //TODO: 04.10.2016
-        return 0;
-    }
 }

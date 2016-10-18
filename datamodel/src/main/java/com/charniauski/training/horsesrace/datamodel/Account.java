@@ -9,8 +9,8 @@ public class Account extends AbstractModel{
     private Double balance;
     private String email;
 
-    private SecurityLevel securityLevel;
-    private User user;
+//    private SecurityLevel securityLevel;
+//    private User user;
 
     public Account() {
     }
@@ -47,19 +47,4 @@ public class Account extends AbstractModel{
         this.email = email;
     }
 
-    public SecurityLevel getSecurityLevel() {
-        return securityLevel;
-    }
-
-    public void setSecurityLevel(SecurityLevel securityLevel) {
-        this.securityLevel = securityLevel;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

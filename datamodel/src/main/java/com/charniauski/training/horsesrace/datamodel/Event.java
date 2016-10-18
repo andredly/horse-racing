@@ -8,26 +8,10 @@ public class Event extends AbstractModel{
     private Double coefficientEvent;
     private String bookmaker;
 
-    private RaceCard raceCard;
-    private Horse horse;
+//    private RaceCard raceCard;
+//    private Horse horse;
 
     public Event() {
-    }
-
-    public RaceCard getRaceCard() {
-        return raceCard;
-    }
-
-    public void setRaceCard(RaceCard raceCard) {
-        this.raceCard = raceCard;
-    }
-
-    public Horse getHorse() {
-        return horse;
-    }
-
-    public void setHorse(Horse horse) {
-        this.horse = horse;
     }
 
     public String getEventType() {

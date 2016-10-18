@@ -8,17 +8,9 @@ public class RaceCard extends AbstractModel {
     private Integer counterHorse;
 
     private RaceType raceType;
-    private RaceDetail raceDetail;
+//    private RaceDetail raceDetail;
 
     public RaceCard() {
-    }
-
-    public RaceDetail getRaceDetail() {
-        return raceDetail;
-    }
-
-    public void setRaceDetail(RaceDetail raceDetail) {
-        this.raceDetail = raceDetail;
     }
 
     private enum RaceType {

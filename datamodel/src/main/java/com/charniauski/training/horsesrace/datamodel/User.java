@@ -10,27 +10,10 @@ public class User extends AbstractModel{
     private String address;
     private String gender;
 
-    private Account account;
-    private List<Bet> bets;
+//    private Account account;
+//    private List<Bet> bets;
 
     public User() {
-    }
-
-
-    public List<Bet> getBets() {
-        return bets;
-    }
-
-    public void setBets(List<Bet> bets) {
-        this.bets = bets;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public String getFirstName() {
