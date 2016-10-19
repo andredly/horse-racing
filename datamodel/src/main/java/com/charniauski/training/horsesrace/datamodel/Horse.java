@@ -1,6 +1,8 @@
 package com.charniauski.training.horsesrace.datamodel;
 
-class Horse extends AbstractModel{
+
+
+public class Horse extends AbstractModel {
 
     private String nickName;
     private Integer age;
