@@ -5,9 +5,9 @@ import java.util.Date;
 public class Bet extends AbstractModel{
 
     private Date dateBet;
-    private String typeBet;
     private Double sum;
-    private Boolean isWin;
+    private Double coefficientBet;
+    private String statusBet;
     private Double calculation;
 
 //    private User user;
@@ -33,28 +33,12 @@ public class Bet extends AbstractModel{
         this.dateBet = dateBet;
     }
 
-    public String getTypeBet() {
-        return typeBet;
-    }
-
-    public void setTypeBet(String typeBet) {
-        this.typeBet = typeBet;
-    }
-
     public Double getSum() {
         return sum;
     }
 
     public void setSum(Double sum) {
         this.sum = sum;
-    }
-
-    public Boolean getWin() {
-        return isWin;
-    }
-
-    public void setWin(Boolean win) {
-        isWin = win;
     }
 
     public Double getCalculation() {
@@ -65,4 +49,19 @@ public class Bet extends AbstractModel{
         this.calculation = calculation;
     }
 
+    public Double getCoefficientBet() {
+        return coefficientBet;
+    }
+
+    public void setCoefficientBet(Double coefficientBet) {
+        this.coefficientBet = coefficientBet;
+    }
+
+    public String getStatusBet() {
+        return statusBet;
+    }
+
+    public void setStatusBet(String statusBet) {
+        this.statusBet = statusBet;
+    }
 }

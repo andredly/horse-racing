@@ -3,59 +3,25 @@ package com.charniauski.training.horsesrace.datamodel;
 import java.util.Date;
 
 public class RaceCard extends AbstractModel {
-    private Date dateRace;
-    private String racecourse;
+    private Date dateStartRace;
+    private Date dateFinishRace;
+    private String raceType;
     private Integer counterHorse;
 
-    private RaceType raceType;
+
+//    private Racecourse racecourse;
 //    private RaceDetail raceDetail;
 
     public RaceCard() {
     }
 
-    private enum RaceType {
-        FLAT("Flat Racing"),CHASE("Chase"), HURDLE("Hurdle"),NATIONAL_HUNT_FLAT_RACE("National Hunt Flat race");
-        private String raceType;
-        RaceType(String raceType) {
-            this.raceType=raceType;
-        }
-        static public RaceType getType(String raceType) {
-            for (RaceType type : RaceType.values()) {
-                if (type.getTypeValue().equals(raceType)) {
-                    return type;
-                }
-            }
-            return null;
-        }
 
-        public String getTypeValue() {
-            return raceType;
-        }
+    public Date getDateStartRace() {
+        return dateStartRace;
     }
 
-
-    public Date getDateRace() {
-        return dateRace;
-    }
-
-    public void setDateRace(Date dateRace) {
-        this.dateRace = dateRace;
-    }
-
-    public RaceType getRaceType() {
-        return raceType;
-    }
-
-    public void setRaceType(RaceType raceType) {
-        this.raceType = raceType;
-    }
-
-    public String getRacecourse() {
-        return racecourse;
-    }
-
-    public void setRacecourse(String racecourse) {
-        this.racecourse = racecourse;
+    public void setDateStartRace(Date dateStartRace) {
+        this.dateStartRace = dateStartRace;
     }
 
     public Integer getCounterHorse() {
@@ -64,6 +30,21 @@ public class RaceCard extends AbstractModel {
 
     public void setCounterHorse(Integer counterHorse) {
         this.counterHorse = counterHorse;
+    }
 
+    public Date getDateFinishRace() {
+        return dateFinishRace;
+    }
+
+    public void setDateFinishRace(Date dateFinishRace) {
+        this.dateFinishRace = dateFinishRace;
+    }
+
+    public String getRaceType() {
+        return raceType;
+    }
+
+    public void setRaceType(String raceType) {
+        this.raceType = raceType;
     }
 }

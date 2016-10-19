@@ -7,6 +7,7 @@ public class Event extends AbstractModel{
     private Date dateRegister;
     private Double coefficientEvent;
     private String bookmaker;
+    private String resultEvent;
 
 //    private RaceCard raceCard;
 //    private Horse horse;
@@ -44,5 +45,13 @@ public class Event extends AbstractModel{
 
     public void setBookmaker(String bookmaker) {
         this.bookmaker = bookmaker;
+    }
+
+    public String getResultEvent() {
+        return resultEvent;
+    }
+
+    public void setResultEvent(String resultEvent) {
+        this.resultEvent = resultEvent;
     }
 }

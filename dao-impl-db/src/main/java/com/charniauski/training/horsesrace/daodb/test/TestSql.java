@@ -1,3 +1,4 @@
+package com.charniauski.training.horsesrace.daodb.test;
 
 import org.postgresql.Driver;
 

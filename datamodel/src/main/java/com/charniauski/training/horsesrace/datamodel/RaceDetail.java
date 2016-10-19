@@ -6,7 +6,7 @@ import java.util.List;
 public class RaceDetail extends AbstractModel{
     private Integer numberStartBox;
     private Date dateFinish;
-    private Integer result;
+    private Integer horseResult;
 
 //    private List<Horse> horses;
 //    private RaceCard raceCard;
@@ -30,12 +30,11 @@ public class RaceDetail extends AbstractModel{
         this.dateFinish = dateFinish;
     }
 
-    public Integer getResult() {
-        return result;
+    public Integer getHorseResult() {
+        return horseResult;
     }
 
-    public void setResult(Integer result) {
-        this.result = result;
+    public void setHorseResult(Integer horseResult) {
+        this.horseResult = horseResult;
     }
-
 }
