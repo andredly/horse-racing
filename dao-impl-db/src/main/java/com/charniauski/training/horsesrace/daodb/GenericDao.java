@@ -5,14 +5,16 @@ import java.util.List;
 /**
  * Created by Andre on 19.10.2016.
  */
-public interface GenericDao<T, E extends Exception> {
+public interface GenericDao<T, PK> {
 
-    T get(Long id) throws E;
+    T get(PK id);
 
-    void save(T entity) throws E;;
+    void insert(T entity);
 
-    void delete(Long id) throws E;;
+    void update(T entity);
 
-    List<T> getAll() throws E;;
+    void delete(PK id);;
+
+    List<T> getAll();;
 
 }

@@ -7,15 +7,7 @@ import java.util.List;
 /**
  * Created by Andre on 19.10.2016.
  */
-public interface CommandDao {
-
-    Command get(Long id);
-
-    void insert(Command entity);
-
-    void update(Command entity);
-
-    void delete(Long id);
+public interface CommandDao extends GenericDao<Command,Long>{
 
     List<Command> getAll();
 }

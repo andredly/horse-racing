@@ -7,15 +7,6 @@ import java.util.List;
 /**
  * Created by Andre on 19.10.2016.
  */
-public interface RaceDetailDao {
+public interface RaceDetailDao extends GenericDao<RaceDetail, Long> {
 
-    RaceDetail get(Long id);
-
-    void insert(RaceDetail entity);
-
-    void update(RaceDetail entity);
-
-    void delete(Long id);
-
-    List<RaceDetail> getAll();
 }
