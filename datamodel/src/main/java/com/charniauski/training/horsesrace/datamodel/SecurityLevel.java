@@ -1,8 +1,11 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+@Entity(tableName = "security_level")
 public class SecurityLevel extends AbstractModel{
+    @Column(columnName = "level")
     private Integer level;
-    private String userStatus;
+    @Column(columnName = "client_status")
+    private String clientStatus;
 
     public SecurityLevel() {
     }
@@ -16,11 +19,11 @@ public class SecurityLevel extends AbstractModel{
     }
 
     public String getUserStatus() {
-        return userStatus;
+        return clientStatus;
     }
 
     public void setUserStatus(String userStatus) {
-        this.userStatus = userStatus;
+        this.clientStatus = userStatus;
     }
 
 }

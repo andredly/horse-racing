@@ -1,19 +1,26 @@
 package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
-import java.util.List;
 
-public class User extends AbstractModel{
+@Entity(tableName = "client")
+public class Client extends AbstractModel{
+
+    @Column(columnName = "first_name")
     private String firstName;
+    @Column(columnName = "last_name")
     private String lastName;
-    private Date date;
-    private String address;
+    @Column(columnName = "gender")
     private String gender;
+    @Column(columnName = "date")
+    private Date date;
+    @Column(columnName = "address")
+    private String address;
+
 
 //    private Account account;
 //    private List<Bet> bets;
 
-    public User() {
+    public Client() {
     }
 
     public String getFirstName() {
@@ -56,4 +63,14 @@ public class User extends AbstractModel{
         this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", date=" + date +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

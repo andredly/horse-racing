@@ -1,15 +1,22 @@
 package com.charniauski.training.horsesrace.datamodel;
 
 
-
+@Entity(tableName = "horse")
 public class Horse extends AbstractModel {
 
+    @Column(columnName = "nick_name")
     private String nickName;
+    @Column(columnName = "age")
     private Integer age;
+    @Column(columnName = "equipment_weight")
     private Integer equipmentWeight;
+    @Column(columnName = "form")
     private String form;
+    @Column(columnName = "rating")
     private Integer rating;
+    @Column(columnName = "description")
     private String description;
+    @Column(columnName = "owner")
     private String owner;
 
 //    private Command command;

@@ -9,5 +9,4 @@ import java.util.List;
  */
 public interface AccountDao extends GenericDao<Account, Long>{
 
-    List<Account> getAll();
 }

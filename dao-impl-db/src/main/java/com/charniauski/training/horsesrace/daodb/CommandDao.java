@@ -9,5 +9,4 @@ import java.util.List;
  */
 public interface CommandDao extends GenericDao<Command,Long>{
 
-    List<Command> getAll();
 }

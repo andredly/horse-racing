@@ -2,12 +2,14 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
 
+@Entity(tableName = "race_card")
 public class RaceCard extends AbstractModel {
+    @Column(columnName = "date_start")
     private Date dateStartRace;
+    @Column(columnName = "date_finish")
     private Date dateFinishRace;
+    @Column(columnName = "race_type")
     private String raceType;
-    private Integer counterHorse;
-
 
 //    private Racecourse racecourse;
 //    private RaceDetail raceDetail;
@@ -22,14 +24,6 @@ public class RaceCard extends AbstractModel {
 
     public void setDateStartRace(Date dateStartRace) {
         this.dateStartRace = dateStartRace;
-    }
-
-    public Integer getCounterHorse() {
-        return counterHorse;
-    }
-
-    public void setCounterHorse(Integer counterHorse) {
-        this.counterHorse = counterHorse;
     }
 
     public Date getDateFinishRace() {

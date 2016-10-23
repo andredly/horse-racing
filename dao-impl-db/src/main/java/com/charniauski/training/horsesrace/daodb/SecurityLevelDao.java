@@ -9,5 +9,4 @@ import java.util.List;
  */
 public interface SecurityLevelDao extends GenericDao<SecurityLevel,Long>{
 
-    List<SecurityLevel> getAll();
 }

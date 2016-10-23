@@ -1,8 +1,12 @@
 package com.charniauski.training.horsesrace.datamodel;
 
-public class Command extends AbstractModel{
-    private String jockey;
+@Entity(tableName = "command")
+public class Command extends AbstractModel {
+    @Column(columnName = "trainer")
     private String trainer;
+    @Column(columnName = "jockey")
+    private String jockey;
+    @Column(columnName = "url_image_color")
     private String urlImageColor;
 
 //    private Horse horse;

@@ -9,5 +9,4 @@ import java.util.List;
  */
 public interface EventDao extends GenericDao<Event, Long>{
 
-    List<Event> getAll();
 }

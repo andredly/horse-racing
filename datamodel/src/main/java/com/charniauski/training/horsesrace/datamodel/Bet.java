@@ -1,27 +1,34 @@
 package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
-
+@Entity(tableName = "bet")
 public class Bet extends AbstractModel{
 
+    @Column(columnName = "date")
     private Date dateBet;
+    @Column(columnName = "bet_type")
+    private String betType;
+    @Column(columnName = "sum")
     private Double sum;
+    @Column(columnName = "coefficient_bet")
     private Double coefficientBet;
+    @Column(columnName = "status_bet")
     private String statusBet;
-    private Double calculation;
+    @Column(columnName = "calculate")
+    private Double calculate;
 
 //    private User user;
 //    private Event event;
-    private BetType betType;
+
 
     public Bet() {
     }
 
-    public BetType getBetType() {
+    public String getBetType() {
         return betType;
     }
 
-    public void setBetType(BetType betType) {
+    public void setBetType(String betType) {
         this.betType = betType;
     }
 
@@ -41,12 +48,12 @@ public class Bet extends AbstractModel{
         this.sum = sum;
     }
 
-    public Double getCalculation() {
-        return calculation;
+    public Double getCalculate() {
+        return calculate;
     }
 
-    public void setCalculation(Double calculation) {
-        this.calculation = calculation;
+    public void setCalculate(Double calculate) {
+        this.calculate = calculate;
     }
 
     public Double getCoefficientBet() {

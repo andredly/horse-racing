@@ -2,11 +2,17 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
 
-public class Event extends AbstractModel{
+@Entity(tableName = "event")
+public class Event extends AbstractModel {
+    @Column(columnName = "event_type")
     private String eventType;
+    @Column(columnName = "date_register")
     private Date dateRegister;
+    @Column(columnName = "coefficient_event")
     private Double coefficientEvent;
+    @Column(columnName = "bookmaker")
     private String bookmaker;
+    @Column(columnName = "result_event")
     private String resultEvent;
 
 //    private RaceCard raceCard;

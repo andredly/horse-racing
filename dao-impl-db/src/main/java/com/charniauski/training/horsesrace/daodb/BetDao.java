@@ -9,5 +9,4 @@ import java.util.List;
  */
 public interface BetDao extends GenericDao<Bet, Long>{
 
-    List<Bet> getAll();
 }

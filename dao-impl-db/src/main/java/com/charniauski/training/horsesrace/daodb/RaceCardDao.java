@@ -9,5 +9,4 @@ import java.util.List;
  */
 public interface RaceCardDao extends GenericDao<RaceCard, Long>{
 
-    List<RaceCard> getAll();
 }

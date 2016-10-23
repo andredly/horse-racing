@@ -3,9 +3,11 @@ package com.charniauski.training.horsesrace.datamodel;
 import java.util.Date;
 import java.util.List;
 
+@Entity(tableName = "race_detail")
 public class RaceDetail extends AbstractModel{
+    @Column(columnName = "number_start_box")
     private Integer numberStartBox;
-    private Date dateFinish;
+    @Column(columnName = "horse_result")
     private Integer horseResult;
 
 //    private List<Horse> horses;
@@ -20,14 +22,6 @@ public class RaceDetail extends AbstractModel{
 
     public void setNumberStartBox(Integer numberStartBox) {
         this.numberStartBox = numberStartBox;
-    }
-
-    public Date getDateFinish() {
-        return dateFinish;
-    }
-
-    public void setDateFinish(Date dateFinish) {
-        this.dateFinish = dateFinish;
     }
 
     public Integer getHorseResult() {

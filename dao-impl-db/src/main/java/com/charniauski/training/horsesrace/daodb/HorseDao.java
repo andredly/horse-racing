@@ -9,5 +9,4 @@ import java.util.Locale;
  */
 public interface HorseDao extends GenericDao<Horse, Long> {
 
-    List<Horse> getAll();
 }
