@@ -1,6 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
-        import java.util.List;
+import java.util.List;
 
 /**
  * @author Anderson Braz - anderson.braz@brazoft.com.br
@@ -202,8 +202,8 @@ public class SQLGeneratorBase {
     /**
      * @param entity
      * @return Returns DELETE Statement
-     *
-     *         <b>CAUTION</b> It has no WHERE Clause, so it will clean table entirely
+     * <p>
+     * <b>CAUTION</b> It has no WHERE Clause, so it will clean table entirely
      */
     public String deleteSQL(String entity) {
         StringBuffer SQL;

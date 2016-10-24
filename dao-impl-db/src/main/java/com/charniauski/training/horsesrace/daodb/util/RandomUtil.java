@@ -1,8 +1,5 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
-/**
- * Created by ivc4 on 24.10.2016.
- */
 import java.util.Random;
 
 /**
