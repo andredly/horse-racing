@@ -33,7 +33,7 @@
 //
 //    @Override
 //    public Long insert(Client entity) {
-//        String sql = sqlInsertCreate.sqlInsertEntity(entity);
+//        String sql = sqlInsertCreate.sqlInsertAndUpdateEntity(entity);
 //        jdbcTemplate.execute(sql);
 //        return null;
 //    }

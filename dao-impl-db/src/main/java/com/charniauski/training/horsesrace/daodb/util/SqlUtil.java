@@ -3,20 +3,20 @@ package com.charniauski.training.horsesrace.daodb.util;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * Created by Andre on 22.10.2016.
  */
 @Repository
-public class SqlCreate<T extends AbstractModel, PK> {
+public class SqlUtil<T extends AbstractModel, PK> {
 
-    public String sqlInsertEntity(T entity, boolean isInsert) {
+    public String sqlInsertAndUpdateEntity(T entity, boolean isInsert) {
         Class<?> clazz = entity.getClass();
-        Entity entityAnnotation = (Entity) clazz.getAnnotation(Entity.class);
+        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
         StringBuffer columnSb = new StringBuffer();
         StringBuffer valueSb = new StringBuffer();
         if (isInsert) {
@@ -26,10 +26,11 @@ public class SqlCreate<T extends AbstractModel, PK> {
             valueSb.append("= (");
             columnSb.append("UPDATE ").append(entityAnnotation.tableName()).append(" SET(");
         }
-        Field[] fieldsEntity = clazz.getDeclaredFields();
-        Class<?> superclass = clazz.getSuperclass();
-        Field[] fieldsSuperclassEntity = superclass.getDeclaredFields();
-        Field[] allFields = ArrayUtils.addAll(fieldsSuperclassEntity, fieldsEntity);
+//        Field[] fieldsEntity = clazz.getDeclaredFields();
+//        Class<?> superclass = clazz.getSuperclass();
+//        Field[] fieldsSuperclassEntity = superclass.getDeclaredFields();
+//        Field[] allFields = ArrayUtils.addAll(fieldsSuperclassEntity, fieldsEntity);
+        List<Field> allFields = ReflectionUtil.getFields(clazz);
         try {
             for (Field field : allFields) {
                 field.setAccessible(true);
@@ -64,29 +65,19 @@ public class SqlCreate<T extends AbstractModel, PK> {
     }
 
     public String sqlSelectEntity(Class<T> clazz) {
-        Entity entityAnnotation = (Entity) clazz.getAnnotation(Entity.class);
+        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
         StringBuffer columnSb = new StringBuffer();
-        StringBuffer valueSb = new StringBuffer();
         columnSb.append("SELECT * FROM ").append(entityAnnotation.tableName()).append(" ");
-
-//        columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" ")).append(") ").append(valueSb.toString());
-//        System.out.println(valueSb.toString());
         String sql = columnSb.toString();
         return sql;
     }
 
     public String sqlDeleteEntity(Class<T> clazz) {
-        Entity entityAnnotation = (Entity) clazz.getAnnotation(Entity.class);
+        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
         StringBuffer columnSb = new StringBuffer();
-        StringBuffer valueSb = new StringBuffer();
         columnSb.append("DELETE FROM ").append(entityAnnotation.tableName()).append(" WHERE ");
-
-//        columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" ")).append(") ").append(valueSb.toString());
-//        System.out.println(valueSb.toString());
         String sql = columnSb.toString();
         return sql;
     }
-
-
 
 }

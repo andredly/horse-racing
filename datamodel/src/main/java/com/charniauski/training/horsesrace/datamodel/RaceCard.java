@@ -17,7 +17,6 @@ public class RaceCard extends AbstractModel {
     public RaceCard() {
     }
 
-
     public Date getDateStartRace() {
         return dateStartRace;
     }

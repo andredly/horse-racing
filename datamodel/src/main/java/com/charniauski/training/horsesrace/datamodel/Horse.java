@@ -1,6 +1,5 @@
 package com.charniauski.training.horsesrace.datamodel;
 
-
 @Entity(tableName = "horse")
 public class Horse extends AbstractModel {
 
@@ -20,7 +19,6 @@ public class Horse extends AbstractModel {
     private String owner;
 
 //    private Command command;
-
 
     public Horse() {
     }

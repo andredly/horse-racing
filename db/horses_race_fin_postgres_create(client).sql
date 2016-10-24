@@ -29,7 +29,7 @@ OIDS=FALSE
 
 CREATE TABLE "command" (
   "id" bigint NOT NULL,
-  "treiner" character varying(256) NOT NULL,
+  "trainer" character varying(256) NOT NULL,
   "jockey" character varying(256) NOT NULL,
   "url_image_color" character varying(1024) NOT NULL,
   CONSTRAINT command_pk PRIMARY KEY ("id")

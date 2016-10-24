@@ -54,7 +54,7 @@ package com.charniauski.training.horsesrace.daodb.impl;
 //
 //    @Override
 //    public PK insert(T entity) {
-//        String sql = sqlCreate.sqlInsertEntity(entity,false);
+//        String sql = sqlCreate.sqlInsertAndUpdateEntity(entity,false);
 //        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 //        jdbcTemplate.update(new PreparedStatementCreator() {
 //            @Override

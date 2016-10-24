@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.daodb.ClientDao;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.impl.AbstractDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.services.ClientService;
 import org.springframework.stereotype.Service;
@@ -18,36 +19,18 @@ import static org.springframework.util.Assert.*;
  * Created by Andre on 19.10.2016.
  */
 @Service
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl extends AbstractService<Client,Long> implements ClientService{
+
+    public ClientServiceImpl() {
+        super(Client.class);
+    }
 
     @Inject
-    private ClientDao clientDao;
-
-    @Override
-    public void saveAll(List<Client> clients) {
-
-    }
-
-    @Override
-    public void save(Client client) {
-        if(client==null)throw new IllegalArgumentException();
-
-        if (client.getId() == null) {
-            clientDao.insert(client);
-        } else {
-            clientDao.update(client);
-        }
-    }
+    private  ClientDao clientDao;
 
 
     @Override
-    public boolean delete(Client client) {
-        if (client==null)return false;
-        return clientDao.delete(client.getId());
-    }
-
-    @Override
-    public Client get(Long id) {
-        return clientDao.get(id);
+    public GenericDao getGenericDao() {
+        return clientDao;
     }
 }

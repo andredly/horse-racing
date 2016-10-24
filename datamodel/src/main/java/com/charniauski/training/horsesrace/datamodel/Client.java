@@ -2,20 +2,22 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
 
+import static com.charniauski.training.horsesrace.datamodel.Column.DataType.DATE;
+import static com.charniauski.training.horsesrace.datamodel.Column.DataType.VARCHAR;
+
 @Entity(tableName = "client")
-public class Client extends AbstractModel{
+public class Client extends AbstractModel {
 
-    @Column(columnName = "first_name")
+    @Column(columnName = "first_name", dataType = VARCHAR)
     private String firstName;
-    @Column(columnName = "last_name")
+    @Column(columnName = "last_name", dataType = VARCHAR)
     private String lastName;
-    @Column(columnName = "gender")
+    @Column(columnName = "gender", dataType = VARCHAR)
     private String gender;
-    @Column(columnName = "date")
+    @Column(columnName = "date", dataType = DATE)
     private Date date;
-    @Column(columnName = "address")
+    @Column(columnName = "address", dataType = VARCHAR)
     private String address;
-
 
 //    private Account account;
 //    private List<Bet> bets;
