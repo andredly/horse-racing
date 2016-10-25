@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -96,8 +97,11 @@ public class ReflectionUtil {
 
     private static void addSuperclassFields(Class<?> clazz, List<Field> list) {
         if (clazz.getSuperclass() != null) {
-            list.addAll(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
-            ReflectionUtil.addSuperclassFields(clazz.getSuperclass(), list);
+            Class<?> superclass = clazz.getSuperclass();
+            Field[] declaredFields = superclass.getDeclaredFields();
+            List<Field> listNew=new ArrayList<>(Arrays.asList(declaredFields));
+            list.addAll(listNew);
+            ReflectionUtil.addSuperclassFields(superclass.getSuperclass(), list);
         }
     }
 
@@ -120,6 +124,33 @@ public class ReflectionUtil {
             columns.add(column);
         }
         return columns;
+    }
+    public static List<Object> getBeanValue(Object entity) {
+        List<Object> list = new ArrayList<>();
+        List<Field> fields = getFields(entity.getClass());
+        for (Field field : fields) {
+            System.out.println(field);
+            if (field.getName().toUpperCase().equals("id")) {
+                continue;
+            }
+            String methodName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+            System.out.println(methodName);
+            try {
+                if (Modifier.isStatic(field.getModifiers())) {
+                    continue;
+                }
+                Method method = entity.getClass().getMethod(methodName);
+
+                Object o = method.invoke(entity);
+                System.out.println(o);
+                if (null != o) {
+                    list.add(o);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return list;
     }
 
 }

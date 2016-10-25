@@ -1,18 +1,22 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
+import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.daodb.util.SqlUtil;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ReflectionUtils;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
  * Created by ivc4 on 21.10.2016.
@@ -80,14 +84,45 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     }
 
     @Override
-    public List<T> getAll() {
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM client;");
-        for (Map<String, Object> map : list) {
-            System.out.println(map);
+    public List<T> getAll()  {
+        Object[] beanValue = new Object[0];
+        try {
+            beanValue = ReflectionUtil.getBeanValue(clazz.newInstance()).toArray();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
+        System.out.println(Arrays.toString(beanValue));
+//        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM client;");
+        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM client;",beanValue);
+        for (Map<String, Object> map : list) {
+
+            T entity= null;
+            try {
+                entity = clazz.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            BeanUtilsBean instance = BeanUtilsBean.getInstance();
+            try {
+                instance.populate(entity,map);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+//            System.out.println(map);
+//            System.out.println(entity);
+
+        }
+
         if (true) throw new UnsupportedOperationException();
         //// TODO: SORT!!! (Column)
         return new ArrayList<T>();
+
     }
 
 //    public T select(T entity){
@@ -97,4 +132,17 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 //                entity), keyHolder);
 //        return null;
 //    }
+
+
+    public int update(String sql, Object... args) {
+        return jdbcTemplate.update(sql, args);
+    }
+
+    public Map<String, Object> queryForMap(String sql, Object... args) {
+        return jdbcTemplate.queryForMap(sql, args);
+    }
+
+    public List<Map<String, Object>> queryForList(String sql, Object... args) {
+        return jdbcTemplate.queryForList(sql, args);
+    }
 }

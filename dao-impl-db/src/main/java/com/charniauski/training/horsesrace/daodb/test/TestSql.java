@@ -1,5 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.test;
 
+import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import org.postgresql.Driver;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -10,6 +11,7 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Created by Andre on 16.10.2016.
@@ -102,12 +104,15 @@ public class TestSql {
         client.setDate(new Date());
         client.setAddress("Адрес");
 //
+
         SqlParameterSource sqlParameterSource=new BeanPropertySqlParameterSource(client);
         System.out.println(sqlParameterSource);
         System.out.println(sqlParameterSource.getSqlType("firstName"));
         System.out.println(sqlParameterSource.getTypeName("first_name"));
         System.out.println(sqlParameterSource.getValue("firstName"));
         System.out.println(sqlParameterSource.hasValue("firstName"));
+        List<Object> beanValue = ReflectionUtil.getBeanValue(client);
+        System.out.println(beanValue);
 
     }
 }
