@@ -1,10 +1,12 @@
 package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
+import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -17,19 +19,33 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
 
     @Override
     public void saveAll(List<T> listEntity) {
-        for (T entity :listEntity) {
+        for (T entity : listEntity) {
             save(entity);
         }
     }
 
     @Override
     public PK save(T entity) {
-        if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
+        List<Field> fields = ReflectionUtil.getFields(entity.getClass());
+        boolean autoincrement = false;
+        for (Field field : fields) {
+            if (field.getName().endsWith("id")) {
+                autoincrement = ReflectionUtil.isAutoincrement(field);
+                break;
+            }
+        }
+
+        if (!autoincrement) return (PK) getGenericDao().insert(entity);
         else {
-            genericDao.update(entity);
+            getGenericDao().update(entity);
             return (PK) entity.getId();
         }
+//        if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
+//        else {
+//            getGenericDao().update(entity);
+//            return (PK) entity.getId();
     }
+
 
     @Override
     public boolean delete(T entity) {

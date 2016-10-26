@@ -5,10 +5,16 @@ package com.charniauski.training.horsesrace.datamodel;
  */
 @Entity(tableName = "account")
 public class Account extends AbstractModel{
+    @Column(columnName = "id",isAutoIncrement = false)
+    private Long id;
+
+
     @Column(columnName = "login")
     private String login;
     @Column(columnName = "password")
     private String password;
+    @Column(columnName = "security_level_id")
+    private Long securityLevelId;
     @Column(columnName = "balance")
     private Double balance;
     @Column(columnName = "email")
@@ -18,6 +24,14 @@ public class Account extends AbstractModel{
 //    private User user;
 
     public Account() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -36,6 +50,14 @@ public class Account extends AbstractModel{
         this.password = password;
     }
 
+    public Long getSecurityLevelId() {
+        return securityLevelId;
+    }
+
+    public void setSecurityLevelId(Long securityLevelId) {
+        this.securityLevelId = securityLevelId;
+    }
+
     public Double getBalance() {
         return balance;
     }
@@ -52,4 +74,14 @@ public class Account extends AbstractModel{
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", balance=" + balance +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

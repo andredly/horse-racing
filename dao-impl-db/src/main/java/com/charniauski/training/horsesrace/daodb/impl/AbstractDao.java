@@ -42,7 +42,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
                 new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
     }
 
-//    @SuppressWarnings("unchecked")
+    //    @SuppressWarnings("unchecked")
     @Override
     public PK insert(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, true);
@@ -75,26 +75,19 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     @Override
     public List<T> getAll() {
-        List<T> listT=new ArrayList<>();
-        List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sqlSelectEntity(clazz));
-        for (Map<String, Object> map : listMap) {
-            T entity = getBean(map, clazz);
-            listT.add(entity);
-        }
-        System.out.println();
-       return listT;
+        return jdbcTemplate.query(sqlSelectEntity(clazz), new BeanPropertyRowMapper<>(clazz));
     }
 
+//    @Override
+//    public List<T> getAll() {
+//        List<T> listT=new ArrayList<>();
+//        List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sqlSelectEntity(clazz));
+//        for (Map<String, Object> map : listMap) {
+//            T entity = getBean(map, clazz);
+//            listT.add(entity);
+//        }
+//        System.out.println();
+//       return listT;
+//    }
 
-//    public int update(String sql, Object... args) {
-//        return jdbcTemplate.update(sql, args);
-//    }
-//
-//    public Map<String, Object> queryForMap(String sql, Object... args) {
-//        return jdbcTemplate.queryForMap(sql, args);
-//    }
-//
-//    public List<Map<String, Object>> queryForList(String sql, Object... args) {
-//        return jdbcTemplate.queryForList(sql, args);
-//    }
 }

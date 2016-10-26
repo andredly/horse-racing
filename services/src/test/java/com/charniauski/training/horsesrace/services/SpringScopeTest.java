@@ -1,7 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.util.SqlUtil;
-import com.charniauski.training.horsesrace.datamodel.Client;
+import com.charniauski.training.horsesrace.datamodel.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.text.SimpleDateFormat;
@@ -25,11 +25,44 @@ public class SpringScopeTest {
 //        String sqlInsertOrUpdateEntity = sqlInsertCreateBean.sqlInsertOrUpdateEntity(client);
 
 //        System.out.println(sqlInsertOrUpdateEntity);
-        ClientService clientServiceBean = springContext.getBean(ClientService.class);;
-        List<Client> all = clientServiceBean.getAll();
-        for (Client client1:all){
-            System.out.println(client1);
-        }
+//        ClientService clientServiceBean = springContext.getBean(ClientService.class);;
+//        List<Client> all = clientServiceBean.getAll();
+//        for (Client client1:all){
+//            System.out.println(client1);
+//        }
+//        System.out.println();
+
+        SecurityLevelService clientServiceBean = springContext.getBean(SecurityLevelService.class);
+
+        AccountService accountServiceBean = springContext.getBean(AccountService.class);
+        BetService betServiceBean = springContext.getBean(BetService.class);
+        CommandService commandServiceBean = springContext.getBean(CommandService.class);
+        EventService eventServiceBean = springContext.getBean(EventService.class);
+        HorseService horseServiceBean = springContext.getBean(HorseService.class);
+        RaceCardService raceCardServiceBean = springContext.getBean(RaceCardService.class);
+        RacecourseService racecourseServiceBean = springContext.getBean(RacecourseService.class);
+        SecurityLevelService securityLevelServiceBean = springContext.getBean(SecurityLevelService.class);
+
+        Account account = accountServiceBean.get(1L);
+        System.out.println(account);
+        account.setId(null);
+        System.out.println(account);
+//        Long save = accountServiceBean.save(account);
+//        Long save1 = accountServiceBean.save(account);
+//        System.out.println(save);
+        account.setId(6L);
+        account.setBalance(10000.0);
+        System.out.println(account);
+        Long save2 = accountServiceBean.save(account);
+        System.out.println(save2);
+//        boolean delete = accountServiceBean.delete(account);
+//        System.out.println(delete);
+
+
+//        List<SecurityLevel> all = clientServiceBean.getAll();
+//        for (SecurityLevel client1 : all) {
+//            System.out.println(client1);
+//        }
         System.out.println();
 //        for (int i=0;i<10;i++) {
 //            System.out.println("Попытка записать нового");

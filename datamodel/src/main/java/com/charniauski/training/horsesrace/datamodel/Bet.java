@@ -3,9 +3,16 @@ package com.charniauski.training.horsesrace.datamodel;
 import java.util.Date;
 @Entity(tableName = "bet")
 public class Bet extends AbstractModel{
+    @Column(columnName = "id",isAutoIncrement = true)
+    private Long id;
+
 
     @Column(columnName = "date")
     private Date dateBet;
+    @Column(columnName = "event_id")
+    private Long eventId;
+    @Column(columnName = "client_id")
+    private Long clientId;
     @Column(columnName = "bet_type")
     private String betType;
     @Column(columnName = "sum")
@@ -24,12 +31,12 @@ public class Bet extends AbstractModel{
     public Bet() {
     }
 
-    public String getBetType() {
-        return betType;
+    public Long getId() {
+        return id;
     }
 
-    public void setBetType(String betType) {
-        this.betType = betType;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getDateBet() {
@@ -40,20 +47,36 @@ public class Bet extends AbstractModel{
         this.dateBet = dateBet;
     }
 
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getBetType() {
+        return betType;
+    }
+
+    public void setBetType(String betType) {
+        this.betType = betType;
+    }
+
     public Double getSum() {
         return sum;
     }
 
     public void setSum(Double sum) {
         this.sum = sum;
-    }
-
-    public Double getCalculate() {
-        return calculate;
-    }
-
-    public void setCalculate(Double calculate) {
-        this.calculate = calculate;
     }
 
     public Double getCoefficientBet() {
@@ -70,5 +93,26 @@ public class Bet extends AbstractModel{
 
     public void setStatusBet(String statusBet) {
         this.statusBet = statusBet;
+    }
+
+    public Double getCalculate() {
+        return calculate;
+    }
+
+    public void setCalculate(Double calculate) {
+        this.calculate = calculate;
+    }
+
+    @Override
+    public String toString() {
+        return "Bet{" +
+                "id='" + id + '\'' +
+                "dateBet=" + dateBet +
+                ", betType='" + betType + '\'' +
+                ", sum=" + sum +
+                ", coefficientBet=" + coefficientBet +
+                ", statusBet='" + statusBet + '\'' +
+                ", calculate=" + calculate +
+                '}';
     }
 }

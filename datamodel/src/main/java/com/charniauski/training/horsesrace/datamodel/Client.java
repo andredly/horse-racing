@@ -7,6 +7,8 @@ import static com.charniauski.training.horsesrace.datamodel.Column.DataType.VARC
 
 @Entity(tableName = "client")
 public class Client extends AbstractModel {
+    @Column(columnName = "id",isAutoIncrement = true)
+    private Long id;
 
     @Column(columnName = "first_name", dataType = VARCHAR)
     private String firstName;
@@ -23,6 +25,14 @@ public class Client extends AbstractModel {
 //    private List<Bet> bets;
 
     public Client() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -68,7 +78,7 @@ public class Client extends AbstractModel {
     @Override
     public String toString() {
         return "Client{" +
-                "id='"+getId()+ '\''+
+                "id='"+id+ '\''+
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +

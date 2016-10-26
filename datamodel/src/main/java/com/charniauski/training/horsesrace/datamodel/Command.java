@@ -2,6 +2,9 @@ package com.charniauski.training.horsesrace.datamodel;
 
 @Entity(tableName = "command")
 public class Command extends AbstractModel {
+    @Column(columnName = "id",isAutoIncrement = false)
+    private Long id;
+
     @Column(columnName = "trainer")
     private String trainer;
     @Column(columnName = "jockey")
@@ -12,6 +15,14 @@ public class Command extends AbstractModel {
 //    private Horse horse;
 
     public Command() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getJockey() {
@@ -36,5 +47,15 @@ public class Command extends AbstractModel {
 
     public void setUrlImageColor(String urlImageColor) {
         this.urlImageColor = urlImageColor;
+    }
+
+    @Override
+    public String toString() {
+        return "Command{" +
+                "id='" + id + '\'' +
+                "trainer='" + trainer + '\'' +
+                ", jockey='" + jockey + '\'' +
+                ", urlImageColor='" + urlImageColor + '\'' +
+                '}';
     }
 }

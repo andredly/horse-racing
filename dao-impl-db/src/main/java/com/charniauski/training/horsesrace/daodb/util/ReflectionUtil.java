@@ -19,6 +19,11 @@ public class ReflectionUtil {
         return Modifier.isTransient(field.getModifiers());
     }
 
+    public static boolean isAutoincrement(Field field) {
+        Column annotation = field.getAnnotation(Column.class);
+        return annotation.isAutoIncrement();
+    }
+
     public static boolean isAnnotated(Field field, Class<? extends Annotation>... classes) {
         for (Class<? extends Annotation> clazz : classes) {
             if (field.getAnnotation(clazz) != null) {

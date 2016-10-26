@@ -2,6 +2,8 @@ package com.charniauski.training.horsesrace.datamodel;
 
 @Entity(tableName = "horse")
 public class Horse extends AbstractModel {
+    @Column(columnName = "id",isAutoIncrement = true)
+    private Long id;
 
     @Column(columnName = "nick_name")
     private String nickName;
@@ -21,6 +23,14 @@ public class Horse extends AbstractModel {
 //    private Command command;
 
     public Horse() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNickName() {
@@ -77,5 +87,19 @@ public class Horse extends AbstractModel {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Horse{" +
+                "id='" + id + '\'' +
+                "nickName='" + nickName + '\'' +
+                ", age=" + age +
+                ", equipmentWeight=" + equipmentWeight +
+                ", form='" + form + '\'' +
+                ", rating=" + rating +
+                ", description='" + description + '\'' +
+                ", owner='" + owner + '\'' +
+                '}';
     }
 }

@@ -4,6 +4,13 @@ import java.util.Date;
 
 @Entity(tableName = "event")
 public class Event extends AbstractModel {
+    @Column(columnName = "id",isAutoIncrement = true)
+    private Long id;
+
+    @Column(columnName = "race_card_id")
+    private Long raceCardId;
+    @Column(columnName = "horse_id")
+    private Long horseId;
     @Column(columnName = "event_type")
     private String eventType;
     @Column(columnName = "date_register")
@@ -19,6 +26,31 @@ public class Event extends AbstractModel {
 //    private Horse horse;
 
     public Event() {
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getRaceCardId() {
+        return raceCardId;
+    }
+
+    public void setRaceCardId(Long raceCardId) {
+        this.raceCardId = raceCardId;
+    }
+
+    public Long getHorseId() {
+        return horseId;
+    }
+
+    public void setHorseId(Long horseId) {
+        this.horseId = horseId;
     }
 
     public String getEventType() {
@@ -59,5 +91,17 @@ public class Event extends AbstractModel {
 
     public void setResultEvent(String resultEvent) {
         this.resultEvent = resultEvent;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                "eventType='" + eventType + '\'' +
+                ", dateRegister=" + dateRegister +
+                ", coefficientEvent=" + coefficientEvent +
+                ", bookmaker='" + bookmaker + '\'' +
+                ", resultEvent='" + resultEvent + '\'' +
+                '}';
     }
 }
