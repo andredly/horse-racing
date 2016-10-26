@@ -21,9 +21,6 @@ import static org.springframework.util.Assert.*;
 @Service
 public class ClientServiceImpl extends AbstractService<Client,Long> implements ClientService{
 
-    public ClientServiceImpl() {
-        super(Client.class);
-    }
 
     @Inject
     private  ClientDao clientDao;

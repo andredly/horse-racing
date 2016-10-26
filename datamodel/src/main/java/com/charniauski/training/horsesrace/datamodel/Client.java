@@ -68,6 +68,7 @@ public class Client extends AbstractModel {
     @Override
     public String toString() {
         return "Client{" +
+                "id='"+getId()+ '\''+
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +

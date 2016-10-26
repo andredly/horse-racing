@@ -22,11 +22,9 @@ public class SpringScopeTest {
         client.setDate(new Date());
         client.setAddress("Адрес");
 //        System.out.println(client.getId());
-        SqlUtil sqlUtilBean = springContext.getBean(SqlUtil.class);
-        System.out.println(sqlUtilBean);
-//        String sqlInsertAndUpdateEntity = sqlInsertCreateBean.sqlInsertAndUpdateEntity(client);
+//        String sqlInsertOrUpdateEntity = sqlInsertCreateBean.sqlInsertOrUpdateEntity(client);
 
-//        System.out.println(sqlInsertAndUpdateEntity);
+//        System.out.println(sqlInsertOrUpdateEntity);
         ClientService clientServiceBean = springContext.getBean(ClientService.class);;
         List<Client> all = clientServiceBean.getAll();
         for (Client client1:all){

@@ -15,49 +15,34 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
 
     private GenericDao genericDao;
 
-    private Class<T> clazz;
-
-    protected AbstractService(Class<T> clazz)
-    {
-        this.clazz = clazz;
+    @Override
+    public void saveAll(List<T> listEntity) {
+        for (T entity :listEntity) {
+            save(entity);
+        }
     }
 
     @Override
-    public void saveAll(List<T> clients) {
-
+    public PK save(T entity) {
+        if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
+        else {
+            genericDao.update(entity);
+            return (PK) entity.getId();
+        }
     }
 
     @Override
-    public PK insert(T entity) {
-        if (entity == null) throw new IllegalArgumentException();
-        genericDao=getGenericDao();
-        return (PK) genericDao.insert(entity);
-
-    }
-
-    @Override
-    public void update(T entity) {
-        if (entity == null) throw new IllegalArgumentException();
-        genericDao=getGenericDao();
-        genericDao.update(entity);
-    }
-
-
-    @Override
-    public boolean delete(T client) {
-        genericDao=getGenericDao();
-        return client != null && genericDao.delete(client.getId());
+    public boolean delete(T entity) {
+        return getGenericDao().delete(entity.getId());
     }
 
     @Override
     public T get(PK id) {
-        genericDao=getGenericDao();
-        return (T) genericDao.get(id);
+        return (T) getGenericDao().get(id);
     }
 
     @Override
     public List<T> getAll() {
-        genericDao=getGenericDao();
-        return genericDao.getAll();
+        return getGenericDao().getAll();
     }
 }

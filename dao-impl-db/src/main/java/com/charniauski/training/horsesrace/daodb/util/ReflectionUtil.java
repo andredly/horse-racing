@@ -2,18 +2,17 @@ package com.charniauski.training.horsesrace.daodb.util;
 
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author Anderson Braz - anderson.braz@brazoft.com.br
- */
+
 public class ReflectionUtil {
 
     public static boolean isTransient(Field field) {
@@ -26,11 +25,10 @@ public class ReflectionUtil {
                 return true;
             }
         }
-
         return false;
     }
 
-    public static Field getField(Class<?> clazz, String name) {
+    public static <T> Field getField(Class<T> clazz, String name) {
         try {
             return clazz.getDeclaredField(name);
         } catch (Exception e) {
@@ -40,10 +38,7 @@ public class ReflectionUtil {
                 }
             }
         }
-
         return null;
-        // throw new RuntimeException("Field with name " + name + " not found in class: " +
-        // clazz.getName());
     }
 
     public static Object getValue(Object instance, Field field) {
@@ -83,11 +78,7 @@ public class ReflectionUtil {
         return ReflectionUtil.getValue(instance, field);
     }
 
-    /**
-     * @param clazz
-     * @return Returns List<Method>
-     */
-    public static List<Field> getFields(Class<?> clazz) {
+    public static <T> List<Field> getFields(Class<T> clazz) {
         List<Field> list = new ArrayList<>();
         list.addAll(Arrays.asList(clazz.getDeclaredFields()));
         ReflectionUtil.addSuperclassFields(clazz, list);
@@ -95,26 +86,24 @@ public class ReflectionUtil {
         return list;
     }
 
-    private static void addSuperclassFields(Class<?> clazz, List<Field> list) {
+    private static <T> void addSuperclassFields(Class<T> clazz, List<Field> list) {
         if (clazz.getSuperclass() != null) {
             Class<?> superclass = clazz.getSuperclass();
             Field[] declaredFields = superclass.getDeclaredFields();
-            List<Field> listNew=new ArrayList<>(Arrays.asList(declaredFields));
+            List<Field> listNew = new ArrayList<>(Arrays.asList(declaredFields));
             list.addAll(listNew);
             ReflectionUtil.addSuperclassFields(superclass.getSuperclass(), list);
         }
     }
 
-    public static String getTableName(Class<?> clazz) {
+    public static <T> String getTableName(Class<T> clazz) {
         Entity annotation = clazz.getAnnotation(Entity.class);
         Assert.notNull(annotation);
         return annotation.tableName();
     }
 
-    public static List<Column> getColumns(Class<?> clazz) {
-        //// TODO: 24.10.2016 multithreading?
-        List<Column> columns=new ArrayList<>();
-        List<Field> list = new ArrayList<>();
+    public static <T> List<Column> getColumns(Class<T> clazz) {
+        List<Column> columns = new ArrayList<>();
         Entity annotation = clazz.getAnnotation(Entity.class);
         Assert.notNull(annotation);
         List<Field> fields = ReflectionUtil.getFields(clazz);
@@ -125,6 +114,7 @@ public class ReflectionUtil {
         }
         return columns;
     }
+
     public static List<Object> getBeanValue(Object entity) {
         List<Object> list = new ArrayList<>();
         List<Field> fields = getFields(entity.getClass());
@@ -151,6 +141,29 @@ public class ReflectionUtil {
             }
         }
         return list;
+    }
+
+    public static <T> T getBean(Map<String, Object> mapResultQueryForList, Class<T> clazz) {
+        Map<String, Object> beanParameter = new HashMap<>();
+        List<Field> fields = getFields(clazz);
+        for (Field field : fields) {
+            Column column = field.getAnnotation(Column.class);
+            if (mapResultQueryForList.containsKey(column.columnName()))
+                beanParameter.put(field.getName(), mapResultQueryForList.get(column.columnName()));
+        }
+        T entity = null;
+        try {
+            entity = clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        BeanUtilsBean instance = BeanUtilsBean.getInstance();
+        try {
+            instance.populate(entity, beanParameter);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return entity;
     }
 
 }

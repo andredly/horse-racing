@@ -16,9 +16,7 @@ public interface GenericService<T,PK> {
 
     void saveAll(List<T> clients);
 
-    PK insert(T client);
-
-    void update(T client);
+    PK save(T entity);
 
     boolean delete(T client);
 

@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Created by Andre on 22.10.2016.
  */
-@Repository
-public class SqlUtil<T extends AbstractModel, PK> {
 
-    public String sqlInsertAndUpdateEntity(T entity, boolean isInsert) {
+public class SqlUtil {
+
+    public static <T extends AbstractModel> String sqlInsertOrUpdateEntity(T entity, boolean isInsert) {
         Class<?> clazz = entity.getClass();
         Entity entityAnnotation = clazz.getAnnotation(Entity.class);
-        StringBuffer columnSb = new StringBuffer();
-        StringBuffer valueSb = new StringBuffer();
+        StringBuilder columnSb = new StringBuilder();
+        StringBuilder valueSb = new StringBuilder();
         if (isInsert) {
             valueSb.append("VALUES (");
             columnSb.append("INSERT INTO ").append(entityAnnotation.tableName()).append(" (");
@@ -26,10 +26,6 @@ public class SqlUtil<T extends AbstractModel, PK> {
             valueSb.append("= (");
             columnSb.append("UPDATE ").append(entityAnnotation.tableName()).append(" SET(");
         }
-//        Field[] fieldsEntity = clazz.getDeclaredFields();
-//        Class<?> superclass = clazz.getSuperclass();
-//        Field[] fieldsSuperclassEntity = superclass.getDeclaredFields();
-//        Field[] allFields = ArrayUtils.addAll(fieldsSuperclassEntity, fieldsEntity);
         List<Field> allFields = ReflectionUtil.getFields(clazz);
         try {
             for (Field field : allFields) {
@@ -59,25 +55,17 @@ public class SqlUtil<T extends AbstractModel, PK> {
             valueSb.deleteCharAt(valueSb.lastIndexOf(",")).deleteCharAt(valueSb.lastIndexOf(" ")).append(") WHERE ");
             columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" ")).append(") ").append(valueSb.toString());
         }
-        String sql = columnSb.toString();
-//        String sql = valueSb.toString();
-        return sql;
+        //        String sql = valueSb.toString();
+        return columnSb.toString();
     }
 
-    public String sqlSelectEntity(Class<T> clazz) {
+    public static <T extends AbstractModel>  String sqlSelectEntity(Class<T> clazz) {
         Entity entityAnnotation = clazz.getAnnotation(Entity.class);
-        StringBuffer columnSb = new StringBuffer();
-        columnSb.append("SELECT * FROM ").append(entityAnnotation.tableName()).append(" ");
-        String sql = columnSb.toString();
-        return sql;
+        return "SELECT * FROM " + entityAnnotation.tableName() + " ";
     }
 
-    public String sqlDeleteEntity(Class<T> clazz) {
+    public static <T extends AbstractModel> String sqlDeleteEntity(Class<T> clazz) {
         Entity entityAnnotation = clazz.getAnnotation(Entity.class);
-        StringBuffer columnSb = new StringBuffer();
-        columnSb.append("DELETE FROM ").append(entityAnnotation.tableName()).append(" WHERE ");
-        String sql = columnSb.toString();
-        return sql;
+        return "DELETE FROM " + entityAnnotation.tableName() + " WHERE ";
     }
-
 }
