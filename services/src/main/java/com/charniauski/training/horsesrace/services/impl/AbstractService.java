@@ -27,27 +27,12 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
 
     @Override
     public PK save(T entity) {
-//        List<Field> fields = ReflectionUtil.getFields(entity.getClass());
-//        boolean autoincrement = false;
-//        for (Field field : fields) {
-//            if (field.getName().endsWith("id")) {
-//                autoincrement = ReflectionUtil.isAutoincrement(field);
-//                break;
-//            }
-//        }
-        Class<? extends AbstractModel> aClass = entity.getClass();
-        Entity annotation = aClass.getAnnotation(Entity.class);
-        boolean idColumn = annotation.isIdColumn();
-        boolean idColumnAutoincrement = annotation.isIdColumnAutoincrement();
 
-        if (idColumn&&idColumnAutoincrement) return (PK) getGenericDao().insert(entity);
-        else {            getGenericDao().update(entity);
+        if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
+        else {
+            getGenericDao().update(entity);
             return (PK) entity.getId();
         }
-//        if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
-//        else {
-//            getGenericDao().update(entity);
-//            return (PK) entity.getId();
     }
 
 

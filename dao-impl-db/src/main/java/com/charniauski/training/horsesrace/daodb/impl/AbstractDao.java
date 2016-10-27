@@ -40,7 +40,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         String sql = sqlSelectEntity(clazz);
         sql = sql + "WHERE id =?;";
         System.out.println(sql);
-
         return jdbcTemplate.queryForObject(
                 sql,
                 new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
@@ -53,8 +52,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         System.out.println(sql);
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> con.prepareStatement(sql, new String[]{"id"}), generatedKeyHolder);
-        Object id = generatedKeyHolder.getKey().longValue();
-        return (PK) id;
+        return (PK) generatedKeyHolder.getKey();
     }
 
     //        @SuppressWarnings("unchecked")
@@ -95,4 +93,8 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 //       return listT;
 //    }
 
+
+    protected JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 }

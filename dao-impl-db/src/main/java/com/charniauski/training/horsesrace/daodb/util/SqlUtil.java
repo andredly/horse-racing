@@ -31,7 +31,7 @@ public class SqlUtil {
             for (Field field : allFields) {
                 field.setAccessible(true);
                 Column column = field.getAnnotation(Column.class);
-                if (isInsert && column.isAutoIncrement()) {
+                if (isInsert && entityAnnotation.isIdColumnAutoincrement()) {
                     continue;
                 }
                 if (field.getType().getSimpleName().endsWith("String") || field.getType().getSimpleName().endsWith("Date")) {

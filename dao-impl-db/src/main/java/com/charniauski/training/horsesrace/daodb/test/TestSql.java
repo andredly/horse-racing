@@ -1,6 +1,8 @@
 package com.charniauski.training.horsesrace.daodb.test;
 
+import com.charniauski.training.horsesrace.daodb.AccountDao;
 import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import org.postgresql.Driver;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -119,6 +121,9 @@ public class TestSql {
 //        select to_char(issuedate,'DD-MM-YYYY') data, cardnumber from card
 //        where to_char(issuedate,'DD-MM-YYYY') between date'2011-03-01'
 //        and date'2011-12-31';
+
+
+
     }
 }
 
