@@ -3,10 +3,8 @@ package com.charniauski.training.horsesrace.datamodel;
 /**
  * Created by ivc4 on 19.10.2016.
  */
-@Entity(tableName = "racecourse")
+@Entity(tableName = "racecourse", autoincrementColumn = "id")
 public class Racecourse  extends AbstractModel{
-    @Column(columnName = "id",isAutoIncrement = true)
-    private Long id;
 
     @Column(columnName = "name")
     private String name;
@@ -17,14 +15,6 @@ public class Racecourse  extends AbstractModel{
 
 
     public Racecourse() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -46,7 +36,7 @@ public class Racecourse  extends AbstractModel{
     @Override
     public String toString() {
         return "Racecourse{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 "name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 '}';

@@ -2,10 +2,8 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
 
-@Entity(tableName = "event")
+@Entity(tableName = "event", autoincrementColumn = "id")
 public class Event extends AbstractModel {
-    @Column(columnName = "id",isAutoIncrement = true)
-    private Long id;
 
     @Column(columnName = "race_card_id")
     private Long raceCardId;
@@ -29,13 +27,6 @@ public class Event extends AbstractModel {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getRaceCardId() {
         return raceCardId;
@@ -96,7 +87,7 @@ public class Event extends AbstractModel {
     @Override
     public String toString() {
         return "Event{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 "eventType='" + eventType + '\'' +
                 ", dateRegister=" + dateRegister +
                 ", coefficientEvent=" + coefficientEvent +

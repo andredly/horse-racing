@@ -88,7 +88,6 @@ CREATE TABLE "client" (
   "id" serial NOT NULL,
   "first_name" character varying(256) NOT NULL,
   "last_name" character varying(256) NOT NULL,
-  "gender" character varying(3) NOT NULL,
   "date" DATE NOT NULL,
   "address" character varying(512) NOT NULL,
   CONSTRAINT client_pk PRIMARY KEY ("id")
@@ -157,4 +156,4 @@ ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , horse_id );
 ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , number_start_box );
 ALTER TABLE "event" ADD UNIQUE ( race_card_id , horse_id,event_type );
 
-CREATE UNIQUE INDEX account_login_uindex ON public.account (login);
+CREATE UNIQUE INDEX account_login_uindex ON account (login);

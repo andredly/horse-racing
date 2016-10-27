@@ -16,7 +16,6 @@ public class SpringScopeTest {
 
         Client client = new Client();
         client.setId(null);
-        client.setGender("M");
         client.setLastName("New");
         client.setFirstName("Tras");
         client.setDate(new Date());
@@ -25,14 +24,15 @@ public class SpringScopeTest {
 //        String sqlInsertOrUpdateEntity = sqlInsertCreateBean.sqlInsertOrUpdateEntity(client);
 
 //        System.out.println(sqlInsertOrUpdateEntity);
-//        ClientService clientServiceBean = springContext.getBean(ClientService.class);;
+        ClientService clientServiceBean = springContext.getBean(ClientService.class);
+        ;
 //        List<Client> all = clientServiceBean.getAll();
 //        for (Client client1:all){
 //            System.out.println(client1);
 //        }
 //        System.out.println();
 
-        SecurityLevelService clientServiceBean = springContext.getBean(SecurityLevelService.class);
+        SecurityLevelService securityLevelService = springContext.getBean(SecurityLevelService.class);
 
         AccountService accountServiceBean = springContext.getBean(AccountService.class);
         BetService betServiceBean = springContext.getBean(BetService.class);
@@ -50,40 +50,66 @@ public class SpringScopeTest {
 //        Long save = accountServiceBean.save(account);
 //        Long save1 = accountServiceBean.save(account);
 //        System.out.println(save);
-        account.setLogin("яklhjkl;с");
-        account.setId(8L);
+        account.setLogin("яlklm;с");
+        account.setId(5L);
         account.setBalance(10000.0);
         System.out.println(account);
         Long save2 = accountServiceBean.save(account);
         System.out.println(save2);
-        boolean delete = accountServiceBean.delete(account);
-        System.out.println(delete);
 
-
-//        List<SecurityLevel> all = clientServiceBean.getAll();
-//        for (SecurityLevel client1 : all) {
+//        Bet bet=betServiceBean.get(2L);
+//        System.out.println(bet);
+//        bet.setBetType("чвапрывпа");
+//        Long save = betServiceBean.save(bet);
+//        System.out.println(save);
+//        bet.setId(null);
+//        bet.setEventId(8L);
+//        bet.setAccountId(3L);
+//        Long save1 = betServiceBean.save(bet);
+//        System.out.println(save1);
+//        bet.setId(17L);
+//        System.out.println(betServiceBean.delete(bet));
+//        List<Bet> all = betServiceBean.getAll();
+//        for (Bet client1 : all) {
 //            System.out.println(client1);
 //        }
-        System.out.println();
-//        for (int i=0;i<10;i++) {
-//            System.out.println("Попытка записать нового");
-//        Long insert = clientServiceBean.insert(client);
+//        System.out.println();
+
+//        Client bet = clientServiceBean.get(2L);
+//        System.out.println(bet);
+//        bet.setLastName("чвапрывпа");
+//        Long save = clientServiceBean.save(bet);
+//        System.out.println(save);
+//        bet.setId(null);
+//        bet.setAddress("ыв");
+//        Long save1 = clientServiceBean.save(bet);
+//        System.out.println(save1);
+//        bet.setId(6L);
+//        System.out.println(clientServiceBean.delete(bet));
+//        List<Client> all = clientServiceBean.getAll();
+//        for (Client client1 : all) {
+//            System.out.println(client1);
 //        }
-//        Client client1 = clientServiceBean.get(19L);
-//        System.out.println("Новый: id="+insert+"- "+client1);
-//        System.out.println("Delete: "+clientServiceBean.delete(client1));
-//        System.out.println("Попытка записать вытянутого");
-//        client1.setId(null);
-//        clientServiceBean.insert(client1);
-//
-//        System.out.println("Попытка записать нового");
-//        clientServiceBean.insert(client);
-//        System.out.println(clientServiceBean.get(20L));
-//        boolean delete = clientServiceBean.delete(client);
-//        System.out.println(delete);
+//        System.out.println();
 
-
-//        AbstractModel client1 = clientServiceBean.get(2L);
-//        System.out.println(client1);
+        Command bet = commandServiceBean.get(2L);
+        System.out.println(bet);
+        bet.setJockey("чвапрывпа");
+        Long save = commandServiceBean.save(bet);
+        System.out.println(save);
+        bet.setId(null);
+        bet.setTrainer("ыв");
+        bet.setJockey("131");
+        bet.setUrlImageColor("яачва");
+        System.out.println(bet);
+        Long save1 = commandServiceBean.save(bet);
+        System.out.println(save1);
+        bet.setId(6L);
+        System.out.println(commandServiceBean.delete(bet));
+        List<Command> all = commandServiceBean.getAll();
+        for (Command client1 : all) {
+            System.out.println(client1);
+        }
+        System.out.println();
     }
 }

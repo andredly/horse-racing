@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Entity {
     String tableName() default "";
-    boolean isIdColumn() default true;
-    boolean isIdColumnAutoincrement() default true;
+    String autoincrementColumn() default "";
+//    boolean isIdColumnAutoincrement() default true;
 }

@@ -1,6 +1,6 @@
 package com.charniauski.training.horsesrace.datamodel;
 
-@Entity(tableName = "horse")
+@Entity(tableName = "horse", autoincrementColumn = "id")
 public class Horse extends AbstractModel {
     @Column(columnName = "id",isAutoIncrement = true)
     private Long id;
@@ -72,7 +72,7 @@ public class Horse extends AbstractModel {
     @Override
     public String toString() {
         return "Horse{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 "nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", equipmentWeight=" + equipmentWeight +

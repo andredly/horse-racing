@@ -44,7 +44,6 @@ public class ClientServiceTest {
         client.setId(1L);
         client.setFirstName("TestFist");
         client.setLastName("TestLast");
-        client.setGender("mail");
         client.setDate(new Date());
         client.setAddress("address");
     }

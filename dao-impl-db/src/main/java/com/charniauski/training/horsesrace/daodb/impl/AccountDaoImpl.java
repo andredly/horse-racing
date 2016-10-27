@@ -19,11 +19,12 @@ public class AccountDaoImpl extends AbstractDao<Account,Long> implements Account
     @Override
     public void update(Account entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
-        sql = sql + " id=" + entity.getId();
+//        sql = sql + " id=" + entity.getId();
         System.out.println(sql);
         int update = getJdbcTemplate().update(sql);
         sql=sqlInsertOrUpdateEntity(entity,true);
-        System.out.println(sql);
-        if(update==0)getJdbcTemplate().update(sql);
+
+        if(update==0){getJdbcTemplate().update(sql);
+        System.out.println(sql);}
     }
 }

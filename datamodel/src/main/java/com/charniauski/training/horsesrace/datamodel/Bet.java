@@ -1,18 +1,16 @@
 package com.charniauski.training.horsesrace.datamodel;
 
 import java.util.Date;
-@Entity(tableName = "bet")
+@Entity(tableName = "bet", autoincrementColumn = "id")
 public class Bet extends AbstractModel{
-    @Column(columnName = "id",isAutoIncrement = true)
-    private Long id;
 
 
     @Column(columnName = "date")
     private Date dateBet;
     @Column(columnName = "event_id")
     private Long eventId;
-    @Column(columnName = "client_id")
-    private Long clientId;
+    @Column(columnName = "account_id")
+    private Long accountId;
     @Column(columnName = "bet_type")
     private String betType;
     @Column(columnName = "sum")
@@ -31,13 +29,6 @@ public class Bet extends AbstractModel{
     public Bet() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Date getDateBet() {
         return dateBet;
@@ -55,12 +46,12 @@ public class Bet extends AbstractModel{
         this.eventId = eventId;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public String getBetType() {
@@ -106,7 +97,7 @@ public class Bet extends AbstractModel{
     @Override
     public String toString() {
         return "Bet{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 "dateBet=" + dateBet +
                 ", betType='" + betType + '\'' +
                 ", sum=" + sum +

@@ -24,19 +24,7 @@ public class SQLGeneratorBase {
     /**
      * @return Returns SQLGenerator.instance
      */
-    public static SQLGeneratorBase getInstance() {
-        if (SQLGeneratorBase.instance == null) {
-            SQLGeneratorBase.instance = new SQLGeneratorBase();
-        }
 
-        return SQLGeneratorBase.instance;
-    }
-
-    /**
-     * @param entity
-     * @param columns
-     * @return Returns INSERT SQL Statement
-     */
     @SuppressWarnings("unused")
     public String insertSQL(String entity, List<String> columns) {
         StringBuffer SQL;

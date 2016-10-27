@@ -3,7 +3,7 @@ package com.charniauski.training.horsesrace.datamodel;
 
 public abstract class AbstractModel {
 
-    @Column(columnName = "id",isAutoIncrement = true)
+    @Column(columnName = "id")
     private Long id;
 
     public Long getId() {

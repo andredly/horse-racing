@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+
 import javax.inject.Inject;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -35,14 +36,22 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
 
     //    @SuppressWarnings("unchecked")
+//    @Override
+//    public T get(PK id) {
+//        String sql = sqlSelectEntity(clazz);
+//        sql = sql + "WHERE id =?;";
+//        System.out.println(sql);
+//        return jdbcTemplate.queryForObject(
+//                sql,
+//                new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
+//    }
+
     @Override
     public T get(PK id) {
         String sql = sqlSelectEntity(clazz);
-        sql = sql + "WHERE id =?;";
+        sql = sql + "WHERE id ="+id;
         System.out.println(sql);
-        return jdbcTemplate.queryForObject(
-                sql,
-                new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
+        return getBean(jdbcTemplate.queryForMap(sql), clazz);
     }
 
     //    @SuppressWarnings("unchecked")
@@ -52,14 +61,14 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         System.out.println(sql);
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> con.prepareStatement(sql, new String[]{"id"}), generatedKeyHolder);
-        return (PK) generatedKeyHolder.getKey();
+        return (PK) (Object)generatedKeyHolder.getKey().longValue();
     }
 
     //        @SuppressWarnings("unchecked")
     @Override
     public void update(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
-        sql = sql + " id=" + entity.getId();
+//        sql = sql + "WHERE id=" + entity.getId();
         System.out.println(sql);
         jdbcTemplate.update(sql);
     }
@@ -68,33 +77,33 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public boolean delete(PK id) {
         String sql = sqlDeleteEntity(clazz);
-        sql = sql + " id=" + id;
+        sql = sql + "WHERE id=" + id;
         System.out.println(sql);
         int delete = jdbcTemplate.update(sql);
         System.out.println(delete);
         return delete == 1;
     }
 
-    @Override
-    public List<T> getAll() {
-        return jdbcTemplate.query(sqlSelectEntity(clazz), new BeanPropertyRowMapper<>(clazz));
-
-    }
-
 //    @Override
 //    public List<T> getAll() {
-//        List<T> listT=new ArrayList<>();
-//        List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sqlSelectEntity(clazz));
-//        for (Map<String, Object> map : listMap) {
-//            T entity = getBean(map, clazz);
-//            listT.add(entity);
-//        }
-//        System.out.println();
-//       return listT;
+//        return jdbcTemplate.query(sqlSelectEntity(clazz), new BeanPropertyRowMapper<>(clazz));
+//
 //    }
 
+    @Override
+    public List<T> getAll() {
+        List<T> listT=new ArrayList<>();
+        List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sqlSelectEntity(clazz));
+        for (Map<String, Object> map : listMap) {
+            T entity = getBean(map, clazz);
+            listT.add(entity);
+        }
+        System.out.println();
+       return listT;
+    }
 
-    protected JdbcTemplate getJdbcTemplate() {
+
+    JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
 }

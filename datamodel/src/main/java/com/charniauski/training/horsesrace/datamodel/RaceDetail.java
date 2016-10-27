@@ -1,9 +1,7 @@
 package com.charniauski.training.horsesrace.datamodel;
 
-@Entity(tableName = "race_detail")
+@Entity(tableName = "race_detail", autoincrementColumn = "id")
 public class RaceDetail extends AbstractModel{
-    @Column(columnName = "id",isAutoIncrement = true)
-    private Long id;
 
     @Column(columnName = "race_card_id")
     private Long raceCardId;
@@ -18,14 +16,6 @@ public class RaceDetail extends AbstractModel{
 //    private RaceCard raceCard;
 
     public RaceDetail() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getRaceCardId() {
@@ -63,7 +53,7 @@ public class RaceDetail extends AbstractModel{
     @Override
     public String toString() {
         return "RaceDetail{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 "numberStartBox=" + numberStartBox +
                 ", horseResult=" + horseResult +
                 '}';

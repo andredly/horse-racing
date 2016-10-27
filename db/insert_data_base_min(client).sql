@@ -1,9 +1,9 @@
-INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Fedor','Gvin','m','10.12.2016','les');
-INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Mihal','Uro','m','11.02.2015','hom');
-INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Olga','Ehova','f','01.05.2014','saray');
-INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Бобик','Шариков','m','12.03.2012','будка');
-INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Female','Masha','f','11.02.2015','usa');
-INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Male','Her','m','02.05.2011','ger');
+INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Fedor','Gvin','10.12.2016','les');
+INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Mihal','Uro','11.02.2015','hom');
+INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Olga','Ehova','01.05.2014','saray');
+INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Бобик','Шариков','12.03.2012','будка');
+INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Female','Masha','11.02.2015','usa');
+INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Male','Her','02.05.2011','ger');
 -- DELETE FROM "client";
 SELECT * FROM "client";
 INSERT INTO security_level (client_status) VALUES ('admin');
