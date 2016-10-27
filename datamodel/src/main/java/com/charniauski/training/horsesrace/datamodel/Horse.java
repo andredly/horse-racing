@@ -13,10 +13,6 @@ public class Horse extends AbstractModel {
     private Integer equipmentWeight;
     @Column(columnName = "form")
     private String form;
-    @Column(columnName = "rating")
-    private Integer rating;
-    @Column(columnName = "description")
-    private String description;
     @Column(columnName = "owner")
     private String owner;
 
@@ -65,22 +61,6 @@ public class Horse extends AbstractModel {
         this.form = form;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getOwner() {
         return owner;
     }
@@ -97,8 +77,6 @@ public class Horse extends AbstractModel {
                 ", age=" + age +
                 ", equipmentWeight=" + equipmentWeight +
                 ", form='" + form + '\'' +
-                ", rating=" + rating +
-                ", description='" + description + '\'' +
                 ", owner='" + owner + '\'' +
                 '}';
     }

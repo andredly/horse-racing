@@ -3,10 +3,10 @@ package com.charniauski.training.horsesrace.datamodel;
 /**
  * Created by ivc4 on 13.10.2016.
  */
-@Entity(tableName = "account")
+@Entity(tableName = "account", isIdColumnAutoincrement = false)
 public class Account extends AbstractModel{
-    @Column(columnName = "id",isAutoIncrement = false)
-    private Long id;
+//    @Column(columnName = "id",isAutoIncrement = false)
+//    private Long id;
 
 
     @Column(columnName = "login")
@@ -26,13 +26,13 @@ public class Account extends AbstractModel{
     public Account() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public String getLogin() {
         return login;
@@ -77,7 +77,7 @@ public class Account extends AbstractModel{
     @Override
     public String toString() {
         return "Account{" +
-                "id='" + id + '\'' +
+//                "id='" + id + '\'' +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", balance=" + balance +

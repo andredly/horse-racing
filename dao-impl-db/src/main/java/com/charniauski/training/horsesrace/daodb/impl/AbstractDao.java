@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,13 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Inject
     private JdbcTemplate jdbcTemplate;
 
-    private Class<T> clazz;
+    private final Class<T> clazz;
 
     protected AbstractDao(Class<T> clazz) {
         this.clazz = clazz;
     }
+
+
 
     //    @SuppressWarnings("unchecked")
     @Override
@@ -37,6 +40,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         String sql = sqlSelectEntity(clazz);
         sql = sql + "WHERE id =?;";
         System.out.println(sql);
+
         return jdbcTemplate.queryForObject(
                 sql,
                 new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
@@ -76,6 +80,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public List<T> getAll() {
         return jdbcTemplate.query(sqlSelectEntity(clazz), new BeanPropertyRowMapper<>(clazz));
+
     }
 
 //    @Override

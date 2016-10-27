@@ -19,11 +19,11 @@ import static org.springframework.util.Assert.*;
  * Created by Andre on 19.10.2016.
  */
 @Service
-public class ClientServiceImpl extends AbstractService<Client,Long> implements ClientService{
+public class ClientServiceImpl extends AbstractService<Client, Long> implements ClientService {
 
 
     @Inject
-    private  ClientDao clientDao;
+    private ClientDao clientDao;
 
 
     @Override

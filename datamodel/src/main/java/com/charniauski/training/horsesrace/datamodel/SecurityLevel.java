@@ -4,9 +4,7 @@ package com.charniauski.training.horsesrace.datamodel;
 public class SecurityLevel extends AbstractModel{
     @Column(columnName = "id",isAutoIncrement = true)
     private Long id;
-
-    @Column(columnName = "level")
-    private Integer level;
+    
     @Column(columnName = "client_status")
     private String clientStatus;
 
@@ -20,15 +18,7 @@ public class SecurityLevel extends AbstractModel{
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
+    
     public String getClientStatus() {
         return clientStatus;
     }
@@ -41,7 +31,6 @@ public class SecurityLevel extends AbstractModel{
     public String toString() {
         return "SecurityLevel{" +
                 "id='" + id + '\'' +
-                "level=" + level +
                 ", clientStatus='" + clientStatus + '\'' +
                 '}';
     }

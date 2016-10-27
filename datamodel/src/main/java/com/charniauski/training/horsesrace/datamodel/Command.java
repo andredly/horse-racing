@@ -2,7 +2,7 @@ package com.charniauski.training.horsesrace.datamodel;
 
 @Entity(tableName = "command")
 public class Command extends AbstractModel {
-    @Column(columnName = "id",isAutoIncrement = false)
+    @Column(columnName = "id",isAutoIncrement = true)
     private Long id;
 
     @Column(columnName = "trainer")

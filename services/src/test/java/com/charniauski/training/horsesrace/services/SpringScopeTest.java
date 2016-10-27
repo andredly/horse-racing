@@ -50,11 +50,12 @@ public class SpringScopeTest {
 //        Long save = accountServiceBean.save(account);
 //        Long save1 = accountServiceBean.save(account);
 //        System.out.println(save);
-        account.setId(6L);
-        account.setBalance(10000.0);
-        System.out.println(account);
-        Long save2 = accountServiceBean.save(account);
-        System.out.println(save2);
+//        account.setLogin("ячвыпаячс");
+//        account.setId(7L);
+//        account.setBalance(10000.0);
+//        System.out.println(account);
+//        Long save2 = accountServiceBean.save(account);
+//        System.out.println(save2);
 //        boolean delete = accountServiceBean.delete(account);
 //        System.out.println(delete);
 

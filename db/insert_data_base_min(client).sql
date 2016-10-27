@@ -6,8 +6,8 @@ INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Female
 INSERT INTO "client" (first_name, last_name,gender,date,address) VALUES ('Male','Her','m','02.05.2011','ger');
 -- DELETE FROM "client";
 SELECT * FROM "client";
-INSERT INTO security_level (level,client_status) VALUES (1,'admin');
-INSERT INTO security_level (level,client_status) VALUES (2,'client');
+INSERT INTO security_level (client_status) VALUES ('admin');
+INSERT INTO security_level (client_status) VALUES ('client');
 SELECT * FROM security_level;
 INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (1,'log','pas',1,100.0,'a@r.ru');
 INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (2,'log1','pas2',2,200.0,'f@r.ru');
@@ -16,22 +16,7 @@ INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (
 INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (5,'log4','pas5',2,55.0,'l@r.ru');
 SELECT * FROM account;
 
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster1',3,60,'1245',104,'discript1','henk1');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster2',2,61,'245',112,'discript2','henk2');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster3',2,62,'45',121,'discript3','henk3');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster4',4,59,NULL ,112,'discript4','henk4');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster5',3,64,'1',121,'discript5','henk5');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster6',2,58,'12',101,'discript6','henk6');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster7',4,65,'34',110,'discript7','henk7');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
-VALUES ('faster8',2,64,'567',110,'discript8','henk8');
+
 
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (1,'jon','uri','http1');
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (2,'igi','mor','http2');
@@ -41,6 +26,23 @@ INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (5,'dor','jus','h
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (6,'ver','vuy','http6');
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (7,'low','qer','http7');
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (8,'петя1','коля1','http8');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster1',3,60,'1245',1,'henk1');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster2',2,61,'245',2,'henk2');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster3',2,62,'45',3,'henk3');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster4',4,59,NULL ,4,'henk4');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster5',3,64,'1',5,'henk5');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster6',2,58,'12',6,'henk6');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster7',4,65,'34',7,'henk7');
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,owner)
+VALUES ('faster8',2,64,'567',8,'henk8');
+
 
 INSERT INTO racecourse (id, name, country) VALUES (1,'germ','g');
 INSERT INTO racecourse (id, name, country) VALUES (2,'usa','us');
@@ -117,12 +119,12 @@ VALUES (1,1,'place','2016.10.17 20:12',2.1,'qqq','dred1');
 
 
 
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',1,1,'winer',10,2.6,'win',13.1);
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,1,'winer',20,2.6,'win',0);
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,2,'place',50,2.6,'win',0);
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,3,'winer',10,2.6,'win',11);
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',5,1,'winer',100,2.6,'win',NULL );
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,3,'winer',30,2.6,'win',NULL );
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,2,'winer',15,2.6,'win',NULL );
-INSERT INTO bet (date,event_id,client_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',10,1,'winer',60,2.6,'win',NULL );
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',1,1,'winer',10,2.6,'win',13.1);
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,1,'winer',20,2.6,'win',0);
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,2,'place',50,2.6,'win',0);
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,3,'winer',10,2.6,'win',11);
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',5,1,'winer',100,2.6,'win',NULL );
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,3,'winer',30,2.6,'win',NULL );
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,2,'winer',15,2.6,'win',NULL );
+INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',10,1,'winer',60,2.6,'win',NULL );
 

@@ -16,21 +16,21 @@ INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (
 INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (5,'log4','pas5',2,55.0,'l@r.ru');
 SELECT * FROM account;
 
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster1',3,60,'1245',104,'discript1','henk1');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster2',2,61,'245',112,'discript2','henk2');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster3',2,62,'45',121,'discript3','henk3');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster4',4,59,NULL ,112,'discript4','henk4');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster5',3,64,'1',121,'discript5','henk5');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster6',2,58,'12',101,'discript6','henk6');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster7',4,65,'34',110,'discript7','henk7');
-INSERT INTO horse (nick_name,age,equiptement_weight,form,rating,discription,owner)
+INSERT INTO horse (nick_name,age,equiptement_weight,form,command_id,discription,owner)
 VALUES ('faster8',2,64,'567',110,'discript8','henk8');
 
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (1,'jon','uri','http1');
