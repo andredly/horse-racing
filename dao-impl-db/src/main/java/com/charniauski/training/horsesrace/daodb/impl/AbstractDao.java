@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -98,12 +99,14 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
             T entity = getBean(map, clazz);
             listT.add(entity);
         }
+
+
         System.out.println();
        return listT;
     }
 
-
     JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
+
 }

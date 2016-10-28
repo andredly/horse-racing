@@ -53,7 +53,8 @@ OIDS=FALSE
 
 CREATE TABLE "event" (
   "id" serial NOT NULL,
-  "race_detail_id" bigint NOT NULL,
+  "race_card_id" bigint NOT NULL,
+  "horse_id" bigint NOT NULL,
   "event_type" character varying(256) NOT NULL,
   "date_register" timestamptz NOT NULL,
   "coefficient_event" double PRECISION NOT NULL DEFAULT '0',
@@ -139,7 +140,8 @@ ALTER TABLE "horse" ADD CONSTRAINT "horse_fk0" FOREIGN KEY ("command_id") REFERE
 ALTER TABLE "race_detail" ADD CONSTRAINT "race_detail_fk0" FOREIGN KEY ("race_card_id") REFERENCES "race_card"("id");
 ALTER TABLE "race_detail" ADD CONSTRAINT "race_detail_fk1" FOREIGN KEY ("horse_id") REFERENCES "horse"("id");
 
-ALTER TABLE "event" ADD CONSTRAINT "event_fk0" FOREIGN KEY ("race_detail_id") REFERENCES "race_detail"("id");
+ALTER TABLE "event" ADD CONSTRAINT "event_fk0" FOREIGN KEY ("race_card_id") REFERENCES "race_card"("id");
+ALTER TABLE "event" ADD CONSTRAINT "event_fk1" FOREIGN KEY ("horse_id") REFERENCES "horse"("id");
 
 ALTER TABLE "bet" ADD CONSTRAINT "bet_fk0" FOREIGN KEY ("event_id") REFERENCES "event"("id");
 ALTER TABLE "bet" ADD CONSTRAINT "bet_fk1" FOREIGN KEY ("account_id") REFERENCES "account"("id");
@@ -152,6 +154,6 @@ ALTER TABLE "bet" ADD UNIQUE ( event_id , account_id );
 ALTER TABLE "command" ADD UNIQUE ( trainer , jockey,url_image_color );
 ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , horse_id );
 ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , number_start_box );
-ALTER TABLE "event" ADD UNIQUE ( race_detail_id , event_type );
+ALTER TABLE "event" ADD UNIQUE ( race_card_id , horse_id,event_type );
 
 CREATE UNIQUE INDEX account_login_uindex ON account (login);

@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.daodb.util;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.collections.map.LinkedMap;
 import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
@@ -149,7 +150,7 @@ public class ReflectionUtil {
     }
 
     public static <T> T getBean(Map<String, Object> mapResultQueryForList, Class<T> clazz) {
-        Map<String, Object> beanParameter = new HashMap<>();
+        Map<String, Object> beanParameter = new LinkedHashMap<>();
         List<Field> fields = getFields(clazz);
         for (Field field : fields) {
             Column column = field.getAnnotation(Column.class);

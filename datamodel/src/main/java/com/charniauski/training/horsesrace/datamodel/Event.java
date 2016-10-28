@@ -5,10 +5,8 @@ import java.util.Date;
 @Entity(tableName = "event", autoincrementColumn = "id")
 public class Event extends AbstractModel {
 
-    @Column(columnName = "race_card_id")
-    private Long raceCardId;
-    @Column(columnName = "horse_id")
-    private Long horseId;
+    @Column(columnName = "race_detail_id")
+    private Long raceDetailId;
     @Column(columnName = "event_type")
     private String eventType;
     @Column(columnName = "date_register")
@@ -27,21 +25,12 @@ public class Event extends AbstractModel {
     }
 
 
-
-    public Long getRaceCardId() {
-        return raceCardId;
+    public Long getRaceDetailId() {
+        return raceDetailId;
     }
 
-    public void setRaceCardId(Long raceCardId) {
-        this.raceCardId = raceCardId;
-    }
-
-    public Long getHorseId() {
-        return horseId;
-    }
-
-    public void setHorseId(Long horseId) {
-        this.horseId = horseId;
+    public void setRaceDetailId(Long raceDetailId) {
+        this.raceDetailId = raceDetailId;
     }
 
     public String getEventType() {
@@ -88,7 +77,8 @@ public class Event extends AbstractModel {
     public String toString() {
         return "Event{" +
                 "id='" + getId() + '\'' +
-                "eventType='" + eventType + '\'' +
+                "raceDetailId=" + raceDetailId +
+                ", eventType='" + eventType + '\'' +
                 ", dateRegister=" + dateRegister +
                 ", coefficientEvent=" + coefficientEvent +
                 ", bookmaker='" + bookmaker + '\'' +

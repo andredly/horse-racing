@@ -12,4 +12,5 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
     public RaceCardDaoImpl() {
         super(RaceCard.class);
     }
+
 }

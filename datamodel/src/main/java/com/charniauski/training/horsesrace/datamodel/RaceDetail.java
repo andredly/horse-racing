@@ -54,7 +54,9 @@ public class RaceDetail extends AbstractModel{
     public String toString() {
         return "RaceDetail{" +
                 "id='" + getId() + '\'' +
-                "numberStartBox=" + numberStartBox +
+                "raceCardId=" + raceCardId +
+                ", horseId=" + horseId +
+                ", numberStartBox=" + numberStartBox +
                 ", horseResult=" + horseResult +
                 '}';
     }

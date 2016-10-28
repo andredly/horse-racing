@@ -6,6 +6,7 @@ import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Entity;
 import com.charniauski.training.horsesrace.services.GenericService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
 import java.util.List;

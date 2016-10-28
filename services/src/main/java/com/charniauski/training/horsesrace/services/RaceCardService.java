@@ -7,4 +7,5 @@ import com.charniauski.training.horsesrace.datamodel.RaceCard;
  */
 public interface RaceCardService extends GenericService<RaceCard,Long> {
 
+
 }
