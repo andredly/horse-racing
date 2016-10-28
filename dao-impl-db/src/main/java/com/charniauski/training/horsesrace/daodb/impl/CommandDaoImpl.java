@@ -10,7 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommandDaoImpl extends AbstractDao<Command,Long> implements CommandDao{
 
-    public CommandDaoImpl() {
-        super(Command.class);
-    }
 }

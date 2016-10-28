@@ -14,7 +14,4 @@ public abstract class AbstractModel {
         this.id = id;
     }
 
-//    public abstract Long getId();
-//    public abstract void setId(Long id);
-
 }

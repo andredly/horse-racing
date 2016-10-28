@@ -2,9 +2,7 @@ package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -17,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.*;
-import static com.charniauski.training.horsesrace.daodb.util.SqlUtil.*;
+import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.*;
 
 /**
  * Created by ivc4 on 21.10.2016.
@@ -30,46 +28,35 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     private final Class<T> clazz;
 
-    protected AbstractDao(Class<T> clazz) {
-        this.clazz = clazz;
+    @SuppressWarnings("unchecked")
+    protected AbstractDao() {
+        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0];
     }
 
 
-
     //    @SuppressWarnings("unchecked")
-//    @Override
-//    public T get(PK id) {
-//        String sql = sqlSelectEntity(clazz);
-//        sql = sql + "WHERE id =?;";
-//        System.out.println(sql);
-//        return jdbcTemplate.queryForObject(
-//                sql,
-//                new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
-//    }
-
     @Override
     public T get(PK id) {
-        String sql = sqlSelectEntity(clazz);
-        sql = sql + "WHERE id ="+id;
+        String sql = sqlSelectEntity(clazz) + " WHERE id=" + id;
         System.out.println(sql);
         return getBean(jdbcTemplate.queryForMap(sql), clazz);
     }
 
-    //    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public PK insert(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, true);
         System.out.println(sql);
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> con.prepareStatement(sql, new String[]{"id"}), generatedKeyHolder);
-        return (PK) (Object)generatedKeyHolder.getKey().longValue();
+        return (PK) (Object) generatedKeyHolder.getKey().longValue();
     }
 
     //        @SuppressWarnings("unchecked")
     @Override
     public void update(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
-//        sql = sql + "WHERE id=" + entity.getId();
         System.out.println(sql);
         jdbcTemplate.update(sql);
     }
@@ -77,32 +64,21 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     //        @SuppressWarnings("unchecked")
     @Override
     public boolean delete(PK id) {
-        String sql = sqlDeleteEntity(clazz);
-        sql = sql + "WHERE id=" + id;
+        String sql = sqlDeleteEntity(clazz) + id;
         System.out.println(sql);
         int delete = jdbcTemplate.update(sql);
-        System.out.println(delete);
         return delete == 1;
     }
 
-//    @Override
-//    public List<T> getAll() {
-//        return jdbcTemplate.query(sqlSelectEntity(clazz), new BeanPropertyRowMapper<>(clazz));
-//
-//    }
-
     @Override
     public List<T> getAll() {
-        List<T> listT=new ArrayList<>();
+        List<T> listT = new ArrayList<>();
         List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sqlSelectEntity(clazz));
         for (Map<String, Object> map : listMap) {
             T entity = getBean(map, clazz);
             listT.add(entity);
         }
-
-
-        System.out.println();
-       return listT;
+        return listT;
     }
 
     JdbcTemplate getJdbcTemplate() {

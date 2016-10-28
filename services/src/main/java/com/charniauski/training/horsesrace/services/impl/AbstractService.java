@@ -17,8 +17,6 @@ import java.util.List;
 @Service
 public abstract class AbstractService<T extends AbstractModel, PK> implements GenericService<T, PK> {
 
-    private GenericDao genericDao;
-
     @Override
     public void saveAll(List<T> listEntity) {
         for (T entity : listEntity) {
@@ -28,7 +26,6 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
 
     @Override
     public PK save(T entity) {
-
         if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
         else {
             getGenericDao().update(entity);

@@ -9,8 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceCardDao{
-    public RaceCardDaoImpl() {
-        super(RaceCard.class);
-    }
 
 }

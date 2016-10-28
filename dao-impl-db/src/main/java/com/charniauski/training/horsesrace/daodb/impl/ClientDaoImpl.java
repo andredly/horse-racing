@@ -10,7 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ClientDaoImpl extends AbstractDao<Client,Long> implements ClientDao{
 
-    public ClientDaoImpl() {
-        super(Client.class);
-    }
 }

@@ -10,7 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao{
 
-    public BetDaoImpl() {
-        super(Bet.class);
-    }
 }

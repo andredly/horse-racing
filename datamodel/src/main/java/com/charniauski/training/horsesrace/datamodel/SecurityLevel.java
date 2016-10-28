@@ -9,7 +9,6 @@ public class SecurityLevel extends AbstractModel{
     public SecurityLevel() {
     }
 
-
     public String getClientStatus() {
         return clientStatus;
     }

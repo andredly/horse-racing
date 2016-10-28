@@ -15,7 +15,6 @@ public class Command extends AbstractModel {
     public Command() {
     }
 
-
     public String getJockey() {
         return jockey;
     }

@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements RacecourseDao{
-    public RacecourseDaoImpl() {
-        super(Racecourse.class);
-    }
+
 }

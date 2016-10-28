@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class EventDaoImpl extends AbstractDao<Event,Long> implements EventDao{
-    public EventDaoImpl() {
-        super(Event.class);
-    }
+
 }

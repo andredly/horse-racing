@@ -1,5 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
+import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -149,13 +150,13 @@ public class ReflectionUtil {
         return list;
     }
 
-    public static <T> T getBean(Map<String, Object> mapResultQueryForList, Class<T> clazz) {
+    public static <T> T getBean(Map<String, Object> mapResultQuery, Class<T> clazz) {
         Map<String, Object> beanParameter = new LinkedHashMap<>();
         List<Field> fields = getFields(clazz);
         for (Field field : fields) {
             Column column = field.getAnnotation(Column.class);
-            if (mapResultQueryForList.containsKey(column.columnName()))
-                beanParameter.put(field.getName(), mapResultQueryForList.get(column.columnName()));
+            if (mapResultQuery.containsKey(column.columnName()))
+                beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
         }
         T entity = null;
         try {
@@ -172,4 +173,34 @@ public class ReflectionUtil {
         return entity;
     }
 
+
+    public static <T> Map<String,Object> getMapColumnAndArgEntity(T entity) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Class<?> clazz = entity.getClass();
+        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
+        List<Field> allFields = ReflectionUtil.getFields(clazz);
+        try {
+            for (Field field : allFields) {
+                field.setAccessible(true);
+                Column column = field.getAnnotation(Column.class);
+//                if (entityAnnotation.autoincrementColumn().equals(field.getName())) {
+//                    continue;
+//                }
+                if (field.getType().getSimpleName().endsWith("String") || field.getType().getSimpleName().endsWith("Date")) {
+
+                    if (field.get(entity) == null) {
+                        continue;
+                    } else {
+                        map.put(column.columnName(), field.get(entity));
+                    }
+
+                } else {
+                    map.put(column.columnName(), field.get(entity));
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
 }

@@ -7,4 +7,6 @@ import com.charniauski.training.horsesrace.datamodel.Account;
  */
 public interface AccountService extends GenericService<Account,Long> {
 
+    void update(Account entity);
+
 }

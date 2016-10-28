@@ -1,14 +1,10 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.customentity.RaceDetailWithHorse;
-import com.charniauski.training.horsesrace.daodb.util.SqlUtil;
 import com.charniauski.training.horsesrace.datamodel.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class SpringScopeTest {
 
@@ -46,19 +42,20 @@ public class SpringScopeTest {
         SecurityLevelService securityLevelServiceBean = springContext.getBean(SecurityLevelService.class);
         RaceDetailService raceDetailService=springContext.getBean(RaceDetailService.class);
 
-//        Account account = accountServiceBean.get(1L);
-//        System.out.println(account);
-//        account.setId(null);
-//        System.out.println(account);
-//        Long save = accountServiceBean.save(account);
+        Account account = accountServiceBean.get(1L);
+        System.out.println(account);
+        account.setEmail("ыва");
+        System.out.println(account);
+        accountServiceBean.update(account);
 //        Long save1 = accountServiceBean.save(account);
 //        System.out.println(save);
-//        account.setLogin("яlklm;с");
-//        account.setId(5L);
-//        account.setBalance(10000.0);
-//        System.out.println(account);
-//        Long save2 = accountServiceBean.save(account);
-//        System.out.println(save2);
+        account.setLogin("яlklm;с");
+        account.setId(6L);
+        account.setBalance(10000.0);
+        System.out.println(account);
+        Long save2 = accountServiceBean.save(account);
+        System.out.println(save2);
+        System.out.println(accountServiceBean.delete(account));
 
 //        Bet bet=betServiceBean.get(2L);
 //        System.out.println(bet);
@@ -163,7 +160,7 @@ public class SpringScopeTest {
 //        Long save1 = raceCardServiceBean.save(bet);
 //        System.out.println(save1);
 //        bet.setId(4L);
-//        System.out.println(raceCardServiceBean.delete(bet));
+////        System.out.println(raceCardServiceBean.delete(bet));
 //        List<RaceCard> all = raceCardServiceBean.getAll();
 //        for (RaceCard client1 : all) {
 //            System.out.println(client1);
@@ -209,10 +206,10 @@ public class SpringScopeTest {
 //        }
 //        System.out.println();
 
-        RaceDetailWithHorse raceDetailWithHorse = raceDetailService.getRaceDetailWithHorse(11L);
-        Horse horse = raceDetailWithHorse.getHorse();
-        RaceDetail raceDetail=raceDetailWithHorse.getRaceDetail();
-        System.out.println(raceDetail);
-        System.out.println(horse);
+//        RaceDetailWithHorse raceDetailWithHorse = raceDetailService.getRaceDetailWithHorse(11L);
+//        Horse horse = raceDetailWithHorse.getHorse();
+//        RaceDetail raceDetail=raceDetailWithHorse.getRaceDetail();
+//        System.out.println(raceDetail);
+//        System.out.println(horse);
     }
 }

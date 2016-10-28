@@ -15,5 +15,4 @@ import java.lang.annotation.Target;
 public @interface Entity {
     String tableName() default "";
     String autoincrementColumn() default "";
-//    boolean isIdColumnAutoincrement() default true;
 }

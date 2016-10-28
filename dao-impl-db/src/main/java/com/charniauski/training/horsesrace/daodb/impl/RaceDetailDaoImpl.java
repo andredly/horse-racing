@@ -14,15 +14,11 @@ import java.util.Map;
  */
 @Repository
 public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements RaceDetailDao {
-    public RaceDetailDaoImpl() {
-        super(RaceDetail.class);
-    }
 
     @Override
     public RaceDetailWithHorse getWithHorse(Long raceDetailId) {
         Map<String, Object> stringObjectMap = getJdbcTemplate().queryForMap("SELECT * FROM race_detail rd " +
                 "LEFT JOIN horse hr ON rd.horse_id = hr.id WHERE rd.id=" + raceDetailId + ";");
-        System.out.println(stringObjectMap);
         RaceDetail raceDetail = ReflectionUtil.getBean(stringObjectMap, RaceDetail.class);
         raceDetail.setId(raceDetailId);
         Horse horse = ReflectionUtil.getBean(stringObjectMap, Horse.class);

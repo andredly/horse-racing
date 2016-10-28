@@ -10,7 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SecurityLevelDaoImpl extends AbstractDao<SecurityLevel,Long> implements SecurityLevelDao{
 
-    public SecurityLevelDaoImpl() {
-        super(SecurityLevel.class);
-    }
 }

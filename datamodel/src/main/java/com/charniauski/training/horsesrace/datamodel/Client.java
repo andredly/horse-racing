@@ -23,7 +23,6 @@ public class Client extends AbstractModel {
     public Client() {
     }
 
-
     public String getFirstName() {
         return firstName;
     }

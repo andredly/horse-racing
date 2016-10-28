@@ -4,7 +4,6 @@ import java.util.Date;
 @Entity(tableName = "bet", autoincrementColumn = "id")
 public class Bet extends AbstractModel{
 
-
     @Column(columnName = "date")
     private Date dateBet;
     @Column(columnName = "event_id")

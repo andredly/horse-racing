@@ -23,4 +23,15 @@ public class AccountServiceImpl extends AbstractService<Account,Long> implements
     public GenericDao getGenericDao() {
         return accountDao;
     }
+
+
+    @Override
+    public Long save(Account entity) {
+       return (Long) accountDao.insert(entity);
+    }
+
+    @Override
+    public void update(Account entity) {
+        accountDao.update(entity);
+    }
 }
