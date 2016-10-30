@@ -26,14 +26,6 @@ public class ReflectionUtil {
         return annotation.isAutoIncrement();
     }
 
-    public static boolean isAnnotated(Field field, Class<? extends Annotation>... classes) {
-        for (Class<? extends Annotation> clazz : classes) {
-            if (field.getAnnotation(clazz) != null) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public static <T> Field getField(Class<T> clazz, String name) {
         try {
@@ -48,42 +40,6 @@ public class ReflectionUtil {
         return null;
     }
 
-    public static Object getValue(Object instance, Field field) {
-        try {
-            field.setAccessible(true);
-            return field.get(instance);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void setValue(Object instance, Object value, Field field) {
-        try {
-            field.setAccessible(true);
-            field.set(instance, value);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void setValue(String name, Object value, Object instance) {
-        Field field;
-
-        field = ReflectionUtil.getField(instance.getClass(), name);
-        ReflectionUtil.setValue(instance, value, field);
-    }
-
-    public static Object getValue(String name, Object instance) {
-        Field field;
-
-        field = ReflectionUtil.getField(instance.getClass(), name);
-
-        if (field == null) {
-            return null;
-        }
-
-        return ReflectionUtil.getValue(instance, field);
-    }
 
     public static <T> List<Field> getFields(Class<T> clazz) {
         List<Field> list = new ArrayList<>();
@@ -158,6 +114,11 @@ public class ReflectionUtil {
             if (mapResultQuery.containsKey(column.columnName()))
                 beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
         }
+        for (Map.Entry<String,Object> map:mapResultQuery.entrySet()){
+            String columnNameEqualsNameClass=map.getKey().replace("_id","");
+            String nameClass = clazz.getSimpleName().toLowerCase();
+            if(columnNameEqualsNameClass.contains(nameClass))beanParameter.put("id",map.getValue());
+        }
         T entity = null;
         try {
             entity = clazz.newInstance();
@@ -203,4 +164,5 @@ public class ReflectionUtil {
         }
         return map;
     }
+
 }

@@ -3,10 +3,12 @@ package com.charniauski.training.horsesrace.services.impl;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -22,5 +24,10 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard,Long> implemen
     @Override
     public GenericDao getGenericDao() {
         return raceCardDao;
+    }
+
+    @Override
+    public List<RaceCard> getAllRacecourseAfterCurrentDate(Long racecourseId) {
+        return raceCardDao.getAllRacecourseAfterCurrentDate(racecourseId);
     }
 }

@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface RacecourseDao extends GenericDao<Racecourse,Long>{
 
+    List<Racecourse> getAllAfterCurrentDate();
+
 }

@@ -3,8 +3,10 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.datamodel.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class SpringScopeTest {
 
@@ -42,20 +44,24 @@ public class SpringScopeTest {
         SecurityLevelService securityLevelServiceBean = springContext.getBean(SecurityLevelService.class);
         RaceDetailService raceDetailService=springContext.getBean(RaceDetailService.class);
 
-        Account account = accountServiceBean.get(1L);
-        System.out.println(account);
-        account.setEmail("ыва");
-        System.out.println(account);
-        accountServiceBean.update(account);
-//        Long save1 = accountServiceBean.save(account);
-//        System.out.println(save);
-        account.setLogin("яlklm;с");
-        account.setId(6L);
-        account.setBalance(10000.0);
-        System.out.println(account);
-        Long save2 = accountServiceBean.save(account);
-        System.out.println(save2);
-        System.out.println(accountServiceBean.delete(account));
+//        Account account = accountServiceBean.get(1L);
+//        System.out.println(account);
+//        account.setEmail("ыва");
+//        System.out.println(account);
+//        accountServiceBean.update(account);
+////        Long save1 = accountServiceBean.save(account);
+////        System.out.println(save);
+//        account.setLogin("яlklm;с");
+//        account.setId(6L);
+//        account.setBalance(10000.0);
+//        System.out.println(account);
+//        Long save2 = accountServiceBean.save(account);
+//        System.out.println(save2);
+//        System.out.println(accountServiceBean.delete(account));
+//        List<Account> all = accountServiceBean.getAll();
+//                for (Account client1 : all) {
+//            System.out.println(client1);
+//        }
 
 //        Bet bet=betServiceBean.get(2L);
 //        System.out.println(bet);
@@ -149,23 +155,23 @@ public class SpringScopeTest {
 //        }
 //        System.out.println();
 
-//        RaceCard bet = raceCardServiceBean.get(2L);
-//        System.out.println(bet);
-//        bet.setDateFinish(new Timestamp(new Date().getTime()));
-//        Long save = raceCardServiceBean.save(bet);
-//        System.out.println(save);
-//        bet.setId(null);
-//        bet.setRaceType("япячпячиепыывап");
-//        System.out.println(bet);
-//        Long save1 = raceCardServiceBean.save(bet);
-//        System.out.println(save1);
-//        bet.setId(4L);
-////        System.out.println(raceCardServiceBean.delete(bet));
-//        List<RaceCard> all = raceCardServiceBean.getAll();
-//        for (RaceCard client1 : all) {
-//            System.out.println(client1);
-//        }
-//        System.out.println();
+        RaceCard bet = raceCardServiceBean.get(2L);
+        System.out.println(bet);
+        bet.setDateFinish(new Timestamp(new Date().getTime()));
+        Long save = raceCardServiceBean.save(bet);
+        System.out.println(save);
+        bet.setId(null);
+        bet.setRaceType("япячпячиепыывап");
+        System.out.println(bet);
+        Long save1 = raceCardServiceBean.save(bet);
+        System.out.println(save1);
+        bet.setId(10L);
+//        System.out.println(raceCardServiceBean.delete(bet));
+        List<RaceCard> all = raceCardServiceBean.getAllRacecourseAfterCurrentDate(2L);
+        for (RaceCard client1 : all) {
+            System.out.println(client1);
+        }
+        System.out.println();
 
 //        RaceDetail bet = raceDetailService.get(2L);
 //        System.out.println(bet);
@@ -211,5 +217,26 @@ public class SpringScopeTest {
 //        RaceDetail raceDetail=raceDetailWithHorse.getRaceDetail();
 //        System.out.println(raceDetail);
 //        System.out.println(horse);
+
+
+
+//        Racecourse bet = racecourseServiceBean.get(2L);
+//        System.out.println(bet);
+//        bet.setCountry("фывафывафыва");
+//        Long save = racecourseServiceBean.save(bet);
+//        System.out.println(save);
+//        bet.setId(null);
+//        bet.setName("япячпячиепыывап");
+//        System.out.println(bet);
+//        Long save1 = racecourseServiceBean.save(bet);
+//        System.out.println(save1);
+////        bet.setName("япячпп");
+////        bet.setId(3L);
+////        System.out.println(raceCardServiceBean.delete(bet));
+//        List<Racecourse> all = racecourseServiceBean.getAllByCurrentDate();
+//        for (Racecourse client1 : all) {
+//            System.out.println(client1);
+//        }
+//        System.out.println();
     }
 }

@@ -121,6 +121,7 @@ public class TestSql {
 //        select to_char(issuedate,'DD-MM-YYYY') data, cardnumber from card
 //        where to_char(issuedate,'DD-MM-YYYY') between date'2011-03-01'
 //        and date'2011-12-31';
+//        to_char(current_timestamp, 'HH12:MI:SS')
 
 
 

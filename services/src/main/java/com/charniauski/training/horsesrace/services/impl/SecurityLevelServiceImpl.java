@@ -7,6 +7,8 @@ import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.datamodel.SecurityLevel;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.SecurityLevelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,6 +19,8 @@ import javax.inject.Inject;
 @Service
 public class SecurityLevelServiceImpl extends AbstractService<SecurityLevel,Long> implements SecurityLevelService {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SecurityLevelServiceImpl.class);
 
     @Inject
     private SecurityLevelDao securityLevelDao;

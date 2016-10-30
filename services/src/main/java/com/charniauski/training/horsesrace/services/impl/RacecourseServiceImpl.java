@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.services.RacecourseService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -22,5 +23,10 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Override
     public GenericDao getGenericDao() {
         return racecourseDao;
+    }
+
+    @Override
+    public List<Racecourse> getAllByCurrentDate() {
+        return racecourseDao.getAllAfterCurrentDate();
     }
 }
