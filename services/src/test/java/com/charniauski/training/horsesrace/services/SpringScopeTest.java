@@ -1,16 +1,14 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.*;
-import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import com.charniauski.training.horsesrace.services.impl.AccountServiceImpl;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWithClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getTableName;
 
 public class SpringScopeTest {
 
@@ -251,14 +249,18 @@ public class SpringScopeTest {
         Client client1 = accountWithClient.getClient();
         System.out.println(account);
         System.out.println(client1);
-//        account.setLogin("New1");
-//        account.setId(null);
-//        client1.setId(null);
-//        client1.setLastName("Testing1");
-//        Long save = accountServiceBean.save(accountWithClient);
-//        System.out.println(save);
-        Account account1=accountServiceBean.getAccountByLogin("New1");
+        account.setLogin("New8");
+        account.setId(null);
+        account.setBalance(null);
+        client1.setId(null);
+        client1.setLastName("Testing6");
+        Long save = accountServiceBean.save(accountWithClient);
+        System.out.println(save);
+        Account account1=accountServiceBean.getAccountByLogin("Log5");
         System.out.println(account1);
+        Logger logger= LoggerFactory.getLogger(SpringScopeTest.class);
+        logger.info("Привет");
+        logger.error(account.getEmail());
 
     }
 }

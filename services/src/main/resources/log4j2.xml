@@ -14,6 +14,9 @@
 				<SizeBasedTriggeringPolicy size="250 MB" />
 			</Policies>
 		</RollingFile>
+		<CustomAppender name="myapp" >
+			<PatternLayout pattern="serial no: %sn |  Date: %d |  level:%level | class name:%logger | method name:%M() |  line number:%L |  Location: %l | message:%m%n" />
+		</CustomAppender>
 
 	</Appenders>
 
@@ -22,11 +25,27 @@
 			<AppenderRef ref="Console" />
 		</Root>
 
-		<Logger level="info" name="com.epam.training.library"
+		<Logger level="info" name="com.charniauski.training.horsesrace"
 			additivity="false">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="myapp" level="DEBUG"/>
 		</Logger>
+<!--
+		<Loggers>
+			<Root level="trace">
+				<AppenderRef ref="file" level="DEBUG"/>
+				<AppenderRef ref="STDOUT" level="INFO"/>
+			</Root>
+		</Loggers>-->
+
+		<!--<Configuration packages="com.yourcompany.yourcustomappenderpackage">-->
+			<!--<Appenders>-->
+				<!--<MyCustomAppender name="ABC" otherAttribute="...">-->
+				<!--...-->
+			<!--</Appenders>-->
+			<!--<Loggers><Root><AppenderRef ref="ABC" /></Root></Loggers>-->
+		<!--</Configuration>-->
 
 	</Loggers>
 

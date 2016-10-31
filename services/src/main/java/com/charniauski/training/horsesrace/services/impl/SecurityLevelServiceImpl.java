@@ -20,8 +20,7 @@ import javax.inject.Inject;
 @Service
 public class SecurityLevelServiceImpl extends AbstractService<SecurityLevel,Long> implements SecurityLevelService {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(SecurityLevelServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityLevelServiceImpl.class);
 
     @Inject
     private SecurityLevelDao securityLevelDao;

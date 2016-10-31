@@ -7,6 +7,8 @@ import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWithListRaceCard;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,7 +19,7 @@ import java.util.List;
  */
 @Service
 public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> implements RacecourseService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(RacecourseServiceImpl.class);
 
     @Inject
     private RacecourseDao racecourseDao;

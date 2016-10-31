@@ -7,6 +7,8 @@ import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.ClientService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -16,7 +18,7 @@ import javax.inject.Inject;
  */
 @Service
 public class BetServiceImpl extends AbstractService<Bet,Long> implements BetService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(BetServiceImpl.class);
 
     @Inject
     private BetDao betDao;

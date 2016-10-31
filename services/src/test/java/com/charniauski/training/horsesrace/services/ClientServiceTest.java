@@ -1,36 +1,32 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.datamodel.AbstractModel;
+import com.charniauski.training.horsesrace.daodb.ClientDao;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
-
-import java.util.Date;
-
-import static org.mockito.Mockito.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
 public class ClientServiceTest {
 
     @Inject
-    private ClientService clientService;
+    private ClientDao clientDao;
 
-    @Mock
-    private GenericDao genericDao;
+    private Client testClient;
 
-    private Client client;
+    private static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
 
     @BeforeClass
     public static void prepareTestData() {
-//        System.out.println("prepareTestData");
+
     }
 
     @AfterClass
@@ -40,24 +36,37 @@ public class ClientServiceTest {
 
     @Before
     public void prepareMethodData() {
-        client=new Client();
-        client.setId(1L);
-        client.setFirstName("TestFist");
-        client.setLastName("TestLast");
-        client.setDate(new Date());
-        client.setAddress("address");
+        testClient = new Client();
+        testClient.setId(2L);
+        testClient.setFirstName("TestFistName");
+        testClient.setLastName("TestLastName");
+        try {
+            testClient.setDate(simpleDateFormat.parse("2016-10-2016"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        testClient.setAddress("address");
     }
 
     @After
     public void deleteMethodData() {
-        client=null;
+        testClient = null;
     }
 
 
     @Test
     public void getByIdTest() {
-        Client client = clientService.get(1L);
+        Client client = clientDao.get(testClient.getId());
         Assert.assertNotNull(client);
-        Assert.assertEquals(new Long(1), client.getId());
+        Assert.assertEquals(testClient.getId(), client.getId());
+    }
+
+    @Test
+    public void saveTest() {
+        testClient.setId(100L);
+        Long insert = clientDao.insert(testClient);
+        Client client = clientDao.get(insert);
+        Assert.assertEquals(testClient, client);
+        clientDao.delete(client.getId());
     }
 }

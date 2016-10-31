@@ -10,6 +10,8 @@ import com.charniauski.training.horsesrace.services.CommandService;
 import com.charniauski.training.horsesrace.services.EventService;
 import com.charniauski.training.horsesrace.services.HorseService;
 import com.charniauski.training.horsesrace.services.wrapper.HorseWithCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -20,7 +22,7 @@ import javax.inject.Inject;
 @Service
 public class HorseServiceImpl extends AbstractService<Horse,Long> implements HorseService {
 
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(HorseServiceImpl.class);
     @Inject
     private HorseDao horseDao;
 

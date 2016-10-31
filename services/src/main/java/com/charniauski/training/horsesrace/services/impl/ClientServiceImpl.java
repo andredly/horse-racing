@@ -9,6 +9,8 @@ import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.ClientService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -24,27 +26,25 @@ import static org.springframework.util.Assert.*;
 @Service
 public class ClientServiceImpl extends AbstractService<Client, Long> implements ClientService {
 
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientServiceImpl.class);
     @Inject
     private ClientDao clientDao;
 
     @Inject
     private AccountService accountService;
 
-
     @Override
     public GenericDao getGenericDao() {
         return clientDao;
     }
 
-    @Transactional
+
     @Override
     public void update(Client client){
 //        if (accountService.get(client.getId())==null)throw new NoSuchEntityException("Account nod found");
         clientDao.update(client);
     }
 
-    @Transactional
     @Override
     public Long save(Client client){
 //        if (accountService.get(client.getId())==null)throw new NoSuchEntityException("Account nod found");

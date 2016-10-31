@@ -4,6 +4,8 @@ import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.RaceDetailDao;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.RaceDetailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import javax.inject.Inject;
  */
 @Service
 public class RaceDetailServiceImpl extends AbstractService<RaceDetail,Long> implements RaceDetailService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RaceDetailServiceImpl.class);
 
 
     @Inject

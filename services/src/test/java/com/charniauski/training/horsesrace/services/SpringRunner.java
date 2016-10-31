@@ -12,6 +12,7 @@ public class SpringRunner {
             System.out.println(beanName);
         }
 
+
 //        ClientService clientServiceBean = springContext.getBean(ClientService.class);
 //        Client client = clientServiceBean.get(2L);
 
