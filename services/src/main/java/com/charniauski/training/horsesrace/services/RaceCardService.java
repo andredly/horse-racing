@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface RaceCardService extends GenericService<RaceCard,Long> {
 
-    List<RaceCard> getAllRacecourseAfterCurrentDate(Long racecourseId);
+    List<RaceCard> getAllRaceCardAfterCurrentDate(Long racecourseId);
 
 }

@@ -6,8 +6,11 @@ import com.charniauski.training.horsesrace.daodb.impl.AbstractDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Client;
+import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.ClientService;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
@@ -25,9 +28,26 @@ public class ClientServiceImpl extends AbstractService<Client, Long> implements 
     @Inject
     private ClientDao clientDao;
 
+    @Inject
+    private AccountService accountService;
+
 
     @Override
     public GenericDao getGenericDao() {
         return clientDao;
+    }
+
+    @Transactional
+    @Override
+    public void update(Client client){
+//        if (accountService.get(client.getId())==null)throw new NoSuchEntityException("Account nod found");
+        clientDao.update(client);
+    }
+
+    @Transactional
+    @Override
+    public Long save(Client client){
+//        if (accountService.get(client.getId())==null)throw new NoSuchEntityException("Account nod found");
+        return clientDao.insert(client);
     }
 }

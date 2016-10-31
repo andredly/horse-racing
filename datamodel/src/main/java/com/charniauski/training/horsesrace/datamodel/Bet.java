@@ -97,12 +97,44 @@ public class Bet extends AbstractModel{
     public String toString() {
         return "Bet{" +
                 "id='" + getId() + '\'' +
-                "dateBet=" + dateBet +
+                ", dateBet=" + dateBet +
                 ", betType='" + betType + '\'' +
                 ", sum=" + sum +
                 ", coefficientBet=" + coefficientBet +
                 ", statusBet='" + statusBet + '\'' +
                 ", calculate=" + calculate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bet bet = (Bet) o;
+
+        if (dateBet != null ? !dateBet.equals(bet.dateBet) : bet.dateBet != null) return false;
+        if (eventId != null ? !eventId.equals(bet.eventId) : bet.eventId != null) return false;
+        if (accountId != null ? !accountId.equals(bet.accountId) : bet.accountId != null) return false;
+        if (betType != null ? !betType.equals(bet.betType) : bet.betType != null) return false;
+        if (sum != null ? !sum.equals(bet.sum) : bet.sum != null) return false;
+        if (coefficientBet != null ? !coefficientBet.equals(bet.coefficientBet) : bet.coefficientBet != null)
+            return false;
+        if (statusBet != null ? !statusBet.equals(bet.statusBet) : bet.statusBet != null) return false;
+        return calculate != null ? calculate.equals(bet.calculate) : bet.calculate == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = dateBet != null ? dateBet.hashCode() : 0;
+        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
+        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
+        result = 31 * result + (betType != null ? betType.hashCode() : 0);
+        result = 31 * result + (sum != null ? sum.hashCode() : 0);
+        result = 31 * result + (coefficientBet != null ? coefficientBet.hashCode() : 0);
+        result = 31 * result + (statusBet != null ? statusBet.hashCode() : 0);
+        result = 31 * result + (calculate != null ? calculate.hashCode() : 0);
+        return result;
     }
 }

@@ -73,12 +73,40 @@ public class Horse extends AbstractModel {
     public String toString() {
         return "Horse{" +
                 "id='" + getId() + '\'' +
-                "nickName='" + nickName + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", equipmentWeight=" + equipmentWeight +
                 ", form='" + form + '\'' +
                 ", commandId=" + commandId +
                 ", owner='" + owner + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Horse horse = (Horse) o;
+
+        if (nickName != null ? !nickName.equals(horse.nickName) : horse.nickName != null) return false;
+        if (age != null ? !age.equals(horse.age) : horse.age != null) return false;
+        if (equipmentWeight != null ? !equipmentWeight.equals(horse.equipmentWeight) : horse.equipmentWeight != null)
+            return false;
+        if (form != null ? !form.equals(horse.form) : horse.form != null) return false;
+        if (commandId != null ? !commandId.equals(horse.commandId) : horse.commandId != null) return false;
+        return owner != null ? owner.equals(horse.owner) : horse.owner == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nickName != null ? nickName.hashCode() : 0;
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (equipmentWeight != null ? equipmentWeight.hashCode() : 0);
+        result = 31 * result + (form != null ? form.hashCode() : 0);
+        result = 31 * result + (commandId != null ? commandId.hashCode() : 0);
+        result = 31 * result + (owner != null ? owner.hashCode() : 0);
+        return result;
     }
 }

@@ -2,8 +2,11 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.RacecourseDao;
+import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
+import com.charniauski.training.horsesrace.services.wrapper.RacecourseWithListRaceCard;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -19,6 +22,9 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Inject
     private RacecourseDao racecourseDao;
 
+    @Inject
+    private RaceCardService raceCardService;
+
 
     @Override
     public GenericDao getGenericDao() {
@@ -26,7 +32,22 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     }
 
     @Override
-    public List<Racecourse> getAllByCurrentDate() {
+    public List<Racecourse> getAllAfterCurrentDate() {
         return racecourseDao.getAllAfterCurrentDate();
+    }
+
+    @Override
+    public RacecourseWithListRaceCard getRacecourseWithListRaceCard(Long racecourseId) {
+        Racecourse racecourse = get(racecourseId);
+        List<RaceCard> raceCards=raceCardService.getAllRaceCardAfterCurrentDate(racecourseId);
+        RacecourseWithListRaceCard racecourseWithListRaceCard=new RacecourseWithListRaceCard();
+        racecourseWithListRaceCard.setRacecourse(racecourse);
+        racecourseWithListRaceCard.setRaceCardList(raceCards);
+        return racecourseWithListRaceCard;
+    }
+
+    @Override
+    public Racecourse getRacecourseByName(String name) {
+        return racecourseDao.getRacecourseByName(name);
     }
 }

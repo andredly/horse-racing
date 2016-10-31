@@ -2,7 +2,6 @@ package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getB
 public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceCardDao{
 
     @Override
-    public List<RaceCard> getAllRacecourseAfterCurrentDate(Long racecourseId) {
+    public List<RaceCard> getAllRaceCardAfterCurrentDate(Long racecourseId) {
         List<RaceCard> listT = new ArrayList<>();
         String sql = "SELECT rc.id, rc.date_start, rc.date_finish, rc.race_type" +
                 " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +

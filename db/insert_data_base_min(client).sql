@@ -1,21 +1,23 @@
-INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Fedor','Gvin','10.12.2016','les');
-INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Mihal','Uro','11.02.2015','hom');
-INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Olga','Ehova','01.05.2014','saray');
-INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Бобик','Шариков','12.03.2012','будка');
-INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Female','Masha','11.02.2015','usa');
-INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Male','Her','02.05.2011','ger');
--- DELETE FROM "client";
-SELECT * FROM "client";
-INSERT INTO security_level (client_status) VALUES ('admin');
-INSERT INTO security_level (client_status) VALUES ('client');
-SELECT * FROM security_level;
-INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (1,'log','pas',1,100.0,'a@r.ru');
-INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (2,'log1','pas2',2,200.0,'f@r.ru');
-INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (3,'log2','pas3',2,10.0,'w@r.ru');
-INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (4,'log3','pas4',2,20.0,'j@r.ru');
-INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (5,'log4','pas5',2,55.0,'l@r.ru');
-SELECT * FROM account;
 
+INSERT INTO security_level (client_status) VALUES ('ADMIN');
+INSERT INTO security_level (client_status) VALUES ('CLIENT');
+
+
+INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log','pas',1,100.0,'a@r.ru');
+INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log1','pas2',2,200.0,'2f@r.ru');
+INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log2','pas3',2,10.0,'w@r.ru');
+INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log3','pas4',2,20.0,'j@r.ru');
+INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log4','pas5',2,55.0,'l@r.ru');
+INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log5','pas6',2,45.0,'1@r.ru');
+
+
+INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (1,'Fedor','Gvin','10.12.2016','les');
+INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (2,'Mihal','Uro','11.02.2015','hom');
+INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (3,'Olga','Ehova','01.05.2014','saray');
+INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (4,'Бобик','Шариков','12.03.2012','будка');
+INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (5,'Female','Masha','11.02.2015','usa');
+INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (6,'Male','Her','02.05.2011','ger');
+-- DELETE FROM "client";
 
 
 INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (1,'jon','uri','http1');
@@ -84,7 +86,7 @@ VALUES (2,'win','2016.10.17 20:12',1.6,'qqq','dred');
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event,result_event,bookmaker)
 VALUES (3,'win','2016.10.17 20:12',1.5,'qqq','dred');
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event,result_event,bookmaker)
-VALUES (4,'win','2016.10.17 20:122',0.6,'qqq','dred');
+VALUES (4,'win','2016.10.17 20:22',0.6,'qqq','dred');
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event,result_event,bookmaker)
 VALUES (5,'win','2016.10.17 20:12',1.0,'qqq','dred');
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event,result_event,bookmaker)

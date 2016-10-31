@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.daodb;
 
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public interface RaceCardDao extends GenericDao<RaceCard, Long>{
 
-    List<RaceCard> getAllRacecourseAfterCurrentDate(Long racecourseId);
+    List<RaceCard> getAllRaceCardAfterCurrentDate(Long racecourseId);
 
     Date getDateStartRaceCard(Long raceCardId);
 

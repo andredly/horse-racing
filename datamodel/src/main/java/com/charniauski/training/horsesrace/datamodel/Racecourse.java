@@ -37,8 +37,27 @@ public class Racecourse  extends AbstractModel{
     public String toString() {
         return "Racecourse{" +
                 "id='" + getId() + '\'' +
-                "name='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Racecourse that = (Racecourse) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return country != null ? country.equals(that.country) : that.country == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        return result;
     }
 }

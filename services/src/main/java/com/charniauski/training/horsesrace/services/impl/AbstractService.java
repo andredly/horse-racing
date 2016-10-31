@@ -5,6 +5,7 @@ import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Entity;
 import com.charniauski.training.horsesrace.services.GenericService;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public abstract class AbstractService<T extends AbstractModel, PK> implements GenericService<T, PK> {
 
     @Override
-    public void saveAll(List<T> listEntity) {
+    public void saveAll(List<T> listEntity) throws NoSuchEntityException {
         for (T entity : listEntity) {
             save(entity);
         }

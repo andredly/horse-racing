@@ -2,6 +2,8 @@ package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
+import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.*;
 import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.*;
+import static java.lang.String.*;
 
 /**
  * Created by ivc4 on 21.10.2016.
@@ -38,9 +41,16 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     //    @SuppressWarnings("unchecked")
     @Override
     public T get(PK id) {
-        String sql = sqlSelectEntity(clazz) + " WHERE id=" + id + ";";
+//        String sql = sqlSelectEntity(clazz) + " WHERE id=" + id + ";";
+        String sql= format("%s WHERE id=%d;",sqlSelectEntity(clazz),id);
         System.out.println(sql);
-        return getBean(jdbcTemplate.queryForMap(sql), clazz);
+        T bean;
+        try {
+            bean = getBean(jdbcTemplate.queryForMap(sql), clazz);
+        }catch (EmptyResultDataAccessException e){
+        return null;
+        }
+        return bean;
     }
 
     @SuppressWarnings("unchecked")
@@ -64,7 +74,8 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     //        @SuppressWarnings("unchecked")
     @Override
     public boolean delete(PK id) {
-        String sql = sqlDeleteEntity(clazz) + id + ";";
+//        String sql = sqlDeleteEntity(clazz) + id + ";";
+        String sql= format("%s%d;",sqlDeleteEntity(clazz),id);
         System.out.println(sql);
         int delete = jdbcTemplate.update(sql);
         return delete == 1;

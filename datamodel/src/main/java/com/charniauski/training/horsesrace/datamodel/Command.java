@@ -43,9 +43,30 @@ public class Command extends AbstractModel {
     public String toString() {
         return "Command{" +
                 "id='" + getId() + '\'' +
-                "trainer='" + trainer + '\'' +
+                ", trainer='" + trainer + '\'' +
                 ", jockey='" + jockey + '\'' +
                 ", urlImageColor='" + urlImageColor + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Command command = (Command) o;
+
+        if (trainer != null ? !trainer.equals(command.trainer) : command.trainer != null) return false;
+        if (jockey != null ? !jockey.equals(command.jockey) : command.jockey != null) return false;
+        return urlImageColor != null ? urlImageColor.equals(command.urlImageColor) : command.urlImageColor == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = trainer != null ? trainer.hashCode() : 0;
+        result = 31 * result + (jockey != null ? jockey.hashCode() : 0);
+        result = 31 * result + (urlImageColor != null ? urlImageColor.hashCode() : 0);
+        return result;
     }
 }

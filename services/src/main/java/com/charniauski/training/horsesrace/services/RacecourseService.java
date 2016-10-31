@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import com.charniauski.training.horsesrace.services.wrapper.RacecourseWithListRaceCard;
 
 import java.util.List;
 
@@ -9,6 +10,10 @@ import java.util.List;
  */
 public interface RacecourseService extends GenericService<Racecourse,Long> {
 
-    List<Racecourse> getAllByCurrentDate();
+    List<Racecourse> getAllAfterCurrentDate();
+
+    RacecourseWithListRaceCard getRacecourseWithListRaceCard(Long racecourseId);
+
+    Racecourse getRacecourseByName(String nameRacecourse);
 
 }

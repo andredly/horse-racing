@@ -1,16 +1,20 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.RacecourseDao;
+import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
+import com.charniauski.training.horsesrace.daodb.util.SqlBuilder;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
+import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.*;
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getBean;
-import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.sqlSelectEntity;
+import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.*;
+import static java.lang.String.*;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -31,5 +35,17 @@ public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements R
             listT.add(entity);
         }
         return listT;
+    }
+
+    @Override
+    public Racecourse getRacecourseByName(String name) {
+        String sql= format("%s WHERE name='%s';",sqlSelectEntity(Racecourse.class),name);
+        Map<String, Object> stringObjectMap;
+        try {
+             stringObjectMap= getJdbcTemplate().queryForMap(sql);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+        return getBean(stringObjectMap,Racecourse.class);
     }
 }

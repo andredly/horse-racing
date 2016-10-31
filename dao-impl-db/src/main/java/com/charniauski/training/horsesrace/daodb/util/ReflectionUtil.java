@@ -1,18 +1,16 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
-import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.collections.map.LinkedMap;
-import org.springframework.util.Assert;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+
+import static org.springframework.util.Assert.notNull;
 
 
 public class ReflectionUtil {
@@ -61,14 +59,14 @@ public class ReflectionUtil {
 
     public static <T> String getTableName(Class<T> clazz) {
         Entity annotation = clazz.getAnnotation(Entity.class);
-        Assert.notNull(annotation);
+        notNull(annotation);
         return annotation.tableName();
     }
 
     public static <T> List<Column> getColumns(Class<T> clazz) {
         List<Column> columns = new ArrayList<>();
         Entity annotation = clazz.getAnnotation(Entity.class);
-        Assert.notNull(annotation);
+        notNull(annotation);
         List<Field> fields = ReflectionUtil.getFields(clazz);
         if (fields.isEmpty()) return columns;
         for (Field field : fields) {

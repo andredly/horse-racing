@@ -77,12 +77,40 @@ public class Event extends AbstractModel {
     public String toString() {
         return "Event{" +
                 "id='" + getId() + '\'' +
-                "raceDetailId=" + raceDetailId +
+                ", raceDetailId=" + raceDetailId +
                 ", eventType='" + eventType + '\'' +
                 ", dateRegister=" + dateRegister +
                 ", coefficientEvent=" + coefficientEvent +
                 ", bookmaker='" + bookmaker + '\'' +
                 ", resultEvent='" + resultEvent + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        if (raceDetailId != null ? !raceDetailId.equals(event.raceDetailId) : event.raceDetailId != null) return false;
+        if (eventType != null ? !eventType.equals(event.eventType) : event.eventType != null) return false;
+        if (dateRegister != null ? !dateRegister.equals(event.dateRegister) : event.dateRegister != null) return false;
+        if (coefficientEvent != null ? !coefficientEvent.equals(event.coefficientEvent) : event.coefficientEvent != null)
+            return false;
+        if (bookmaker != null ? !bookmaker.equals(event.bookmaker) : event.bookmaker != null) return false;
+        return resultEvent != null ? resultEvent.equals(event.resultEvent) : event.resultEvent == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = raceDetailId != null ? raceDetailId.hashCode() : 0;
+        result = 31 * result + (eventType != null ? eventType.hashCode() : 0);
+        result = 31 * result + (dateRegister != null ? dateRegister.hashCode() : 0);
+        result = 31 * result + (coefficientEvent != null ? coefficientEvent.hashCode() : 0);
+        result = 31 * result + (bookmaker != null ? bookmaker.hashCode() : 0);
+        result = 31 * result + (resultEvent != null ? resultEvent.hashCode() : 0);
+        return result;
     }
 }

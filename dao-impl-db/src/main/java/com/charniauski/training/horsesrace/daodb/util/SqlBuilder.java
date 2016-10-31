@@ -3,10 +3,12 @@ package com.charniauski.training.horsesrace.daodb.util;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
-import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Field;
 import java.util.List;
+
+import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getFields;
+import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getTableName;
 
 /**
  * Created by Andre on 22.10.2016.
@@ -26,7 +28,7 @@ public class SqlBuilder {
             valueSb.append("= (");
             columnSb.append("UPDATE ").append(entityAnnotation.tableName()).append(" SET(");
         }
-        List<Field> allFields = ReflectionUtil.getFields(clazz);
+        List<Field> allFields = getFields(clazz);
         Field fieldId = null;
         try {
             for (Field field : allFields) {
@@ -78,12 +80,10 @@ public class SqlBuilder {
 
 
     public static <T extends AbstractModel> String sqlSelectEntity(Class<T> clazz) {
-        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
-        return "SELECT * FROM " + entityAnnotation.tableName() + " ";
+        return "SELECT * FROM " + getTableName(clazz) + " ";
     }
 
     public static <T extends AbstractModel> String sqlDeleteEntity(Class<T> clazz) {
-        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
-        return "DELETE FROM " + entityAnnotation.tableName() + " WHERE id =";
+        return "DELETE FROM " + getTableName(clazz) + " WHERE id =";
     }
 }

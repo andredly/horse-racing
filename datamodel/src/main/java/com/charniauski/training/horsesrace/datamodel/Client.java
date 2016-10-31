@@ -5,7 +5,7 @@ import java.util.Date;
 import static com.charniauski.training.horsesrace.datamodel.Column.DataType.DATE;
 import static com.charniauski.training.horsesrace.datamodel.Column.DataType.VARCHAR;
 
-@Entity(tableName = "client", autoincrementColumn = "id")
+@Entity(tableName = "client")
 public class Client extends AbstractModel {
 
     @Column(columnName = "first_name", dataType = VARCHAR)
@@ -59,10 +59,33 @@ public class Client extends AbstractModel {
     public String toString() {
         return "Client{" +
                 "id='"+getId()+ '\''+
-                "firstName='" + firstName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", date=" + date +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (firstName != null ? !firstName.equals(client.firstName) : client.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(client.lastName) : client.lastName != null) return false;
+        if (date != null ? !date.equals(client.date) : client.date != null) return false;
+        return address != null ? address.equals(client.address) : client.address == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        return result;
     }
 }

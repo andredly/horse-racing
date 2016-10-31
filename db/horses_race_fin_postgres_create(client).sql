@@ -84,7 +84,7 @@ OIDS=FALSE
 
 
 CREATE TABLE "client" (
-  "id" serial NOT NULL,
+  "id" BIGINT NOT NULL,
   "first_name" character varying(256) NOT NULL,
   "last_name" character varying(256) NOT NULL,
   "date" DATE NOT NULL,
@@ -97,7 +97,7 @@ OIDS=FALSE
 
 
 CREATE TABLE "account" (
-  "id" bigint NOT NULL,
+  "id" SERIAL NOT NULL,
   "login" character varying NOT NULL,
   "password" character varying NOT NULL,
   "security_level_id" int NOT NULL,
@@ -145,7 +145,7 @@ ALTER TABLE "bet" ADD CONSTRAINT "bet_fk0" FOREIGN KEY ("event_id") REFERENCES "
 ALTER TABLE "bet" ADD CONSTRAINT "bet_fk1" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 
 
-ALTER TABLE "account" ADD CONSTRAINT "account_fk0" FOREIGN KEY ("id") REFERENCES "client"("id");
+ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("id") REFERENCES "account"("id");
 ALTER TABLE "account" ADD CONSTRAINT "account_fk1" FOREIGN KEY ("security_level_id") REFERENCES "security_level"("id");
 
 ALTER TABLE "bet" ADD UNIQUE ( event_id , account_id );
@@ -155,3 +155,4 @@ ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , number_start_box );
 ALTER TABLE "event" ADD UNIQUE ( race_detail_id , event_type );
 
 CREATE UNIQUE INDEX account_login_uindex ON account (login);
+CREATE UNIQUE INDEX security_level_client_status_uindex ON security_level (client_status);

@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.services.impl;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.RacecourseDao;
 import com.charniauski.training.horsesrace.daodb.SecurityLevelDao;
+import com.charniauski.training.horsesrace.datamodel.AccountStatus;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.datamodel.SecurityLevel;
 import com.charniauski.training.horsesrace.services.RacecourseService;
@@ -29,5 +30,10 @@ public class SecurityLevelServiceImpl extends AbstractService<SecurityLevel,Long
     @Override
     public GenericDao getGenericDao() {
         return securityLevelDao;
+    }
+
+    @Override
+    public SecurityLevel getSecurityLevel(AccountStatus accountStatus) {
+        return securityLevelDao.getSecurityLevel(accountStatus);
     }
 }

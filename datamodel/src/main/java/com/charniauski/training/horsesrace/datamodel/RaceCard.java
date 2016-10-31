@@ -56,9 +56,32 @@ public class RaceCard extends AbstractModel {
     public String toString() {
         return "RaceCard{" +
                 "id='" + getId() + '\'' +
-                "dateStart=" + dateStart +
+                ", dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
                 ", raceType='" + raceType + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RaceCard raceCard = (RaceCard) o;
+
+        if (dateStart != null ? !dateStart.equals(raceCard.dateStart) : raceCard.dateStart != null) return false;
+        if (dateFinish != null ? !dateFinish.equals(raceCard.dateFinish) : raceCard.dateFinish != null) return false;
+        if (raceType != null ? !raceType.equals(raceCard.raceType) : raceCard.raceType != null) return false;
+        return racecourseId != null ? racecourseId.equals(raceCard.racecourseId) : raceCard.racecourseId == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = dateStart != null ? dateStart.hashCode() : 0;
+        result = 31 * result + (dateFinish != null ? dateFinish.hashCode() : 0);
+        result = 31 * result + (raceType != null ? raceType.hashCode() : 0);
+        result = 31 * result + (racecourseId != null ? racecourseId.hashCode() : 0);
+        return result;
     }
 }
