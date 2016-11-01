@@ -72,7 +72,7 @@ public class Client extends AbstractModel {
         if (o == null || getClass() != o.getClass()) return false;
 
         Client client = (Client) o;
-
+        if (getId() != null ? !getId().equals(client.getId()) : client.getId() != null) return false;
         if (firstName != null ? !firstName.equals(client.firstName) : client.firstName != null) return false;
         if (lastName != null ? !lastName.equals(client.lastName) : client.lastName != null) return false;
         if (date != null ? !date.equals(client.date) : client.date != null) return false;
@@ -82,7 +82,8 @@ public class Client extends AbstractModel {
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);

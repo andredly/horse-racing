@@ -80,7 +80,7 @@ public class Account extends AbstractModel{
         if (o == null || getClass() != o.getClass()) return false;
 
         Account account = (Account) o;
-
+        if (getId() != null ? !getId().equals(account.getId()) : account.getId() != null) return false;
         if (login != null ? !login.equals(account.login) : account.login != null) return false;
         if (password != null ? !password.equals(account.password) : account.password != null) return false;
         if (securityLevelId != null ? !securityLevelId.equals(account.securityLevelId) : account.securityLevelId != null)
@@ -92,7 +92,8 @@ public class Account extends AbstractModel{
 
     @Override
     public int hashCode() {
-        int result = login != null ? login.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (securityLevelId != null ? securityLevelId.hashCode() : 0);
         result = 31 * result + (balance != null ? balance.hashCode() : 0);

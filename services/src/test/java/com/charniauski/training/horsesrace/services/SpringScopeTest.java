@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class SpringScopeTest {
 
@@ -214,14 +215,6 @@ public class SpringScopeTest {
 //        }
 //        System.out.println();
 
-////        RaceDetailWithHorse raceDetailWithHorse = raceDetailService.getRaceDetailWithHorse(11L);
-////        Horse horse = raceDetailWithHorse.getHorse();
-////        RaceDetail raceDetail=raceDetailWithHorse.getRaceDetail();
-////        System.out.println(raceDetail);
-////        System.out.println(horse);
-//
-//
-//
 //        Racecourse bet = racecourseServiceBean.get(2L);
 //        System.out.println(bet);
 //        bet.setCountry("фывафывафыва");
@@ -240,27 +233,30 @@ public class SpringScopeTest {
 //            System.out.println(client1);
 //        }
 //        System.out.println();
-        Racecourse racecourse = racecourseServiceBean.getRacecourseByName("usa");
-        System.out.println(racecourse);
-        SecurityLevel securityLevel = securityLevelServiceBean.getSecurityLevel(AccountStatus.CLIENT);
-        System.out.println(securityLevel);
-        AccountWithClient accountWithClient = accountServiceBean.getAccountWithClient(3L);
-        Account account = accountWithClient.getAccount();
-        Client client1 = accountWithClient.getClient();
-        System.out.println(account);
-        System.out.println(client1);
-        account.setLogin("New8");
-        account.setId(null);
-        account.setBalance(null);
-        client1.setId(null);
-        client1.setLastName("Testing6");
-        Long save = accountServiceBean.save(accountWithClient);
-        System.out.println(save);
-        Account account1=accountServiceBean.getAccountByLogin("Log5");
-        System.out.println(account1);
-        Logger logger= LoggerFactory.getLogger(SpringScopeTest.class);
-        logger.info("Привет");
-        logger.error(account.getEmail());
+//        Racecourse racecourse = racecourseServiceBean.getRacecourseByName("usa");
+//        System.out.println(racecourse);
+//        SecurityLevel securityLevel = securityLevelServiceBean.getSecurityLevel(AccountStatus.CLIENT);
+//        System.out.println(securityLevel);
+//        AccountWithClient accountWithClient = accountServiceBean.getAccountWithClient(3L);
+//        Account account = accountWithClient.getAccount();
+//        Client client1 = accountWithClient.getClient();
+//        System.out.println(account);
+//        System.out.println(client1);
+//        account.setLogin("New8");
+//        account.setId(null);
+//        account.setBalance(null);
+//        client1.setId(null);
+//        client1.setLastName("Testing6");
+//        Long save = accountServiceBean.save(accountWithClient);
+//        System.out.println(save);
+//        Account account1=accountServiceBean.getAccountByLogin("Log5");
+//        System.out.println(account1);
+//        Logger logger= LoggerFactory.getLogger(SpringScopeTest.class);
+//        logger.info("Привет");
+//        logger.error(account.getEmail());
+
+        List<RaceCard> raceCards=raceCardServiceBean.getAllRaceCardAfterCurrentDate(2L);
+        System.out.println(raceCards);
 
     }
 }

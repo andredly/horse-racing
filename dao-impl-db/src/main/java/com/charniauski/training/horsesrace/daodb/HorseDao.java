@@ -9,4 +9,6 @@ import java.util.Locale;
  */
 public interface HorseDao extends GenericDao<Horse, Long> {
 
+    Horse getHorseByNickName(String nickName);
+
 }

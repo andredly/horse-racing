@@ -112,7 +112,7 @@ public class Bet extends AbstractModel{
         if (o == null || getClass() != o.getClass()) return false;
 
         Bet bet = (Bet) o;
-
+        if (getId() != null ? !getId().equals(bet.getId()) : bet.getId() != null) return false;
         if (dateBet != null ? !dateBet.equals(bet.dateBet) : bet.dateBet != null) return false;
         if (eventId != null ? !eventId.equals(bet.eventId) : bet.eventId != null) return false;
         if (accountId != null ? !accountId.equals(bet.accountId) : bet.accountId != null) return false;
@@ -127,7 +127,8 @@ public class Bet extends AbstractModel{
 
     @Override
     public int hashCode() {
-        int result = dateBet != null ? dateBet.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (dateBet != null ? dateBet.hashCode() : 0);
         result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
         result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
         result = 31 * result + (betType != null ? betType.hashCode() : 0);

@@ -31,13 +31,14 @@ public class SecurityLevel extends AbstractModel{
         if (o == null || getClass() != o.getClass()) return false;
 
         SecurityLevel that = (SecurityLevel) o;
-
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
         return clientStatus != null ? clientStatus.equals(that.clientStatus) : that.clientStatus == null;
 
     }
 
     @Override
     public int hashCode() {
-        return clientStatus != null ? clientStatus.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
+        return 31 * result + (clientStatus != null ? clientStatus.hashCode() : 0);
     }
 }

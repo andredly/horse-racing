@@ -18,6 +18,7 @@ import static java.lang.String.format;
 @Repository
 public class AccountDaoImpl extends AbstractDao<Account, Long> implements AccountDao {
 
+
     @Override
     public Account getAccountByLogin(String login) {
         String sql = format("%s WHERE login='%s';", sqlSelectEntity(Account.class), login);

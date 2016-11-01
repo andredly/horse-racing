@@ -20,63 +20,65 @@ INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (6,'Male','H
 -- DELETE FROM "client";
 
 
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (1,'jon','uri','http1');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (2,'igi','mor','http2');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (3,'петя','коля','http3');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (4,'roa','per','http4');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (5,'dor','jus','http5');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (6,'ver','vuy','http6');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (7,'low','qer','http7');
-INSERT INTO command (id,trainer,jockey,url_image_color) VALUES (8,'петя1','коля1','http8');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster1',3,60,'1245',1,'henk1');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster2',2,61,'245',2,'henk2');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster3',2,62,'45',3,'henk3');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster4',4,59,NULL ,4,'henk4');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster5',3,64,'1',5,'henk5');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster6',2,58,'12',6,'henk6');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster7',4,65,'34',7,'henk7');
-INSERT INTO horse (nick_name,age,equipment_weight,form,command_id,owner)
-VALUES ('faster8',2,64,'567',8,'henk8');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('1','jon','uri','http1');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('2','igi','mor','http2');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('3','петя','коля','http3');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('4','roa','per','http4');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('5','dor','jus','http5');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('6','ver','vuy','http6');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('7','low','qer','http7');
+INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('8','петя1','коля1','http8');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster1',3,60,'1245','henk1');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster2',2,61,'245','henk2');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster3',2,62,'45','henk3');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster4',4,59,NULL ,'henk4');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster5',3,64,'1','henk5');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster6',2,58,'12','henk6');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster7',4,65,'34','henk7');
+INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
+VALUES ('faster8',2,64,'567','henk8');
 
 
 INSERT INTO racecourse (id, name, country) VALUES (1,'germ','g');
 INSERT INTO racecourse (id, name, country) VALUES (2,'usa','us');
 INSERT INTO racecourse (id, name, country) VALUES (3,'angl','an');
 
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.10.17','2016.10.17','1000',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.10.17','2016.10.17','1500',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.10.17','2016.10.17','1600',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.03','2016.10.17','1000',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.02','2016.10.17','1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.04','2016.10.17','1600',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.05','2016.10.17','1600',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.01','2016.10.17','1600',1);
 
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,1,1,NULL );
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,2,2,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,3,3,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,4,4,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,5,5,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,6,6,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,7,7,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (1,8,8,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,1,1,1,NULL );
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,2,2,2,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,3,3,3,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,4,4,4,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,5,5,5,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,6,6,6,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,7,7,7,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,8,8,8,NULL);
 
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,1,1,NULL );
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,2,2,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,3,3,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,4,4,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,5,5,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,6,6,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (2,7,7,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,1,1,1,NULL );
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,2,2,2,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,3,3,3,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,4,4,4,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,5,5,5,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,6,6,6,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,7,7,7,NULL);
 
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (3,1,1,NULL );
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (3,2,2,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (3,3,3,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (3,4,4,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (3,5,5,NULL);
-INSERT INTO race_detail (race_card_id,horse_id,number_start_box,horse_result) VALUES (3,6,6,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (3,1,1,8,NULL );
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (3,2,2,9,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (3,3,3,10,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (3,4,4,11,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (3,5,5,12,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (3,6,6,13,NULL);
 
 
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event, result_event,bookmaker)

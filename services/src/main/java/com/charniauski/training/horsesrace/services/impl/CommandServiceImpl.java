@@ -14,6 +14,7 @@ import javax.inject.Inject;
  * Created by Andre on 19.10.2016.
  */
 @Service
+
 public class CommandServiceImpl extends AbstractService<Command,Long> implements CommandService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandServiceImpl.class);
@@ -24,5 +25,10 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
     @Override
     public GenericDao getGenericDao() {
         return commandDao;
+    }
+
+    @Override
+    public Command getCommandByNameCommand(String nameCommand) {
+        return commandDao.getCommandByNameCommand(nameCommand);
     }
 }

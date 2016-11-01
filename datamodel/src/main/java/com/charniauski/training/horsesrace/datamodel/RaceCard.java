@@ -68,7 +68,7 @@ public class RaceCard extends AbstractModel {
         if (o == null || getClass() != o.getClass()) return false;
 
         RaceCard raceCard = (RaceCard) o;
-
+        if (getId() != null ? !getId().equals(raceCard.getId()) : raceCard.getId() != null) return false;
         if (dateStart != null ? !dateStart.equals(raceCard.dateStart) : raceCard.dateStart != null) return false;
         if (dateFinish != null ? !dateFinish.equals(raceCard.dateFinish) : raceCard.dateFinish != null) return false;
         if (raceType != null ? !raceType.equals(raceCard.raceType) : raceCard.raceType != null) return false;
@@ -78,7 +78,8 @@ public class RaceCard extends AbstractModel {
 
     @Override
     public int hashCode() {
-        int result = dateStart != null ? dateStart.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (dateStart != null ? dateStart.hashCode() : 0);
         result = 31 * result + (dateFinish != null ? dateFinish.hashCode() : 0);
         result = 31 * result + (raceType != null ? raceType.hashCode() : 0);
         result = 31 * result + (racecourseId != null ? racecourseId.hashCode() : 0);

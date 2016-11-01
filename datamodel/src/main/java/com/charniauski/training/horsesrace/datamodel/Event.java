@@ -92,7 +92,7 @@ public class Event extends AbstractModel {
         if (o == null || getClass() != o.getClass()) return false;
 
         Event event = (Event) o;
-
+        if (getId() != null ? !getId().equals(event.getId()) : event.getId() != null) return false;
         if (raceDetailId != null ? !raceDetailId.equals(event.raceDetailId) : event.raceDetailId != null) return false;
         if (eventType != null ? !eventType.equals(event.eventType) : event.eventType != null) return false;
         if (dateRegister != null ? !dateRegister.equals(event.dateRegister) : event.dateRegister != null) return false;
@@ -105,7 +105,8 @@ public class Event extends AbstractModel {
 
     @Override
     public int hashCode() {
-        int result = raceDetailId != null ? raceDetailId.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (raceDetailId != null ? raceDetailId.hashCode() : 0);
         result = 31 * result + (eventType != null ? eventType.hashCode() : 0);
         result = 31 * result + (dateRegister != null ? dateRegister.hashCode() : 0);
         result = 31 * result + (coefficientEvent != null ? coefficientEvent.hashCode() : 0);

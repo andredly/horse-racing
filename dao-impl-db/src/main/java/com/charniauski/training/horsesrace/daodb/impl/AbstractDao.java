@@ -2,7 +2,8 @@ package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -26,6 +27,8 @@ import static java.lang.String.*;
 @Repository
 public abstract class AbstractDao<T extends AbstractModel, PK> implements GenericDao<T, PK> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDao.class);
+
     @Inject
     private JdbcTemplate jdbcTemplate;
 
@@ -43,7 +46,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public T get(PK id) {
 //        String sql = sqlSelectEntity(clazz) + " WHERE id=" + id + ";";
         String sql= format("%s WHERE id=%d;",sqlSelectEntity(clazz),id);
-        System.out.println(sql);
+        LOGGER.debug(sql);
         T bean;
         try {
             bean = getBean(jdbcTemplate.queryForMap(sql), clazz);
@@ -57,7 +60,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public PK insert(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, true);
-        System.out.println(sql);
+        LOGGER.debug(sql);
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> con.prepareStatement(sql, new String[]{"id"}), generatedKeyHolder);
         return (PK) (Object) generatedKeyHolder.getKey().longValue();
@@ -65,10 +68,11 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     //        @SuppressWarnings("unchecked")
     @Override
-    public void update(T entity) {
+    public Long update(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
-        System.out.println(sql);
+        LOGGER.debug(sql);
         jdbcTemplate.update(sql);
+        return null;
     }
 
     //        @SuppressWarnings("unchecked")
@@ -76,7 +80,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public boolean delete(PK id) {
 //        String sql = sqlDeleteEntity(clazz) + id + ";";
         String sql= format("%s%d;",sqlDeleteEntity(clazz),id);
-        System.out.println(sql);
+        LOGGER.debug(sql);
         int delete = jdbcTemplate.update(sql);
         return delete == 1;
     }
@@ -89,6 +93,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
             T entity = getBean(map, clazz);
             listT.add(entity);
         }
+        LOGGER.debug(listT.toString());
         return listT;
     }
 

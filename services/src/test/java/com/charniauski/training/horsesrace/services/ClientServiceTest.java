@@ -1,6 +1,8 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.ClientDao;
+import com.charniauski.training.horsesrace.datamodel.Account;
+import com.charniauski.training.horsesrace.datamodel.AccountStatus;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -10,8 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
@@ -20,9 +23,19 @@ public class ClientServiceTest {
     @Inject
     private ClientDao clientDao;
 
+    @Inject
+    private AccountService accountService;
+
+    @Inject
+    ClientService clientService;
+
     private Client testClient;
 
-    private static SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+    private Account testAccount;
+
+    private Long testAccountId;
+
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @BeforeClass
     public static void prepareTestData() {
@@ -36,8 +49,14 @@ public class ClientServiceTest {
 
     @Before
     public void prepareMethodData() {
+        testAccount = new Account();
+        testAccount.setLogin("TestLoginNew");
+        testAccount.setPassword("pass");
+        testAccount.setBalance(0.0);
+        testAccount.setSecurityLevelId(2L);
+        testAccount.setEmail("test@test.ru");
+        testAccountId = accountService.save(testAccount);
         testClient = new Client();
-        testClient.setId(2L);
         testClient.setFirstName("TestFistName");
         testClient.setLastName("TestLastName");
         try {
@@ -51,22 +70,92 @@ public class ClientServiceTest {
     @After
     public void deleteMethodData() {
         testClient = null;
+        testAccount.setId(testAccountId);
+        accountService.delete(testAccount);
+        testAccountId = null;
     }
 
 
     @Test
     public void getByIdTest() {
+        testClient.setId(testAccountId);
+        Long id = clientDao.insert(testClient);
         Client client = clientDao.get(testClient.getId());
-        Assert.assertNotNull(client);
-        Assert.assertEquals(testClient.getId(), client.getId());
+        assertNotNull(client);
+        assertEquals(testClient.getId(), client.getId());
+        clientDao.delete(id);
     }
 
     @Test
     public void saveTest() {
-        testClient.setId(100L);
+        testClient.setId(testAccountId);
         Long insert = clientDao.insert(testClient);
         Client client = clientDao.get(insert);
-        Assert.assertEquals(testClient, client);
+        assertEquals(testClient, client);
         clientDao.delete(client.getId());
     }
+
+    @Test
+    public void updateTest() {
+        testClient.setId(testAccountId);
+        Long insert = clientDao.insert(testClient);
+        testClient.setId(insert);
+        testClient.setFirstName("NewTestFirstName");
+        Long update = clientDao.update(testClient);
+        Client client = clientDao.get(insert);
+        assertEquals(testClient, client);
+        clientDao.delete(client.getId());
+    }
+
+    @Test
+    public void deleteTest() {
+        testClient.setId(testAccountId);
+        Long insert = clientDao.insert(testClient);
+        boolean delete = clientDao.delete(insert);
+        assertTrue(delete);
+    }
+
+    @Test
+    public void saveAllTest() {
+        Account testAccount1 = new Account();
+        testAccount1.setLogin("TestLoginNew1");
+        testAccount1.setPassword("pass");
+        testAccount1.setBalance(0.0);
+        testAccount1.setSecurityLevelId(2L);
+        testAccount1.setEmail("test1@test.ru");
+        Long testAccountId1 = accountService.save(testAccount1);
+        testClient.setId(testAccountId);
+        Client testClient1 = new Client();
+        testClient1.setId(testAccountId1);
+        testClient1.setFirstName("TestFistName1");
+        testClient1.setLastName("TestLastName1");
+        try {
+            testClient1.setDate(simpleDateFormat.parse("2016-10-2016"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        testClient1.setAddress("address1");
+
+        List<Client> arrayList = new ArrayList<>();
+        arrayList.addAll(Arrays.asList(testClient, testClient1));
+        clientService.saveAll(arrayList);
+        Client client = clientDao.get(testClient.getId());
+        Client client1 = clientDao.get(testClient1.getId());
+//        testAccount.setId(client.getId());
+//        testAccount1.setId(client1.getId());
+        assertEquals(testClient, client);
+        assertEquals(testClient1, client1);
+        clientDao.delete(client1.getId());
+        clientDao.delete(client.getId());
+        testAccount1.setId(testAccountId1);
+        accountService.delete(testAccount1);
+    }
+    
+    @Test
+    public void getAll(){
+        List<Client> all = clientDao.getAll();
+        assertNotNull(all);
+        assertNotNull(all.get(0).getId());
+    }
+
 }

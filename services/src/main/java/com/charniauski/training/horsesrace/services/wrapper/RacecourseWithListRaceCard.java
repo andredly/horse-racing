@@ -31,4 +31,23 @@ public class RacecourseWithListRaceCard {
     public RacecourseWithListRaceCard() {
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RacecourseWithListRaceCard that = (RacecourseWithListRaceCard) o;
+
+        if (racecourse != null ? !racecourse.equals(that.racecourse) : that.racecourse != null) return false;
+        return raceCardList != null ? raceCardList.equals(that.raceCardList) : that.raceCardList == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = racecourse != null ? racecourse.hashCode() : 0;
+        result = 31 * result + (raceCardList != null ? raceCardList.hashCode() : 0);
+        return result;
+    }
 }

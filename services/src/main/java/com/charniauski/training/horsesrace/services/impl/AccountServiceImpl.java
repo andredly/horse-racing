@@ -41,11 +41,6 @@ public class AccountServiceImpl extends AbstractService<Account,Long> implements
         return accountDao;
     }
 
-    @Override
-    public Long save(Account entity)
-    {
-       return accountDao.insert(entity);
-    }
 
     @Override
     public Account getAccountByLogin(String login) {

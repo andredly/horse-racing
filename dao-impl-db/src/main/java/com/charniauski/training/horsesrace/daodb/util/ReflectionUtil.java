@@ -3,6 +3,8 @@ package com.charniauski.training.horsesrace.daodb.util;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -14,6 +16,8 @@ import static org.springframework.util.Assert.notNull;
 
 
 public class ReflectionUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReflectionUtil.class);
 
     public static boolean isTransient(Field field) {
         return Modifier.isTransient(field.getModifiers());
@@ -112,10 +116,12 @@ public class ReflectionUtil {
             if (mapResultQuery.containsKey(column.columnName()))
                 beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
         }
+        LOGGER.info(beanParameter.toString());
         for (Map.Entry<String,Object> map:mapResultQuery.entrySet()){
-            String columnNameEqualsNameClass=map.getKey().replace("_id","");
+            String columnNameEqualsNameClass=map.getKey().replace("_","");
+            columnNameEqualsNameClass.replace("_id","");
             String nameClass = clazz.getSimpleName().toLowerCase();
-            if(columnNameEqualsNameClass.contains(nameClass))beanParameter.put("id",map.getValue());
+            if(columnNameEqualsNameClass.equals(nameClass))beanParameter.put("id",map.getValue());
         }
         T entity = null;
         try {

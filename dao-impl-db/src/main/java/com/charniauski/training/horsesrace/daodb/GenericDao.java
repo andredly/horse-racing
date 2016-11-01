@@ -1,7 +1,5 @@
 package com.charniauski.training.horsesrace.daodb;
 
-import com.charniauski.training.horsesrace.datamodel.AbstractModel;
-
 import java.util.List;
 
 /**
@@ -13,7 +11,7 @@ public interface GenericDao<T, PK> {
 
     PK insert(T entity);
 
-    void update(T entity);
+    Long update(T entity);
 
     boolean delete(PK id);
 

@@ -15,7 +15,7 @@ public interface GenericService<T,PK> {
 
     List<T> getAll();
 
-    void saveAll(List<T> clients) throws NoSuchEntityException;
+    void saveAll(List<T> clients);
 
     PK save(T entity);
 

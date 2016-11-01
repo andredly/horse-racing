@@ -18,8 +18,10 @@ import java.util.List;
 @Service
 public abstract class AbstractService<T extends AbstractModel, PK> implements GenericService<T, PK> {
 
+
+    @Transactional
     @Override
-    public void saveAll(List<T> listEntity) throws NoSuchEntityException {
+    public void saveAll(List<T> listEntity) {
         for (T entity : listEntity) {
             save(entity);
         }
