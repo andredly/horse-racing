@@ -43,7 +43,8 @@ public class SqlBuilder {
                 if (isInsert && entityAnnotation.autoincrementColumn().equals(field.getName())) {
                     continue;
                 }
-                if (field.getType().getSimpleName().endsWith("String") || field.getType().getSimpleName().endsWith("Date")) {
+                if (field.getType().getSimpleName().endsWith("String") ||
+                        field.getType().getSimpleName().endsWith("Date")) {
                     if (null == field.get(entity)) {
                         continue;
                     } else {
@@ -76,7 +77,6 @@ public class SqlBuilder {
                     .append(") ")
                     .append(valueSb.toString());
         }
-        //        String sql = valueSb.toString();
         return columnSb.toString();
     }
 

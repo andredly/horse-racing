@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.daodb.test;
 import com.charniauski.training.horsesrace.daodb.AccountDao;
 import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.datamodel.Account;
+import com.charniauski.training.horsesrace.datamodel.AccountStatus;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import org.postgresql.Driver;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,28 +29,28 @@ public class TestSql {
 //        Driver driver=new Driver();
 //        System.out.println(driver.getClass());
 
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
-//            e.printStackTrace();
-//            return;
-//
-//        }
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
+            e.printStackTrace();
+            return;
 
-//        System.out.println("PostgreSQL JDBC Driver successfully connected");
-//        Connection connection = null;
-//
-//        try {
-//            connection = DriverManager
-//                    .getConnection(DB_URL, USER, PASS);
-//
-//        } catch (SQLException e) {
-//            System.out.println("Connection Failed");
-//            e.printStackTrace();
-//            return;
-//        }
-//
+        }
+
+        System.out.println("PostgreSQL JDBC Driver successfully connected");
+        Connection connection = null;
+
+        try {
+            connection = DriverManager
+                    .getConnection(DB_URL, USER, PASS);
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed");
+            e.printStackTrace();
+            return;
+        }
+
 //        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO \"user\"(first_name, last_name,gender,date,address)" +
 //                "VALUES(?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 //
@@ -81,18 +82,18 @@ public class TestSql {
 //        preparedStatementUpdate.close();
 //
 //
-//        Statement statementSelect = connection.createStatement();
-//        ResultSet resultSet = statementSelect.executeQuery("SELECT last_name, first_name, gender, address, date FROM \"user\" us" +
-//                " JOIN account ac ON (us.id=ac.id) LEFT JOIN security_level sl ON (ac.security_level_id = sl.id)");
-//        while (resultSet.next()) {
-//            String first_nameName = resultSet.getString("first_name");
-//            String last_name = resultSet.getString("last_name");
-//            String gender = resultSet.getString("gender");
-//            String address = resultSet.getString("address");
-//            Date date = resultSet.getDate("date");
-//            System.out.println(first_nameName + " " + last_name + " " + gender + " " + address + " " + date);
-//        }
-//
+        Statement statementSelect = connection.createStatement();
+        ResultSet resultSet = statementSelect.executeQuery("SELECT last_name, first_name, gender, address, date FROM \"user\" us" +
+                " JOIN account ac ON (us.id=ac.id) LEFT JOIN security_level sl ON (ac.security_level_id = sl.id)");
+        while (resultSet.next()) {
+            String first_nameName = resultSet.getString("first_name");
+            String last_name = resultSet.getString("last_name");
+            String gender = resultSet.getString("gender");
+            String address = resultSet.getString("address");
+            Date date = resultSet.getDate("date");
+            System.out.println(first_nameName + " " + last_name + " " + gender + " " + address + " " + date);
+        }
+
 //
 //        if (connection != null) {
 //            System.out.println("You successfully connected to database now");

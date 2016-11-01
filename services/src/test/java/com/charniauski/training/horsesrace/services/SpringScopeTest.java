@@ -1,19 +1,30 @@
 package com.charniauski.training.horsesrace.services;
 
+import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
+import com.charniauski.training.horsesrace.daodb.util.SqlBuilder;
 import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.services.impl.AccountServiceImpl;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWithClient;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
+import javax.inject.Inject;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class SpringScopeTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
@@ -254,9 +265,43 @@ public class SpringScopeTest {
 //        Logger logger= LoggerFactory.getLogger(SpringScopeTest.class);
 //        logger.info("Привет");
 //        logger.error(account.getEmail());
+//
+//        List<RaceCard> raceCards=raceCardServiceBean.getAllRaceCardAfterCurrentDate(2L);
+//        System.out.println(raceCards);
+        SecurityLevelService1 securityLevelService1 = springContext.getBean(SecurityLevelService1.class);
+        SecurityLevel1 securityLevel1=securityLevelService1.get(1L);
+        System.out.println(securityLevel1);
 
-        List<RaceCard> raceCards=raceCardServiceBean.getAllRaceCardAfterCurrentDate(2L);
-        System.out.println(raceCards);
 
+//        SecurityLevel1 securityLevel1 = new SecurityLevel1();
+//        securityLevel1.setId(2L);
+//        securityLevel1.setSecurityLevel(SecurityLevel1.AccountStatus1.BOOKMAKER);
+//        BeanUtilsBean instance = BeanUtilsBean.getInstance();
+//        PropertyUtilsBean propertyUtils = instance.getPropertyUtils();
+//        Map<String, Object> describe = propertyUtils.describe(SecurityLevel1.class);
+//        System.out.println(describe);
+//        SecurityLevel1 securityLevel=SecurityLevel1.class.newInstance();
+//
+//      instance.populate(securityLevel,describe);
+//        System.out.println(securityLevel1);
+
+//        SecurityLevel1 securityLevel1 = new SecurityLevel1();
+//        securityLevel1.setId(2L);
+//        securityLevel1.setSecurityLevel(SecurityLevel1.AccountStatus1.BOOKMAKER);
+
+//        SecurityLevel1 securityLevel11 = securityLevel1;
+        SecurityLevel1.AccountStatus1 securityLevel = securityLevel1.getSecurityLevel();
+        System.out.println(securityLevel);
+
+        securityLevel1.setId(2L);
+        securityLevel1.setSecurityLevel(SecurityLevel1.AccountStatus1.BOOKMAKER);
+        System.out.println(SqlBuilder.sqlInsertOrUpdateEntity(securityLevel1,true));
+
+
+       String sql="SELECT * FROM security_l WHERE id=2;";
+//        SecurityLevel bean = ReflectionUtil.getBean(map, SecurityLevel.class);
+//        System.out.println(securityLevel1);
     }
+
+
 }

@@ -1,7 +1,9 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
+import com.charniauski.training.horsesrace.datamodel.AccountStatus;
 import com.charniauski.training.horsesrace.datamodel.Column;
 import com.charniauski.training.horsesrace.datamodel.Entity;
+import com.charniauski.training.horsesrace.datamodel.SecurityLevel1;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,33 +115,41 @@ public class ReflectionUtil {
         List<Field> fields = getFields(clazz);
         for (Field field : fields) {
             Column column = field.getAnnotation(Column.class);
+
+
+            //// TODO: 02.11.2016
+            //попробовать анотировать поле
+            if (field.getType().equals(SecurityLevel1.AccountStatus1.class)) {
+                String status = (String) mapResultQuery.get(column.columnName());
+                SecurityLevel1.AccountStatus1 accountStatus1 = SecurityLevel1.AccountStatus1.valueOf(status);
+                System.out.println(accountStatus1);
+                beanParameter.put(field.getName(), accountStatus1);
+                System.out.println("попал");
+                continue;
+            }
+
             if (mapResultQuery.containsKey(column.columnName()))
                 beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
         }
         LOGGER.info(beanParameter.toString());
-        for (Map.Entry<String,Object> map:mapResultQuery.entrySet()){
-            String columnNameEqualsNameClass=map.getKey().replace("_","");
-            columnNameEqualsNameClass.replace("_id","");
+        for (Map.Entry<String, Object> map : mapResultQuery.entrySet()) {
+            String columnNameEqualsNameClass = map.getKey().replace("_", "").replace("_id", "");
             String nameClass = clazz.getSimpleName().toLowerCase();
-            if(columnNameEqualsNameClass.equals(nameClass))beanParameter.put("id",map.getValue());
+            if (columnNameEqualsNameClass.equals(nameClass)) beanParameter.put("id", map.getValue());
         }
         T entity = null;
         try {
             entity = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        BeanUtilsBean instance = BeanUtilsBean.getInstance();
-        try {
+            BeanUtilsBean instance = BeanUtilsBean.getInstance();
             instance.populate(entity, beanParameter);
-        } catch (IllegalAccessException | InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }
         return entity;
     }
 
 
-    public static <T> Map<String,Object> getMapColumnAndArgEntity(T entity) {
+    public static <T> Map<String, Object> getMapColumnAndArgEntity(T entity) {
         Map<String, Object> map = new LinkedHashMap<>();
         Class<?> clazz = entity.getClass();
         Entity entityAnnotation = clazz.getAnnotation(Entity.class);
