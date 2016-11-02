@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,7 +30,28 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard,Long> implemen
     }
 
     @Override
-    public List<RaceCard> getAllRaceCardAfterCurrentDate(Long racecourseId) {
-        return raceCardDao.getAllRaceCardAfterCurrentDate(racecourseId);
+    public List<RaceCard> getAllAfterCurrentDate(Long racecourseId) {
+        return raceCardDao.getAllByRacecourseAfterCurrentDate(racecourseId);
     }
+
+    @Override
+    public List<RaceCard> getThreeNextAfterCurrentDate() {
+        List<RaceCard> allAfterCurrentDate = getAllAfterCurrentDate();
+        List<RaceCard> threeNextAfterCurrentDate=new ArrayList<>();
+        if (allAfterCurrentDate.isEmpty())return threeNextAfterCurrentDate;
+        int size;
+        if (allAfterCurrentDate.size()<=3)size=allAfterCurrentDate.size();
+        else size=3;
+        for (int i=0;i<size;i++){
+            threeNextAfterCurrentDate.add(allAfterCurrentDate.get(i));
+        }
+        return threeNextAfterCurrentDate;
+    }
+
+    @Override
+    public List<RaceCard> getAllAfterCurrentDate() {
+        return raceCardDao.getAllAfterCurrentDate();
+    }
+
+
 }

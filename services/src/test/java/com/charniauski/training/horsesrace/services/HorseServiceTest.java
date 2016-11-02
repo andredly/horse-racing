@@ -123,8 +123,8 @@ public class HorseServiceTest {
         testHorse.setNickName("TestNickName2");
         arrayList.addAll(Arrays.asList(testHorse, testHorse1));
         horseService.saveAll(arrayList);
-        Horse horse = horseDao.getHorseByNickName("TestNickName2");
-        Horse horse1 = horseDao.getHorseByNickName("TestNickName1");
+        Horse horse = horseDao.getByNickName("TestNickName2");
+        Horse horse1 = horseDao.getByNickName("TestNickName1");
         testHorse.setId(horse.getId());
         testHorse1.setId(horse1.getId());
         assertEquals(testHorse, horse);
@@ -142,7 +142,7 @@ public class HorseServiceTest {
 
     @Test
     public void getHorseByLogin(){
-        Horse testLoginNew = horseDao.getHorseByNickName("TestNickName");
+        Horse testLoginNew = horseDao.getByNickName("TestNickName");
         testHorse.setId(testHorseId);
         assertEquals(testHorse,testLoginNew);
     }

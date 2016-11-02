@@ -1,5 +1,8 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+
 import java.util.Date;
 
 @Entity(tableName = "race_card", autoincrementColumn = "id")
@@ -7,10 +10,13 @@ public class RaceCard extends AbstractModel {
 
     @Column(columnName = "date_start")
     private Date dateStart;
+
     @Column(columnName = "date_finish")
     private Date dateFinish;
+
     @Column(columnName = "race_type")
     private String raceType;
+
     @Column(columnName = "racecourse_id")
     private Long racecourseId;
 

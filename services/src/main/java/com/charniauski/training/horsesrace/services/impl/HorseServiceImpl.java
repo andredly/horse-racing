@@ -27,7 +27,7 @@ public class HorseServiceImpl extends AbstractService<Horse,Long> implements Hor
     }
 
     @Override
-    public Horse getHorseByNickName(String nickName) {
-        return horseDao.getHorseByNickName(nickName);
+    public Horse getByNickName(String nickName) {
+        return horseDao.getByNickName(nickName);
     }
 }

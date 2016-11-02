@@ -113,8 +113,8 @@ public class CommandServiceTest {
         testCommand.setNameCommand("102");
         arrayList.addAll(Arrays.asList(testCommand, testCommand1));
         commandService.saveAll(arrayList);
-        Command command = commandDao.getCommandByNameCommand("102");
-        Command command1 = commandDao.getCommandByNameCommand("101");
+        Command command = commandDao.getByNameCommand("102");
+        Command command1 = commandDao.getByNameCommand("101");
         testCommand.setId(command.getId());
         testCommand1.setId(command1.getId());
         assertEquals(testCommand, command);
@@ -132,7 +132,7 @@ public class CommandServiceTest {
 
     @Test
     public void getCommandByLogin(){
-        Command testLoginNew = commandDao.getCommandByNameCommand("100");
+        Command testLoginNew = commandDao.getByNameCommand("100");
         testCommand.setId(testCommandId);
         assertEquals(testCommand,testLoginNew);
     }

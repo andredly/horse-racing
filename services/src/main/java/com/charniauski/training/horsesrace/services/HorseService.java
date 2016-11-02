@@ -7,6 +7,6 @@ import com.charniauski.training.horsesrace.datamodel.Horse;
  */
 public interface HorseService extends GenericService<Horse,Long> {
 
-    Horse getHorseByNickName(String nickName);
+    Horse getByNickName(String nickName);
 
 }

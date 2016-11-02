@@ -38,7 +38,7 @@ public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements R
     }
 
     @Override
-    public Racecourse getRacecourseByName(String name) {
+    public Racecourse getByName(String name) {
         String sql= format("%s WHERE name='%s';",sqlSelectEntity(Racecourse.class),name);
         Map<String, Object> stringObjectMap;
         try {

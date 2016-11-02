@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.datamodel;
+package com.charniauski.training.horsesrace.datamodel.annotation;
 
 /**
  * Created by Andre on 22.10.2016.

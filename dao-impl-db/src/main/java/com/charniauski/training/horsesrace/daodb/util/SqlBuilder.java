@@ -1,8 +1,8 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
-import com.charniauski.training.horsesrace.datamodel.Column;
-import com.charniauski.training.horsesrace.datamodel.Entity;
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,15 +37,15 @@ public class SqlBuilder {
         try {
             for (Field field : allFields) {
                 if (field.getName().equals("id")) fieldId = field;
-
                 field.setAccessible(true);
                 Column column = field.getAnnotation(Column.class);
                 if (isInsert && entityAnnotation.autoincrementColumn().equals(field.getName())) {
                     continue;
                 }
                 if (field.getType().getSimpleName().endsWith("String") ||
-                        field.getType().getSimpleName().endsWith("Date")) {
-                    if (null == field.get(entity)) {
+                        field.getType().getSimpleName().endsWith("Date") ||
+                        field.getType().isEnum()) {
+                    if (field.get(entity) == null) {
                         continue;
                     } else {
                         valueSb.append("'").append(field.get(entity)).append("', ");
@@ -55,27 +55,23 @@ public class SqlBuilder {
                 }
                 columnSb.append(column.columnName()).append(", ");
             }
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        if (isInsert) {
-            valueSb.deleteCharAt(valueSb.lastIndexOf(",")).deleteCharAt(valueSb.lastIndexOf(" "))
-                    .append("); ");
-            columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" "))
-                    .append(") ")
-                    .append(valueSb.toString());
-        } else {
-            try {
+            if (isInsert) {
+                valueSb.deleteCharAt(valueSb.lastIndexOf(",")).deleteCharAt(valueSb.lastIndexOf(" "))
+                        .append("); ");
+                columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" "))
+                        .append(") ")
+                        .append(valueSb.toString());
+            } else {
                 valueSb.deleteCharAt(valueSb.lastIndexOf(",")).deleteCharAt(valueSb.lastIndexOf(" "))
                         .append(") WHERE id=")
                         .append(fieldId.get(entity))
                         .append(";");
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" "))
+                        .append(") ")
+                        .append(valueSb.toString());
             }
-            columnSb.deleteCharAt(columnSb.lastIndexOf(",")).deleteCharAt(columnSb.lastIndexOf(" "))
-                    .append(") ")
-                    .append(valueSb.toString());
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            e.printStackTrace();
         }
         return columnSb.toString();
     }

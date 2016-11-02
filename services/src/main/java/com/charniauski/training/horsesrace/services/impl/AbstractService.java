@@ -1,15 +1,10 @@
 package com.charniauski.training.horsesrace.services.impl;
 
-import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
-import com.charniauski.training.horsesrace.datamodel.Entity;
 import com.charniauski.training.horsesrace.services.GenericService;
-import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 /**

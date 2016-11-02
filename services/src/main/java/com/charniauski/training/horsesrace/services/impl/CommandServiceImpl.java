@@ -28,7 +28,7 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
     }
 
     @Override
-    public Command getCommandByNameCommand(String nameCommand) {
-        return commandDao.getCommandByNameCommand(nameCommand);
+    public Command getByNameCommand(String nameCommand) {
+        return commandDao.getByNameCommand(nameCommand);
     }
 }

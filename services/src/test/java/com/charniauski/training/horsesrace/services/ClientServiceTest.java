@@ -2,8 +2,8 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.ClientDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
-import com.charniauski.training.horsesrace.datamodel.AccountStatus;
 import com.charniauski.training.horsesrace.datamodel.Client;
+import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,7 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -53,7 +55,7 @@ public class ClientServiceTest {
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
         testAccount.setBalance(0.0);
-        testAccount.setSecurityLevelId(2L);
+        testAccount.setStatus(Status.BOOKMAKER);
         testAccount.setEmail("test@test.ru");
         testAccountId = accountService.save(testAccount);
         testClient = new Client();
@@ -121,7 +123,7 @@ public class ClientServiceTest {
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");
         testAccount1.setBalance(0.0);
-        testAccount1.setSecurityLevelId(2L);
+        testAccount1.setStatus(Status.CLIENT);
         testAccount1.setEmail("test1@test.ru");
         Long testAccountId1 = accountService.save(testAccount1);
         testClient.setId(testAccountId);
@@ -153,9 +155,12 @@ public class ClientServiceTest {
     
     @Test
     public void getAll(){
+        testClient.setId(testAccountId);
+        clientDao.insert(testClient);
         List<Client> all = clientDao.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
+        clientDao.delete(testAccountId);
     }
 
 }

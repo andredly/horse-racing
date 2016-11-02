@@ -19,7 +19,7 @@ import static java.lang.String.format;
 public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao{
 
     @Override
-    public Horse getHorseByNickName(String nickName) {
+    public Horse getByNickName(String nickName) {
         String sql = format("%s WHERE nick_name='%s';", sqlSelectEntity(Horse.class), nickName);
         Map<String, Object> stringObjectMap;
         Horse bean;

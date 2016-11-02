@@ -7,4 +7,7 @@ import com.charniauski.training.horsesrace.datamodel.RaceDetail;
  */
 public interface RaceDetailDao extends GenericDao<RaceDetail, Long> {
 
+    Long getIdByRacecourseAndHorse(Long raceCardId, Long horseId);
+
+    Integer getHorseResultByRaceCardId(Long raceCardId);
 }

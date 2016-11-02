@@ -1,20 +1,26 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+
 import java.util.Date;
 
-import static com.charniauski.training.horsesrace.datamodel.Column.DataType.DATE;
-import static com.charniauski.training.horsesrace.datamodel.Column.DataType.VARCHAR;
+import static com.charniauski.training.horsesrace.datamodel.annotation.Column.DataType.DATE;
+import static com.charniauski.training.horsesrace.datamodel.annotation.Column.DataType.VARCHAR;
 
 @Entity(tableName = "client")
 public class Client extends AbstractModel {
 
-    @Column(columnName = "first_name", dataType = VARCHAR)
+    @Column(columnName = "first_name")
     private String firstName;
-    @Column(columnName = "last_name", dataType = VARCHAR)
+
+    @Column(columnName = "last_name")
     private String lastName;
-    @Column(columnName = "date", dataType = DATE)
+
+    @Column(columnName = "date")
     private Date date;
-    @Column(columnName = "address", dataType = VARCHAR)
+
+    @Column(columnName = "address")
     private String address;
 
 //    private Account account;

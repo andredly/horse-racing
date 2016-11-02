@@ -1,14 +1,14 @@
+--
+-- INSERT INTO security_level (status) VALUES ('ADMIN');
+-- INSERT INTO security_level (status) VALUES ('CLIENT');
 
-INSERT INTO security_level (client_status) VALUES ('ADMIN');
-INSERT INTO security_level (client_status) VALUES ('CLIENT');
 
-
-INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log','pas',1,100.0,'a@r.ru');
-INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log1','pas2',2,200.0,'2f@r.ru');
-INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log2','pas3',2,10.0,'w@r.ru');
-INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log3','pas4',2,20.0,'j@r.ru');
-INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log4','pas5',2,55.0,'l@r.ru');
-INSERT INTO account (login,password,security_level_id,balance,email) VALUES ('log5','pas6',2,45.0,'1@r.ru');
+INSERT INTO account (id,login,password,status,balance,email) VALUES (1,'log','pas','ADMIN',100.0,'a@r.ru');
+INSERT INTO account (id,login,password,status,balance,email) VALUES (2,'log1','pas2','CLIENT',200.0,'2f@r.ru');
+INSERT INTO account (id,login,password,status,balance,email) VALUES (3,'log2','pas3','BOOKMAKER',10.0,'w@r.ru');
+INSERT INTO account (id,login,password,status,balance,email) VALUES (4,'log3','pas4','CLIENT',20.0,'j@r.ru');
+INSERT INTO account (id,login,password,status,balance,email) VALUES (5,'log4','pas5','CLIENT',55.0,'l@r.ru');
+INSERT INTO account (id,login,password,status,balance,email) VALUES (6,'log5','pas6','CLIENT',45.0,'1@r.ru');
 
 
 INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (1,'Fedor','Gvin','10.12.2016','les');

@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface CommandDao extends GenericDao<Command,Long>{
 
-    Command getCommandByNameCommand(String nameCommand);
+    Command getByNameCommand(String nameCommand);
 
 }

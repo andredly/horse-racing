@@ -1,14 +1,20 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+
 @Entity(tableName = "command",autoincrementColumn = "id")
 public class Command extends AbstractModel {
 
     @Column(columnName = "name_command")
     private String nameCommand;
+
     @Column(columnName = "trainer")
     private String trainer;
+
     @Column(columnName = "jockey")
     private String jockey;
+
     @Column(columnName = "url_image_color")
     private String urlImageColor;
 

@@ -41,7 +41,7 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Override
     public RacecourseWithListRaceCard getRacecourseWithListRaceCard(Long racecourseId) {
         Racecourse racecourse = get(racecourseId);
-        List<RaceCard> raceCards=raceCardService.getAllRaceCardAfterCurrentDate(racecourseId);
+        List<RaceCard> raceCards=raceCardService.getAllAfterCurrentDate(racecourseId);
         RacecourseWithListRaceCard racecourseWithListRaceCard=new RacecourseWithListRaceCard();
         racecourseWithListRaceCard.setRacecourse(racecourse);
         racecourseWithListRaceCard.setRaceCardList(raceCards);
@@ -50,6 +50,6 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
 
     @Override
     public Racecourse getRacecourseByName(String name) {
-        return racecourseDao.getRacecourseByName(name);
+        return racecourseDao.getByName(name);
     }
 }

@@ -1,5 +1,8 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+
 /**
  * Created by ivc4 on 19.10.2016.
  */
@@ -8,6 +11,7 @@ public class Racecourse  extends AbstractModel{
 
     @Column(columnName = "name")
     private String name;
+
     @Column(columnName = "country")
     private String country;
 

@@ -1,23 +1,36 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
+import com.charniauski.training.horsesrace.datamodel.enums.BetType;
+
 import java.util.Date;
 @Entity(tableName = "bet", autoincrementColumn = "id")
 public class Bet extends AbstractModel{
 
     @Column(columnName = "date")
     private Date dateBet;
+
     @Column(columnName = "event_id")
     private Long eventId;
+
     @Column(columnName = "account_id")
     private Long accountId;
+
+    @EnumType(nameClass = BetType.class)
     @Column(columnName = "bet_type")
-    private String betType;
+    private BetType betType;
+
     @Column(columnName = "sum")
     private Double sum;
+
     @Column(columnName = "coefficient_bet")
     private Double coefficientBet;
+
     @Column(columnName = "status_bet")
     private String statusBet;
+
     @Column(columnName = "calculate")
     private Double calculate;
 
@@ -27,7 +40,6 @@ public class Bet extends AbstractModel{
 
     public Bet() {
     }
-
 
     public Date getDateBet() {
         return dateBet;
@@ -53,11 +65,11 @@ public class Bet extends AbstractModel{
         this.accountId = accountId;
     }
 
-    public String getBetType() {
+    public BetType getBetType() {
         return betType;
     }
 
-    public void setBetType(String betType) {
+    public void setBetType(BetType betType) {
         this.betType = betType;
     }
 
@@ -96,9 +108,11 @@ public class Bet extends AbstractModel{
     @Override
     public String toString() {
         return "Bet{" +
+                "dateBet=" + dateBet +
                 "id='" + getId() + '\'' +
-                ", dateBet=" + dateBet +
-                ", betType='" + betType + '\'' +
+                ", eventId=" + eventId +
+                ", accountId=" + accountId +
+                ", betType=" + betType +
                 ", sum=" + sum +
                 ", coefficientBet=" + coefficientBet +
                 ", statusBet='" + statusBet + '\'' +

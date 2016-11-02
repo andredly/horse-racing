@@ -18,7 +18,22 @@ import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getB
 public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceCardDao{
 
     @Override
-    public List<RaceCard> getAllRaceCardAfterCurrentDate(Long racecourseId) {
+    public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
+        List<RaceCard> listT = new ArrayList<>();
+        String sql=String.format("SELECT rc.id, rc.date_start, rc.date_finish, rc.race_type" +
+                " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
+                " WHERE rc.date_start>(current_timestamp+INTERVAL '5 second')"  +
+                " AND racecourse_id=%d GROUP BY rc.id ORDER BY rc.date_start;",racecourseId);
+        List<Map<String, Object>> listMap = getJdbcTemplate().queryForList(sql);
+        for (Map<String, Object> map : listMap) {
+            RaceCard entity = getBean(map, RaceCard.class);
+            listT.add(entity);
+        }
+        return listT;
+    }
+
+    @Override
+    public List<RaceCard> getAllAfterCurrentDate() {
         List<RaceCard> listT = new ArrayList<>();
         String sql = "SELECT rc.id, rc.date_start, rc.date_finish, rc.race_type" +
                 " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
@@ -33,8 +48,15 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
     }
 
     @Override
-    public Date getDateStartRaceCard(Long raceCardId) {
-        //// TODO: 29.10.2016
-        return null;
+    public Date getDateStart(Long raceCardId) {
+        RaceCard raceCard = get(raceCardId);
+        return raceCard.getDateStart();
     }
+
+    @Override
+    public Date getDateFinish(Long raceCardId) {
+        RaceCard raceCard = get(raceCardId);
+        return raceCard.getDateFinish();
+    }
+
 }

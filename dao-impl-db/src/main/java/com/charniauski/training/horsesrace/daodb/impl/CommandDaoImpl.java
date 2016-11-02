@@ -19,7 +19,7 @@ import static java.lang.String.format;
 public class CommandDaoImpl extends AbstractDao<Command,Long> implements CommandDao{
 
     @Override
-    public Command getCommandByNameCommand(String nameCommand) {
+    public Command getByNameCommand(String nameCommand) {
         String sql = format("%s WHERE name_command='%s';", sqlSelectEntity(Command.class), nameCommand);
         Map<String, Object> stringObjectMap;
         Command bean;

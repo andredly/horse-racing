@@ -101,7 +101,7 @@ CREATE TABLE "account" (
   "id" SERIAL NOT NULL,
   "login" character varying NOT NULL,
   "password" character varying NOT NULL,
-  "security_level_id" int NOT NULL,
+  "status" VARCHAR(16) NOT NULL,
   "balance" double PRECISION NOT NULL,
   "email" character varying(256) NOT NULL,
   CONSTRAINT account_pk PRIMARY KEY ("id")
@@ -109,15 +109,28 @@ CREATE TABLE "account" (
 OIDS=FALSE
 );
 
+--
+-- CREATE TABLE "account" (
+--   "id" SERIAL NOT NULL,
+--   "login" character varying NOT NULL,
+--   "password" character varying NOT NULL,
+--   "security_level_id" int NOT NULL,
+--   "balance" double PRECISION NOT NULL,
+--   "email" character varying(256) NOT NULL,
+--   CONSTRAINT account_pk PRIMARY KEY ("id")
+-- ) WITH (
+-- OIDS=FALSE
+-- );
 
 
-CREATE TABLE "security_level" (
-  "id" serial NOT NULL,
-  "client_status" character varying(64) NOT NULL,
-  CONSTRAINT security_level_pk PRIMARY KEY ("id")
-) WITH (
-OIDS=FALSE
-);
+--
+-- CREATE TABLE "security_level" (
+--   "id" serial NOT NULL,
+--   "status" character varying(64) NOT NULL,
+--   CONSTRAINT security_level_pk PRIMARY KEY ("id")
+-- ) WITH (
+-- OIDS=FALSE
+-- );
 
 
 
@@ -148,7 +161,7 @@ ALTER TABLE "bet" ADD CONSTRAINT "bet_fk1" FOREIGN KEY ("account_id") REFERENCES
 
 
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("id") REFERENCES "account"("id");
-ALTER TABLE "account" ADD CONSTRAINT "account_fk1" FOREIGN KEY ("security_level_id") REFERENCES "security_level"("id");
+-- ALTER TABLE "account" ADD CONSTRAINT "account_fk1" FOREIGN KEY ("security_level_id") REFERENCES "security_level"("id");
 
 ALTER TABLE "bet" ADD UNIQUE ( event_id , account_id );
 ALTER TABLE "command" ADD UNIQUE ( name_command );
@@ -157,6 +170,6 @@ ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , number_start_box );
 ALTER TABLE "event" ADD UNIQUE ( race_detail_id , event_type );
 
 CREATE UNIQUE INDEX account_login_uindex ON account (login);
-CREATE UNIQUE INDEX security_level_client_status_uindex ON security_level (client_status);
+-- CREATE UNIQUE INDEX security_level_status_uindex ON security_level (status);
 CREATE UNIQUE INDEX horse_nick_name_uindex ON public.horse (nick_name);
 CREATE UNIQUE INDEX racecourse_name_uindex ON public.racecourse (name);

@@ -110,8 +110,8 @@ public class RacecourseServiceTest {
         arrayList.addAll(Arrays.asList(testRacecourse, testRacecourse1));
         System.out.println(arrayList);
         racecourseService.saveAll(arrayList);
-        Racecourse racecourse = racecourseDao.getRacecourseByName("TEST2");
-        Racecourse racecourse1 = racecourseDao.getRacecourseByName("TEST1");
+        Racecourse racecourse = racecourseDao.getByName("TEST2");
+        Racecourse racecourse1 = racecourseDao.getByName("TEST1");
         testRacecourse.setId(racecourse.getId());
         testRacecourse1.setId(racecourse1.getId());
         assertEquals(testRacecourse, racecourse);
@@ -129,7 +129,7 @@ public class RacecourseServiceTest {
 
     @Test
     public void getRacecourseByLogin(){
-        Racecourse testLoginNew = racecourseDao.getRacecourseByName("TEST");
+        Racecourse testLoginNew = racecourseDao.getByName("TEST");
         testRacecourse.setId(testRacecourseId);
         assertEquals(testRacecourse,testLoginNew);
     }

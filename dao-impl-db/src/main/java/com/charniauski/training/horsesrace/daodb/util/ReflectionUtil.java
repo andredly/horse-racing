@@ -1,9 +1,8 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
-import com.charniauski.training.horsesrace.datamodel.AccountStatus;
-import com.charniauski.training.horsesrace.datamodel.Column;
-import com.charniauski.training.horsesrace.datamodel.Entity;
-import com.charniauski.training.horsesrace.datamodel.SecurityLevel1;
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,6 @@ public class ReflectionUtil {
         Column annotation = field.getAnnotation(Column.class);
         return annotation.isAutoIncrement();
     }
-
 
     public static <T> Field getField(Class<T> clazz, String name) {
         try {
@@ -103,8 +101,8 @@ public class ReflectionUtil {
                 if (null != o) {
                     list.add(o);
                 }
-            } catch (Exception e) {
-
+            } catch (Exception ignored) {
+                ignored.printStackTrace();
             }
         }
         return list;
@@ -115,27 +113,23 @@ public class ReflectionUtil {
         List<Field> fields = getFields(clazz);
         for (Field field : fields) {
             Column column = field.getAnnotation(Column.class);
-
-
-            //// TODO: 02.11.2016
-            //попробовать анотировать поле
-            if (field.getType().equals(SecurityLevel1.AccountStatus1.class)) {
-                String status = (String) mapResultQuery.get(column.columnName());
-                SecurityLevel1.AccountStatus1 accountStatus1 = SecurityLevel1.AccountStatus1.valueOf(status);
-                System.out.println(accountStatus1);
-                beanParameter.put(field.getName(), accountStatus1);
-                System.out.println("попал");
+            EnumType enumType = field.getAnnotation(EnumType.class);
+            if (field.getType().isEnum()) {
+                String enumName = (String) mapResultQuery.get(column.columnName());
+                Enum[] anEnum = (Enum[]) enumType.nameClass().getEnumConstants();
+                for (Enum enumInstance : anEnum) {
+                    if (enumInstance.name().equals(enumName)) beanParameter.put(field.getName(), enumInstance);
+                }
                 continue;
             }
-
             if (mapResultQuery.containsKey(column.columnName()))
                 beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
         }
-        LOGGER.info(beanParameter.toString());
+        LOGGER.debug(beanParameter.toString());
         for (Map.Entry<String, Object> map : mapResultQuery.entrySet()) {
-            String columnNameEqualsNameClass = map.getKey().replace("_", "").replace("_id", "");
+            String columnNameChanged = map.getKey().replace("_", "").replace("_id", "");
             String nameClass = clazz.getSimpleName().toLowerCase();
-            if (columnNameEqualsNameClass.equals(nameClass)) beanParameter.put("id", map.getValue());
+            if (columnNameChanged.equals(nameClass)) beanParameter.put("id", map.getValue());
         }
         T entity = null;
         try {

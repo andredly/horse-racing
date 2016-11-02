@@ -44,7 +44,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     //    @SuppressWarnings("unchecked")
     @Override
     public T get(PK id) {
-//        String sql = sqlSelectEntity(clazz) + " WHERE id=" + id + ";";
         String sql= format("%s WHERE id=%d;",sqlSelectEntity(clazz),id);
         LOGGER.debug(sql);
         T bean;
@@ -75,10 +74,9 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         return null;
     }
 
-    //        @SuppressWarnings("unchecked")
+//            @SuppressWarnings("unchecked")
     @Override
     public boolean delete(PK id) {
-//        String sql = sqlDeleteEntity(clazz) + id + ";";
         String sql= format("%s%d;",sqlDeleteEntity(clazz),id);
         LOGGER.debug(sql);
         int delete = jdbcTemplate.update(sql);

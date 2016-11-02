@@ -10,8 +10,12 @@ import java.util.List;
  */
 public interface RaceCardDao extends GenericDao<RaceCard, Long>{
 
-    List<RaceCard> getAllRaceCardAfterCurrentDate(Long racecourseId);
+    List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId);
 
-    Date getDateStartRaceCard(Long raceCardId);
+    List<RaceCard> getAllAfterCurrentDate();
+
+    Date getDateStart(Long raceCardId);
+
+    Date getDateFinish(Long raceCardId);
 
 }

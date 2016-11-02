@@ -11,6 +11,6 @@ public interface RacecourseDao extends GenericDao<Racecourse,Long>{
 
     List<Racecourse> getAllAfterCurrentDate();
 
-    Racecourse getRacecourseByName(String name);
+    Racecourse getByName(String name);
 
 }

@@ -1,16 +1,23 @@
 package com.charniauski.training.horsesrace.datamodel;
 
+import com.charniauski.training.horsesrace.datamodel.annotation.Column;
+import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+
 @Entity(tableName = "race_detail", autoincrementColumn = "id")
 public class RaceDetail extends AbstractModel{
 
     @Column(columnName = "race_card_id")
     private Long raceCardId;
+
     @Column(columnName = "horse_id")
     private Long horseId;
+
     @Column(columnName = "command_id")
     private Long commandId;
+
     @Column(columnName = "number_start_box")
     private Integer numberStartBox;
+
     @Column(columnName = "horse_result")
     private Integer horseResult;
 

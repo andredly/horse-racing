@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import javax.inject.Inject;
+import javax.jws.soap.SOAPBinding;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,7 +47,6 @@ public class SpringScopeTest {
 //        }
 //        System.out.println();
 
-        SecurityLevelService securityLevelService = springContext.getBean(SecurityLevelService.class);
 
         AccountService accountServiceBean = springContext.getBean(AccountService.class);
         BetService betServiceBean = springContext.getBean(BetService.class);
@@ -55,7 +55,6 @@ public class SpringScopeTest {
         HorseService horseServiceBean = springContext.getBean(HorseService.class);
         RaceCardService raceCardServiceBean = springContext.getBean(RaceCardService.class);
         RacecourseService racecourseServiceBean = springContext.getBean(RacecourseService.class);
-        SecurityLevelService securityLevelServiceBean = springContext.getBean(SecurityLevelService.class);
         RaceDetailService raceDetailService = springContext.getBean(RaceDetailService.class);
 
 //        Account account = accountServiceBean.get(1L);
@@ -181,7 +180,7 @@ public class SpringScopeTest {
 //        System.out.println(save1);
 //        bet.setId(10L);
 ////        System.out.println(raceCardServiceBean.delete(bet));
-//        List<RaceCard> all = raceCardServiceBean.getAllRaceCardAfterCurrentDate(2L);
+//        List<RaceCard> all = raceCardServiceBean.getAllAfterCurrentDate(2L);
 //        for (RaceCard client1 : all) {
 //            System.out.println(client1);
 //        }
@@ -210,7 +209,7 @@ public class SpringScopeTest {
 
 //        SecurityLevel bet = securityLevelService.get(2L);
 //        System.out.println(bet);
-//        bet.setClientStatus(AccountStatus.CLIENT.name());
+//        bet.setStatus(AccountStatus.CLIENT.name());
 //        Long save = securityLevelService.save(bet);
 //        System.out.println(save);
 //        bet.setId(null);
@@ -244,7 +243,7 @@ public class SpringScopeTest {
 //            System.out.println(client1);
 //        }
 //        System.out.println();
-//        Racecourse racecourse = racecourseServiceBean.getRacecourseByName("usa");
+//        Racecourse racecourse = racecourseServiceBean.getByName("usa");
 //        System.out.println(racecourse);
 //        SecurityLevel securityLevel = securityLevelServiceBean.getSecurityLevel(AccountStatus.CLIENT);
 //        System.out.println(securityLevel);
@@ -260,18 +259,14 @@ public class SpringScopeTest {
 //        client1.setLastName("Testing6");
 //        Long save = accountServiceBean.save(accountWithClient);
 //        System.out.println(save);
-//        Account account1=accountServiceBean.getAccountByLogin("Log5");
+//        Account account1=accountServiceBean.getByLogin("Log5");
 //        System.out.println(account1);
 //        Logger logger= LoggerFactory.getLogger(SpringScopeTest.class);
 //        logger.info("Привет");
 //        logger.error(account.getEmail());
 //
-//        List<RaceCard> raceCards=raceCardServiceBean.getAllRaceCardAfterCurrentDate(2L);
+//        List<RaceCard> raceCards=raceCardServiceBean.getAllAfterCurrentDate(2L);
 //        System.out.println(raceCards);
-        SecurityLevelService1 securityLevelService1 = springContext.getBean(SecurityLevelService1.class);
-        SecurityLevel1 securityLevel1=securityLevelService1.get(1L);
-        System.out.println(securityLevel1);
-
 
 //        SecurityLevel1 securityLevel1 = new SecurityLevel1();
 //        securityLevel1.setId(2L);
@@ -290,17 +285,18 @@ public class SpringScopeTest {
 //        securityLevel1.setSecurityLevel(SecurityLevel1.AccountStatus1.BOOKMAKER);
 
 //        SecurityLevel1 securityLevel11 = securityLevel1;
-        SecurityLevel1.AccountStatus1 securityLevel = securityLevel1.getSecurityLevel();
-        System.out.println(securityLevel);
 
-        securityLevel1.setId(2L);
-        securityLevel1.setSecurityLevel(SecurityLevel1.AccountStatus1.BOOKMAKER);
-        System.out.println(SqlBuilder.sqlInsertOrUpdateEntity(securityLevel1,true));
+//        List<RaceCard> allAfterCurrentDate = raceCardServiceBean.getThreeNextAfterCurrentDate();
+//        System.out.println(allAfterCurrentDate);
+
+        Long idByRacecourseAndHorse = raceDetailService.getIdByRacecourseAndHorse(1L, 2L);
+        System.out.println(idByRacecourseAndHorse);
+        RaceCard raceCard = raceCardServiceBean.get(idByRacecourseAndHorse);
+        System.out.println(raceCard);
+        boolean b = raceDetailService.saveHorseResult(10L, 2L, 35);
+        System.out.println(b);
 
 
-       String sql="SELECT * FROM security_l WHERE id=2;";
-//        SecurityLevel bean = ReflectionUtil.getBean(map, SecurityLevel.class);
-//        System.out.println(securityLevel1);
     }
 
 

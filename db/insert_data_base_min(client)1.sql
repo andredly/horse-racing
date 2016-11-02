@@ -6,8 +6,8 @@ INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Female','Mash
 INSERT INTO "client" (first_name, last_name,date,address) VALUES ('Male','Her','02.05.2011','ger');
 -- DELETE FROM "client";
 SELECT * FROM "client";
-INSERT INTO security_level (client_status) VALUES ('admin');
-INSERT INTO security_level (client_status) VALUES ('client');
+INSERT INTO security_level (status) VALUES ('admin');
+INSERT INTO security_level (status) VALUES ('client');
 SELECT * FROM security_level;
 INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (1,'log','pas',1,100.0,'a@r.ru');
 INSERT INTO account (id,login,password,security_level_id,balance,email) VALUES (2,'log1','pas2',2,200.0,'f@r.ru');

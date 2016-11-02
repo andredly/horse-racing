@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.AccountDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
+import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -44,7 +45,7 @@ public class AccountServiceTest {
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
         testAccount.setBalance(0.0);
-        testAccount.setSecurityLevelId(2L);
+        testAccount.setStatus(Status.CLIENT);
         testAccount.setEmail("test@test.ru");
         testAccountId = accountDao.insert(testAccount);
     }
@@ -109,14 +110,14 @@ public class AccountServiceTest {
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");
         testAccount1.setBalance(0.0);
-        testAccount1.setSecurityLevelId(2L);
+        testAccount1.setStatus(Status.CLIENT);
         testAccount1.setEmail("test1@test.ru");
         List<Account> arrayList = new ArrayList<>();
         testAccount.setLogin("TestLoginNew2");
         arrayList.addAll(Arrays.asList(testAccount, testAccount1));
         accountService.saveAll(arrayList);
-        Account account = accountDao.getAccountByLogin("TestLoginNew2");
-        Account account1 = accountDao.getAccountByLogin("TestLoginNew1");
+        Account account = accountDao.getByLogin("TestLoginNew2");
+        Account account1 = accountDao.getByLogin("TestLoginNew1");
         testAccount.setId(account.getId());
         testAccount1.setId(account1.getId());
         assertEquals(testAccount, account);
@@ -126,17 +127,50 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void getAll() {
+    public void getAllTest() {
         List<Account> all = accountDao.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
-    public void getAccountByLogin(){
-        Account testLoginNew = accountDao.getAccountByLogin("TestLoginNew");
+    public void getAccountByLoginTest(){
+        Account testLoginNew = accountDao.getByLogin("TestLoginNew");
         testAccount.setId(testAccountId);
         assertEquals(testAccount,testLoginNew);
+    }
+
+    @Test
+    public void getAccountStatusByLoginTest(){
+        Status status = accountDao.getStatusByLogin("TestLoginNew");
+        testAccount.setId(testAccountId);
+        assertEquals(testAccount.getStatus(),status);
+    }
+
+    @Test
+    public void getAllAccountsByStatusTest() {
+        accountDao.delete(testAccountId);
+        Account testAccount1 = new Account();
+        testAccount1.setLogin("TestLoginNew1");
+        testAccount1.setPassword("pass");
+        testAccount1.setBalance(0.0);
+        testAccount1.setStatus(Status.CLIENT);
+        testAccount1.setEmail("test1@test.ru");
+        List<Account> arrayList = new ArrayList<>();
+        testAccount.setLogin("TestLoginNew2");
+        arrayList.addAll(Arrays.asList(testAccount, testAccount1));
+        accountService.saveAll(arrayList);
+        List<Account> allAccountsByStatus = accountDao.getAllAccountsByStatus(Status.CLIENT);
+        assertEquals(2,allAccountsByStatus.size());
+        assertEquals(testAccount1.getStatus(),allAccountsByStatus.get(0).getStatus());
+        assertEquals(testAccount1.getStatus(),allAccountsByStatus.get(1).getStatus());
+        Account account = accountDao.getByLogin("TestLoginNew2");
+        Account account1 = accountDao.getByLogin("TestLoginNew1");
+        testAccount.setId(account.getId());
+        testAccount1.setId(account1.getId());
+        accountDao.delete(account.getId());
+        accountDao.delete(account1.getId());
+
     }
 
 }
