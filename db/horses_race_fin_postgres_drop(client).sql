@@ -1,42 +1,17 @@
-ALTER TABLE "race_card" DROP CONSTRAINT IF EXISTS "race_card_fk0";
-
-ALTER TABLE "race_card" DROP CONSTRAINT IF EXISTS "race_card_fk1";
-
-ALTER TABLE "command" DROP CONSTRAINT IF EXISTS "command_fk0";
-
-ALTER TABLE "race_detail" DROP CONSTRAINT IF EXISTS "race_detail_fk0";
-
-ALTER TABLE "race_detail" DROP CONSTRAINT IF EXISTS "race_detail_fk1";
-
-ALTER TABLE "event" DROP CONSTRAINT IF EXISTS "event_fk0";
-
-ALTER TABLE "event" DROP CONSTRAINT IF EXISTS "event_fk1";
-
-ALTER TABLE "bet" DROP CONSTRAINT IF EXISTS "bet_fk0";
-
-ALTER TABLE "bet" DROP CONSTRAINT IF EXISTS "bet_fk1";
-
-ALTER TABLE "account" DROP CONSTRAINT IF EXISTS "account_fk0";
-
-ALTER TABLE "account" DROP CONSTRAINT IF EXISTS "account_fk1";
-
-DROP TABLE IF EXISTS "race_card";
-
-DROP TABLE IF EXISTS "horse";
-
-DROP TABLE IF EXISTS "command";
-
-DROP TABLE IF EXISTS "race_detail";
-
-DROP TABLE IF EXISTS "event";
-
-DROP TABLE IF EXISTS "bet";
-
-DROP TABLE IF EXISTS "client";
-
-DROP TABLE IF EXISTS "account";
-
-DROP TABLE IF EXISTS "security_level";
-
-DROP TABLE IF EXISTS "racecourse";
-
+ALTER TABLE public.client DROP CONSTRAINT client_fk0;
+ALTER TABLE public.bet DROP CONSTRAINT bet_fk0;
+ALTER TABLE public.bet DROP CONSTRAINT bet_fk1;
+ALTER TABLE public.race_detail DROP CONSTRAINT race_detail_fk0;
+ALTER TABLE public.race_detail DROP CONSTRAINT race_detail_fk1;
+ALTER TABLE public.race_detail DROP CONSTRAINT race_detail_fk2;
+ALTER TABLE public.race_card DROP CONSTRAINT race_card_fk0;
+ALTER TABLE public.event DROP CONSTRAINT event_fk0;
+DROP TABLE public.client;
+DROP TABLE public.bet;
+DROP TABLE public.race_detail;
+DROP TABLE public.race_card;
+DROP TABLE public.event;
+DROP TABLE public.racecourse;
+DROP TABLE public.horse;
+DROP TABLE public.command;
+DROP TABLE public.account;

@@ -18,17 +18,17 @@
             <PatternLayout pattern="%-5level, %m"/>
         </CustomAppender>
 
-        <SMTP name="EMail" subject="Error Log"
-              smtpProtocol="smtps"
-              smtpPort="465"
-              smtpHost="smtp.gmail.com"
-              from=""
-              to=""
-              smtpUsername=""
-              smtpPassword=""
-              bufferSize="50">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </SMTP>
+        <!--<SMTP name="EMail" subject="Error Log"-->
+              <!--smtpProtocol="smtps"-->
+              <!--smtpPort="465"-->
+              <!--smtpHost="smtp.gmail.com"-->
+              <!--from=""-->
+              <!--to=""-->
+              <!--smtpUsername=""-->
+              <!--smtpPassword=""-->
+              <!--bufferSize="50">-->
+            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
+        <!--</SMTP>-->
 
     </Appenders>
 
