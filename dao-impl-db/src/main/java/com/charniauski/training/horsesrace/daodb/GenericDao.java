@@ -11,7 +11,7 @@ public interface GenericDao<T, PK> {
 
     PK insert(T entity);
 
-    Long update(T entity);
+    Integer update(T entity);
 
     boolean delete(PK id);
 

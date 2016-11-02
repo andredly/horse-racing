@@ -1,27 +1,12 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
-import com.charniauski.training.horsesrace.daodb.util.SqlBuilder;
-import com.charniauski.training.horsesrace.datamodel.*;
-import com.charniauski.training.horsesrace.services.impl.AccountServiceImpl;
-import com.charniauski.training.horsesrace.services.wrapper.AccountWithClient;
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
+import com.charniauski.training.horsesrace.datamodel.Client;
+import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.jdbc.JdbcTestUtils;
 
-import javax.inject.Inject;
-import javax.jws.soap.SOAPBinding;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class SpringScopeTest {
 
@@ -289,13 +274,18 @@ public class SpringScopeTest {
 //        List<RaceCard> allAfterCurrentDate = raceCardServiceBean.getThreeNextAfterCurrentDate();
 //        System.out.println(allAfterCurrentDate);
 
-        Long idByRacecourseAndHorse = raceDetailService.getIdByRacecourseAndHorse(1L, 2L);
-        System.out.println(idByRacecourseAndHorse);
-        RaceCard raceCard = raceCardServiceBean.get(idByRacecourseAndHorse);
-        System.out.println(raceCard);
-        boolean b = raceDetailService.saveHorseResult(10L, 2L, 35);
-        System.out.println(b);
+//        Long idByRacecourseAndHorse = raceDetailService.getIdByRaceCardAndHorse(1L, 2L);
+//        System.out.println(idByRacecourseAndHorse);
+//        RaceCard raceCard = raceCardServiceBean.get(idByRacecourseAndHorse);
+//        System.out.println(raceCard);
 
+
+        Long idByRacecourseAndHorse = raceDetailService.getIdByRaceCardAndHorse(2L, 1L);
+        System.out.println(idByRacecourseAndHorse);
+        boolean b = raceDetailService.saveHorseResult(2L, 1L, 35);
+        RaceDetail raceDetail =raceDetailService.get(idByRacecourseAndHorse);
+        System.out.println(b);
+        System.out.println(raceDetail);
 
     }
 

@@ -47,7 +47,6 @@ public class ReflectionUtil {
         List<Field> list = new ArrayList<>();
         list.addAll(Arrays.asList(clazz.getDeclaredFields()));
         ReflectionUtil.addSuperclassFields(clazz, list);
-
         return list;
     }
 

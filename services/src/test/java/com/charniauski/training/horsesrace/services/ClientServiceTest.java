@@ -103,7 +103,7 @@ public class ClientServiceTest {
         Long insert = clientDao.insert(testClient);
         testClient.setId(insert);
         testClient.setFirstName("NewTestFirstName");
-        Long update = clientDao.update(testClient);
+        Integer update = clientDao.update(testClient);
         Client client = clientDao.get(insert);
         assertEquals(testClient, client);
         clientDao.delete(client.getId());

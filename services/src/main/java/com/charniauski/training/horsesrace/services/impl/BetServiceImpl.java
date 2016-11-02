@@ -1,12 +1,9 @@
 package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daodb.BetDao;
-import com.charniauski.training.horsesrace.daodb.ClientDao;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Bet;
-import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.services.BetService;
-import com.charniauski.training.horsesrace.services.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

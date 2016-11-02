@@ -5,9 +5,6 @@ import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 
 import java.util.Date;
 
-import static com.charniauski.training.horsesrace.datamodel.annotation.Column.DataType.DATE;
-import static com.charniauski.training.horsesrace.datamodel.annotation.Column.DataType.VARCHAR;
-
 @Entity(tableName = "client")
 public class Client extends AbstractModel {
 
@@ -64,7 +61,7 @@ public class Client extends AbstractModel {
     @Override
     public String toString() {
         return "Client{" +
-                "id='"+getId()+ '\''+
+                "id="+getId()+
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", date=" + date +

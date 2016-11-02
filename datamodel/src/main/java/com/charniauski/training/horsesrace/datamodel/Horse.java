@@ -69,7 +69,7 @@ public class Horse extends AbstractModel {
     @Override
     public String toString() {
         return "Horse{" +
-                "id='" + getId() + '\'' +
+                "id=" + getId() +
                 ", nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", equipmentWeight=" + equipmentWeight +

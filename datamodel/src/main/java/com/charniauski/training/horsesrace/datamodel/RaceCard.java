@@ -61,7 +61,7 @@ public class RaceCard extends AbstractModel {
     @Override
     public String toString() {
         return "RaceCard{" +
-                "id='" + getId() + '\'' +
+                "id=" + getId() +
                 ", dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
                 ", raceType='" + raceType + '\'' +

@@ -1,8 +1,6 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.datamodel.Client;
-import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 
 import java.util.List;
 

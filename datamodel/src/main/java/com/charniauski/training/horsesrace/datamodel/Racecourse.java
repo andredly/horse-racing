@@ -40,7 +40,7 @@ public class Racecourse  extends AbstractModel{
     @Override
     public String toString() {
         return "Racecourse{" +
-                "id='" + getId() + '\'' +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 '}';

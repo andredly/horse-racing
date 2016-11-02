@@ -84,7 +84,7 @@ public class Event extends AbstractModel {
     @Override
     public String toString() {
         return "Event{" +
-                "id='" + getId() + '\'' +
+                "id=" + getId() +
                 ", raceDetailId=" + raceDetailId +
                 ", eventType='" + eventType + '\'' +
                 ", dateRegister=" + dateRegister +

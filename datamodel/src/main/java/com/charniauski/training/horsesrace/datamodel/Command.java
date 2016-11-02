@@ -58,7 +58,7 @@ public class Command extends AbstractModel {
     @Override
     public String toString() {
         return "Command{" +
-                "id='" + getId() + '\'' +
+                "id=" + getId() +
                 "nameCommand='" + nameCommand + '\'' +
                 ", trainer='" + trainer + '\'' +
                 ", jockey='" + jockey + '\'' +

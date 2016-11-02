@@ -108,8 +108,8 @@ public class Bet extends AbstractModel{
     @Override
     public String toString() {
         return "Bet{" +
-                "dateBet=" + dateBet +
-                "id='" + getId() + '\'' +
+                "id=" + getId()  +
+                ", dateBet=" + dateBet +
                 ", eventId=" + eventId +
                 ", accountId=" + accountId +
                 ", betType=" + betType +

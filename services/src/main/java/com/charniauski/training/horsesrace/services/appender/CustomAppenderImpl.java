@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.services.testappender;
+package com.charniauski.training.horsesrace.services.appender;
 
 /**
  * Created by Andre on 31.10.2016.

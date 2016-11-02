@@ -7,7 +7,6 @@ import com.charniauski.training.horsesrace.services.RaceDetailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
@@ -28,17 +27,21 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
 
     @Override
     public boolean saveHorseResult(Long raceCardId, Long horseId, Integer result) throws IllegalArgumentException{
-        Long id = getIdByRacecourseAndHorse(raceCardId, horseId);
+        Long id = getIdByRaceCardAndHorse(raceCardId, horseId);
         if (id == null) {
             LOGGER.error("Incorrect argument saveHorseResult raceCardId={},horseId={},result={}",
                     raceCardId.toString(), horseId.toString(), result.toString());
             throw new IllegalArgumentException();}
-        Long saveId = save(get(id));
+        RaceDetail raceDetail = get(id);
+        raceDetail.setHorseResult(result);
+        Long saveId = save(raceDetail);
         return saveId != null;
     }
 
     @Override
-    public Long getIdByRacecourseAndHorse(Long raceCardId, Long horseId) {
-        return raceDetailDao.getIdByRacecourseAndHorse(raceCardId, horseId);
+    public Long getIdByRaceCardAndHorse(Long raceCardId, Long horseId) {
+        return raceDetailDao.getIdByRaceCardAndHorse(raceCardId, horseId);
     }
+
+
 }

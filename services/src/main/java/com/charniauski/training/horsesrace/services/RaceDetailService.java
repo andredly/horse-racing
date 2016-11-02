@@ -11,7 +11,6 @@ public interface RaceDetailService extends GenericService<RaceDetail,Long> {
     @Transactional
     boolean saveHorseResult(Long raceCardId, Long horseId, Integer result);
 
-    Long getIdByRacecourseAndHorse(Long raceCardId, Long horseId);
+    Long getIdByRaceCardAndHorse(Long raceCardId, Long horseId);
 
-    Integer getHorseResultByRaceCardId(Long raceCardId);
 }

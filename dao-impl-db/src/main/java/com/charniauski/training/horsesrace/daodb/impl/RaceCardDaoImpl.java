@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getBean;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -24,12 +21,7 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
                 " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
                 " WHERE rc.date_start>(current_timestamp+INTERVAL '5 second')"  +
                 " AND racecourse_id=%d GROUP BY rc.id ORDER BY rc.date_start;",racecourseId);
-        List<Map<String, Object>> listMap = getJdbcTemplate().queryForList(sql);
-        for (Map<String, Object> map : listMap) {
-            RaceCard entity = getBean(map, RaceCard.class);
-            listT.add(entity);
-        }
-        return listT;
+        return getListEntity(sql,RaceCard.class);
     }
 
     @Override
@@ -39,12 +31,7 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
                 " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
                 " WHERE rc.date_start>(current_timestamp+INTERVAL '5 second')" +
                 " GROUP BY rc.id ORDER BY rc.date_start;";
-        List<Map<String, Object>> listMap = getJdbcTemplate().queryForList(sql);
-        for (Map<String, Object> map : listMap) {
-            RaceCard entity = getBean(map, RaceCard.class);
-            listT.add(entity);
-        }
-        return listT;
+        return getListEntity(sql,RaceCard.class);
     }
 
     @Override

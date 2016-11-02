@@ -10,16 +10,15 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-
 import javax.inject.Inject;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.*;
+import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getBean;
 import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.*;
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 /**
  * Created by ivc4 on 21.10.2016.
@@ -44,15 +43,9 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     //    @SuppressWarnings("unchecked")
     @Override
     public T get(PK id) {
-        String sql= format("%s WHERE id=%d;",sqlSelectEntity(clazz),id);
+        String sql = format("%s WHERE id=%d;", sqlSelectEntity(clazz), id);
         LOGGER.debug(sql);
-        T bean;
-        try {
-            bean = getBean(jdbcTemplate.queryForMap(sql), clazz);
-        }catch (EmptyResultDataAccessException e){
-        return null;
-        }
-        return bean;
+        return getEntity(sql, clazz);
     }
 
     @SuppressWarnings("unchecked")
@@ -67,17 +60,16 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     //        @SuppressWarnings("unchecked")
     @Override
-    public Long update(T entity) {
+    public Integer update(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
         LOGGER.debug(sql);
-        jdbcTemplate.update(sql);
-        return null;
+        return jdbcTemplate.update(sql);
     }
 
-//            @SuppressWarnings("unchecked")
+//                @SuppressWarnings("unchecked")
     @Override
     public boolean delete(PK id) {
-        String sql= format("%s%d;",sqlDeleteEntity(clazz),id);
+        String sql = format("%s%d;", sqlDeleteEntity(clazz), id);
         LOGGER.debug(sql);
         int delete = jdbcTemplate.update(sql);
         return delete == 1;
@@ -85,8 +77,28 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     @Override
     public List<T> getAll() {
+        String sql = sqlSelectEntity(clazz);
+        return getListEntity(sql, clazz);
+    }
+
+    JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    final T getEntity(String sql, Class<T> clazz) {
+        T entity;
+        try {
+            entity = getBean(jdbcTemplate.queryForMap(sql), clazz);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+        LOGGER.debug(entity.toString());
+        return entity;
+    }
+
+    final List<T> getListEntity(String sql, Class<T> clazz) {
         List<T> listT = new ArrayList<>();
-        List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sqlSelectEntity(clazz));
+        List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sql);
         for (Map<String, Object> map : listMap) {
             T entity = getBean(map, clazz);
             listT.add(entity);
@@ -94,9 +106,4 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         LOGGER.debug(listT.toString());
         return listT;
     }
-
-    JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
-
 }

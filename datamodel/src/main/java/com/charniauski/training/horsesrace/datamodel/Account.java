@@ -76,8 +76,8 @@ public class Account extends AbstractModel{
     @Override
     public String toString() {
         return "Account{" +
-                "id='" + getId() + '\'' +
-                "login='" + login + '\'' +
+                "id=" + getId() +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", status=" + status +
                 ", balance=" + balance +

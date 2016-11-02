@@ -97,8 +97,8 @@ public class RaceDetail extends AbstractModel{
     @Override
     public String toString() {
         return "RaceDetail{" +
-                "id='" + getId() + '\'' +
-                "raceCardId=" + raceCardId +
+                "id=" + getId() +
+                ", raceCardId=" + raceCardId +
                 ", horseId=" + horseId +
                 ", commandId=" + commandId +
                 ", numberStartBox=" + numberStartBox +
