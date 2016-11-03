@@ -27,7 +27,6 @@ OIDS=FALSE
 
 CREATE TABLE "command" (
   "id" serial NOT NULL,
-  "name_command" character varying(256) NOT NULL,
   "trainer" character varying(256) NOT NULL,
   "jockey" character varying(256) NOT NULL,
   "url_image_color" character varying(1024) NOT NULL,
@@ -59,7 +58,7 @@ CREATE TABLE "event" (
   "date_register" timestamptz NOT NULL,
   "coefficient_event" double PRECISION NOT NULL DEFAULT '0',
   "bookmaker" character varying(256) NOT NULL,
-  "result_event" character varying(64),
+  "result_event" character varying(64) NOT NULL,
   CONSTRAINT event_pk PRIMARY KEY ("id")
 ) WITH (
 OIDS=FALSE
@@ -164,9 +163,10 @@ ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("id") REFERENCES "
 -- ALTER TABLE "account" ADD CONSTRAINT "account_fk1" FOREIGN KEY ("security_level_id") REFERENCES "security_level"("id");
 
 ALTER TABLE "bet" ADD UNIQUE ( event_id , account_id );
-ALTER TABLE "command" ADD UNIQUE ( name_command );
+ALTER TABLE "command" ADD UNIQUE ( trainer,jockey,url_image_color );
 ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , horse_id );
 ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , number_start_box );
+ALTER TABLE "race_detail" ADD UNIQUE ( race_card_id , command_id );
 ALTER TABLE "event" ADD UNIQUE ( race_detail_id , event_type );
 
 CREATE UNIQUE INDEX account_login_uindex ON account (login);

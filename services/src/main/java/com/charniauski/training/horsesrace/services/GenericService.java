@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ public interface GenericService<T,PK> {
 
     List<T> getAll();
 
-    void saveAll(List<T> clients);
+    List<PK> saveAll(List<T> clients) throws NoSuchEntityException;
 
-    PK save(T entity);
+    PK save(T entity) throws NoSuchEntityException;
 
     boolean delete(T client);
 

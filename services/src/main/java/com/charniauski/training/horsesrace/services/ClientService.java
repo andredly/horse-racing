@@ -7,6 +7,4 @@ import com.charniauski.training.horsesrace.datamodel.Client;
  */
 public interface ClientService extends GenericService<Client,Long> {
 
-    void update(Client client);
-
 }

@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daodb.CommandDao;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.CommandService;
 import org.slf4j.Logger;
@@ -27,8 +28,26 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
         return commandDao;
     }
 
+
     @Override
-    public Command getByNameCommand(String nameCommand) {
-        return commandDao.getByNameCommand(nameCommand);
+    public Long save(Command command) throws NullPointerException, IllegalArgumentException {
+        if (command.getJockey() == null || command.getTrainer() == null || command.getUrlImageColor() == null)
+            throw new NullPointerException(String.format("Arguments may not by null: Trainer=%s, Jockey=%s," +
+                    "UrlImageColor=%s", command.getTrainer(),command.getJockey(),  command.getUrlImageColor()));
+        Long commandId = null;
+        if (command.getId() == null) {
+            Command oldCommand = commandDao.getByTrainerAndJockeyAndUrl(command.getTrainer(),command.getJockey(),command.getUrlImageColor());
+            if (oldCommand!=null)throw new IllegalArgumentException("Command already exists");
+            commandId = commandDao.insert(command);
+        } else {
+            commandDao.update(command);
+            commandId=command.getId();
+        }
+        return commandId;
+    }
+
+    @Override
+    public Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage) {
+        return commandDao.getByTrainerAndJockeyAndUrl(trainer,jockey,urlImage);
     }
 }

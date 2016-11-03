@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface RaceCardService extends GenericService<RaceCard,Long> {
 
-    List<RaceCard> getAllAfterCurrentDate(Long racecourseId);
+    List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId);
 
     List<RaceCard> getThreeNextAfterCurrentDate();
 

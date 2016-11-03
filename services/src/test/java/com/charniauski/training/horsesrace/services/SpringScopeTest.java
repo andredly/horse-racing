@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,7 +11,7 @@ import java.util.Date;
 
 public class SpringScopeTest {
 
-    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, NoSuchEntityException {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
@@ -280,12 +281,25 @@ public class SpringScopeTest {
 //        System.out.println(raceCard);
 
 
-        Long idByRacecourseAndHorse = raceDetailService.getIdByRaceCardAndHorse(2L, 1L);
-        System.out.println(idByRacecourseAndHorse);
-        boolean b = raceDetailService.saveHorseResult(2L, 1L, 35);
-        RaceDetail raceDetail =raceDetailService.get(idByRacecourseAndHorse);
-        System.out.println(b);
-        System.out.println(raceDetail);
+//        RaceDetail idByRacecourseAndHorse = raceDetailService.getByRaceCardAndHorse(2L, 1L);
+//        System.out.println(idByRacecourseAndHorse);
+//        boolean b = raceDetailService.saveHorseResult(2L, 1L, 35);
+//        RaceDetail raceDetail =raceDetailService.get(idByRacecourseAndHorse.getId());
+//        System.out.println(b);
+//        System.out.println(raceDetail);
+
+
+//        DuplicateKeyException
+        RaceDetail raceDetail=new RaceDetail();
+        raceDetail.setId(26L);
+        raceDetail.setNumberStartBox(1);
+        raceDetail.setHorseResult(1);
+        raceDetail.setHorseId(8L);
+        raceDetail.setRaceCardId(5L);
+        raceDetail.setCommandId(2L);
+        Long save = raceDetailService.save(raceDetail);
+        System.out.println(save);
+
 
     }
 

@@ -2,9 +2,11 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,14 +18,16 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
 
     @Transactional
     @Override
-    public void saveAll(List<T> listEntity) {
+    public List<PK> saveAll(List<T> listEntity)throws NoSuchEntityException{
+        ArrayList<PK> arrayList=new ArrayList<>();
         for (T entity : listEntity) {
-            save(entity);
+            arrayList.add(save(entity));
         }
+        return arrayList;
     }
 
     @Override
-    public PK save(T entity) {
+    public PK save(T entity) throws NoSuchEntityException {
         if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
         else {
             getGenericDao().update(entity);

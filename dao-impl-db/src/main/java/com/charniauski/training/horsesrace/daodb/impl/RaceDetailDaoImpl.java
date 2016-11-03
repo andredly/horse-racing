@@ -14,9 +14,22 @@ import static java.lang.String.format;
 public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements RaceDetailDao {
 
     @Override
-    public Long getIdByRaceCardAndHorse(Long raceCardId, Long horseId) {
+    public RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId) {
         String sql = format("%s WHERE race_card_id=%d AND horse_id=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, horseId);
-        return getEntity(sql, RaceDetail.class).getId();
+        return getEntity(sql, RaceDetail.class);
     }
+
+    @Override
+    public RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId) {
+        String sql = format("%s WHERE race_card_id=%d AND command_id=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, commandId);
+        return getEntity(sql, RaceDetail.class);
+    }
+
+    @Override
+    public RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox) {
+        String sql = format("%s WHERE race_card_id=%d AND number_start_box_id=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, numberStartBox);
+        return getEntity(sql, RaceDetail.class);
+    }
+
 
 }

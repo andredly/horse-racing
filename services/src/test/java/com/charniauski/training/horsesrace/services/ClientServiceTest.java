@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.daodb.ClientDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -50,7 +51,7 @@ public class ClientServiceTest {
     }
 
     @Before
-    public void prepareMethodData() {
+    public void prepareMethodData() throws NoSuchEntityException {
         testAccount = new Account();
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
@@ -118,7 +119,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void saveAllTest() {
+    public void saveAllTest() throws NoSuchEntityException {
         Account testAccount1 = new Account();
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");

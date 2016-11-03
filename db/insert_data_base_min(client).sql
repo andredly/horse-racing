@@ -20,14 +20,14 @@ INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (6,'Male','H
 -- DELETE FROM "client";
 
 
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('1','jon','uri','http1');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('2','igi','mor','http2');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('3','петя','коля','http3');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('4','roa','per','http4');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('5','dor','jus','http5');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('6','ver','vuy','http6');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('7','low','qer','http7');
-INSERT INTO command (name_command,trainer,jockey,url_image_color) VALUES ('8','петя1','коля1','http8');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('jon','uri','http1');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('igi','mor','http2');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('петя','коля','http3');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('roa','per','http4');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('dor','jus','http5');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('ver','vuy','http6');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('low','qer','http7');
+INSERT INTO command (trainer,jockey,url_image_color) VALUES ('петя1','коля1','http8');
 INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
 VALUES ('faster1',3,60,'1245','henk1');
 INSERT INTO horse (nick_name,age,equipment_weight,form,owner)

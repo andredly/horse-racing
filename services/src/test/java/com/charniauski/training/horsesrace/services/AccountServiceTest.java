@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.daodb.AccountDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -105,7 +106,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void saveAllTest() {
+    public void saveAllTest() throws NoSuchEntityException {
         Account testAccount1 = new Account();
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");
@@ -148,7 +149,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void getAllAccountsByStatusTest() {
+    public void getAllAccountsByStatusTest() throws NoSuchEntityException {
         accountDao.delete(testAccountId);
         Account testAccount1 = new Account();
         testAccount1.setLogin("TestLoginNew1");

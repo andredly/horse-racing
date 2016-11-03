@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.CommandDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,7 +42,6 @@ public class CommandServiceTest {
     @Before
     public void prepareMethodData() {
         testCommand = new Command();
-        testCommand.setNameCommand("100");
         testCommand.setJockey("Joi");
         testCommand.setTrainer("Join");
         testCommand.setUrlImageColor("HTTP-");
@@ -69,7 +69,9 @@ public class CommandServiceTest {
         Command command1 = commandDao.get(id);
         assertNull(command1);
         if (testCommand.getId() == null) {
-            testCommand.setNameCommand("101");
+            testCommand.setJockey("Joi1");
+            testCommand.setTrainer("Join1");
+            testCommand.setUrlImageColor("HTTP-1");
             id = commandDao.insert(testCommand);
         } else {
             commandDao.update(testCommand);
@@ -96,25 +98,28 @@ public class CommandServiceTest {
 
     @Test
     public void deleteTest() {
-        testCommand.setNameCommand("101");
+        testCommand.setJockey("Joi1");
+        testCommand.setTrainer("Join1");
+        testCommand.setUrlImageColor("HTTP-1");
         Long id = commandDao.insert(testCommand);
         boolean delete = commandDao.delete(id);
         assertTrue(delete);
     }
 
     @Test
-    public void saveAllTest() {
+    public void saveAllTest() throws NoSuchEntityException {
         Command testCommand1 = new Command();
-        testCommand1.setNameCommand("101");
-        testCommand1.setJockey("Joi");
-        testCommand1.setTrainer("Join");
-        testCommand1.setUrlImageColor("HTTP-");
+        testCommand1.setJockey("Joi1");
+        testCommand1.setTrainer("Join1");
+        testCommand1.setUrlImageColor("HTTP-1");
         List<Command> arrayList = new ArrayList<>();
-        testCommand.setNameCommand("102");
+        testCommand.setJockey("Joi2");
+        testCommand.setTrainer("Join2");
+        testCommand.setUrlImageColor("HTTP-2");
         arrayList.addAll(Arrays.asList(testCommand, testCommand1));
-        commandService.saveAll(arrayList);
-        Command command = commandDao.getByNameCommand("102");
-        Command command1 = commandDao.getByNameCommand("101");
+        List<Long> longs = commandService.saveAll(arrayList);
+        Command command = commandDao.get(longs.get(0));
+        Command command1 = commandDao.get(longs.get(1));
         testCommand.setId(command.getId());
         testCommand1.setId(command1.getId());
         assertEquals(testCommand, command);
@@ -128,13 +133,6 @@ public class CommandServiceTest {
         List<Command> all = commandDao.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
-    }
-
-    @Test
-    public void getCommandByLogin(){
-        Command testLoginNew = commandDao.getByNameCommand("100");
-        testCommand.setId(testCommandId);
-        assertEquals(testCommand,testLoginNew);
     }
 
 }

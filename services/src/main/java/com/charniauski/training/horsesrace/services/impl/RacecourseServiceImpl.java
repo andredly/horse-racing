@@ -41,7 +41,7 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Override
     public RacecourseWithListRaceCard getRacecourseWithListRaceCard(Long racecourseId) {
         Racecourse racecourse = get(racecourseId);
-        List<RaceCard> raceCards=raceCardService.getAllAfterCurrentDate(racecourseId);
+        List<RaceCard> raceCards=raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
         RacecourseWithListRaceCard racecourseWithListRaceCard=new RacecourseWithListRaceCard();
         racecourseWithListRaceCard.setRacecourse(racecourse);
         racecourseWithListRaceCard.setRaceCardList(raceCards);
@@ -51,5 +51,22 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Override
     public Racecourse getRacecourseByName(String name) {
         return racecourseDao.getByName(name);
+    }
+
+    @Override
+    public Long save(Racecourse racecourse) throws NullPointerException, IllegalArgumentException {
+        if (racecourse.getName()== null || racecourse.getCountry() == null)
+            throw new NullPointerException(String.format("Arguments may not by null: Name=%s, Country=%s",
+                    racecourse.getName(), racecourse.getCountry()));
+        Long racecourseId = null;
+        if (racecourse.getId() == null) {
+            Racecourse oldRacecourse = racecourseDao.getByName(racecourse.getName());
+            if (oldRacecourse!=null)throw new IllegalArgumentException("Name "+ racecourse.getName()+" already exists");
+            racecourseId = racecourseDao.insert(racecourse);
+        } else {
+            racecourseDao.update(racecourse);
+            racecourseId=racecourse.getId();
+        }
+        return racecourseId;
     }
 }

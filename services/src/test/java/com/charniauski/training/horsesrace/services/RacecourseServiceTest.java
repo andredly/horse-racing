@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.RacecourseDao;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -101,7 +102,7 @@ public class RacecourseServiceTest {
     }
 
     @Test
-    public void saveAllTest() {
+    public void saveAllTest() throws NoSuchEntityException {
         Racecourse testRacecourse1 = new Racecourse();
         testRacecourse1.setName("TEST1");
         testRacecourse1.setCountry("FRA");
@@ -128,7 +129,7 @@ public class RacecourseServiceTest {
     }
 
     @Test
-    public void getRacecourseByLogin(){
+    public void getRacecourseByName(){
         Racecourse testLoginNew = racecourseDao.getByName("TEST");
         testRacecourse.setId(testRacecourseId);
         assertEquals(testRacecourse,testLoginNew);

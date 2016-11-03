@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWithClient;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface AccountService extends GenericService<Account,Long> {
 
     AccountWithClient getAccountWithClient(Long accountId);
 
-    Long save(AccountWithClient accountWithClient);
+    Long save(AccountWithClient accountWithClient) throws NoSuchEntityException;
 
-    Long save(Account account, Client client);
+    Long save(Account account, Client client) throws NoSuchEntityException;
 }

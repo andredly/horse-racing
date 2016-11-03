@@ -7,6 +7,6 @@ import com.charniauski.training.horsesrace.datamodel.Command;
  */
 public interface CommandDao extends GenericDao<Command,Long>{
 
-    Command getByNameCommand(String nameCommand);
+    Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage);
 
 }

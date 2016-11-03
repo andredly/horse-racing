@@ -6,6 +6,8 @@ import com.charniauski.training.horsesrace.datamodel.Command;
  * Created by Andre on 18.10.2016.
  */
 public interface CommandService extends GenericService<Command,Long> {
-    Command getByNameCommand(String nameCommand);
+
+    Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage);
+
 
 }
