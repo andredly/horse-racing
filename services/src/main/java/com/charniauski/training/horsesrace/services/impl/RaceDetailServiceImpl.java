@@ -8,9 +8,13 @@ import com.charniauski.training.horsesrace.services.HorseService;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RaceDetailService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.annotation.Validated;
 
 import javax.inject.Inject;
 
@@ -38,11 +42,9 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailDao;
     }
 
+    @Transactional
     @Override
-    public boolean saveHorseResult(Long raceCardId, Long horseId, Integer result) throws IllegalArgumentException, NoSuchEntityException{
-
-        //// TODO: 03.11.2016  проверить сохранение
-
+    public boolean saveHorseResult(Long raceCardId, Long horseId, Integer result) {
         RaceDetail oldRaceDetail = getByRaceCardAndHorse(raceCardId, horseId);
         if (oldRaceDetail == null) throw new IllegalArgumentException();
         oldRaceDetail.setHorseResult(result);
@@ -65,26 +67,20 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailDao.getByRaceCardAndNumberStartBox(raceCardId,numberStartBox);
     }
 
+    @Transactional
     @Override
-    public Long save(RaceDetail raceDetail) throws NullPointerException, IllegalArgumentException, NoSuchEntityException {
-        if (raceDetail.getRaceCardId() == null || raceDetail.getHorseId() == null || raceDetail.getCommandId() == null
-                || raceDetail.getNumberStartBox()==null)
-            throw new NullPointerException(String.format("Arguments may not by null: RaceCardId=%d, HorseId=%d" +" CommandId=%d, NumberStartBox=%d",
-                    raceDetail.getRaceCardId(), raceDetail.getHorseId(), raceDetail.getCommandId(), raceDetail.getNumberStartBox()));
-
-//        RaceDetail raceCardAndHorse =getByRaceCardAndHorse(raceDetail.getRaceCardId(),raceDetail.getHorseId());
-//        if(raceCardAndHorse!=null) throw  new IllegalArgumentException("Combination RaceCard and Horse there");
-//        RaceDetail raceCardAndCommand =getByRaceCardAndCommand(raceDetail.getRaceCardId(),raceDetail.getCommandId());
-//        if(raceCardAndCommand!=null) throw  new IllegalArgumentException("Combination RaceCard and Command there");
-//        RaceDetail raceCardAndNumberStartBox =getByRaceCardAndNumberStartBox(raceDetail.getRaceCardId(),raceDetail.getNumberStartBox());
-//        if(raceCardAndNumberStartBox!=null) throw  new IllegalArgumentException("Combination RaceCard and NumberStartBox there");
+    public Long save(RaceDetail raceDetail)  {
+        Validate.notNull(raceDetail.getRaceCardId(), "Arguments RaceCardId may not by null");
+        Validate.notNull(raceDetail.getHorseId(), "Arguments HorseId may not by null");
+        Validate.notNull(raceDetail.getCommandId(), "Arguments CommandId may not by null");
+        Validate.notNull(raceDetail.getNumberStartBox(), "Arguments NumberStartBox may not by null");
 
         RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
         Horse horse =horseService.get(raceDetail.getHorseId());
         Command command =commandService.get(raceDetail.getCommandId());
         if (raceCard == null||horse==null||command==null)
             throw new NoSuchEntityException("RaceCardId or HorseId and CommandId not found. Enter valid id!");
-        Long raceDetailId = null;
+        Long raceDetailId;
         if (raceDetail.getId() == null) {
             if (raceDetail.getHorseResult() != null)
                 throw new IllegalArgumentException("Horse result must not be if insert");

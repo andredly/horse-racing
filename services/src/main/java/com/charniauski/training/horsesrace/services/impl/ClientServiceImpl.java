@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.ClientService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,13 +33,15 @@ public class ClientServiceImpl extends AbstractService<Client, Long> implements 
         return clientDao;
     }
 
+    @Transactional
     @Override
-    public Long save(Client client) throws NullPointerException, IllegalArgumentException, NoSuchEntityException {
+    public Long save(Client client)  {
         LOGGER.info("Save start create Client={}", client.getFirstName());
-        if (client.getId() == null) throw new IllegalArgumentException("Enter id!");
-        if (client.getFirstName() == null || client.getLastName() == null || client.getAddress() == null || client.getDate() == null)
-            throw new NullPointerException(String.format("Arguments may not by null: FirstName=%s, LastName()=%s, Address=%s," +
-                    "Date=%tB", client.getFirstName(), client.getLastName(), client.getAddress(), client.getDate()));
+        Validate.notNull(client.getFirstName(),"Arguments FirstName may not by null");
+        Validate.notNull(client.getLastName(),"Arguments LastName may not by null");
+        Validate.notNull(client.getAddress(),"Arguments Address may not by null");
+        Validate.notNull(client.getDate(),"Arguments Date may not by null");
+
         Account account = accountService.get(client.getId());
         if (account.getId() == null) throw new NoSuchEntityException("Account " + account.getLogin() + " not found");
         Client oldClient = clientDao.get(client.getId());

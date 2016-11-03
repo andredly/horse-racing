@@ -14,7 +14,7 @@ public class Client extends AbstractModel {
     @Column(columnName = "last_name")
     private String lastName;
 
-    @Column(columnName = "date")
+    @Column(columnName = "date_birth")
     private Date date;
 
     @Column(columnName = "address")

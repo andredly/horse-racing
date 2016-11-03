@@ -7,11 +7,12 @@ import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.ClientService;
-import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWithClient;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -64,8 +65,9 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     }
 
 
+    @Transactional
     @Override
-    public Long save(AccountWithClient accountWithClient) throws NoSuchEntityException {
+    public Long save(AccountWithClient accountWithClient) {
         //// TODO: 03.11.2016 update not found
         LOGGER.info("Save start create Account={}", accountWithClient.getAccount().getLogin());
         Account account = accountWithClient.getAccount();
@@ -83,25 +85,28 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
             client.setId(accountId);
 //            clientService.update(client);
         }
-        LOGGER.info("Save end create Account={}", accountWithClient.getAccount().getLogin());
         return accountId;
     }
 
+    @Transactional
     @Override
-    public Long save(Account account, Client client) throws NoSuchEntityException{
+    public Long save(Account account, Client client) {
+        // TODO: 03.11.2016
         AccountWithClient accountWithClient = new AccountWithClient();
         accountWithClient.setAccount(account);
         accountWithClient.setClient(client);
         return save(accountWithClient);
     }
 
+    @Transactional
     @Override
     public Long save(Account account) throws NullPointerException, IllegalArgumentException {
         LOGGER.info("Account start create Account={}", account.getLogin());
-        if (account.getLogin() == null || account.getStatus() == null || account.getPassword() == null || account.getEmail() == null)
-            throw new NullPointerException(String.format("Arguments may not by null: account=%s, login=%s, password," +
-                    "email=%s", account.getLogin(), account.getStatus(), account.getEmail()));
-        Long accountId = null;
+        Validate.notNull(account.getLogin(),"Arguments Login may not by null");
+        Validate.notNull(account.getStatus(),"Arguments Status may not by null");
+        Validate.notNull(account.getPassword(),"Arguments Password may not by null");
+        Validate.notNull(account.getEmail(),"Arguments Email may not by null");
+        Long accountId;
         if (account.getId() == null) {
             Account oldAccount = accountDao.getByLogin(account.getLogin());
             if (oldAccount!=null)throw new IllegalArgumentException("Login "+ account.getLogin()+" already exists");
@@ -111,7 +116,6 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
             accountDao.update(account);
             accountId=account.getId();
         }
-        LOGGER.info("Account end create Account={}", account.getLogin());
         return accountId;
     }
 }

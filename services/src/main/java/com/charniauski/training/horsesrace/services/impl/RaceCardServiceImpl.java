@@ -3,14 +3,15 @@ package com.charniauski.training.horsesrace.services.impl;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -60,15 +61,16 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         return raceCardDao.getAllAfterCurrentDate();
     }
 
+    @Transactional
     @Override
-    public Long save(RaceCard raceCard) throws NullPointerException, IllegalArgumentException, NoSuchEntityException {
-        if (raceCard.getRacecourseId() == null || raceCard.getDateStart() == null || raceCard.getRaceType() == null)
-            throw new NullPointerException(String.format("Arguments may not by null: RacecourseId=%d, DateStart=%tB" +" DateFinish=%tB, RaceType=%s",
-                    raceCard.getRacecourseId(), raceCard.getDateStart(), raceCard.getDateFinish(), raceCard.getRaceType()));
+    public Long save(RaceCard raceCard)  {
+        Validate.notNull(raceCard.getRacecourseId(),"Arguments RacecourseId may not by null");
+        Validate.notNull(raceCard.getDateStart(),"Arguments DateStart may not by null");
+        Validate.notNull(raceCard.getRaceType(),"Arguments RaceType may not by null");
         Racecourse racecourse = racecourseService.get(raceCard.getRacecourseId());
         if (racecourse.getId() == null)
             throw new NoSuchEntityException("RacecourseId " + raceCard.getRacecourseId() + " not found. Enter valid id!");
-        Long raceCardId = null;
+        Long raceCardId;
         if (raceCard.getId() == null) {
             if (raceCard.getDateFinish() != null) throw new IllegalArgumentException("Date Finish must not be if insert");
             raceCardId = raceCardDao.insert(raceCard);

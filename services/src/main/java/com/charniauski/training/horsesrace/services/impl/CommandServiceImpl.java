@@ -2,12 +2,13 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daodb.CommandDao;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.CommandService;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
@@ -29,12 +30,13 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
     }
 
 
+    @Transactional
     @Override
     public Long save(Command command) throws NullPointerException, IllegalArgumentException {
-        if (command.getJockey() == null || command.getTrainer() == null || command.getUrlImageColor() == null)
-            throw new NullPointerException(String.format("Arguments may not by null: Trainer=%s, Jockey=%s," +
-                    "UrlImageColor=%s", command.getTrainer(),command.getJockey(),  command.getUrlImageColor()));
-        Long commandId = null;
+        Validate.notNull(command.getJockey(),"Arguments Jockey may not by null");
+        Validate.notNull(command.getTrainer(),"Arguments Trainer may not by null");
+        Validate.notNull(command.getUrlImageColor(),"Arguments UrlImageColor may not by null");
+        Long commandId;
         if (command.getId() == null) {
             Command oldCommand = commandDao.getByTrainerAndJockeyAndUrl(command.getTrainer(),command.getJockey(),command.getUrlImageColor());
             if (oldCommand!=null)throw new IllegalArgumentException("Command already exists");

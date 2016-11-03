@@ -11,12 +11,12 @@ INSERT INTO account (id,login,password,status,balance,email) VALUES (5,'log4','p
 INSERT INTO account (id,login,password,status,balance,email) VALUES (6,'log5','pas6','CLIENT',45.0,'1@r.ru');
 
 
-INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (1,'Fedor','Gvin','10.12.2016','les');
-INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (2,'Mihal','Uro','11.02.2015','hom');
-INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (3,'Olga','Ehova','01.05.2014','saray');
-INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (4,'Бобик','Шариков','12.03.2012','будка');
-INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (5,'Female','Masha','11.02.2015','usa');
-INSERT INTO "client" (id,first_name, last_name,date,address) VALUES (6,'Male','Her','02.05.2011','ger');
+INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (1,'Fedor','Gvin','10.12.2016','les');
+INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (2,'Mihal','Uro','11.02.2015','hom');
+INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (3,'Olga','Ehova','01.05.2014','saray');
+INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (4,'Бобик','Шариков','12.03.2012','будка');
+INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (5,'Female','Masha','11.02.2015','usa');
+INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (6,'Male','Her','02.05.2011','ger');
 -- DELETE FROM "client";
 
 
@@ -123,12 +123,12 @@ VALUES (7,'place','2016.10.17 20:12',2.1,'qqq','dred1');
 
 
 
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',1,1,'winer',10,2.6,'win',13.1);
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,1,'winer',20,2.6,'win',0);
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,2,'place',50,2.6,'win',0);
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,3,'winer',10,2.6,'win',11);
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',5,1,'winer',100,2.6,'win',NULL );
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,3,'winer',30,2.6,'win',NULL );
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,2,'winer',15,2.6,'win',NULL );
-INSERT INTO bet (date,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',10,1,'winer',60,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',1,1,'winer',10,2.6,'win',13.1);
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,1,'winer',20,2.6,'win',0);
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,2,'place',50,2.6,'win',0);
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,3,'winer',10,2.6,'win',11);
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',5,1,'winer',100,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,3,'winer',30,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,2,'winer',15,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',10,1,'winer',60,2.6,'win',NULL );
 

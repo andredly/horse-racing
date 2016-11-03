@@ -9,13 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface RaceDetailService extends GenericService<RaceDetail,Long> {
 
-    boolean saveHorseResult(Long raceCardId, Long horseId, Integer result) throws NoSuchEntityException;
+    boolean saveHorseResult(Long raceCardId, Long horseId, Integer result);
 
     RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId);
 
     RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId);
 
     RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox);
-
 
 }

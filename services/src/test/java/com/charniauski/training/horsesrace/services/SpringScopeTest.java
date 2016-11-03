@@ -294,7 +294,7 @@ public class SpringScopeTest {
         raceDetail.setId(26L);
         raceDetail.setNumberStartBox(1);
         raceDetail.setHorseResult(1);
-        raceDetail.setHorseId(8L);
+        raceDetail.setHorseId(null);
         raceDetail.setRaceCardId(5L);
         raceDetail.setCommandId(2L);
         Long save = raceDetailService.save(raceDetail);

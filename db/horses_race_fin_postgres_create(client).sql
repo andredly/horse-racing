@@ -68,7 +68,7 @@ OIDS=FALSE
 
 CREATE TABLE "bet" (
   "id" serial NOT NULL,
-  "date" timestamptz NOT NULL,
+  "date_bet" timestamptz NOT NULL,
   "event_id" bigint NOT NULL,
   "account_id" bigint NOT NULL,
   "bet_type" character varying(256) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE "client" (
   "id" BIGINT NOT NULL,
   "first_name" character varying(256) NOT NULL,
   "last_name" character varying(256) NOT NULL,
-  "date" DATE NOT NULL,
+  "date_birth" DATE NOT NULL,
   "address" character varying(512) NOT NULL,
   CONSTRAINT client_pk PRIMARY KEY ("id")
 ) WITH (

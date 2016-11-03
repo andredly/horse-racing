@@ -21,7 +21,7 @@ public interface AccountService extends GenericService<Account,Long> {
 
     AccountWithClient getAccountWithClient(Long accountId);
 
-    Long save(AccountWithClient accountWithClient) throws NoSuchEntityException;
+    Long save(AccountWithClient accountWithClient);
 
-    Long save(Account account, Client client) throws NoSuchEntityException;
+    Long save(Account account, Client client);
 }

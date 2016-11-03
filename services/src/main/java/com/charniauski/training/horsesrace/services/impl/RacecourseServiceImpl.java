@@ -7,9 +7,11 @@ import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWithListRaceCard;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -53,12 +55,13 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
         return racecourseDao.getByName(name);
     }
 
+    @Transactional
     @Override
-    public Long save(Racecourse racecourse) throws NullPointerException, IllegalArgumentException {
-        if (racecourse.getName()== null || racecourse.getCountry() == null)
-            throw new NullPointerException(String.format("Arguments may not by null: Name=%s, Country=%s",
-                    racecourse.getName(), racecourse.getCountry()));
-        Long racecourseId = null;
+    public Long save(Racecourse racecourse) {
+        Validate.notNull(racecourse.getName(),"Arguments Name may not by null");
+        Validate.notNull(racecourse.getCountry(),"Arguments Country may not by null");
+
+        Long racecourseId;
         if (racecourse.getId() == null) {
             Racecourse oldRacecourse = racecourseDao.getByName(racecourse.getName());
             if (oldRacecourse!=null)throw new IllegalArgumentException("Name "+ racecourse.getName()+" already exists");

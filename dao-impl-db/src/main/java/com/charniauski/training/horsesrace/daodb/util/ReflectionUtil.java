@@ -29,19 +29,6 @@ public class ReflectionUtil {
         return annotation.isAutoIncrement();
     }
 
-    public static <T> Field getField(Class<T> clazz, String name) {
-        try {
-            return clazz.getDeclaredField(name);
-        } catch (Exception e) {
-            for (Field field : ReflectionUtil.getFields(clazz)) {
-                if (field.getName().toLowerCase().equals(name.toLowerCase())) {
-                    return field;
-                }
-            }
-        }
-        return null;
-    }
-
 
     public static <T> List<Field> getFields(Class<T> clazz) {
         List<Field> list = new ArrayList<>();
@@ -155,13 +142,11 @@ public class ReflectionUtil {
 //                    continue;
 //                }
                 if (field.getType().getSimpleName().endsWith("String") || field.getType().getSimpleName().endsWith("Date")) {
-
                     if (field.get(entity) == null) {
                         continue;
                     } else {
                         map.put(column.columnName(), field.get(entity));
                     }
-
                 } else {
                     map.put(column.columnName(), field.get(entity));
                 }

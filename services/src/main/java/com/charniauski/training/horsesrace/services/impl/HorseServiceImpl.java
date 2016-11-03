@@ -5,9 +5,11 @@ import com.charniauski.training.horsesrace.daodb.HorseDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.HorseService;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
@@ -32,12 +34,14 @@ public class HorseServiceImpl extends AbstractService<Horse,Long> implements Hor
         return horseDao.getByNickName(nickName);
     }
 
+    @Transactional
     @Override
     public Long save(Horse horse) throws NullPointerException, IllegalArgumentException {
-        if (horse.getAge() == null || horse.getNickName() == null || horse.getEquipmentWeight() == null || horse.getOwner() == null)
-            throw new NullPointerException(String.format("Arguments may not by null: Age=%s, NickName=%s, NickName=%d," +
-                    "Owner=%s", horse.getAge(), horse.getNickName(), horse.getEquipmentWeight(),horse.getOwner()));
-        Long horseId = null;
+        Validate.notNull(horse.getNickName(),"Arguments NickName may not by null");
+        Validate.notNull(horse.getEquipmentWeight(),"Arguments EquipmentWeight may not by null");
+        Validate.notNull(horse.getOwner(),"Arguments Owner may not by null");
+        Validate.notNull(horse.getAge(),"Arguments Age may not by null");
+        Long horseId;
         if (horse.getId() == null) {
             Horse oldHorse = horseDao.getByNickName(horse.getNickName());
             if (oldHorse!=null)throw new IllegalArgumentException("NickName "+ horse.getNickName()+" already exists");
