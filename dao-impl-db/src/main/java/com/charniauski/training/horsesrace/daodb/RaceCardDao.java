@@ -14,8 +14,6 @@ public interface RaceCardDao extends GenericDao<RaceCard, Long>{
 
     List<RaceCard> getAllAfterCurrentDate();
 
-    Date getDateStart(Long raceCardId);
 
-    Date getDateFinish(Long raceCardId);
 
 }

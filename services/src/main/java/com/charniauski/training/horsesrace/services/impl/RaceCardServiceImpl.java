@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,5 +77,17 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
             raceCardId=raceCard.getId();
         }
         return raceCardId;
+    }
+
+    @Override
+    public Date getDateStart(Long raceCardId) {
+        RaceCard raceCard = get(raceCardId);
+        return raceCard.getDateStart();
+    }
+
+    @Override
+    public Date getDateFinish(Long raceCardId) {
+        RaceCard raceCard = get(raceCardId);
+        return raceCard.getDateFinish();
     }
 }

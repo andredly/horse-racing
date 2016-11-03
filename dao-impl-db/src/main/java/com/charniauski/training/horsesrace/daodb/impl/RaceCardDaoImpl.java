@@ -34,16 +34,6 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
         return getListEntity(sql,RaceCard.class);
     }
 
-    @Override
-    public Date getDateStart(Long raceCardId) {
-        RaceCard raceCard = get(raceCardId);
-        return raceCard.getDateStart();
-    }
 
-    @Override
-    public Date getDateFinish(Long raceCardId) {
-        RaceCard raceCard = get(raceCardId);
-        return raceCard.getDateFinish();
-    }
 
 }
