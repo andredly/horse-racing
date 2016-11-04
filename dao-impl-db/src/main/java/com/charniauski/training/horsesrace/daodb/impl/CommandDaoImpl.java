@@ -16,8 +16,8 @@ public class CommandDaoImpl extends AbstractDao<Command,Long> implements Command
 
     @Override
     public Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage) {
-        String sql = format("%s WHERE trainer=%s AND jockey=%s AND url_image_color=%s;",
-                sqlSelectEntity(RaceDetail.class), trainer, jockey,urlImage);
+        String sql = format("%s WHERE trainer='%s' AND jockey='%s' AND url_image_color='%s';",
+                sqlSelectEntity(Command.class), trainer, jockey,urlImage);
         return getEntity(sql, Command.class);
     }
 }

@@ -78,6 +78,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public List<T> getAll() {
         String sql = sqlSelectEntity(clazz);
+        LOGGER.debug(sql);
         return getListEntity(sql, clazz);
     }
 
@@ -99,11 +100,12 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     final List<T> getListEntity(String sql, Class<T> clazz) {
         List<T> listT = new ArrayList<>();
         List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sql);
+        LOGGER.debug(listMap.toString());
         for (Map<String, Object> map : listMap) {
             T entity = getBean(map, clazz);
             listT.add(entity);
         }
-        LOGGER.debug(listT.toString());
+//        LOGGER.debug(listT.toString());
         return listT;
     }
 }

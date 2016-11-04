@@ -2,8 +2,6 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
-import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
-import com.charniauski.training.horsesrace.datamodel.enums.BetType;
 
 import java.util.Date;
 @Entity(tableName = "bet", autoincrementColumn = "id")
@@ -17,10 +15,6 @@ public class Bet extends AbstractModel{
 
     @Column(columnName = "account_id")
     private Long accountId;
-
-    @EnumType(nameClass = BetType.class)
-    @Column(columnName = "bet_type")
-    private BetType betType;
 
     @Column(columnName = "sum")
     private Double sum;
@@ -65,14 +59,6 @@ public class Bet extends AbstractModel{
         this.accountId = accountId;
     }
 
-    public BetType getBetType() {
-        return betType;
-    }
-
-    public void setBetType(BetType betType) {
-        this.betType = betType;
-    }
-
     public Double getSum() {
         return sum;
     }
@@ -112,7 +98,6 @@ public class Bet extends AbstractModel{
                 ", dateBet=" + dateBet +
                 ", eventId=" + eventId +
                 ", accountId=" + accountId +
-                ", betType=" + betType +
                 ", sum=" + sum +
                 ", coefficientBet=" + coefficientBet +
                 ", statusBet='" + statusBet + '\'' +
@@ -130,7 +115,6 @@ public class Bet extends AbstractModel{
         if (dateBet != null ? !dateBet.equals(bet.dateBet) : bet.dateBet != null) return false;
         if (eventId != null ? !eventId.equals(bet.eventId) : bet.eventId != null) return false;
         if (accountId != null ? !accountId.equals(bet.accountId) : bet.accountId != null) return false;
-        if (betType != null ? !betType.equals(bet.betType) : bet.betType != null) return false;
         if (sum != null ? !sum.equals(bet.sum) : bet.sum != null) return false;
         if (coefficientBet != null ? !coefficientBet.equals(bet.coefficientBet) : bet.coefficientBet != null)
             return false;
@@ -145,7 +129,6 @@ public class Bet extends AbstractModel{
         result = 31 * result + (dateBet != null ? dateBet.hashCode() : 0);
         result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
         result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
-        result = 31 * result + (betType != null ? betType.hashCode() : 0);
         result = 31 * result + (sum != null ? sum.hashCode() : 0);
         result = 31 * result + (coefficientBet != null ? coefficientBet.hashCode() : 0);
         result = 31 * result + (statusBet != null ? statusBet.hashCode() : 0);

@@ -5,6 +5,8 @@ import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 
+import java.util.Date;
+
 /**
  * Created by ivc4 on 13.10.2016.
  */
@@ -16,6 +18,9 @@ public class Account extends AbstractModel{
 
     @Column(columnName = "password")
     private String password;
+
+    @Column(columnName = "data_register_account")
+    private Date dateRegisterAccount;
 
     @EnumType(nameClass = Status.class)
     @Column(columnName = "status")
@@ -49,6 +54,14 @@ public class Account extends AbstractModel{
         this.password = password;
     }
 
+    public Date getDateRegisterAccount() {
+        return dateRegisterAccount;
+    }
+
+    public void setDateRegisterAccount(Date dateRegisterAccount) {
+        this.dateRegisterAccount = dateRegisterAccount;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -73,12 +86,22 @@ public class Account extends AbstractModel{
         this.email = email;
     }
 
+    public Account(String login, String password, Date dateRegisterAccount, Status status, Double balance, String email) {
+        this.login = login;
+        this.password = password;
+        this.dateRegisterAccount = dateRegisterAccount;
+        this.status = status;
+        this.balance = balance;
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + getId() +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", dateRegisterAccount='" + dateRegisterAccount + '\'' +
                 ", status=" + status +
                 ", balance=" + balance +
                 ", email='" + email + '\'' +
@@ -94,8 +117,8 @@ public class Account extends AbstractModel{
         if (getId() != null ? !getId().equals(account.getId()) : account.getId() != null) return false;
         if (login != null ? !login.equals(account.login) : account.login != null) return false;
         if (password != null ? !password.equals(account.password) : account.password != null) return false;
-        if (status != null ? !status.equals(account.status) : account.status != null)
-            return false;
+        if (dateRegisterAccount != null ? !dateRegisterAccount.equals(account.dateRegisterAccount) : account.dateRegisterAccount != null) return false;
+        if (status != null ? !status.equals(account.status) : account.status != null) return false;
         if (balance != null ? !balance.equals(account.balance) : account.balance != null) return false;
         return email != null ? email.equals(account.email) : account.email == null;
 
@@ -106,6 +129,7 @@ public class Account extends AbstractModel{
         int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (dateRegisterAccount != null ? dateRegisterAccount.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (balance != null ? balance.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);

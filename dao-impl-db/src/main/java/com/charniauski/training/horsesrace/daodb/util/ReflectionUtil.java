@@ -97,6 +97,8 @@ public class ReflectionUtil {
     public static <T> T getBean(Map<String, Object> mapResultQuery, Class<T> clazz) {
         Map<String, Object> beanParameter = new LinkedHashMap<>();
         List<Field> fields = getFields(clazz);
+//        LOGGER.info(mapResultQuery.toString());
+//        LOGGER.info(fields.toString());
         for (Field field : fields) {
             Column column = field.getAnnotation(Column.class);
             EnumType enumType = field.getAnnotation(EnumType.class);
@@ -111,11 +113,11 @@ public class ReflectionUtil {
             if (mapResultQuery.containsKey(column.columnName()))
                 beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
         }
-        LOGGER.debug(beanParameter.toString());
         for (Map.Entry<String, Object> map : mapResultQuery.entrySet()) {
             String columnNameChanged = map.getKey().replace("_", "").replace("_id", "");
             String nameClass = clazz.getSimpleName().toLowerCase();
             if (columnNameChanged.equals(nameClass)) beanParameter.put("id", map.getValue());
+//            LOGGER.debug(columnNameChanged.toString()+" "+nameClass.toString());
         }
         T entity = null;
         try {

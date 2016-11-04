@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -58,5 +59,10 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
             eventId=event.getId();
         }
         return eventId;
+    }
+
+    @Override
+    public List<Event> getAllByRaceDetail(Long raceDetail) {
+        return eventDao.getAllByRaceDetail(raceDetail);
     }
 }

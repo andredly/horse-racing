@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,6 +46,7 @@ public class AccountServiceTest {
         testAccount = new Account();
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
+        testAccount.setDateRegisterAccount(new Date());
         testAccount.setBalance(0.0);
         testAccount.setStatus(Status.CLIENT);
         testAccount.setEmail("test@test.ru");
@@ -110,6 +112,7 @@ public class AccountServiceTest {
         Account testAccount1 = new Account();
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");
+        testAccount1.setDateRegisterAccount(new Date());
         testAccount1.setBalance(0.0);
         testAccount1.setStatus(Status.CLIENT);
         testAccount1.setEmail("test1@test.ru");
@@ -155,6 +158,7 @@ public class AccountServiceTest {
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");
         testAccount1.setBalance(0.0);
+        testAccount1.setDateRegisterAccount(new Date());
         testAccount1.setStatus(Status.CLIENT);
         testAccount1.setEmail("test1@test.ru");
         List<Account> arrayList = new ArrayList<>();

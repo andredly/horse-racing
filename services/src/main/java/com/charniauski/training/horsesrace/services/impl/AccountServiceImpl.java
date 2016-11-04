@@ -11,10 +11,13 @@ import com.charniauski.training.horsesrace.services.wrapper.AccountWithClient;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -68,30 +71,29 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     @Transactional
     @Override
     public Long save(AccountWithClient accountWithClient) {
-        //// TODO: 03.11.2016 update not found
-        LOGGER.info("Save start create Account={}", accountWithClient.getAccount().getLogin());
         Account account = accountWithClient.getAccount();
         Client client = accountWithClient.getClient();
-        Long accountId;
-        if (account.getId() == null) {
-            account.setStatus(Status.CLIENT);
-            account.setBalance(0.0);
-            client.setDate(new Date());
-            accountId = save(account);
-            client.setId(accountId);
-            clientService.save(client);
-        } else {
-            accountId = save(account);
-            client.setId(accountId);
-//            clientService.update(client);
-        }
+        account.setStatus(Status.CLIENT);
+        Long accountId = save(account);
+        client.setId(accountId);
+    try {
+        clientService.save(client);
+    } catch (DuplicateKeyException e){
+        LOGGER.error("Duplicate Key", e);
+        e.printStackTrace();
+    } catch (NullPointerException e){
+        LOGGER.error("Arguments may not by null",e);
+        e.printStackTrace();
+    } catch (IllegalArgumentException e){
+        LOGGER.error("Illegal Argument",e);
+        e.printStackTrace();
+    }
         return accountId;
     }
 
     @Transactional
     @Override
     public Long save(Account account, Client client) {
-        // TODO: 03.11.2016
         AccountWithClient accountWithClient = new AccountWithClient();
         accountWithClient.setAccount(account);
         accountWithClient.setClient(client);
@@ -102,19 +104,22 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     @Override
     public Long save(Account account) throws NullPointerException, IllegalArgumentException {
         LOGGER.info("Account start create Account={}", account.getLogin());
-        Validate.notNull(account.getLogin(),"Arguments Login may not by null");
-        Validate.notNull(account.getStatus(),"Arguments Status may not by null");
-        Validate.notNull(account.getPassword(),"Arguments Password may not by null");
-        Validate.notNull(account.getEmail(),"Arguments Email may not by null");
+        Validate.notNull(account.getLogin(), "Arguments Login may not by null");
+        Validate.notNull(account.getStatus(), "Arguments Status may not by null");
+        Validate.notNull(account.getPassword(), "Arguments Password may not by null");
+        Validate.notNull(account.getPassword(), "Arguments Password may not by null");
+        Validate.notNull(account.getDateRegisterAccount(), "Arguments DateRegisterAccount may not by null");
         Long accountId;
         if (account.getId() == null) {
             Account oldAccount = accountDao.getByLogin(account.getLogin());
-            if (oldAccount!=null)throw new IllegalArgumentException("Login "+ account.getLogin()+" already exists");
+            if (oldAccount != null)
+                throw new IllegalArgumentException("Login " + account.getLogin() + " already exists");
+            account.setDateRegisterAccount(Calendar.getInstance().getTime());
             account.setBalance(0.0);
             accountId = accountDao.insert(account);
         } else {
             accountDao.update(account);
-            accountId=account.getId();
+            accountId = account.getId();
         }
         return accountId;
     }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -43,11 +44,10 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         Validate.notNull(bet.getDateBet(), "Arguments getDateBet may not by null");
         Validate.notNull(bet.getEventId(), "Arguments EventId may not by null");
         Validate.notNull(bet.getAccountId(), "Arguments AccountId may not by null");
-        Validate.notNull(bet.getBetType(), "Arguments BetType may not by null");
         Validate.notNull(bet.getSum(), "Arguments Sum may not by null");
         Validate.notNull(bet.getCoefficientBet(),"Arguments CoefficientBet may not by null");
         Validate.notNull(bet.getStatusBet(),"Arguments StatusBet may not by null");
-
+//// TODO: 04.11.2016 проверки на отрицательные и нулевые значения
         Event event = eventService.get(bet.getEventId());
         Account account=accountService.get(bet.getAccountId());
 
@@ -63,5 +63,25 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
             betId=bet.getId();
         }
         return betId;
+    }
+
+    @Override
+    public List<Bet> getAllByLogin(String login) {
+        return betDao.getAllByLogin(login);
+    }
+
+    @Override
+    public List<Bet> getAllByLoginAndStatus(String login, String statusBet) {
+        return betDao.getAllByLoginAndStatus(login,statusBet);
+    }
+
+    @Override
+    public List<Bet> getAllByStatus(String statusBet) {
+        return betDao.getAllByStatus(statusBet);
+    }
+
+    @Override
+    public Bet getByAccountAndEvent(String login, Long eventId) {
+        return betDao.getByAccountAndEvent(login,eventId);
     }
 }

@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -55,6 +56,7 @@ public class ClientServiceTest {
         testAccount = new Account();
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
+        testAccount.setDateRegisterAccount(new Date());
         testAccount.setBalance(0.0);
         testAccount.setStatus(Status.BOOKMAKER);
         testAccount.setEmail("test@test.ru");
@@ -123,6 +125,7 @@ public class ClientServiceTest {
         Account testAccount1 = new Account();
         testAccount1.setLogin("TestLoginNew1");
         testAccount1.setPassword("pass");
+        testAccount1.setDateRegisterAccount(new Date());
         testAccount1.setBalance(0.0);
         testAccount1.setStatus(Status.CLIENT);
         testAccount1.setEmail("test1@test.ru");

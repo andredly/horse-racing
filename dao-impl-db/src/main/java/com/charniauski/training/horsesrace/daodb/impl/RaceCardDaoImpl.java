@@ -16,7 +16,6 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
 
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
-        List<RaceCard> listT = new ArrayList<>();
         String sql=String.format("SELECT rc.id, rc.date_start, rc.date_finish, rc.race_type" +
                 " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
                 " WHERE rc.date_start>(current_timestamp+INTERVAL '5 second')"  +
@@ -26,7 +25,6 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
 
     @Override
     public List<RaceCard> getAllAfterCurrentDate() {
-        List<RaceCard> listT = new ArrayList<>();
         String sql = "SELECT rc.id, rc.date_start, rc.date_finish, rc.race_type" +
                 " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
                 " WHERE rc.date_start>(current_timestamp+INTERVAL '5 second')" +
