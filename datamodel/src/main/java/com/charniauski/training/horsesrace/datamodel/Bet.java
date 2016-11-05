@@ -2,6 +2,8 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
+import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 
 import java.util.Date;
 @Entity(tableName = "bet", autoincrementColumn = "id")
@@ -22,8 +24,9 @@ public class Bet extends AbstractModel{
     @Column(columnName = "coefficient_bet")
     private Double coefficientBet;
 
+    @EnumType(nameClass = StatusBet.class)
     @Column(columnName = "status_bet")
-    private String statusBet;
+    private StatusBet statusBet;
 
     @Column(columnName = "calculate")
     private Double calculate;
@@ -75,11 +78,11 @@ public class Bet extends AbstractModel{
         this.coefficientBet = coefficientBet;
     }
 
-    public String getStatusBet() {
+    public StatusBet getStatusBet() {
         return statusBet;
     }
 
-    public void setStatusBet(String statusBet) {
+    public void setStatusBet(StatusBet statusBet) {
         this.statusBet = statusBet;
     }
 

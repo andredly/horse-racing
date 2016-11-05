@@ -33,13 +33,13 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
     @Transactional
     @Override
     public Long save(Command command) throws NullPointerException, IllegalArgumentException {
-        Validate.notNull(command.getJockey(),"Arguments Jockey may not by null");
-        Validate.notNull(command.getTrainer(),"Arguments Trainer may not by null");
-        Validate.notNull(command.getUrlImageColor(),"Arguments UrlImageColor may not by null");
+//        Validate.notNull(command.getJockey(),"Arguments Jockey may not by null");
+//        Validate.notNull(command.getTrainer(),"Arguments Trainer may not by null");
+//        Validate.notNull(command.getUrlImageColor(),"Arguments UrlImageColor may not by null");
         Long commandId;
         if (command.getId() == null) {
-            Command oldCommand = commandDao.getByTrainerAndJockeyAndUrl(command.getTrainer(),command.getJockey(),command.getUrlImageColor());
-            if (oldCommand!=null)throw new IllegalArgumentException("Command already exists");
+//            Command oldCommand = commandDao.getByTrainerAndJockeyAndUrl(command.getTrainer(),command.getJockey(),command.getUrlImageColor());
+//            if (oldCommand!=null)throw new IllegalArgumentException("Command already exists");
             commandId = commandDao.insert(command);
         } else {
             commandDao.update(command);

@@ -18,4 +18,11 @@ public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao{
         String sql = format("%s WHERE nick_name='%s';", sqlSelectEntity(Horse.class), nickName);
         return getEntity(sql,Horse.class);
     }
+
+    @Override
+    public Horse getByRaceDetail(Long raceDetail) {
+        String sql = format("SELECT * FROM race_detail rd LEFT JOIN horse ON" +
+                " rd.horse_id = horse.id WHERE rd.id=%d;", raceDetail);
+        return getEntity(sql,Horse.class);
+    }
 }

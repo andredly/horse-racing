@@ -34,13 +34,18 @@ public class HorseServiceImpl extends AbstractService<Horse,Long> implements Hor
         return horseDao.getByNickName(nickName);
     }
 
+    @Override
+    public Horse getByRaceDetail(Long raceDetail) {
+        return horseDao.getByRaceDetail(raceDetail);
+    }
+
     @Transactional
     @Override
     public Long save(Horse horse) throws NullPointerException, IllegalArgumentException {
-        Validate.notNull(horse.getNickName(),"Arguments NickName may not by null");
-        Validate.notNull(horse.getEquipmentWeight(),"Arguments EquipmentWeight may not by null");
-        Validate.notNull(horse.getOwner(),"Arguments Owner may not by null");
-        Validate.notNull(horse.getAge(),"Arguments Age may not by null");
+//        Validate.notNull(horse.getNickName(),"Arguments NickName may not by null");
+//        Validate.notNull(horse.getEquipmentWeight(),"Arguments EquipmentWeight may not by null");
+//        Validate.notNull(horse.getOwner(),"Arguments Owner may not by null");
+//        Validate.notNull(horse.getAge(),"Arguments Age may not by null");
         Long horseId;
         if (horse.getId() == null) {
             Horse oldHorse = horseDao.getByNickName(horse.getNickName());

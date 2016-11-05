@@ -6,14 +6,15 @@ import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
-import com.charniauski.training.horsesrace.services.wrapper.RacecourseWithListRaceCard;
-import org.apache.commons.lang3.Validate;
+import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
+import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,26 +41,32 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
         return racecourseDao.getAllAfterCurrentDate();
     }
 
-    @Override
-    public RacecourseWithListRaceCard getRacecourseWithListRaceCard(Long racecourseId) {
-        Racecourse racecourse = get(racecourseId);
-        List<RaceCard> raceCards=raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
-        RacecourseWithListRaceCard racecourseWithListRaceCard=new RacecourseWithListRaceCard();
-        racecourseWithListRaceCard.setRacecourse(racecourse);
-        racecourseWithListRaceCard.setRaceCardList(raceCards);
-        return racecourseWithListRaceCard;
-    }
 
     @Override
     public Racecourse getRacecourseByName(String name) {
         return racecourseDao.getByName(name);
     }
 
+    @Override
+    public RacecourseWrapper getRacecourseWrapper(Long racecourseId) {
+        Racecourse racecourse =get(racecourseId);
+        List<RaceCard> raceCards=raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
+        List<RaceCardWrapper> raceCardWrappers =new ArrayList<>();
+        for (RaceCard raceCard:raceCards){
+            raceCardWrappers.add(raceCardService.getRaceCardWrapper(raceCard.getId()));
+        }
+        RacecourseWrapper racecourseWrapper=new RacecourseWrapper();
+        racecourseWrapper.setRacecourse(racecourse);
+        racecourseWrapper.setRaceCardWrappers(raceCardWrappers);
+        return racecourseWrapper;
+    }
+
+
     @Transactional
     @Override
     public Long save(Racecourse racecourse) {
-        Validate.notNull(racecourse.getName(),"Arguments Name may not by null");
-        Validate.notNull(racecourse.getCountry(),"Arguments Country may not by null");
+//        Validate.notNull(racecourse.getName(),"Arguments Name may not by null");
+//        Validate.notNull(racecourse.getCountry(),"Arguments Country may not by null");
 
         Long racecourseId;
         if (racecourse.getId() == null) {

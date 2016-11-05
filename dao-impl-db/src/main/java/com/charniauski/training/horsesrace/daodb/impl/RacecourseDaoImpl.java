@@ -21,6 +21,7 @@ public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements R
     public List<Racecourse> getAllAfterCurrentDate() {
         String sql = "SELECT rs.id, rs.name,rs.country FROM racecourse rs LEFT JOIN race_card rc" +
                 " ON rs.id = rc.racecourse_id WHERE rc.date_start>(current_timestamp+INTERVAL '5 second')" +
+                " AND  rc.date_start<(current_timestamp+INTERVAL '24 hours')" +
                 " GROUP BY rs.id ORDER BY rs.name;";
         return getListEntity(sql,Racecourse.class);
     }

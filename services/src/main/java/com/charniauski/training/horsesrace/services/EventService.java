@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.Event;
+import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 
 import java.util.List;
 
@@ -10,5 +11,11 @@ import java.util.List;
 public interface EventService extends GenericService<Event,Long> {
 
     List<Event> getAllByRaceDetail(Long raceDetail);
+
+    List<Event> getAllByResultEvent(String resultEvent);
+
+    List<Event> getAllByResultEventAndRaceDetail(String resultEvent, Long raceDetail);
+
+    void updateResultEvent(Long eventId, ResultEvent resultEvent);
 
 }

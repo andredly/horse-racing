@@ -8,6 +8,7 @@ import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.ClientService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,18 +37,22 @@ public class ClientServiceImpl extends AbstractService<Client, Long> implements 
     @Transactional
     @Override
     public Long save(Client client)  {
-        LOGGER.info("Save start create Client={}", client.getFirstName());
+        clientDataValidate(client);
+        Account account = accountService.get(client.getId());
+        if (account == null) throw new NoSuchEntityException("Account " + account.getLogin() + " not found");
+        Client oldClient = clientDao.get(client.getId());
+        if (oldClient == null) clientDao.insert(client);
+        else clientDao.update(client);
+        return client.getId();
+    }
+
+    private void clientDataValidate(Client client) {
         Validate.notNull(client.getFirstName(),"Arguments FirstName may not by null");
         Validate.notNull(client.getLastName(),"Arguments LastName may not by null");
         Validate.notNull(client.getAddress(),"Arguments Address may not by null");
         Validate.notNull(client.getDate(),"Arguments Date may not by null");
-
-        Account account = accountService.get(client.getId());
-        if (account.getId() == null) throw new NoSuchEntityException("Account " + account.getLogin() + " not found");
-        Client oldClient = clientDao.get(client.getId());
-        if (oldClient == null) clientDao.insert(client);
-        else clientDao.update(client);
-        LOGGER.info("Save end create Account={}", account.getLogin());
-        return client.getId();
+        Validate.notEmpty(client.getFirstName());
+        Validate.notEmpty(client.getLastName());
+        Validate.notEmpty(client.getAddress());
     }
 }

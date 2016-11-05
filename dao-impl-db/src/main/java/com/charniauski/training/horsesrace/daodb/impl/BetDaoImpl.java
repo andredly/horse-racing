@@ -27,14 +27,14 @@ public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao{
     }
 
     @Override
-    public List<Bet> getAllByLoginAndStatus(String login, String statusBet) {
+    public List<Bet> getAllByLoginAndStatusBet(String login, String statusBet) {
         String sql = String.format("SELECT * FROM account ac" +
                 " LEFT JOIN bet bt ON bt.account_id = ac.id WHERE login='%s' AND status_bet='%s';",login,statusBet);
         return getListEntity(sql,Bet.class);
     }
 
     @Override
-    public List<Bet> getAllByStatus(String statusBet) {
+    public List<Bet> getAllByStatusBet(String statusBet) {
         String sql = String.format("SELECT * FROM account ac" +
                 " LEFT JOIN bet bt ON bt.account_id = ac.id WHERE status_bet='%s';",statusBet);
         return getListEntity(sql,Bet.class);

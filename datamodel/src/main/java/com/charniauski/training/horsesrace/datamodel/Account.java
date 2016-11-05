@@ -4,6 +4,8 @@ import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import java.util.Date;
  * Created by ivc4 on 13.10.2016.
  */
 @Entity(tableName = "account", autoincrementColumn = "id")
-public class Account extends AbstractModel{
+public class Account extends AbstractModel {
 
     @Column(columnName = "login")
     private String login;
@@ -110,29 +112,31 @@ public class Account extends AbstractModel{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (o == null) return false;
+        if (o == this) return true;
+        if (o.getClass() != getClass()) return false;
         Account account = (Account) o;
-        if (getId() != null ? !getId().equals(account.getId()) : account.getId() != null) return false;
-        if (login != null ? !login.equals(account.login) : account.login != null) return false;
-        if (password != null ? !password.equals(account.password) : account.password != null) return false;
-        if (dateRegisterAccount != null ? !dateRegisterAccount.equals(account.dateRegisterAccount) : account.dateRegisterAccount != null) return false;
-        if (status != null ? !status.equals(account.status) : account.status != null) return false;
-        if (balance != null ? !balance.equals(account.balance) : account.balance != null) return false;
-        return email != null ? email.equals(account.email) : account.email == null;
-
+        return new EqualsBuilder()
+                .appendSuper(super.equals(o))
+                .append(getId(),account.getId())
+                .append(login, account.login)
+                .append(password, account.password)
+                .append(dateRegisterAccount, account.dateRegisterAccount)
+                .append(status, account.status)
+                .append(balance, account.balance)
+                .append(email, account.email).isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (dateRegisterAccount != null ? dateRegisterAccount.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (balance != null ? balance.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder(17, 37)
+                .append(getId())
+                .append(login)
+                .append(password)
+                .append(dateRegisterAccount)
+                .append(status)
+                .append(balance)
+                .append(email).hashCode();
     }
+
 }

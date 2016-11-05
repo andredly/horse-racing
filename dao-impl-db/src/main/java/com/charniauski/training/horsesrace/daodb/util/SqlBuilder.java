@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getFields;
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getTableName;
@@ -19,6 +20,15 @@ import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getT
 public class SqlBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SqlBuilder.class);
+
+
+    public static <T extends AbstractModel> String sqlSelectEntity(Class<T> clazz) {
+        return "SELECT * FROM " + getTableName(clazz) + " ";
+    }
+
+    public static <T extends AbstractModel> String sqlDeleteEntity(Class<T> clazz) {
+        return "DELETE FROM " + getTableName(clazz) + " WHERE id =";
+    }
 
     public static <T extends AbstractModel> String sqlInsertOrUpdateEntity(T entity, boolean isInsert) {
         Class<?> clazz = entity.getClass();
@@ -76,12 +86,4 @@ public class SqlBuilder {
         return columnSb.toString();
     }
 
-
-    public static <T extends AbstractModel> String sqlSelectEntity(Class<T> clazz) {
-        return "SELECT * FROM " + getTableName(clazz) + " ";
-    }
-
-    public static <T extends AbstractModel> String sqlDeleteEntity(Class<T> clazz) {
-        return "DELETE FROM " + getTableName(clazz) + " WHERE id =";
-    }
 }

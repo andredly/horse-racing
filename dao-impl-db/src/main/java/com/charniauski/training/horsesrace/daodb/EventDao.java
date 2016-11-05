@@ -10,4 +10,8 @@ import java.util.List;
 public interface EventDao extends GenericDao<Event, Long>{
     List<Event> getAllByRaceDetail(Long raceDetail);
 
+    List<Event> getAllByResultEventAndRaceDetail(String resultEvent, Long raceDetail);
+
+    List<Event> getAllByResultEvent(String resultEvent);
+
 }

@@ -123,12 +123,12 @@ VALUES (7,'place','2016.10.17 20:12',2.1,'qqq','dred1');
 
 
 
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',1,1,'WIN',10,2.6,'win',13.1);
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,1,'WIN',20,2.6,'win',0);
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,2,'WIN',50,2.6,'win',0);
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,3,'PLACE2',10,2.6,'win',11);
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',5,1,'PLACE3',100,2.6,'win',NULL );
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,3,'PLACE2',30,2.6,'win',NULL );
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,2,'PLACE3',15,2.6,'win',NULL );
-INSERT INTO bet (date_bet,event_id,account_id,bet_type,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',3,1,'PLACE2',60,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',1,1,10,2.6,'win',13.1);
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,1,20,2.6,'win',0);
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,2,50,2.6,'win',0);
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',2,3,10,2.6,'win',11);
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',5,1,100,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,3,30,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',6,2,15,2.6,'win',NULL );
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.10.17 20:12',3,1,60,2.6,'win',NULL );
 

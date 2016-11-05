@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -46,7 +47,10 @@ public class AccountServiceTest {
         testAccount = new Account();
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
-        testAccount.setDateRegisterAccount(new Date());
+        Date date=new Date();
+        System.out.println(date.getTime());
+        testAccount.setDateRegisterAccount(new Timestamp(new Date().getTime()));
+
         testAccount.setBalance(0.0);
         testAccount.setStatus(Status.CLIENT);
         testAccount.setEmail("test@test.ru");
@@ -82,6 +86,7 @@ public class AccountServiceTest {
         Account account = accountDao.get(id);
         assertNotNull(account);
         testAccount.setId(id);
+        testAccount.setDateRegisterAccount(new Date(testAccount.getDateRegisterAccount().getTime()));
         assertEquals(testAccount, account);
         accountDao.delete(id);
     }
@@ -96,6 +101,7 @@ public class AccountServiceTest {
             accountDao.update(testAccount);
         }
         Account account = accountDao.get(testAccountId);
+        testAccount.setDateRegisterAccount(new Date(testAccount.getDateRegisterAccount().getTime()));
         assertEquals(testAccount, account);
     }
 
@@ -124,6 +130,8 @@ public class AccountServiceTest {
         Account account1 = accountDao.getByLogin("TestLoginNew1");
         testAccount.setId(account.getId());
         testAccount1.setId(account1.getId());
+        testAccount.setDateRegisterAccount(new Date(testAccount.getDateRegisterAccount().getTime()));
+        testAccount1.setDateRegisterAccount(new Date(testAccount1.getDateRegisterAccount().getTime()));
         assertEquals(testAccount, account);
         assertEquals(testAccount1, account1);
         accountDao.delete(account.getId());
@@ -141,6 +149,7 @@ public class AccountServiceTest {
     public void getAccountByLoginTest(){
         Account testLoginNew = accountDao.getByLogin("TestLoginNew");
         testAccount.setId(testAccountId);
+        testAccount.setDateRegisterAccount(new Date(testAccount.getDateRegisterAccount().getTime()));
         assertEquals(testAccount,testLoginNew);
     }
 

@@ -25,6 +25,7 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
         return arrayList;
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional
     @Override
     public PK save(T entity)  {
@@ -35,17 +36,20 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
         }
     }
 
-
+    @SuppressWarnings("unchecked")
+    @Transactional
     @Override
     public boolean delete(T entity) {
         return getGenericDao().delete(entity.getId());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T get(PK id) {
         return (T) getGenericDao().get(id);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
         return getGenericDao().getAll();

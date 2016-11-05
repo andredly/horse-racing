@@ -67,6 +67,7 @@ public class Command extends AbstractModel {
 
     }
 
+
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;

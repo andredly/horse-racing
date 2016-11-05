@@ -1,16 +1,20 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.Bet;
-import com.charniauski.training.horsesrace.datamodel.Client;
-import com.charniauski.training.horsesrace.datamodel.Event;
-import com.charniauski.training.horsesrace.datamodel.RaceDetail;
+import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.apache.commons.lang3.reflect.TypeUtils;
+import org.junit.Assert;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class SpringScopeTest {
 
@@ -303,13 +307,25 @@ public class SpringScopeTest {
 //        Long save = raceDetailService.save(raceDetail);
 //        System.out.println(save);
 
-//        List<Bet> log2 = betServiceBean.getAllByLoginAndStatus("log2", "win");
+//        List<Bet> log2 = betServiceBean.getAllByLoginAndStatusBet("log2", "win");
 //        System.out.println(log2);
 //        log2.stream().forEach(bet -> System.out.println(bet));
-        Bet bet=betServiceBean.getByAccountAndEvent("log2",6L);
-        System.out.println(bet);
+//        Bet bet=betServiceBean.getByAccountAndEvent("log2",6L);
+//        System.out.println(bet);
 //            List<Event> events=eventServiceBean.getAllByRaceDetail(3L);
 //        events.stream().forEach(event -> System.out.println(event));
+//        Account account=accountServiceBean.get(1L);
+//        Account account1=accountServiceBean.get(1L);
+//        Assert.assertEquals(account,account1);
+//        Horse horse = horseServiceBean.getByRaceDetail(15L);
+//        System.out.println(horse);
+//        List<RaceDetail> raceDetails=raceDetailService.getByRaceCard(3L);
+//        raceDetails.stream().forEach(raceDetail -> System.out.println(raceDetail));
+        List<RaceCard> raceCards=raceCardServiceBean.getThreeNextAfterCurrentDate(2L);
+        raceCards.stream().forEach(raceCard -> System.out.println(raceCard));
+        PropertyUtilsBean propertyUtilsBean=new PropertyUtilsBean();
+        Map<String, Object> describe = propertyUtilsBean.describe(raceCards.get(0));
+        System.out.println(describe);
 
 
     }

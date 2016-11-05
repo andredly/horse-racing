@@ -1,6 +1,8 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
+import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 
 import java.util.Date;
 import java.util.List;
@@ -12,11 +14,11 @@ public interface RaceCardService extends GenericService<RaceCard,Long> {
 
     List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId);
 
-    List<RaceCard> getThreeNextAfterCurrentDate();
+    List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId);
 
-    List<RaceCard> getAllAfterCurrentDate();
+    Date getDateStartByEvent(Long eventId);
 
-    Date getDateStart(Long raceCardId);
+    void saveDateFinish(Long raceCardId, Date dateFinish);
 
-    Date getDateFinish(Long raceCardId);
+    RaceCardWrapper getRaceCardWrapper(Long raceCardId);
 }

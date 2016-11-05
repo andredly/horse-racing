@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import com.charniauski.training.horsesrace.datamodel.enums.EventType;
+import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 
 import java.util.Date;
 
@@ -26,8 +27,9 @@ public class Event extends AbstractModel {
     @Column(columnName = "bookmaker")
     private String bookmaker;
 
+    @EnumType(nameClass = ResultEvent.class)
     @Column(columnName = "result_event")
-    private String resultEvent;
+    private ResultEvent resultEvent;
 
 //    private RaceCard raceCard;
 //    private Horse horse;
@@ -76,11 +78,11 @@ public class Event extends AbstractModel {
         this.bookmaker = bookmaker;
     }
 
-    public String getResultEvent() {
+    public ResultEvent getResultEvent() {
         return resultEvent;
     }
 
-    public void setResultEvent(String resultEvent) {
+    public void setResultEvent(ResultEvent resultEvent) {
         this.resultEvent = resultEvent;
     }
 

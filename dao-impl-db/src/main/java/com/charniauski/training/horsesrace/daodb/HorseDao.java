@@ -9,4 +9,6 @@ public interface HorseDao extends GenericDao<Horse, Long> {
 
     Horse getByNickName(String nickName);
 
+    Horse getByRaceDetail(Long raceDetail);
+
 }

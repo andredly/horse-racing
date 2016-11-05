@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,20 +16,43 @@ import java.util.*;
 
 import static org.springframework.util.Assert.notNull;
 
-
 public class ReflectionUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReflectionUtil.class);
 
-    public static boolean isTransient(Field field) {
-        return Modifier.isTransient(field.getModifiers());
-    }
 
-    public static boolean isAutoincrement(Field field) {
-        Column annotation = field.getAnnotation(Column.class);
-        return annotation.isAutoIncrement();
+    public static <T> T getBean(Map<String, Object> mapResultQuery, Class<T> clazz) {
+        Map<String, Object> beanParameter = new LinkedHashMap<>();
+        List<Field> fields = getFields(clazz);
+        for (Field field : fields) {
+            Column column = field.getAnnotation(Column.class);
+            EnumType enumType = field.getAnnotation(EnumType.class);
+            if (field.getType().isEnum()) {
+                String enumName = (String) mapResultQuery.get(column.columnName());
+                Enum[] anEnum = (Enum[]) enumType.nameClass().getEnumConstants();
+                for (Enum enumInstance : anEnum) {
+                    if (enumInstance.name().equals(enumName)) beanParameter.put(field.getName(), enumInstance);
+                }
+                continue;
+            }
+            if (mapResultQuery.containsKey(column.columnName()))
+                beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
+        }
+        for (Map.Entry<String, Object> map : mapResultQuery.entrySet()) {
+            String columnNameChanged = map.getKey().replace("_", "").replace("_id", "");
+            String nameClass = clazz.getSimpleName().toLowerCase();
+            if (columnNameChanged.equals(nameClass)) beanParameter.put("id", map.getValue());
+        }
+        T entity = null;
+        try {
+            entity = clazz.newInstance();
+            BeanUtilsBean instance = BeanUtilsBean.getInstance();
+            instance.populate(entity, beanParameter);
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            e.printStackTrace();
+        }
+        return entity;
     }
-
 
     public static <T> List<Field> getFields(Class<T> clazz) {
         List<Field> list = new ArrayList<>();
@@ -66,70 +90,6 @@ public class ReflectionUtil {
         return columns;
     }
 
-    public static List<Object> getBeanValue(Object entity) {
-        List<Object> list = new ArrayList<>();
-        List<Field> fields = getFields(entity.getClass());
-        for (Field field : fields) {
-            System.out.println(field);
-            if (field.getName().toUpperCase().equals("id")) {
-                continue;
-            }
-            String methodName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-            System.out.println(methodName);
-            try {
-                if (Modifier.isStatic(field.getModifiers())) {
-                    continue;
-                }
-                Method method = entity.getClass().getMethod(methodName);
-
-                Object o = method.invoke(entity);
-                System.out.println(o);
-                if (null != o) {
-                    list.add(o);
-                }
-            } catch (Exception ignored) {
-                ignored.printStackTrace();
-            }
-        }
-        return list;
-    }
-
-    public static <T> T getBean(Map<String, Object> mapResultQuery, Class<T> clazz) {
-        Map<String, Object> beanParameter = new LinkedHashMap<>();
-        List<Field> fields = getFields(clazz);
-//        LOGGER.info(mapResultQuery.toString());
-//        LOGGER.info(fields.toString());
-        for (Field field : fields) {
-            Column column = field.getAnnotation(Column.class);
-            EnumType enumType = field.getAnnotation(EnumType.class);
-            if (field.getType().isEnum()) {
-                String enumName = (String) mapResultQuery.get(column.columnName());
-                Enum[] anEnum = (Enum[]) enumType.nameClass().getEnumConstants();
-                for (Enum enumInstance : anEnum) {
-                    if (enumInstance.name().equals(enumName)) beanParameter.put(field.getName(), enumInstance);
-                }
-                continue;
-            }
-            if (mapResultQuery.containsKey(column.columnName()))
-                beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
-        }
-        for (Map.Entry<String, Object> map : mapResultQuery.entrySet()) {
-            String columnNameChanged = map.getKey().replace("_", "").replace("_id", "");
-            String nameClass = clazz.getSimpleName().toLowerCase();
-            if (columnNameChanged.equals(nameClass)) beanParameter.put("id", map.getValue());
-//            LOGGER.debug(columnNameChanged.toString()+" "+nameClass.toString());
-        }
-        T entity = null;
-        try {
-            entity = clazz.newInstance();
-            BeanUtilsBean instance = BeanUtilsBean.getInstance();
-            instance.populate(entity, beanParameter);
-        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            e.printStackTrace();
-        }
-        return entity;
-    }
-
 
     public static <T> Map<String, Object> getMapColumnAndArgEntity(T entity) {
         Map<String, Object> map = new LinkedHashMap<>();
@@ -158,5 +118,27 @@ public class ReflectionUtil {
         }
         return map;
     }
+
+    public static <T> Map<String, Object> getMapEntity(T entity) {
+        PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
+        Map<String, Object> map = null;
+        try {
+            map = propertyUtilsBean.describe(entity);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
+    public static boolean isTransient(Field field) {
+        return Modifier.isTransient(field.getModifiers());
+    }
+
+    public static boolean isAutoincrement(Field field) {
+        Column annotation = field.getAnnotation(Column.class);
+        return annotation.isAutoIncrement();
+    }
+
 
 }

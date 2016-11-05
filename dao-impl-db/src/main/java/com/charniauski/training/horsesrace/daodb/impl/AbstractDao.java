@@ -40,7 +40,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     }
 
 
-    //    @SuppressWarnings("unchecked")
     @Override
     public T get(PK id) {
         String sql = format("%s WHERE id=%d;", sqlSelectEntity(clazz), id);
@@ -58,7 +57,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         return (PK) (Object) generatedKeyHolder.getKey().longValue();
     }
 
-    //        @SuppressWarnings("unchecked")
     @Override
     public Integer update(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
@@ -66,13 +64,11 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         return jdbcTemplate.update(sql);
     }
 
-//                @SuppressWarnings("unchecked")
     @Override
     public boolean delete(PK id) {
         String sql = format("%s%d;", sqlDeleteEntity(clazz), id);
         LOGGER.debug(sql);
-        int delete = jdbcTemplate.update(sql);
-        return delete == 1;
+        return jdbcTemplate.update(sql) == 1;
     }
 
     @Override
@@ -80,10 +76,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         String sql = sqlSelectEntity(clazz);
         LOGGER.debug(sql);
         return getListEntity(sql, clazz);
-    }
-
-    JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
     }
 
     final T getEntity(String sql, Class<T> clazz) {
@@ -100,12 +92,14 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     final List<T> getListEntity(String sql, Class<T> clazz) {
         List<T> listT = new ArrayList<>();
         List<Map<String, Object>> listMap = jdbcTemplate.queryForList(sql);
-        LOGGER.debug(listMap.toString());
         for (Map<String, Object> map : listMap) {
             T entity = getBean(map, clazz);
             listT.add(entity);
         }
-//        LOGGER.debug(listT.toString());
         return listT;
+    }
+
+    JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
     }
 }

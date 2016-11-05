@@ -11,9 +11,9 @@ public interface BetDao extends GenericDao<Bet, Long>{
 
     List<Bet> getAllByLogin(String login);
 
-    List<Bet> getAllByLoginAndStatus(String login, String statusBet);
+    List<Bet> getAllByLoginAndStatusBet(String login, String statusBet);
 
-    List<Bet> getAllByStatus(String statusBet);
+    List<Bet> getAllByStatusBet(String statusBet);
 
     Bet getByAccountAndEvent(String login, Long eventId);
 }

@@ -9,4 +9,5 @@ public interface HorseService extends GenericService<Horse,Long> {
 
     Horse getByNickName(String nickName);
 
+    Horse getByRaceDetail(Long raceDetail);
 }
