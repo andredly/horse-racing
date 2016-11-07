@@ -3,15 +3,16 @@ package com.charniauski.training.horsesrace.daodb.util;
 import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.*;
 
 import static org.springframework.util.Assert.notNull;
@@ -19,7 +20,6 @@ import static org.springframework.util.Assert.notNull;
 public class ReflectionUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReflectionUtil.class);
-
 
     public static <T> T getBean(Map<String, Object> mapResultQuery, Class<T> clazz) {
         Map<String, Object> beanParameter = new LinkedHashMap<>();
@@ -46,12 +46,40 @@ public class ReflectionUtil {
         T entity = null;
         try {
             entity = clazz.newInstance();
-            BeanUtilsBean instance = BeanUtilsBean.getInstance();
+            BeanUtilsBean instance = NullAwareBeanUtilsBean.getInstance();
             instance.populate(entity, beanParameter);
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }
         return entity;
+    }
+
+    private static class NullAwareBeanUtilsBean extends BeanUtilsBean {
+
+        private static NullAwareBeanUtilsBean nullAwareBeanUtilsBean;
+        public static NullAwareBeanUtilsBean getInstance() {
+            if (nullAwareBeanUtilsBean == null) {
+                nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
+            }
+            return nullAwareBeanUtilsBean;
+        }
+        private final Log log = LogFactory.getLog(BeanUtils.class);
+
+        @Override
+        public void populate(final Object bean, final Map<String, ? extends Object> properties)
+                throws IllegalAccessException, InvocationTargetException {
+            if ((bean == null) || (properties == null))  return;
+            if (log.isDebugEnabled()) {
+                log.debug("BeanUtils.populate(" + bean + ", " +
+                        properties + ")");
+            }
+            for (final Map.Entry<String, ? extends Object> entry : properties.entrySet()) {
+                final String name = entry.getKey();
+                if (name == null) continue;
+                if (entry.getValue() == null) continue;
+                super.setProperty(bean, name, entry.getValue());
+            }
+        }
     }
 
     public static <T> List<Field> getFields(Class<T> clazz) {
@@ -91,35 +119,35 @@ public class ReflectionUtil {
     }
 
 
-    public static <T> Map<String, Object> getMapColumnAndArgEntity(T entity) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        Class<?> clazz = entity.getClass();
-        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
-        List<Field> allFields = ReflectionUtil.getFields(clazz);
-        try {
-            for (Field field : allFields) {
-                field.setAccessible(true);
-                Column column = field.getAnnotation(Column.class);
-//                if (entityAnnotation.autoincrementColumn().equals(field.getName())) {
-//                    continue;
+//    public static <T> Map<String, Object> getMapColumnAndArgEntity(T entity) {
+//        Map<String, Object> map = new LinkedHashMap<>();
+//        Class<?> clazz = entity.getClass();
+//        Entity entityAnnotation = clazz.getAnnotation(Entity.class);
+//        List<Field> allFields = ReflectionUtil.getFields(clazz);
+//        try {
+//            for (Field field : allFields) {
+//                field.setAccessible(true);
+//                Column column = field.getAnnotation(Column.class);
+////                if (entityAnnotation.autoincrementColumn().equals(field.getName())) {
+////                    continue;
+////                }
+//                if (field.getType().getSimpleName().endsWith("String") || field.getType().getSimpleName().endsWith("Date")) {
+//                    if (field.get(entity) == null) {
+//                        continue;
+//                    } else {
+//                        map.put(column.columnName(), field.get(entity));
+//                    }
+//                } else {
+//                    map.put(column.columnName(), field.get(entity));
 //                }
-                if (field.getType().getSimpleName().endsWith("String") || field.getType().getSimpleName().endsWith("Date")) {
-                    if (field.get(entity) == null) {
-                        continue;
-                    } else {
-                        map.put(column.columnName(), field.get(entity));
-                    }
-                } else {
-                    map.put(column.columnName(), field.get(entity));
-                }
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
+//            }
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return map;
+//    }
 
-    public static <T> Map<String, Object> getMapEntity(T entity) {
+    public static <T> Map<String, Object> getMapFieldAndArgumEntity(T entity) {
         PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean();
         Map<String, Object> map = null;
         try {
@@ -131,14 +159,18 @@ public class ReflectionUtil {
     }
 
 
-    public static boolean isTransient(Field field) {
-        return Modifier.isTransient(field.getModifiers());
+    public static void setField(Object obj, String fieldName, Object value) {
+        try {
+            Field field = obj.getClass().getDeclaredField(fieldName);
+            boolean oldAccess = field.isAccessible();
+            field.setAccessible(true);
+            field.set(obj, value);
+            field.setAccessible(oldAccess);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static boolean isAutoincrement(Field field) {
-        Column annotation = field.getAnnotation(Column.class);
-        return annotation.isAutoIncrement();
-    }
 
 
 }

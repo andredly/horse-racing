@@ -2,7 +2,6 @@ package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.CommandDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
-import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 
 import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.sqlSelectEntity;

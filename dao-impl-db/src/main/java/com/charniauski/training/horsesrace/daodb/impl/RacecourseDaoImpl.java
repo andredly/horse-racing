@@ -4,7 +4,6 @@ import com.charniauski.training.horsesrace.daodb.RacecourseDao;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.sqlSelectEntity;

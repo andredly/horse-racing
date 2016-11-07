@@ -13,7 +13,6 @@ import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import static com.charniauski.training.horsesrace.datamodel.enums.Status.*;
+import static com.charniauski.training.horsesrace.datamodel.enums.Status.CLIENT;
 
 
 /**
@@ -43,7 +42,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     private BetService betService;
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Account, Long> getGenericDao() {
         return accountDao;
     }
 
@@ -73,6 +72,13 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         accountWrapper.setBets(bets);
         accountWrapper.setClient(client);
         return accountWrapper;
+    }
+
+    @Transactional
+    @Override
+    public void fakeDelete(Account account) {
+        account.setIsDelete(true);
+        accountDao.update(account);
     }
 
 

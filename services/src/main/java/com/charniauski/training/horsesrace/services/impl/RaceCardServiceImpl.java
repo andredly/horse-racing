@@ -40,7 +40,7 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
 
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<RaceCard, Long> getGenericDao() {
         return raceCardDao;
     }
 

@@ -2,10 +2,8 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.daodb.HorseDao;
-import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.HorseService;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,7 @@ public class HorseServiceImpl extends AbstractService<Horse,Long> implements Hor
 
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Horse, Long> getGenericDao() {
         return horseDao;
     }
 

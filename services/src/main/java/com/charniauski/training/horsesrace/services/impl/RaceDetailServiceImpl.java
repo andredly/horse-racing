@@ -11,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.annotation.Validated;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -40,7 +38,7 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     private EventService eventService;
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<RaceDetail, Long> getGenericDao() {
         return raceDetailDao;
     }
 
@@ -97,7 +95,7 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
 //        Validate.notNull(raceDetail.getHorseId(), "Arguments HorseId may not by null");
 //        Validate.notNull(raceDetail.getCommandId(), "Arguments CommandId may not by null");
 //        Validate.notNull(raceDetail.getNumberStartBox(), "Arguments NumberStartBox may not by null");
-
+        System.out.println("++++"+raceDetail+"+++++");
         RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
         Horse horse =horseService.get(raceDetail.getHorseId());
         Command command =commandService.get(raceDetail.getCommandId());

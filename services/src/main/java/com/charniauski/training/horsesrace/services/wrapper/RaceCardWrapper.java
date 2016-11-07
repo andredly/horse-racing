@@ -36,4 +36,25 @@ public class RaceCardWrapper {
     public void setRaceDetailWrappers(List<RaceDetailWrapper> raceDetailWrappers) {
         this.raceDetailWrappers = raceDetailWrappers;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RaceCardWrapper)) return false;
+
+        RaceCardWrapper that = (RaceCardWrapper) o;
+
+        if (raceCard != null ? !raceCard.equals(that.raceCard) : that.raceCard != null) return false;
+        if (racecourse != null ? !racecourse.equals(that.racecourse) : that.racecourse != null) return false;
+        return raceDetailWrappers != null ? raceDetailWrappers.equals(that.raceDetailWrappers) : that.raceDetailWrappers == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = raceCard != null ? raceCard.hashCode() : 0;
+        result = 31 * result + (racecourse != null ? racecourse.hashCode() : 0);
+        result = 31 * result + (raceDetailWrappers != null ? raceDetailWrappers.hashCode() : 0);
+        return result;
+    }
 }

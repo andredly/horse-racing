@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.daodb;
 
 import com.charniauski.training.horsesrace.datamodel.Bet;
+import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ public interface BetDao extends GenericDao<Bet, Long>{
 
     List<Bet> getAllByLogin(String login);
 
-    List<Bet> getAllByLoginAndStatusBet(String login, String statusBet);
+    List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet);
 
-    List<Bet> getAllByStatusBet(String statusBet);
+    List<Bet> getAllByStatusBet(StatusBet statusBet);
 
     Bet getByAccountAndEvent(String login, Long eventId);
 }

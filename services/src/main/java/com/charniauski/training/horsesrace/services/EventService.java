@@ -12,9 +12,9 @@ public interface EventService extends GenericService<Event,Long> {
 
     List<Event> getAllByRaceDetail(Long raceDetail);
 
-    List<Event> getAllByResultEvent(String resultEvent);
+    List<Event> getAllByResultEvent(ResultEvent resultEvent);
 
-    List<Event> getAllByResultEventAndRaceDetail(String resultEvent, Long raceDetail);
+    List<Event> getAllByResultEventAndRaceDetail(ResultEvent resultEvent, Long raceDetail);
 
     void updateResultEvent(Long eventId, ResultEvent resultEvent);
 

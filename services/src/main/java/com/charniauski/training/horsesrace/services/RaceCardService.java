@@ -2,7 +2,6 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
-import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 
 import java.util.Date;
 import java.util.List;

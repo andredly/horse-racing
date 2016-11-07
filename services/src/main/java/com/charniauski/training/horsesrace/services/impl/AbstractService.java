@@ -29,7 +29,7 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
     @Transactional
     @Override
     public PK save(T entity)  {
-        if (entity.getId() == null) return (PK) getGenericDao().insert(entity);
+        if (entity.getId() == null) return getGenericDao().insert(entity);
         else {
             getGenericDao().update(entity);
             return (PK) entity.getId();
@@ -40,7 +40,7 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
     @Transactional
     @Override
     public boolean delete(T entity) {
-        return getGenericDao().delete(entity.getId());
+        return getGenericDao().delete((PK)entity.getId());
     }
 
     @SuppressWarnings("unchecked")

@@ -21,4 +21,6 @@ public interface AccountService extends GenericService<Account,Long> {
     Long save(Account account, Client client);
 
     AccountWrapper getAccountWrapper(String login);
+
+    void fakeDelete(Account account);
 }

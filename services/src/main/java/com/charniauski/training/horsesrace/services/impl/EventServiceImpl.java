@@ -34,7 +34,7 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
 
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Event, Long> getGenericDao() {
         return eventDao;
     }
 
@@ -67,12 +67,12 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
     }
 
     @Override
-    public List<Event> getAllByResultEvent(String resultEvent) {
+    public List<Event> getAllByResultEvent(ResultEvent resultEvent) {
         return eventDao.getAllByResultEvent(resultEvent);
     }
 
     @Override
-    public List<Event> getAllByResultEventAndRaceDetail(String resultEvent, Long raceDetail) {
+    public List<Event> getAllByResultEventAndRaceDetail(ResultEvent resultEvent, Long raceDetail) {
         return eventDao.getAllByResultEventAndRaceDetail(resultEvent,raceDetail);
     }
 

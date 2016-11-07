@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.inject.Inject;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
 /**

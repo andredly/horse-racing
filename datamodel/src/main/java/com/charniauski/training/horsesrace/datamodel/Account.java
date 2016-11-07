@@ -34,6 +34,9 @@ public class Account extends AbstractModel {
     @Column(columnName = "email")
     private String email;
 
+    @Column(columnName = "is_delete")
+    private Boolean isDelete;
+
 //    private SecurityLevel securityLevel;
 //    private User user;
 
@@ -88,13 +91,12 @@ public class Account extends AbstractModel {
         this.email = email;
     }
 
-    public Account(String login, String password, Date dateRegisterAccount, Status status, Double balance, String email) {
-        this.login = login;
-        this.password = password;
-        this.dateRegisterAccount = dateRegisterAccount;
-        this.status = status;
-        this.balance = balance;
-        this.email = email;
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean delete) {
+        isDelete = delete;
     }
 
     @Override
@@ -107,6 +109,7 @@ public class Account extends AbstractModel {
                 ", status=" + status +
                 ", balance=" + balance +
                 ", email='" + email + '\'' +
+                ", isDelete='" + isDelete + '\'' +
                 '}';
     }
 
@@ -117,13 +120,14 @@ public class Account extends AbstractModel {
         if (o.getClass() != getClass()) return false;
         Account account = (Account) o;
         return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(getId(),account.getId())
+//                .appendSuper(super.equals(o))
+                .append(getId(), account.getId())
                 .append(login, account.login)
                 .append(password, account.password)
                 .append(dateRegisterAccount, account.dateRegisterAccount)
                 .append(status, account.status)
                 .append(balance, account.balance)
+                .append(isDelete, account.isDelete)
                 .append(email, account.email).isEquals();
     }
 
@@ -136,7 +140,9 @@ public class Account extends AbstractModel {
                 .append(dateRegisterAccount)
                 .append(status)
                 .append(balance)
-                .append(email).hashCode();
+                .append(email)
+                .append(isDelete).hashCode();
     }
+
 
 }

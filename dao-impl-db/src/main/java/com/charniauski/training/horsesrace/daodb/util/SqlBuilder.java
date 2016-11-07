@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getFields;
 import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getTableName;
@@ -20,7 +19,6 @@ import static com.charniauski.training.horsesrace.daodb.util.ReflectionUtil.getT
 public class SqlBuilder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SqlBuilder.class);
-
 
     public static <T extends AbstractModel> String sqlSelectEntity(Class<T> clazz) {
         return "SELECT * FROM " + getTableName(clazz) + " ";
@@ -49,17 +47,11 @@ public class SqlBuilder {
                 if (field.getName().equals("id")) fieldId = field;
                 field.setAccessible(true);
                 Column column = field.getAnnotation(Column.class);
-                if (isInsert && entityAnnotation.autoincrementColumn().equals(field.getName())) {
-                    continue;
-                }
-                if (field.getType().getSimpleName().endsWith("String") ||
-                        field.getType().getSimpleName().endsWith("Date") ||
-                        field.getType().isEnum()) {
-                    if (field.get(entity) == null) {
-                        continue;
-                    } else {
-                        valueSb.append("'").append(field.get(entity)).append("', ");
-                    }
+                if (isInsert && entityAnnotation.autoincrementColumn().equals(field.getName())) continue;
+                if (field.getType().getSimpleName().endsWith("String") /*||field.getType().getSimpleName().endsWith("Boolean")*/
+                        ||field.getType().getSimpleName().endsWith("Date") ||field.getType().isEnum()) {
+                    if (field.get(entity) == null) continue;
+                    else valueSb.append("'").append(field.get(entity)).append("', ");
                 } else {
                     valueSb.append(field.get(entity)).append(", ");
                 }

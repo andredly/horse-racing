@@ -19,6 +19,7 @@
 
     <context:component-scan base-package="com.charniauski.training.horsesrace.daodb.impl"/>
     <context:component-scan base-package="com.charniauski.training.horsesrace.services.impl"/>
+    <context:component-scan base-package="com.charniauski.training.horsesrace.services"/>
 
     <!--<context:component-scan base-package="com.charniauski.training.horsesrace.daodb.util"/>-->
 

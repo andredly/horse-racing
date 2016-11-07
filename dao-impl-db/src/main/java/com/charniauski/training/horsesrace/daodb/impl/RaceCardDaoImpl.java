@@ -2,14 +2,11 @@ package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.charniauski.training.horsesrace.daodb.util.SqlBuilder.sqlSelectEntity;
 import static java.lang.String.format;
 
 /**

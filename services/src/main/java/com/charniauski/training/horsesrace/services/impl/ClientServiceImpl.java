@@ -8,7 +8,6 @@ import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.ClientService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class ClientServiceImpl extends AbstractService<Client, Long> implements 
     private AccountService accountService;
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Client, Long> getGenericDao() {
         return clientDao;
     }
 
@@ -54,5 +53,10 @@ public class ClientServiceImpl extends AbstractService<Client, Long> implements 
         Validate.notEmpty(client.getFirstName());
         Validate.notEmpty(client.getLastName());
         Validate.notEmpty(client.getAddress());
+    }
+
+    @Override
+    public Client getByLogin(String login) {
+        return clientDao.getByLogin(login);
     }
 }

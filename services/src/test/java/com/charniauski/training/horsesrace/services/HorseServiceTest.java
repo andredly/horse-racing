@@ -1,9 +1,9 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.HorseDao;
-import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,16 +30,9 @@ public class HorseServiceTest {
 
     private Long testHorseId;
 
-    private Long testCommandId;
-
-    private Command command;
-
-    @Inject
-    private CommandService commandService;
-
     @BeforeClass
     public static void prepareTestData() {
-
+        new CreateBase().init();
     }
 
     @AfterClass
@@ -55,12 +48,12 @@ public class HorseServiceTest {
         testHorse.setEquipmentWeight(60);
         testHorse.setForm("TestForm");
         testHorse.setOwner("TestOwner");
-        testHorseId = horseDao.insert(testHorse);
+        testHorseId=3L;
     }
 
     @After
     public void deleteMethodData() {
-        horseDao.delete(testHorseId);
+        testHorse=null;
         testHorseId = null;
     }
 
@@ -75,14 +68,11 @@ public class HorseServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = testHorse.getId();
-        Horse horse1 = horseDao.get(id);
-        assertNull(horse1);
+        Long id = null;
         if (testHorse.getId() == null) {
             testHorse.setNickName("TestNickName1");
             id = horseDao.insert(testHorse);
         } else {
-            horseDao.update(testHorse);
         }
         Horse horse = horseDao.get(id);
         assertNotNull(horse);
@@ -96,7 +86,6 @@ public class HorseServiceTest {
         assertNotNull(testHorseId);
         testHorse.setId(testHorseId);
         if (testHorse.getId() == null) {
-            testHorseId = horseDao.insert(testHorse);
         } else {
             horseDao.update(testHorse);
         }
@@ -135,17 +124,23 @@ public class HorseServiceTest {
     }
 
     @Test
-    public void getAll() {
+    public void getAllTest() {
         List<Horse> all = horseDao.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
-    public void getHorseByNickName(){
-        Horse testLoginNew = horseDao.getByNickName("TestNickName");
+    public void getHorseByNickNameTest() {
+        Horse testLoginNew = horseDao.getByNickName("faster1");
         testHorse.setId(testHorseId);
-        assertEquals(testHorse,testLoginNew);
+        assertEquals("faster1", testLoginNew.getNickName());
     }
 
+    @Test
+    public void getByRaceDetailTest(){
+        Horse horse=horseDao.get(1L);
+        Horse horse1 = horseService.getByRaceDetail(1L);
+        assertEquals(horse, horse1);
+    }
 }

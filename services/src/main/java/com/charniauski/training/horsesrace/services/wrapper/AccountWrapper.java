@@ -37,4 +37,25 @@ public class AccountWrapper {
     public void setBets(List<Bet> bets) {
         this.bets = bets;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AccountWrapper)) return false;
+
+        AccountWrapper that = (AccountWrapper) o;
+
+        if (account != null ? !account.equals(that.account) : that.account != null) return false;
+        if (client != null ? !client.equals(that.client) : that.client != null) return false;
+        return bets != null ? bets.equals(that.bets) : that.bets == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = account != null ? account.hashCode() : 0;
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        result = 31 * result + (bets != null ? bets.hashCode() : 0);
+        return result;
+    }
 }

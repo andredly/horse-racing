@@ -4,7 +4,6 @@ import com.charniauski.training.horsesrace.daodb.CommandDao;
 import com.charniauski.training.horsesrace.daodb.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.CommandService;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
 
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Command, Long> getGenericDao() {
         return commandDao;
     }
 

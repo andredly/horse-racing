@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.RaceDetailDao;
-import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +29,7 @@ public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements 
 
     @Override
     public RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox) {
-        String sql = format("%s WHERE race_card_id=%d AND number_start_box_id=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, numberStartBox);
+        String sql = format("%s WHERE race_card_id=%d AND number_start_box=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, numberStartBox);
         return getEntity(sql, RaceDetail.class);
     }
 

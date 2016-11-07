@@ -1,6 +1,5 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 
@@ -13,9 +12,9 @@ public interface BetService extends GenericService<Bet,Long> {
 
     List<Bet> getAllByLogin(String login);
 
-    List<Bet> getAllByLoginAndStatusBet(String login, String statusBet);
+    List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet);
 
-    List<Bet> getAllByStatusBet(String statusBet);
+    List<Bet> getAllByStatusBet(StatusBet statusBet);
 
     Bet getByAccountAndEvent(String login, Long eventId);
 

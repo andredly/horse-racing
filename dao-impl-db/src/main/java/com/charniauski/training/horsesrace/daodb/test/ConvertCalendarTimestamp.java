@@ -1,8 +1,8 @@
 package com.charniauski.training.horsesrace.daodb.test;
 
 import java.sql.Timestamp;
-   import java.text.SimpleDateFormat;
-   import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class ConvertCalendarTimestamp {

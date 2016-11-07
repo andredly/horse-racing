@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.daodb.CommandDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,7 +32,7 @@ public class CommandServiceTest {
 
     @BeforeClass
     public static void prepareTestData() {
-
+        new CreateBase().init();
     }
 
     @AfterClass
@@ -45,36 +46,32 @@ public class CommandServiceTest {
         testCommand.setJockey("Joi");
         testCommand.setTrainer("Join");
         testCommand.setUrlImageColor("HTTP-");
-        testCommandId = commandDao.insert(testCommand);
+        testCommandId=3L;
     }
 
     @After
     public void deleteMethodData() {
-        commandDao.delete(testCommandId);
+        testCommand=null;
         testCommandId = null;
     }
 
 
     @Test
     public void getByIdTest() {
-        Command command = commandDao.get(testCommandId);
-        testCommand.setId(testCommandId);
+        Command command = commandDao.get(1L);
         assertNotNull(command);
-        assertEquals(testCommandId, command.getId());
+        assertEquals(new Long(1L), command.getId());
     }
 
     @Test
     public void saveInsertTest() {
-        Long id = testCommand.getId();
-        Command command1 = commandDao.get(id);
-        assertNull(command1);
+        Long id = null;
         if (testCommand.getId() == null) {
             testCommand.setJockey("Joi1");
             testCommand.setTrainer("Join1");
             testCommand.setUrlImageColor("HTTP-1");
             id = commandDao.insert(testCommand);
         } else {
-            commandDao.update(testCommand);
         }
         Command command = commandDao.get(id);
         assertNotNull(command);
@@ -88,7 +85,6 @@ public class CommandServiceTest {
         assertNotNull(testCommandId);
         testCommand.setId(testCommandId);
         if (testCommand.getId() == null) {
-            testCommandId = commandDao.insert(testCommand);
         } else {
             commandDao.update(testCommand);
         }
@@ -133,6 +129,13 @@ public class CommandServiceTest {
         List<Command> all = commandDao.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
+    }
+
+    @Test
+    public void getByTrainerAndJockeyAndUrlTest(){
+        Command command = commandDao.get(1L);
+        Command command1 = commandService.getByTrainerAndJockeyAndUrl("jon", "uri", "http1");
+        assertEquals(command,command1);
     }
 
 }

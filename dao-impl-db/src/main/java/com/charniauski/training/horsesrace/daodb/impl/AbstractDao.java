@@ -35,8 +35,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     @SuppressWarnings("unchecked")
     protected AbstractDao() {
-        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
-                .getActualTypeArguments()[0];
+        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
 

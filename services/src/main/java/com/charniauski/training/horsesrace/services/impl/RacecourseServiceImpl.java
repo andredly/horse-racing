@@ -32,7 +32,7 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
 
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Racecourse, Long> getGenericDao() {
         return racecourseDao;
     }
 

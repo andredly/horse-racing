@@ -4,6 +4,8 @@ import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Date;
 @Entity(tableName = "bet", autoincrementColumn = "id")
@@ -108,34 +110,65 @@ public class Bet extends AbstractModel{
                 '}';
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Bet bet = (Bet) o;
+//        if (getId() != null ? !getId().equals(bet.getId()) : bet.getId() != null) return false;
+//        if (dateBet != null ? !dateBet.equals(bet.dateBet) : bet.dateBet != null) return false;
+//        if (eventId != null ? !eventId.equals(bet.eventId) : bet.eventId != null) return false;
+//        if (accountId != null ? !accountId.equals(bet.accountId) : bet.accountId != null) return false;
+//        if (sum != null ? !sum.equals(bet.sum) : bet.sum != null) return false;
+//        if (coefficientBet != null ? !coefficientBet.equals(bet.coefficientBet) : bet.coefficientBet != null)
+//            return false;
+//        if (statusBet != null ? !statusBet.equals(bet.statusBet) : bet.statusBet != null) return false;
+//        return calculate != null ? calculate.equals(bet.calculate) : bet.calculate == null;
+//
+//    }
+//
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (o == null) return false;
+        if (o == this) return true;
+        if (o.getClass() != getClass()) return false;
         Bet bet = (Bet) o;
-        if (getId() != null ? !getId().equals(bet.getId()) : bet.getId() != null) return false;
-        if (dateBet != null ? !dateBet.equals(bet.dateBet) : bet.dateBet != null) return false;
-        if (eventId != null ? !eventId.equals(bet.eventId) : bet.eventId != null) return false;
-        if (accountId != null ? !accountId.equals(bet.accountId) : bet.accountId != null) return false;
-        if (sum != null ? !sum.equals(bet.sum) : bet.sum != null) return false;
-        if (coefficientBet != null ? !coefficientBet.equals(bet.coefficientBet) : bet.coefficientBet != null)
-            return false;
-        if (statusBet != null ? !statusBet.equals(bet.statusBet) : bet.statusBet != null) return false;
-        return calculate != null ? calculate.equals(bet.calculate) : bet.calculate == null;
-
+        return new EqualsBuilder()
+//                .appendSuper(super.equals(o))
+                .append(getId(), bet.getId())
+                .append(dateBet, bet.dateBet)
+                .append(eventId, bet.eventId)
+                .append(accountId, bet.accountId)
+                .append(sum, bet.sum)
+                .append(coefficientBet, bet.coefficientBet)
+                .append(statusBet, bet.statusBet)
+                .append(calculate, bet.calculate).isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (dateBet != null ? dateBet.hashCode() : 0);
-        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
-        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
-        result = 31 * result + (sum != null ? sum.hashCode() : 0);
-        result = 31 * result + (coefficientBet != null ? coefficientBet.hashCode() : 0);
-        result = 31 * result + (statusBet != null ? statusBet.hashCode() : 0);
-        result = 31 * result + (calculate != null ? calculate.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder(17, 37)
+                .append(getId())
+                .append(dateBet)
+                .append(eventId)
+                .append(accountId)
+                .append(sum)
+                .append(coefficientBet)
+                .append(statusBet)
+                .append(calculate).hashCode();
     }
+
+//    @Override
+//    public int hashCode() {
+//        int result = getId() != null ? getId().hashCode() : 0;
+//        result = 31 * result + (dateBet != null ? dateBet.hashCode() : 0);
+//        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
+//        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
+//        result = 31 * result + (sum != null ? sum.hashCode() : 0);
+//        result = 31 * result + (coefficientBet != null ? coefficientBet.hashCode() : 0);
+//        result = 31 * result + (statusBet != null ? statusBet.hashCode() : 0);
+//        result = 31 * result + (calculate != null ? calculate.hashCode() : 0);
+//        return result;
+//    }
 }

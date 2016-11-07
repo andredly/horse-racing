@@ -45,7 +45,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
     private RaceCardService raceCardService;
 
     @Override
-    public GenericDao getGenericDao() {
+    public GenericDao<Bet, Long> getGenericDao() {
         return betDao;
     }
 
@@ -55,6 +55,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         validateDataBet(bet);
         Event event = eventService.get(bet.getEventId());
         Account account=accountService.get(bet.getAccountId());
+        Validate.isTrue(!account.getIsDelete());
         if (event == null||account==null)
             throw new NoSuchEntityException("Event or Account not found. Enter valid id!");
         Long betId;
@@ -76,7 +77,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         Validate.notNull(bet.getEventId(), "Arguments EventId may not by null");
         Validate.notNull(bet.getAccountId(), "Arguments AccountId may not by null");
         Validate.notNull(bet.getSum(), "Arguments Sum may not by null");
-        Validate.validState(bet.getSum()<=0,"Sum Arguments Sum may not by <=0");
+        Validate.isTrue(bet.getSum()>=0.0,"Sum Arguments Sum may not by <=0",bet.getSum());
     }
 
     @Override
@@ -85,12 +86,12 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
     }
 
     @Override
-    public List<Bet> getAllByLoginAndStatusBet(String login, String statusBet) {
+    public List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet) {
         return betDao.getAllByLoginAndStatusBet(login,statusBet);
     }
 
     @Override
-    public List<Bet> getAllByStatusBet(String statusBet) {
+    public List<Bet> getAllByStatusBet(StatusBet statusBet) {
         return betDao.getAllByStatusBet(statusBet);
     }
 

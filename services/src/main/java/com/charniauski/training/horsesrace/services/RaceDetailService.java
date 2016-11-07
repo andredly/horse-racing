@@ -1,9 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
-import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
