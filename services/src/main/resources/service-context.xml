@@ -26,6 +26,20 @@
     <context:property-placeholder
             ignore-unresolvable="true" location="classpath:db.properties" />
 
+
+    <!--<bean id="dataSource" class="com.charniauski.training.horsesrace.daodb.util.SchemaNameAwareConnectionPool" destroy-method="close">-->
+        <!--<property name="driverClass" value="org.postgresql.Driver" />-->
+        <!--<property name="jdbcUrl" value="${jdbc.url}" />-->
+        <!--<property name="username" value="${jdbc.username}"/>-->
+        <!--<property name="password" value="${jdbc.password}"/>-->
+        <!--<property name="maxConnectionsPerPartition" value="30"/>-->
+        <!--<property name="minConnectionsPerPartition" value="10"/>-->
+        <!--<property name="partitionCount" value="3"/>-->
+        <!--<property name="acquireIncrement" value="5"/>-->
+        <!--<property name="statementsCacheSize" value="100"/>-->
+        <!--<property name="schema" value="${db.schema}"/>-->
+    <!--</bean>-->
+
     <bean id="dataSource"
           class="com.charniauski.training.horsesrace.daodb.util.SchemaNameAwareBasicDataSource"
           destroy-method="close">
@@ -47,6 +61,9 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
+
+
+
 
 
 </beans>

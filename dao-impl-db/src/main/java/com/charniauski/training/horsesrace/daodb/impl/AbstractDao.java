@@ -66,7 +66,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public boolean delete(PK id) {
         String sql = format("%s%d;", sqlDeleteEntity(clazz), id);
-        LOGGER.debug(sql);
+
         return jdbcTemplate.update(sql) == 1;
     }
 
@@ -82,6 +82,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         try {
             entity = getBean(jdbcTemplate.queryForMap(sql), clazz);
         } catch (EmptyResultDataAccessException e) {
+            LOGGER.error("Not found entity",e);
             return null;
         }
         LOGGER.debug(entity.toString());

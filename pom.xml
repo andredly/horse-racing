@@ -161,7 +161,17 @@
 				<version>1.9.3</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp-spring</artifactId>
+				<version>0.8.0.RELEASE</version>
+			</dependency>
 
+			<dependency>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp</artifactId>
+				<version>0.8.0.RELEASE</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

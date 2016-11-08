@@ -22,10 +22,10 @@ VALUES ('faster4',2,62,'45','henk4');
 INSERT INTO racecourse (name, country) VALUES ('germ','g');
 INSERT INTO racecourse (name, country) VALUES ('germ1','g');
 
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 05:00',NULL ,'1000',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 12:10',NULL ,'1500',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 12:10',NULL ,'1500',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.06 12:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 22:00',NULL ,'1000',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 21:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 23:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.06 23:10',NULL ,'1500',1);
 INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.14 12:10',NULL ,'1500',2);
 
 INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,1,1,1,NULL );
