@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -38,12 +37,8 @@ public class BetServiceTest {
     @Inject
     private EventService eventService;
 
-    @Inject
-    private RaceCardService raceCardService;
-
     private Bet testBet;
     private Long testBetId;
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @BeforeClass
     public static void prepareTestData() {

@@ -25,12 +25,6 @@ public class RaceCardServiceTest {
     @Inject
     private RaceCardDao raceCardDao;
 
-    @Inject
-    private RaceDetailService raceDetailService;
-
-    @Inject
-    private RacecourseService racecourseService;
-
     private RaceCard testRaceCard;
 
     private Long testRaceCardId;

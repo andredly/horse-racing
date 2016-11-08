@@ -177,7 +177,7 @@ public class AccountServiceTest {
         Long id = accountService.save(account, client);
         Account account1 = accountService.get(id);
         Client client1=clientService.get(id);
-        assertEquals(account,account);
+        assertEquals(account,account1);
         assertEquals(client,client1);
     }
 
