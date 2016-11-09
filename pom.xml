@@ -184,6 +184,7 @@
 				<artifactId>commons-pool</artifactId>
 				<version>1.6</version>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

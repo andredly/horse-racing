@@ -7,15 +7,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.ScriptStatementFailedException;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
-import javax.naming.Context;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 /**
  * Created by Andre on 07.11.2016.

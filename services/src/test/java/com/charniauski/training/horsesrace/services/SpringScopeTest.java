@@ -103,7 +103,7 @@ public class SpringScopeTest {
 //        System.out.println(account);
 
         PoolingDataSource poolingDataSource = new PoolingDataSource();
-//        poolingDataSource.setUrl(properties.getProperty("jdbc.url"));
+        poolingDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
         poolingDataSource.setServerName("localhost");
         poolingDataSource.setPortNumber(5432);
         poolingDataSource.setUser("postgres");
@@ -115,6 +115,8 @@ public class SpringScopeTest {
         Connection connection = poolingDataSource.getConnection();
         System.out.println(connection);
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO logging (event_date,level,logger,msg,throwable) VALUES ('2016-11-09 16:33:00.750000 +03:00:00','ERROR','com.charniauski.training.horsesrace.daodb.impl.AbstractDao','Not found entity','org.springframework.dao.EmptyResultDataAccessException');");
+        preparedStatement.addBatch();
+        preparedStatement.executeBatch();
         int[] execute = preparedStatement.executeBatch();
         System.out.println(Arrays.toString(execute));
 

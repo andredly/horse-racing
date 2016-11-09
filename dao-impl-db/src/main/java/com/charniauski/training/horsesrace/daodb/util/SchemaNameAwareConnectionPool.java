@@ -1,9 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 import com.jolbox.bonecp.BoneCPDataSource;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.lang3.Validate;
 
 import java.sql.Connection;
