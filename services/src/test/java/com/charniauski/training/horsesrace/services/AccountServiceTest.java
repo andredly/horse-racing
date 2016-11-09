@@ -24,6 +24,8 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "classpath:service-context.xml")
 public class AccountServiceTest {
 
+
+
     @Inject
     private AccountService accountService;
 

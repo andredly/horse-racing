@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+    <Properties>
+        <property name="smtpProtocol">${bundle:appenderMail:smtpProtocol}</property>
+        <property name="smtpPort">${bundle:appenderMail:smtpPort}</property>
+        <property name="smtpHost">${bundle:appenderMail:smtpHost}</property>
+        <property name="from">${bundle:appenderMail:from}</property>
+        <property name="to">${bundle:appenderMail:to}</property>
+        <property name="smtpUsername">${bundle:appenderMail:smtpUsername}</property>
+        <property name="smtpPassword">${bundle:appenderMail:smtpPassword}</property>
+    </Properties>
 
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
@@ -18,21 +27,29 @@
             <PatternLayout pattern="%-5level, %m"/>
         </CustomAppender>
 
-        <!--<SMTP name="EMail" subject="Error Log"-->
-              <!--smtpProtocol="smtps"-->
-              <!--smtpPort="465"-->
-              <!--smtpHost="smtp.gmail.com"-->
-              <!--from=""-->
-              <!--to=""-->
-              <!--smtpUsername=""-->
-              <!--smtpPassword=""-->
-              <!--bufferSize="50">-->
-            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
-        <!--</SMTP>-->
+        <SMTP name="EMail" subject="Log project" smtpProtocol="${smtpProtocol}" smtpPort="${smtpPort}"
+              smtpHost="${smtpHost}"     from="${from}"     to="${to}"
+              smtpUsername="${smtpUsername}"   smtpPassword="${smtpPassword}"     bufferSize="50">
+            <PatternLayout pattern="%-5level, %m"/>
+        </SMTP>
 
+        <JDBC name="databaseAppender" tableName="logging">
+            <ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory" method="getDatabaseConnection" />
+            <Column name="event_date" isEventTimestamp="true" />
+            <Column name="level" pattern="%level" />
+            <Column name="logger" pattern="%logger" />
+            <Column name="msg" pattern="%message" />
+            <Column name="throwable" pattern="%ex{full}" />
+            <!--<layout class="org.apache.log4j.PatternLayout">-->
+                <!--<param name="ConversionPattern"-->
+                       <!--value="INSERT INTO my_table (log_date, log_level, location, message) VALUES ( '%d{ISO8601}','%p',-->
+              <!--'%C;%L', '%m' )"-->
+                <!--/>-->
+            <!--</layout>-->
+        </JDBC>
     </Appenders>
 
-    <Loggers>
+     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
@@ -42,6 +59,8 @@
                 <AppenderRef ref="Console" level="info"/>
                 <AppenderRef ref="RollingFile" level="info"/>
                 <AppenderRef ref="myapp" />
+            <!--<AppenderRef ref="EMail" level="error"/>-->
+            <AppenderRef ref="databaseAppender" level="error"/>
         </Logger>
         <!--
                 <Loggers>

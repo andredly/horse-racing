@@ -1,18 +1,25 @@
 package com.charniauski.training.horsesrace.services;
 
+import com.charniauski.training.horsesrace.daodb.util.ConnectionFactory;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.postgresql.jdbc2.optional.PoolingDataSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.beans.IntrospectionException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 public class SpringScopeTest {
 
-    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, NoSuchEntityException, IntrospectionException {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, NoSuchEntityException, IntrospectionException, SQLException {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
@@ -30,10 +37,10 @@ public class SpringScopeTest {
 //        raceCards.stream().forEach(raceCard -> System.out.println(raceCard));
 //
 
-        RaceDetail raceDetail=raceDetailService.get(2L);
-        System.out.println(raceDetail);
-        RaceCard raceCard=raceCardServiceBean.get(1L);
-        System.out.println(raceCard);
+//        RaceDetail raceDetail=raceDetailService.get(2L);
+//        System.out.println(raceDetail);
+//        RaceCard raceCard=raceCardServiceBean.get(1L);
+//        System.out.println(raceCard);
 //PropertyUtilsBean propertyUtilsBean=new PropertyUtilsBean();
 
 //        RaceCard raceCard=new RaceCard();
@@ -94,10 +101,25 @@ public class SpringScopeTest {
 //        System.out.println(account.getIsDelete());
 ////        account.setId(testAccountId);
 //        System.out.println(account);
-        List<RaceCard> allByRacecourseAfterCurrentDate = raceCardServiceBean.getAllByRacecourseAfterCurrentDate(1L);
-        System.out.println(allByRacecourseAfterCurrentDate);
+
+        PoolingDataSource poolingDataSource = new PoolingDataSource();
+//        poolingDataSource.setUrl(properties.getProperty("jdbc.url"));
+        poolingDataSource.setServerName("localhost");
+        poolingDataSource.setPortNumber(5432);
+        poolingDataSource.setUser("postgres");
+        poolingDataSource.setPassword("root");
+        poolingDataSource.setCharset("UTF8");
+        poolingDataSource.setDatabaseName("postgres");
+        poolingDataSource.setCurrentSchema("public");
+        System.out.println(poolingDataSource.getCurrentSchema());
+        Connection connection = poolingDataSource.getConnection();
+        System.out.println(connection);
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO logging (event_date,level,logger,msg,throwable) VALUES ('2016-11-09 16:33:00.750000 +03:00:00','ERROR','com.charniauski.training.horsesrace.daodb.impl.AbstractDao','Not found entity','org.springframework.dao.EmptyResultDataAccessException');");
+        int[] execute = preparedStatement.executeBatch();
+        System.out.println(Arrays.toString(execute));
 
     }
-
-
 }
+
+
+

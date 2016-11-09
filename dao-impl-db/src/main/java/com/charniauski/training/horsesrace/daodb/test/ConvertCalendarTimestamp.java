@@ -1,6 +1,8 @@
 package com.charniauski.training.horsesrace.daodb.test;
 
-import java.sql.Timestamp;
+import com.charniauski.training.horsesrace.daodb.util.ConnectionFactory;
+
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -14,52 +16,66 @@ public class ConvertCalendarTimestamp {
 
 
 
-    public static void main(String[] a) {
+    public static void main(String[] a) throws SQLException {
 
-            System.out.println(makeTimestamp(2002,02,02,02,02,02,02));
+        Connection databaseConnection = ConnectionFactory.getDatabaseConnection();
+        try {
+        PreparedStatement preparedStatement = databaseConnection.prepareStatement("INSERT INTO logging (EVENT_DATE,level,logger,msg,throwable) VALUES ('2016-11-09 12:11:40.588000 +03:00:00','ERROR','com.charniauski.training.horsesrace.daodb.impl.AbstractDao','Not found entity','org.springframework.dao.EmptyResultDataAccessException');");
+        } catch(SQLException current) {
+            System.out.println("================ {{{");
+
+            do {
+                current.printStackTrace();
+            } while ((current = current.getNextException()) != null);
+            System.out.println("================ }}}");
+            throw current;
         }
 
-        public static Timestamp makeTimestamp(int year, int month, int day, int hour, int minute,
-                                              int second, int millisecond) {
-            Calendar cal = new GregorianCalendar();
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month - 1);
-            cal.set(Calendar.DATE, day);
-            cal.set(Calendar.HOUR_OF_DAY, hour);
-            cal.set(Calendar.MINUTE, minute);
-            cal.set(Calendar.SECOND, second);
-            cal.set(Calendar.MILLISECOND, millisecond);
 
-            // now convert GregorianCalendar object to Timestamp object
-            return new Timestamp(cal.getTimeInMillis());
-        }
-
-//convert data
-
-    private static final SimpleDateFormat monthDayYearformatter = new SimpleDateFormat(
-            "MMMMM dd, yyyy");
-
-    private static final SimpleDateFormat monthDayformatter = new SimpleDateFormat("MMMMM dd");
-
-    public static String timestampToMonthDayYear(Timestamp timestamp) {
-        if (timestamp == null) {
-            return null;
-        } else {
-            return monthDayYearformatter.format((java.util.Date) timestamp);
-        }
-    }
-
-    public static String timestampToMonthDay(Timestamp timestamp) {
-        if (timestamp == null) {
-            return null;
-        } else {
-            return monthDayformatter.format((java.util.Date) timestamp);
-        }
-    }
-
-    public static Timestamp getTimestamp() {
-        java.util.Date today = new java.util.Date();
-        return new Timestamp(today.getTime());
+//            System.out.println(makeTimestamp(2002,02,02,02,02,02,02));
+//        }
+//
+//        public static Timestamp makeTimestamp(int year, int month, int day, int hour, int minute,
+//                                              int second, int millisecond) {
+//            Calendar cal = new GregorianCalendar();
+//            cal.set(Calendar.YEAR, year);
+//            cal.set(Calendar.MONTH, month - 1);
+//            cal.set(Calendar.DATE, day);
+//            cal.set(Calendar.HOUR_OF_DAY, hour);
+//            cal.set(Calendar.MINUTE, minute);
+//            cal.set(Calendar.SECOND, second);
+//            cal.set(Calendar.MILLISECOND, millisecond);
+//
+//            // now convert GregorianCalendar object to Timestamp object
+//            return new Timestamp(cal.getTimeInMillis());
+//        }
+//
+////convert data
+//
+//    private static final SimpleDateFormat monthDayYearformatter = new SimpleDateFormat(
+//            "MMMMM dd, yyyy");
+//
+//    private static final SimpleDateFormat monthDayformatter = new SimpleDateFormat("MMMMM dd");
+//
+//    public static String timestampToMonthDayYear(Timestamp timestamp) {
+//        if (timestamp == null) {
+//            return null;
+//        } else {
+//            return monthDayYearformatter.format((java.util.Date) timestamp);
+//        }
+//    }
+//
+//    public static String timestampToMonthDay(Timestamp timestamp) {
+//        if (timestamp == null) {
+//            return null;
+//        } else {
+//            return monthDayformatter.format((java.util.Date) timestamp);
+//        }
+//    }
+//
+//    public static Timestamp getTimestamp() {
+//        java.util.Date today = new java.util.Date();
+//        return new Timestamp(today.getTime());
     }
 
     }
