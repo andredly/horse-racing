@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="error" packages="com.charniauski.training.horsesrace.services.appender">
-<!--<Configuration status="error">-->
+    <!--<Configuration status="error">-->
     <Properties>
         <property name="smtpProtocol">${bundle:appenderMail:smtpProtocol}</property>
         <property name="smtpPort">${bundle:appenderMail:smtpPort}</property>
@@ -29,45 +29,48 @@
         </CustomAppender>
 
         <SMTP name="EMail" subject="Log project" smtpProtocol="${smtpProtocol}" smtpPort="${smtpPort}"
-              smtpHost="${smtpHost}"     from="${from}"     to="${to}"
-              smtpUsername="${smtpUsername}"   smtpPassword="${smtpPassword}"     bufferSize="50">
+              smtpHost="${smtpHost}" from="${from}" to="${to}"
+              smtpUsername="${smtpUsername}" smtpPassword="${smtpPassword}" bufferSize="50">
             <PatternLayout pattern="%-5level, %m"/>
         </SMTP>
 
-        <!--<JDBC name="databaseAppender" tableName="logging">-->
-                <!--<ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory" method="getDatabaseConnection" />-->
-                <!--<Column name="event_date" isEventTimestamp="true" />-->
-                <!--<Column name="level" pattern="%level"  isUnicode="false"/>-->
-                <!--<Column name="logger" pattern="%logger" isUnicode="false"/>-->
-                <!--<Column name="msg" pattern="%message" isUnicode="false"/>-->
-                <!--<Column name="throwable" pattern="%ex{full}" isUnicode="false"/>-->
-        <!--</JDBC>-->
+        <JDBC name="databaseAppender" tableName="logging">
+        <ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory" method="getDatabaseConnection" />
+        <Column name="event_date" isEventTimestamp="true" />
+        <Column name="level" pattern="%level"  isUnicode="false"/>
+        <Column name="logger" pattern="%logger" isUnicode="false"/>
+        <Column name="msg" pattern="%message" isUnicode="false"/>
+        <Column name="throwable" pattern="%ex{full}" isUnicode="false"/>
+        </JDBC>
 
-        <JDBCAppender name="dbAppender" class="com.charniauski.training.horsesrace.services.appender.JDBCAppender" tableName="logging"
-                      >
-            <ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory" method="getDatabaseConnection" />
-            <Column name="event_date" isEventTimestamp="true" />
-            <Column name="level" pattern="%level"  isUnicode="false"/>
-            <Column name="logger" pattern="%logger" isUnicode="false"/>
-            <Column name="msg" pattern="%message" isUnicode="false"/>
-            <Column name="throwable" pattern="%ex{full}" isUnicode="false"/>
-        </JDBCAppender>
+        <!--<JDBCAppender name="dbAppender" class="com.charniauski.training.horsesrace.services.appender.JDBCAppender"-->
+                      <!--tableName="logging"-->
+        <!--&gt;-->
+            <!--<ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory"-->
+                               <!--method="getDatabaseConnection"/>-->
+            <!--<Column name="event_date" isEventTimestamp="true"/>-->
+            <!--<Column name="level" pattern="%level" isUnicode="false"/>-->
+            <!--<Column name="logger" pattern="%logger" isUnicode="false"/>-->
+            <!--<Column name="msg" pattern="%message" isUnicode="false"/>-->
+            <!--<Column name="throwable" pattern="%ex{full}" isUnicode="false"/>-->
+        <!--</JDBCAppender>-->
+
 
     </Appenders>
 
-     <Loggers>
+    <Loggers>
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
 
         <Logger level="debug" name="com.charniauski.training.horsesrace"
                 additivity="false">
-                <AppenderRef ref="Console" level="error"/>
-                <AppenderRef ref="RollingFile" level="info"/>
-                <AppenderRef ref="dbAppender" level="info"/>
-                <AppenderRef ref="myapp" />
+            <AppenderRef ref="Console" level="error"/>
+            <AppenderRef ref="RollingFile" level="info"/>
+            <AppenderRef ref="myapp" level="info"/>
+            <!--<AppenderRef ref="dbAppender" level="info"/>-->
             <!--<AppenderRef ref="EMail" level="error"/>-->
-            <!--<AppenderRef ref="databaseAppender" level="error"/>-->
+            <AppenderRef ref="databaseAppender" level="error"/>
 
         </Logger>
     </Loggers>

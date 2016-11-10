@@ -121,7 +121,7 @@ public class CustomJdbcDatabaseManager extends AbstractDatabaseManager {
         try {
             if (this.connection != null && !this.connection.isClosed()) {
                 if (this.isBatchSupported) {
-                    this.statement.addBatch();
+//                    this.statement.addBatch();
                     this.statement.executeBatch();
                 }
                 this.connection.commit();

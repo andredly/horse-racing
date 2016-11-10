@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:jee="http://www.springframework.org/schema/jee" xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -13,9 +14,12 @@
 	    http://www.springframework.org/schema/jee
 	    http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
 	    http://www.springframework.org/schema/task
-	    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	    http://www.springframework.org/schema/task/spring-task-3.0.xsd
+        http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <context:annotation-config/>
+    <aop:aspectj-autoproxy />
 
     <context:component-scan base-package="com.charniauski.training.horsesrace.daodb.impl"/>
     <context:component-scan base-package="com.charniauski.training.horsesrace.services.impl"/>
@@ -60,6 +64,8 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
+
+    <bean id="aspectDB" class="com.charniauski.training.horsesrace.daodb.util.CustomAspect"/>
 
 
 

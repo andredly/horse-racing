@@ -1,8 +1,10 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daodb.util.ConnectionFactory;
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
+import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.postgresql.jdbc2.optional.PoolingDataSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -101,24 +103,15 @@ public class SpringScopeTest {
 //        System.out.println(account.getIsDelete());
 ////        account.setId(testAccountId);
 //        System.out.println(account);
+        Account account=new Account();
+        Account account1=new Account();
+        account.setStatus(Status.ADMIN);
+        account.setId(1L);
+        account1.setStatus(Status.ADMIN);
+        account1.setId(1L);
+        System.out.println(account.hashCode()+" "+  account1.hashCode());
+        System.out.println(account.equals(account1));
 
-        PoolingDataSource poolingDataSource = new PoolingDataSource();
-        poolingDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-        poolingDataSource.setServerName("localhost");
-        poolingDataSource.setPortNumber(5432);
-        poolingDataSource.setUser("postgres");
-        poolingDataSource.setPassword("root");
-        poolingDataSource.setCharset("UTF8");
-        poolingDataSource.setDatabaseName("postgres");
-        poolingDataSource.setCurrentSchema("public");
-        System.out.println(poolingDataSource.getCurrentSchema());
-        Connection connection = poolingDataSource.getConnection();
-        System.out.println(connection);
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO logging (event_date,level,logger,msg,throwable) VALUES ('2016-11-09 16:33:00.750000 +03:00:00','ERROR','com.charniauski.training.horsesrace.daodb.impl.AbstractDao','Not found entity','org.springframework.dao.EmptyResultDataAccessException');");
-        preparedStatement.addBatch();
-        preparedStatement.executeBatch();
-        int[] execute = preparedStatement.executeBatch();
-        System.out.println(Arrays.toString(execute));
 
     }
 }
