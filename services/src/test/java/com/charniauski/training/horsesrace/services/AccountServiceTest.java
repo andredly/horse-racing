@@ -105,7 +105,7 @@ public class AccountServiceTest {
         } else {
             accountDao.update(testAccount);
         }
-        Account account = accountDao.get(testAccountId);
+        Account account = accountService.get(testAccountId);
         testAccount.setDateRegisterAccount(new Date(testAccount.getDateRegisterAccount().getTime()));
         assertEquals(testAccount, account);
         testAccount.setLogin("log2");
@@ -148,26 +148,26 @@ public class AccountServiceTest {
 
     @Test
     public void getAllTest() {
-        List<Account> all = accountDao.getAll();
+        List<Account> all = accountService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
     public void getAccountByLoginTest(){
-        Account testLoginNew = accountDao.getByLogin("log");
+        Account testLoginNew = accountService.getByLogin("log");
         assertEquals("log",testLoginNew.getLogin());
     }
 
     @Test
     public void getAccountStatusByLoginTest(){
-        Status status = accountDao.getStatusByLogin("log");
+        Status status = accountService.getStatusByLogin("log");
         assertEquals(Status.ADMIN,status);
     }
 
     @Test
     public void getAllAccountsByStatusTest(){
-        List<Account> allAccountsByStatus = accountDao.getAllAccountsByStatus(Status.CLIENT);
+        List<Account> allAccountsByStatus = accountService.getAllByStatus(Status.CLIENT);
         assertEquals(2,allAccountsByStatus.size());
         allAccountsByStatus.forEach(account -> assertEquals(Status.CLIENT, account.getStatus()));
     }
@@ -186,7 +186,7 @@ public class AccountServiceTest {
     @Test
     public void getAccountWrapperTest(){
         AccountWrapper accountWrapper=new AccountWrapper();
-        Account account1 = accountDao.get(1L);
+        Account account1 = accountService.get(1L);
         accountWrapper.setAccount(account1);
         accountWrapper.setClient(clientService.get(1L));
         accountWrapper.setBets(betService.getAllByLogin(account1.getLogin()));

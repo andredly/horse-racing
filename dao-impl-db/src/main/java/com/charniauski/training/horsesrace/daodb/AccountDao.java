@@ -14,6 +14,6 @@ public interface AccountDao extends GenericDao<Account, Long>{
 
     Status getStatusByLogin(String login);
 
-    List<Account> getAllAccountsByStatus(Status status);
+    List<Account> getAllByStatus(Status status);
 
 }

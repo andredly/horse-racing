@@ -59,7 +59,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Override
     public List<Account> getAllByStatus(Status status) {
-        return accountDao.getAllAccountsByStatus(status);
+        return accountDao.getAllByStatus(status);
     }
 
     @Override

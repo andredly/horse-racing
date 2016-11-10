@@ -103,14 +103,6 @@ public class SpringScopeTest {
 //        System.out.println(account.getIsDelete());
 ////        account.setId(testAccountId);
 //        System.out.println(account);
-        Account account=new Account();
-        Account account1=new Account();
-        account.setStatus(Status.ADMIN);
-        account.setId(1L);
-        account1.setStatus(Status.ADMIN);
-        account1.setId(1L);
-        System.out.println(account.hashCode()+" "+  account1.hashCode());
-        System.out.println(account.equals(account1));
 
 
     }

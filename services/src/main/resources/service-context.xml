@@ -65,8 +65,9 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="aspectDB" class="com.charniauski.training.horsesrace.daodb.util.CustomAspect"/>
+    <bean id="aspectDB" class="com.charniauski.training.horsesrace.daodb.cache.CustomAspect"/>
 
+    <bean id="cacheManager" class="net.sf.ehcache.CacheManager"/>
 
 
 
