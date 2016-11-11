@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
 import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.daodb.cache.Cached;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +70,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         return jdbcTemplate.update(sql) == 1;
     }
 
-    @Cached
     @Override
     public List<T> getAll() {
         String sql = sqlSelectEntity(clazz);

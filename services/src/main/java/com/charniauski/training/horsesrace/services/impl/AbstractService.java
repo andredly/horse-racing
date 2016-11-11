@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
+import com.charniauski.training.horsesrace.services.cache.Cached;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +50,9 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
         return (T) getGenericDao().get(id);
     }
 
+
     @SuppressWarnings("unchecked")
+    @Cached
     @Override
     public List<T> getAll() {
         return getGenericDao().getAll();

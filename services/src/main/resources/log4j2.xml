@@ -35,7 +35,7 @@
         </SMTP>
 
         <JDBC name="databaseAppender" tableName="logging">
-        <ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory" method="getDatabaseConnection" />
+        <ConnectionFactory class="com.charniauski.training.horsesrace.services.appender.ConnectionFactory" method="getDatabaseConnection" />
         <Column name="event_date" isEventTimestamp="true" />
         <Column name="level" pattern="%level"  isUnicode="false"/>
         <Column name="logger" pattern="%logger" isUnicode="false"/>
@@ -70,7 +70,7 @@
             <AppenderRef ref="myapp" level="info"/>
             <!--<AppenderRef ref="dbAppender" level="info"/>-->
             <!--<AppenderRef ref="EMail" level="error"/>-->
-            <AppenderRef ref="databaseAppender" level="error"/>
+            <!--<AppenderRef ref="databaseAppender" level="error"/>-->
 
         </Logger>
     </Loggers>

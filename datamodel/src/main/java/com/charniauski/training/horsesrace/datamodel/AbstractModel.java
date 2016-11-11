@@ -3,7 +3,9 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 
-public abstract class AbstractModel {
+import java.io.Serializable;
+
+public abstract class AbstractModel implements Serializable{
 
     @Column(columnName = "id")
     private Long id;

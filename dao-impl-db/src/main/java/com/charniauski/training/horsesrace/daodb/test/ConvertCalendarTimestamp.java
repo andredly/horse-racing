@@ -1,7 +1,5 @@
 package com.charniauski.training.horsesrace.daodb.test;
 
-import com.charniauski.training.horsesrace.daodb.util.ConnectionFactory;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,19 +15,6 @@ public class ConvertCalendarTimestamp {
 
 
     public static void main(String[] a) throws SQLException {
-
-        Connection databaseConnection = ConnectionFactory.getDatabaseConnection();
-        try {
-        PreparedStatement preparedStatement = databaseConnection.prepareStatement("INSERT INTO logging (EVENT_DATE,level,logger,msg,throwable) VALUES ('2016-11-09 12:11:40.588000 +03:00:00','ERROR','com.charniauski.training.horsesrace.daodb.impl.AbstractDao','Not found entity','org.springframework.dao.EmptyResultDataAccessException');");
-        } catch(SQLException current) {
-            System.out.println("================ {{{");
-
-            do {
-                current.printStackTrace();
-            } while ((current = current.getNextException()) != null);
-            System.out.println("================ }}}");
-            throw current;
-        }
 
 
 //            System.out.println(makeTimestamp(2002,02,02,02,02,02,02));

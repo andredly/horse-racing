@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.daodb.util;
+package com.charniauski.training.horsesrace.services.appender;
 
 /**
  * Created by ivc4 on 09.11.2016.
@@ -12,8 +12,10 @@ import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -30,11 +32,13 @@ public class ConnectionFactory {
 
         Properties properties=new Properties();
         try {
-            properties.load(new FileInputStream("src/main/resources/db.properties"));
+            URL file=this.getClass().getClassLoader().getResource("db.properties");
+            assert file != null;
+            properties.load(new FileInputStream(file.getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>();
+        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<>();
 
 //        BoneCPDataSource boneCPDataSource=new BoneCPDataSource();
 //        boneCPDataSource.setDriverClass("org.postgresql.Driver");

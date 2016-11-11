@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.daodb.cache;
+package com.charniauski.training.horsesrace.services.cache;
 
 public interface Cacheable {
 

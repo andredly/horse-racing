@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.daodb.util;
+package com.charniauski.training.horsesrace.services.appender;
 
 
 

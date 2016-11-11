@@ -23,6 +23,7 @@
 
     <context:component-scan base-package="com.charniauski.training.horsesrace.daodb.impl"/>
     <context:component-scan base-package="com.charniauski.training.horsesrace.services.impl"/>
+    <context:component-scan base-package="com.charniauski.training.horsesrace.services.cache"/>
 
     <!--<context:component-scan base-package="com.charniauski.training.horsesrace.daodb.util"/>-->
 
@@ -65,11 +66,15 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="aspectDB" class="com.charniauski.training.horsesrace.daodb.cache.CustomAspect"/>
+    <!--<bean id="aspectDB" class="com.charniauski.training.horsesrace.services.cache.CustomAspect"/>-->
 
-    <bean id="cacheManager" class="net.sf.ehcache.CacheManager"/>
+    <!--<bean id="cacheManager" class="net.sf.ehcache.CacheManager" factory-method="create"/>-->
+    <!--<bean id="cache" factory-bean="cacheManager" factory-method="addCache" name="DB" destroy-method="">-->
+        <!--<constructor-arg type="java.lang.String" value="DB"/>-->
+    <!--</bean>-->
 
-
-
+    <!--<bean id="cacheManager"-->
+          <!--class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"-->
+          <!--p:shared="true"/>-->
 
 </beans>

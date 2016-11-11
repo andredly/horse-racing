@@ -9,6 +9,7 @@ import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.ClientService;
+import com.charniauski.training.horsesrace.services.cache.Cached;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         return accountDao;
     }
 
-
+    @Cached
     @Override
     public Account getByLogin(String login) {
         return accountDao.getByLogin(login);

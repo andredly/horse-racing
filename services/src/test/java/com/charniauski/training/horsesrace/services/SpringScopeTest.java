@@ -1,23 +1,15 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.util.ConnectionFactory;
 import com.charniauski.training.horsesrace.datamodel.Account;
-import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.RaceDetail;
-import com.charniauski.training.horsesrace.datamodel.enums.Status;
+import com.charniauski.training.horsesrace.services.cache.CacheAdapterEhcache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import org.postgresql.jdbc2.optional.PoolingDataSource;
+import net.sf.ehcache.Cache;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.beans.IntrospectionException;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.sql.*;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
 
 public class SpringScopeTest {
 
@@ -103,7 +95,14 @@ public class SpringScopeTest {
 //        System.out.println(account.getIsDelete());
 ////        account.setId(testAccountId);
 //        System.out.println(account);
+//        CacheAdapterEhcache bean = springContext.getBean(CacheAdapterEhcache.class);
 
+        for (int i=0;i<10;i++) {
+             Account account =accountServiceBean.getByLogin("log");
+            System.out.println(i+"  "+account);
+//
+        }
+//        bean.setDisabled();
 
     }
 }

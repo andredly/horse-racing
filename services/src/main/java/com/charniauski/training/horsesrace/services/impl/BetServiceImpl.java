@@ -10,6 +10,7 @@ import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.EventService;
 import com.charniauski.training.horsesrace.services.RaceCardService;
+import com.charniauski.training.horsesrace.services.cache.Cached;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -85,6 +86,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         return betDao.getAllByLogin(login);
     }
 
+    @Cached
     @Override
     public List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet) {
         return betDao.getAllByLoginAndStatusBet(login,statusBet);
@@ -94,6 +96,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
     public List<Bet> getAllByStatusBet(StatusBet statusBet) {
         return betDao.getAllByStatusBet(statusBet);
     }
+
 
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
