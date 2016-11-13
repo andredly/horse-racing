@@ -1,0 +1,39 @@
+<list>
+  <Event>
+    <id>1</id>
+    <raceDetailId>1</raceDetailId>
+    <eventType>WIN</eventType>
+    <dateRegister class="sql-timestamp">2016-11-16 14:36:33.376</dateRegister>
+    <coefficientEvent>2.6</coefficientEvent>
+    <bookmaker>dred</bookmaker>
+    <resultEvent>UNKNOWN</resultEvent>
+  </Event>
+  <Event>
+    <id>2</id>
+    <raceDetailId>2</raceDetailId>
+    <eventType>PLACE2</eventType>
+    <dateRegister class="sql-timestamp">2016-11-16 14:36:33.376</dateRegister>
+    <coefficientEvent>1.6</coefficientEvent>
+    <bookmaker>dred</bookmaker>
+    <resultEvent>UNKNOWN</resultEvent>
+  </Event>
+  <Event>
+    <id>3</id>
+    <raceDetailId>2</raceDetailId>
+    <eventType>WIN</eventType>
+    <dateRegister class="sql-timestamp">2016-11-16 14:36:33.376</dateRegister>
+    <coefficientEvent>2.0</coefficientEvent>
+    <bookmaker>dred</bookmaker>
+    <resultEvent>UNKNOWN</resultEvent>
+  </Event>
+  <Event>
+    <id>4</id>
+    <raceDetailId>1</raceDetailId>
+    <eventType>PLACE2</eventType>
+    <dateRegister class="sql-timestamp">2016-11-16 14:36:33.376</dateRegister>
+    <coefficientEvent>2.6</coefficientEvent>
+    <bookmaker>dred</bookmaker>
+    <resultEvent>UNKNOWN</resultEvent>
+  </Event>
+</list>
+

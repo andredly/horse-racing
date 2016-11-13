@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-//@Service
+@Service
 public class SimpleCache implements Cacheable {
 
     private Map<String, Object> cache;

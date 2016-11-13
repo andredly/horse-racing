@@ -1,0 +1,16 @@
+<list>
+  <RaceDetail>
+    <id>1</id>
+    <raceCardId>1</raceCardId>
+    <horseId>1</horseId>
+    <commandId>1</commandId>
+    <numberStartBox>1</numberStartBox>
+  </RaceDetail>
+   <RaceDetail>
+    <id>2</id>
+    <raceCardId>2</raceCardId>
+    <horseId>2</horseId>
+    <commandId>2</commandId>
+    <numberStartBox>2</numberStartBox>
+  </RaceDetail>
+</list>

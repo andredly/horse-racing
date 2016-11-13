@@ -1,7 +1,8 @@
 package com.charniauski.training.horsesrace.services.impl;
 
-import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.daodb.RaceCardDao;
+
+import com.charniauski.training.horsesrace.daoapi.GenericDao;
+import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;

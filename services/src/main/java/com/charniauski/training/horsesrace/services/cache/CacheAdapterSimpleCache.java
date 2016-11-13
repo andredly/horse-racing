@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
-//@Service
+@Service
 public class CacheAdapterSimpleCache implements Cacheable {
 
-//    @Inject
+    @Inject
     private SimpleCache cache;
 
 

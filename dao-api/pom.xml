@@ -11,6 +11,12 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.charniauski.training.horsesRace2016</groupId>
+			<artifactId>datamodel</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 </project>

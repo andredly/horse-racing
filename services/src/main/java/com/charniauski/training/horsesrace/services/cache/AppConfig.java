@@ -8,22 +8,22 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-
-@Configuration
-//@EnableCaching
-//@ComponentScan({ "com.mkyong.*" })
-public class AppConfig {
-
-	@Bean
-    public CacheManager cacheManager() {
-		return new EhCacheCacheManager(ehCacheCacheManager().getObject());
-	}
-
-	@Bean
-	public EhCacheManagerFactoryBean ehCacheCacheManager() {
-		EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
-		cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));
-		cmfb.setShared(true);
-		return cmfb;
-	}
-}
+//
+//@Configuration
+////@EnableCaching
+////@ComponentScan({ "com.mkyong.*" })
+//public class AppConfig {
+//
+//	@Bean
+//    public CacheManager cacheManager() {
+//		return new EhCacheCacheManager(ehCacheCacheManager().getObject());
+//	}
+//
+//	@Bean
+//	public EhCacheManagerFactoryBean ehCacheCacheManager() {
+//		EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
+//		cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));
+//		cmfb.setShared(true);
+//		return cmfb;
+//	}
+//}

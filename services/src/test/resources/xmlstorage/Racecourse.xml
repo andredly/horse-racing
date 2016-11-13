@@ -1,0 +1,13 @@
+<list>
+  <Racecourse>
+    <id>1</id>
+    <name>germ</name>
+    <country>g</country>
+  </Racecourse>
+  <Racecourse>
+    <id>2</id>
+    <name>germ1</name>
+    <country>g</country>
+  </Racecourse>
+</list>
+

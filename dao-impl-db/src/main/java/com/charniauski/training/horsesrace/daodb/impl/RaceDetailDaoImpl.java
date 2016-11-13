@@ -1,6 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
-import com.charniauski.training.horsesrace.daodb.RaceDetailDao;
+import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 

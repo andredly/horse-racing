@@ -1,0 +1,29 @@
+<list>
+  <Bet>
+    <id>1</id>
+    <dateBet class="sql-timestamp">2016-11-18 14:23:25.702</dateBet>
+    <eventId>1</eventId>
+    <accountId>1</accountId>
+    <sum>10.0</sum>
+    <coefficientBet>1.0</coefficientBet>
+    <statusBet>ACTIVE</statusBet>
+  </Bet>
+    <Bet>
+    <id>2</id>
+    <dateBet class="sql-timestamp">2016-11-18 14:23:25.702</dateBet>
+    <eventId>2</eventId>
+    <accountId>1</accountId>
+    <sum>20.0</sum>
+    <coefficientBet>2.0</coefficientBet>
+    <statusBet>ACTIVE</statusBet>
+  </Bet>
+    <Bet>
+    <id>3</id>
+    <dateBet class="sql-timestamp">2016-11-08 14:23:25.702</dateBet>
+    <eventId>3</eventId>
+    <accountId>2</accountId>
+    <sum>5.0</sum>
+    <coefficientBet>1.4</coefficientBet>
+    <statusBet>CLOSED</statusBet>
+  </Bet>
+</list>

@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Service
+//@Service
 public class CacheAdapterEhcache implements Cacheable {
 
     private Cache cache;

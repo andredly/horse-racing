@@ -1,7 +1,8 @@
 package com.charniauski.training.horsesrace.services.impl;
 
-import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.daodb.HorseDao;
+
+import com.charniauski.training.horsesrace.daoapi.GenericDao;
+import com.charniauski.training.horsesrace.daoapi.HorseDao;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.HorseService;
 import org.slf4j.Logger;

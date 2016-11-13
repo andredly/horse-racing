@@ -1,0 +1,34 @@
+<list>
+  <Horse>
+    <id>1</id>
+    <nickName>faster1</nickName>
+    <age>3</age>
+    <equipmentWeight>60</equipmentWeight>
+    <form>TestForm</form>
+    <owner>henk1</owner>
+  </Horse>
+   <Horse>
+    <id>2</id>
+    <nickName>faster2</nickName>
+    <age>2</age>
+    <equipmentWeight>61</equipmentWeight>
+    <form>TestForm</form>
+    <owner>henk2</owner>
+  </Horse>
+   <Horse>
+    <id>3</id>
+    <nickName>faster3</nickName>
+    <age>4</age>
+    <equipmentWeight>59</equipmentWeight>
+    <form>TestForm</form>
+    <owner>henk3</owner>
+  </Horse>
+   <Horse>
+    <id>4</id>
+    <nickName>faster4</nickName>
+    <age>3</age>
+    <equipmentWeight>62</equipmentWeight>
+    <form>TestForm</form>
+    <owner>henk4</owner>
+  </Horse>
+</list>

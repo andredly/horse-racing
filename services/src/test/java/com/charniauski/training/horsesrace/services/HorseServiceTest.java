@@ -1,11 +1,13 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.HorseDao;
+
+import com.charniauski.training.horsesrace.daoapi.HorseDao;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,11 +22,9 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "classpath:service-context.xml")
 public class HorseServiceTest {
 
-    @Inject
-    private HorseService horseService;
 
     @Inject
-    private HorseDao horseDao;
+    private HorseService horseService;
 
     private Horse testHorse;
 
@@ -32,7 +32,8 @@ public class HorseServiceTest {
 
     @BeforeClass
     public static void prepareTestData() {
-        new CreateBase().init();
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -42,18 +43,20 @@ public class HorseServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testHorse = new Horse();
         testHorse.setNickName("TestNickName");
         testHorse.setAge(3);
         testHorse.setEquipmentWeight(60);
         testHorse.setForm("TestForm");
         testHorse.setOwner("TestOwner");
-        testHorseId=3L;
+        testHorseId = 3L;
     }
 
     @After
     public void deleteMethodData() {
-        testHorse=null;
+        testHorse = null;
         testHorseId = null;
     }
 
@@ -61,7 +64,7 @@ public class HorseServiceTest {
     @Test
     public void getByIdTest() {
         testHorse.setId(testHorseId);
-        Horse horse = horseDao.get(testHorse.getId());
+        Horse horse = horseService.get(testHorse.getId());
         assertNotNull(horse);
         assertEquals(testHorse.getId(), horse.getId());
     }
@@ -69,35 +72,30 @@ public class HorseServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-        if (testHorse.getId() == null) {
-            testHorse.setNickName("TestNickName1");
-            id = horseDao.insert(testHorse);
-        } else {
-        }
-        Horse horse = horseDao.get(id);
+        testHorse.setNickName("TestNickName1");
+        id = horseService.save(testHorse);
+        Horse horse = horseService.get(id);
         assertNotNull(horse);
         testHorse.setId(id);
         assertEquals(testHorse, horse);
-        horseDao.delete(id);
+        horseService.delete(testHorse);
     }
 
     @Test
     public void saveUpdateTest() {
         assertNotNull(testHorseId);
         testHorse.setId(testHorseId);
-        if (testHorse.getId() == null) {
-        } else {
-            horseDao.update(testHorse);
-        }
-        Horse horse = horseDao.get(testHorseId);
+        horseService.save(testHorse);
+        Horse horse = horseService.get(testHorseId);
         assertEquals(testHorse, horse);
     }
 
     @Test
     public void deleteTest() {
         testHorse.setNickName("Delete");
-        Long id = horseDao.insert(testHorse);
-        boolean delete = horseDao.delete(id);
+        Long id = horseService.save(testHorse);
+        testHorse.setId(id);
+        boolean delete = horseService.delete(testHorse);
         assertTrue(delete);
     }
 
@@ -113,33 +111,33 @@ public class HorseServiceTest {
         testHorse.setNickName("TestNickName2");
         arrayList.addAll(Arrays.asList(testHorse, testHorse1));
         horseService.saveAll(arrayList);
-        Horse horse = horseDao.getByNickName("TestNickName2");
-        Horse horse1 = horseDao.getByNickName("TestNickName1");
+        Horse horse = horseService.getByNickName("TestNickName2");
+        Horse horse1 = horseService.getByNickName("TestNickName1");
         testHorse.setId(horse.getId());
         testHorse1.setId(horse1.getId());
         assertEquals(testHorse, horse);
         assertEquals(testHorse1, horse1);
-        horseDao.delete(horse1.getId());
-        horseDao.delete(horse.getId());
+        horseService.delete(horse1);
+        horseService.delete(horse);
     }
 
     @Test
     public void getAllTest() {
-        List<Horse> all = horseDao.getAll();
+        List<Horse> all = horseService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
     public void getHorseByNickNameTest() {
-        Horse testLoginNew = horseDao.getByNickName("faster1");
+        Horse testLoginNew = horseService.getByNickName("faster1");
         testHorse.setId(testHorseId);
         assertEquals("faster1", testLoginNew.getNickName());
     }
 
     @Test
-    public void getByRaceDetailTest(){
-        Horse horse=horseDao.get(1L);
+    public void getByRaceDetailTest() {
+        Horse horse = horseService.get(1L);
         Horse horse1 = horseService.getByRaceDetail(1L);
         assertEquals(horse, horse1);
     }

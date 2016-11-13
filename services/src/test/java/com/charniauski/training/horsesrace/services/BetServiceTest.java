@@ -1,14 +1,16 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.BetDao;
+
+import com.charniauski.training.horsesrace.daoapi.BetDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.Event;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,20 +31,19 @@ public class BetServiceTest {
     private BetService betService;
 
     @Inject
-    private BetDao betDao;
-
-    @Inject
     private AccountService accountService;
 
     @Inject
     private EventService eventService;
+
 
     private Bet testBet;
     private Long testBetId;
 
     @BeforeClass
     public static void prepareTestData() {
-        new CreateBase().init();
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -52,6 +53,8 @@ public class BetServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testBet = new Bet();
         testBet.setDateBet(new Timestamp(new Date().getTime()));
         testBet.setEventId(1L);
@@ -72,7 +75,7 @@ public class BetServiceTest {
     @Test
     public void getByIdTest() {
         testBet.setId(testBetId);
-        Bet bet = betDao.get(testBet.getId());
+        Bet bet = betService.get(testBet.getId());
         assertNotNull(bet);
         assertEquals(testBet.getId(), bet.getId());
     }
@@ -80,21 +83,19 @@ public class BetServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-        if (testBet.getId() == null) {
-            testBet.setEventId(1L);
-            testBet.setCoefficientBet(1.0);
-            testBet.setStatusBet(StatusBet.ACTIVE);
-            testBet.setAccountId(2L);
-            testBet.setSum(20.0);
-            id = betDao.insert(testBet);
-        } else {
-        }
-        Bet bet = betDao.get(id);
+        testBet.setEventId(1L);
+        testBet.setCoefficientBet(1.0);
+        testBet.setStatusBet(StatusBet.ACTIVE);
+        testBet.setAccountId(2L);
+        testBet.setSum(20.0);
+        id = betService.save(testBet);
+        Bet bet = betService.get(id);
         assertNotNull(bet);
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         testBet.setId(id);
         assertEquals(testBet, bet);
-        betDao.delete(id);
+        bet.setId(id);
+        betService.delete(bet);
     }
 
 //    @Test(expected = DateTimeException.class)
@@ -122,11 +123,8 @@ public class BetServiceTest {
     public void saveUpdateTest() {
         assertNotNull(testBetId);
         testBet.setId(testBetId);
-        if (testBet.getId() == null) {
-        } else {
-            betDao.update(testBet);
-        }
-        Bet bet = betDao.get(testBetId);
+        betService.save(testBet);
+        Bet bet = betService.get(testBetId);
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         assertEquals(testBet, bet);
     }
@@ -138,8 +136,9 @@ public class BetServiceTest {
         testBet.setStatusBet(StatusBet.ACTIVE);
         testBet.setAccountId(2L);
         testBet.setSum(20.0);
-        Long id = betDao.insert(testBet);
-        boolean delete = betDao.delete(id);
+        Long id = betService.save(testBet);
+        testBet.setId(id);
+        boolean delete = betService.delete(testBet);
         assertTrue(delete);
     }
 
@@ -165,20 +164,20 @@ public class BetServiceTest {
         Bet bet = betService.get(6L);
         Bet bet2 = betService.get(7L);
         List<Bet> all = betService.getAll();
-      all.forEach(bet1 -> System.out.println(bet1.getId()));
+        all.forEach(bet1 -> System.out.println(bet1.getId()));
         testBet.setId(bet.getId());
         testBet2.setId(bet2.getId());
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         testBet2.setDateBet(new Date(testBet2.getDateBet().getTime()));
         assertEquals(testBet, bet);
         assertEquals(testBet2, bet2);
-        betDao.delete(bet.getId());
-        betDao.delete(bet2.getId());
+        betService.delete(bet);
+        betService.delete(bet2);
     }
 
     @Test
     public void getAllTest() {
-        List<Bet> all = betDao.getAll();
+        List<Bet> all = betService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
@@ -215,20 +214,20 @@ public class BetServiceTest {
         Event event = eventService.get(3L);
         testBet.setAccountId(account.getId());
         testBet.setEventId(event.getId());
-        Long id = betDao.insert(testBet);
-        Bet bet1 = betDao.get(id);
+        Long id = betService.save(testBet);
+        Bet bet1 = betService.get(id);
         Bet bet = betService.getByAccountAndEvent("log", 3L);
-        assertEquals(bet1,bet);
-        betDao.delete(bet1.getId());
+        assertEquals(bet1, bet);
+        betService.delete(bet1);
     }
 
     @Test
-    public void updateStatusBetAndCalculateTest(){
-        Bet bet = betDao.get(3L);
+    public void updateStatusBetAndCalculateTest() {
+        Bet bet = betService.get(3L);
         bet.setStatusBet(StatusBet.CANCELLED);
         bet.setCalculate(100.0);
-        betService.updateStatusBetAndCalculate(3L,StatusBet.CANCELLED,100.0);
-        Bet bet1 = betDao.get(3L);
-        assertEquals(bet,bet1);
+        betService.updateStatusBetAndCalculate(3L, StatusBet.CANCELLED, 100.0);
+        Bet bet1 = betService.get(3L);
+        assertEquals(bet, bet1);
     }
 }

@@ -1,6 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
-import com.charniauski.training.horsesrace.daodb.AccountDao;
+import com.charniauski.training.horsesrace.daoapi.AccountDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import org.slf4j.Logger;

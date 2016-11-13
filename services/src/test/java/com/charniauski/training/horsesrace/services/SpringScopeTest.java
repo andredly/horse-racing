@@ -98,8 +98,8 @@ public class SpringScopeTest {
 //        CacheAdapterEhcache bean = springContext.getBean(CacheAdapterEhcache.class);
 
         for (int i=0;i<10;i++) {
-             Account account =accountServiceBean.getByLogin("log");
-            System.out.println(i+"  "+account);
+//             Account account =accountServiceBean.;
+//            System.out.println(i+"  "+account);
 //
         }
 //        bean.setDisabled();

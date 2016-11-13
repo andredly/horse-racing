@@ -1,12 +1,14 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.RacecourseDao;
+
+import com.charniauski.training.horsesrace.daoapi.RacecourseDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,20 +24,19 @@ public class RacecourseServiceTest {
     @Inject
     private RacecourseService racecourseService;
 
-    @Inject
-    private RacecourseDao racecourseDao;
-
     private Racecourse testRacecourse;
+
+    @BeforeClass
+    public static void prepareTestData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
+    }
 
     @Inject
     private RaceCardService raceCardService;
 
     private Long testRacecourseId;
 
-    @BeforeClass
-    public static void prepareTestData() {
-        new CreateBase().init();
-    }
 
     @AfterClass
     public static void deleteTestData() {
@@ -44,6 +45,8 @@ public class RacecourseServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testRacecourse = new Racecourse();
         testRacecourse.setName("TEST");
         testRacecourse.setCountry("FRA");
@@ -61,7 +64,7 @@ public class RacecourseServiceTest {
 
     @Test
     public void getByIdTest() {
-        Racecourse racecourse = racecourseDao.get(1L);
+        Racecourse racecourse = racecourseService.get(1L);
         testRacecourse.setId(testRacecourseId);
         assertNotNull(racecourse);
         assertEquals(testRacecourseId, racecourse.getId());
@@ -69,39 +72,33 @@ public class RacecourseServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
-        if (testRacecourse.getId() == null) {
-            id = racecourseDao.insert(testRacecourse);
-        } else {
-            racecourseDao.update(testRacecourse);
-        }
-        Racecourse racecourse = racecourseDao.get(id);
+        Long id =racecourseService.save(testRacecourse);
+        Racecourse racecourse = racecourseService.get(id);
         assertNotNull(racecourse);
         testRacecourse.setId(id);
         assertEquals(testRacecourse, racecourse);
-        racecourseDao.delete(id);
+        testRacecourse.setId(id);
+        racecourseService.delete(testRacecourse);
     }
 
     @Test
     public void saveUpdateTest() {
-        Racecourse racecourse1 = racecourseDao.get(1L);
+        Racecourse racecourse1 = racecourseService.get(1L);
         racecourse1.setId(null);
         racecourse1.setName("test2");
-        Long id = racecourseDao.insert(racecourse1);
-        if (racecourse1.getId() == null) {
-        } else {
-            racecourseDao.update(racecourse1);
-        }
+        Long id = racecourseService.save(racecourse1);
+            racecourseService.save(racecourse1);
         racecourse1.setId(id);
-        Racecourse racecourse = racecourseDao.get(id);
+        Racecourse racecourse = racecourseService.get(id);
         assertEquals(racecourse1, racecourse);
     }
 
     @Test
     public void deleteTest() {
         testRacecourse.setName("TEST1");
-        Long id = racecourseDao.insert(testRacecourse);
-        boolean delete = racecourseDao.delete(id);
+        Long id = racecourseService.save(testRacecourse);
+        testRacecourse.setId(id);
+        boolean delete = racecourseService.delete(testRacecourse);
         assertTrue(delete);
     }
 
@@ -114,26 +111,26 @@ public class RacecourseServiceTest {
         testRacecourse.setName("TEST2");
         arrayList.addAll(Arrays.asList(testRacecourse, testRacecourse1));
         racecourseService.saveAll(arrayList);
-        Racecourse racecourse = racecourseDao.getByName("TEST2");
-        Racecourse racecourse1 = racecourseDao.getByName("TEST1");
+        Racecourse racecourse = racecourseService.getByName("TEST2");
+        Racecourse racecourse1 = racecourseService.getByName("TEST1");
         testRacecourse.setId(racecourse.getId());
         testRacecourse1.setId(racecourse1.getId());
         assertEquals(testRacecourse, racecourse);
         assertEquals(testRacecourse1, racecourse1);
-        racecourseDao.delete(racecourse1.getId());
-        racecourseDao.delete(racecourse.getId());
+        racecourseService.delete(racecourse1);
+        racecourseService.delete(racecourse);
     }
 
     @Test
     public void getAllTest() {
-        List<Racecourse> all = racecourseDao.getAll();
+        List<Racecourse> all = racecourseService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
     public void getRacecourseByNameTest() {
-        Racecourse racecourse = racecourseDao.getByName("germ");
+        Racecourse racecourse = racecourseService.getByName("germ");
         assertEquals("germ", racecourse.getName());
     }
 

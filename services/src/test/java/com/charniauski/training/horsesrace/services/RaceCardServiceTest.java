@@ -1,11 +1,13 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.RaceCardDao;
+
+import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,11 +21,9 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "classpath:service-context.xml")
 public class RaceCardServiceTest {
 
-    @Inject
-    private RaceCardService raceCardService;
 
     @Inject
-    private RaceCardDao raceCardDao;
+    private RaceCardService raceCardService;
 
     private RaceCard testRaceCard;
 
@@ -31,7 +31,8 @@ public class RaceCardServiceTest {
 
     @BeforeClass
     public static void prepareTestData() {
-        new CreateBase().init();
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -41,6 +42,8 @@ public class RaceCardServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testRaceCard = new RaceCard();
         testRaceCard.setRacecourseId(1L);
         testRaceCard.setRaceType("Type");
@@ -58,7 +61,7 @@ public class RaceCardServiceTest {
     @Test
     public void getByIdTest() {
         testRaceCard.setId(testRaceCardId);
-        RaceCard raceCard = raceCardDao.get(testRaceCard.getId());
+        RaceCard raceCard = raceCardService.get(testRaceCard.getId());
         assertNotNull(raceCard);
         assertEquals(testRaceCard.getId(), raceCard.getId());
     }
@@ -66,35 +69,30 @@ public class RaceCardServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-        if (testRaceCard.getId() == null) {
-            id = raceCardDao.insert(testRaceCard);
-        } else {
-        }
-        RaceCard raceCard = raceCardDao.get(id);
+            id = raceCardService.save(testRaceCard);
+        RaceCard raceCard = raceCardService.get(id);
         assertNotNull(raceCard);
         testRaceCard.setDateStart(new Date(testRaceCard.getDateStart().getTime()));
         testRaceCard.setId(id);
         assertEquals(testRaceCard, raceCard);
-        raceCardDao.delete(id);
+        raceCardService.delete(testRaceCard);
     }
 
     @Test
     public void saveUpdateTest() {
         assertNotNull(testRaceCardId);
         testRaceCard.setId(testRaceCardId);
-        if (testRaceCard.getId() == null) {
-        } else {
-            raceCardDao.update(testRaceCard);
-        }
-        RaceCard raceCard = raceCardDao.get(testRaceCardId);
+            raceCardService.save(testRaceCard);
+        RaceCard raceCard = raceCardService.get(testRaceCardId);
         testRaceCard.setDateStart(new Date(testRaceCard.getDateStart().getTime()));
         assertEquals(testRaceCard, raceCard);
     }
 
     @Test
     public void deleteTest() {
-        Long id = raceCardDao.insert(testRaceCard);
-        boolean delete = raceCardDao.delete(id);
+        Long id = raceCardService.save(testRaceCard);
+        testRaceCard.setId(id);
+        boolean delete = raceCardService.delete(testRaceCard);
         assertTrue(delete);
     }
 
@@ -114,13 +112,13 @@ public class RaceCardServiceTest {
         testRaceCard1.setDateStart(new Date(testRaceCard1.getDateStart().getTime()));
         assertEquals(testRaceCard, list.get(5));
         assertEquals(testRaceCard1, list.get(6));
-        raceCardDao.delete(list.get(5).getId());
-        raceCardDao.delete(list.get(6).getId());
+        raceCardService.delete(list.get(5));
+        raceCardService.delete(list.get(6));
     }
 
     @Test
     public void getAllTest() {
-        List<RaceCard> all = raceCardDao.getAll();
+        List<RaceCard> all = raceCardService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
@@ -159,7 +157,7 @@ public class RaceCardServiceTest {
 
     @Test
     public void getDateStartByEventTest() {
-        RaceCard raceCard = raceCardDao.get(1L);
+        RaceCard raceCard = raceCardService.get(1L);
         Date date = raceCardService.getDateStartByEvent(4L);
         assertNotNull(date);
         assertEquals(raceCard.getDateStart(),date);
@@ -168,12 +166,12 @@ public class RaceCardServiceTest {
 
     @Test
     public void saveDateFinishTest(){
-        RaceCard raceCard=raceCardDao.get(2L);
+        RaceCard raceCard=raceCardService.get(2L);
         Timestamp timestamp = new Timestamp(new Date().getTime());
         raceCard.setDateFinish(timestamp);
         raceCardService.saveDateFinish(2L,timestamp);
         raceCard.setDateFinish(new Date(raceCard.getDateFinish().getTime()));
-        RaceCard raceCard1 = raceCardDao.get(2L);
+        RaceCard raceCard1 = raceCardService.get(2L);
         assertEquals(raceCard, raceCard1);
     }
 

@@ -1,7 +1,7 @@
 package com.charniauski.training.horsesrace.services.impl;
 
-import com.charniauski.training.horsesrace.daodb.EventDao;
-import com.charniauski.training.horsesrace.daodb.GenericDao;
+import com.charniauski.training.horsesrace.daoapi.EventDao;
+import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Event;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;

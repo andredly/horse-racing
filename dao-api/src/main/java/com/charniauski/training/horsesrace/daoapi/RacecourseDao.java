@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.daodb;
+package com.charniauski.training.horsesrace.daoapi;
 
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 

@@ -1,7 +1,7 @@
 package com.charniauski.training.horsesrace.services.impl;
 
-import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.daodb.RacecourseDao;
+import com.charniauski.training.horsesrace.daoapi.GenericDao;
+import com.charniauski.training.horsesrace.daoapi.RacecourseDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
@@ -43,7 +43,7 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
 
 
     @Override
-    public Racecourse getRacecourseByName(String name) {
+    public Racecourse getByName(String name) {
         return racecourseDao.getByName(name);
     }
 

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
-@Service
+//@Service
 @Aspect
 public class CustomAspect {
 
     @Inject
-    private CacheAdapterEhcache cache;
-//    private CacheAdapterSimpleCache cache;
+//    private CacheAdapterEhcache cache;
+    private CacheAdapterSimpleCache cache;
 
 
 

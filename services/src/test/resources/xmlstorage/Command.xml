@@ -1,0 +1,26 @@
+<list>
+  <Command>
+    <id>1</id>
+    <trainer>jon</trainer>
+    <jockey>uri</jockey>
+    <urlImageColor>http1</urlImageColor>
+  </Command>
+   <Command>
+    <id>2</id>
+    <trainer>jon1</trainer>
+    <jockey>uri1</jockey>
+    <urlImageColor>http2</urlImageColor>
+  </Command>
+   <Command>
+    <id>3</id>
+    <trainer>jon2</trainer>
+    <jockey>uri2</jockey>
+    <urlImageColor>http2</urlImageColor>
+  </Command>
+   <Command>
+    <id>4</id>
+    <trainer>jon3</trainer>
+    <jockey>uri3</jockey>
+    <urlImageColor>http3</urlImageColor>
+  </Command>
+</list>

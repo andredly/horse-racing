@@ -1,11 +1,12 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.RaceDetailDao;
+import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,19 +21,17 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "classpath:service-context.xml")
 public class RaceDetailServiceTest {
 
-    @Inject
-    private RaceDetailService raceDetailService;
 
     @Inject
-    private RaceDetailDao raceDetailDao;
+    private RaceDetailService raceDetailService;
 
     private RaceDetail testRaceDetail;
     private Long testRaceDetailId;
 
-
     @BeforeClass
     public static void prepareTestData() {
-        new CreateBase().init();
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -42,6 +41,8 @@ public class RaceDetailServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testRaceDetail = new RaceDetail();
         testRaceDetail.setRaceCardId(1L);
         testRaceDetail.setHorseId(1L);
@@ -60,7 +61,7 @@ public class RaceDetailServiceTest {
     @Test
     public void getByIdTest() {
         testRaceDetail.setId(testRaceDetailId);
-        RaceDetail raceDetail = raceDetailDao.get(testRaceDetail.getId());
+        RaceDetail raceDetail = raceDetailService.get(testRaceDetail.getId());
         assertNotNull(raceDetail);
         assertEquals(testRaceDetail.getId(), raceDetail.getId());
     }
@@ -68,29 +69,23 @@ public class RaceDetailServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-        if (testRaceDetail.getId() == null) {
             testRaceDetail.setHorseId(3L);
             testRaceDetail.setNumberStartBox(12);
             testRaceDetail.setCommandId(3L);
-            id = raceDetailDao.insert(testRaceDetail);
-        } else {
-        }
-        RaceDetail raceDetail = raceDetailDao.get(id);
+            id = raceDetailService.save(testRaceDetail);
+        RaceDetail raceDetail = raceDetailService.get(id);
         assertNotNull(raceDetail);
         testRaceDetail.setId(id);
         assertEquals(testRaceDetail, raceDetail);
-        raceDetailDao.delete(id);
+        raceDetailService.delete(testRaceDetail);
     }
 
     @Test
     public void saveUpdateTest() {
         assertNotNull(testRaceDetailId);
         testRaceDetail.setId(testRaceDetailId);
-        if (testRaceDetail.getId() == null) {
-        } else {
-            raceDetailDao.update(testRaceDetail);
-        }
-        RaceDetail raceDetail = raceDetailDao.get(testRaceDetailId);
+            raceDetailService.save(testRaceDetail);
+        RaceDetail raceDetail = raceDetailService.get(testRaceDetailId);
         assertEquals(testRaceDetail, raceDetail);
     }
 
@@ -99,8 +94,9 @@ public class RaceDetailServiceTest {
         testRaceDetail.setHorseId(3L);
         testRaceDetail.setNumberStartBox(3);
         testRaceDetail.setCommandId(3L);
-        Long id = raceDetailDao.insert(testRaceDetail);
-        boolean delete = raceDetailDao.delete(id);
+        Long id = raceDetailService.save(testRaceDetail);
+        testRaceDetail.setId(id);
+        boolean delete = raceDetailService.delete(testRaceDetail);
         assertTrue(delete);
     }
 
@@ -123,20 +119,20 @@ public class RaceDetailServiceTest {
         testRaceDetail2.setId(raceCardAndHorse1.getId());
         assertEquals(testRaceDetail, raceCardAndHorse);
         assertEquals(testRaceDetail2, raceCardAndHorse1);
-        raceDetailDao.delete(raceCardAndHorse1.getId());
-        raceDetailDao.delete(raceCardAndHorse.getId());
+        raceDetailService.delete(raceCardAndHorse1);
+        raceDetailService.delete(raceCardAndHorse);
     }
 
     @Test
     public void getAllTest() {
-        List<RaceDetail> all = raceDetailDao.getAll();
+        List<RaceDetail> all = raceDetailService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
     public void saveHorseResultTest() {
-        RaceDetail raceDetail = raceDetailDao.get(2L);
+        RaceDetail raceDetail = raceDetailService.get(2L);
         raceDetail.setHorseResult(2);
         boolean b = raceDetailService.saveHorseResult(1L, 2L, 2);
         RaceDetail raceDetail1 = raceDetailService.get(2L);
@@ -149,11 +145,11 @@ public class RaceDetailServiceTest {
         testRaceDetail.setHorseId(3L);
         testRaceDetail.setCommandId(3L);
         testRaceDetail.setNumberStartBox(10);
-        Long id = raceDetailDao.insert(testRaceDetail);
+        Long id = raceDetailService.save(testRaceDetail);
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndHorse(1L, 3L);
-        RaceDetail raceDetail = raceDetailDao.get(id);
+        RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
-        raceDetailDao.delete(raceDetail.getId());
+        raceDetailService.delete(raceDetail);
     }
 
     @Test
@@ -162,11 +158,11 @@ public class RaceDetailServiceTest {
         testRaceDetail.setHorseId(3L);
         testRaceDetail.setCommandId(3L);
         testRaceDetail.setNumberStartBox(10);
-        Long id = raceDetailDao.insert(testRaceDetail);
+        Long id = raceDetailService.save(testRaceDetail);
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndCommand(1L, 3L);
-        RaceDetail raceDetail = raceDetailDao.get(id);
+        RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
-        raceDetailDao.delete(raceDetail.getId());
+        raceDetailService.delete(raceDetail);
     }
 
     @Test
@@ -175,16 +171,16 @@ public class RaceDetailServiceTest {
         testRaceDetail.setHorseId(3L);
         testRaceDetail.setCommandId(3L);
         testRaceDetail.setNumberStartBox(10);
-        Long id = raceDetailDao.insert(testRaceDetail);
+        Long id = raceDetailService.save(testRaceDetail);
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndNumberStartBox(1L, 10);
-        RaceDetail raceDetail = raceDetailDao.get(id);
+        RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
-        raceDetailDao.delete(raceDetail.getId());
+        raceDetailService.delete(raceDetail);
     }
 
     @Test
     public void getByRaceCardTest() {
-        RaceDetail raceDetail = raceDetailDao.get(1L);
+        RaceDetail raceDetail = raceDetailService.get(1L);
         List<RaceDetail> raceDetails = raceDetailService.getByRaceCard(raceDetail.getRaceCardId());
         raceDetails.forEach(raceDetail1 -> assertEquals(raceDetail.getRaceCardId(), raceDetail1.getRaceCardId()));
     }

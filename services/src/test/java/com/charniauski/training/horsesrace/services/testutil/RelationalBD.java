@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.services.testUtil;
+package com.charniauski.training.horsesrace.services.testutil;
 
 import com.charniauski.training.horsesrace.daodb.util.SchemaNameAwareBasicDataSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -16,22 +17,22 @@ import java.util.Properties;
 /**
  * Created by Andre on 07.11.2016.
  */
-public class CreateBase {
-
-    public void init() {
+public class RelationalBD implements BaseCreator {
+    @Override
+    public void createRelationDB() {
 
         Properties properties=new Properties();
         try {
-            properties.load(new FileInputStream("src/main/resources/db.properties"));
+            URL file=this.getClass().getClassLoader().getResource("db.properties");
+            assert file != null;
+            properties.load(new FileInputStream(file.getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        final String DB_URL = properties.getProperty("jdbc.url");
-        final String USER = properties.getProperty("jdbc.username");;
-        final String PASS = properties.getProperty("jdbc.password");;
-
-
+//
+//        final String DB_URL = properties.getProperty("jdbc.url");
+//        final String USER = properties.getProperty("jdbc.username");;
+//        final String PASS = properties.getProperty("jdbc.password");;
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
         SchemaNameAwareBasicDataSource bean = springContext.getBean(SchemaNameAwareBasicDataSource.class);
 
@@ -64,5 +65,10 @@ public class CreateBase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void createXMLDB() {
+
     }
 }

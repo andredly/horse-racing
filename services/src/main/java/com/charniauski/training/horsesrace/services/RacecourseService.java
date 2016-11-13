@@ -12,7 +12,7 @@ public interface RacecourseService extends GenericService<Racecourse,Long> {
 
     List<Racecourse> getAllAfterCurrentDate();
 
-    Racecourse getRacecourseByName(String nameRacecourse);
+    Racecourse getByName(String nameRacecourse);
 
     RacecourseWrapper getRacecourseWrapper(Long racecourseId);
 

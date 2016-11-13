@@ -21,7 +21,11 @@
     <context:annotation-config/>
     <aop:aspectj-autoproxy />
 
-    <context:component-scan base-package="com.charniauski.training.horsesrace.daodb.impl"/>
+     <!--<import resource="classpath:db-dao-beans.xml" />-->
+    <import resource="classpath:xml-dao-beans.xml"/>
+    <import resource="classpath:test-applicationContext.xml"/>
+
+
     <context:component-scan base-package="com.charniauski.training.horsesrace.services.impl"/>
     <context:component-scan base-package="com.charniauski.training.horsesrace.services.cache"/>
 
@@ -44,27 +48,10 @@
         <!--<property name="schema" value="${db.schema}"/>-->
     <!--</bean>-->
 
-    <bean id="dataSource"
-          class="com.charniauski.training.horsesrace.daodb.util.SchemaNameAwareBasicDataSource"
-          destroy-method="close">
 
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="schema" value="${db.schema}"/>
-    </bean>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
 
     <tx:annotation-driven />
 
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
 
     <!--<bean id="aspectDB" class="com.charniauski.training.horsesrace.services.cache.CustomAspect"/>-->
 

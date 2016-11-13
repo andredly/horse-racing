@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.daodb;
+package com.charniauski.training.horsesrace.daoapi;
 
 import java.util.List;
 

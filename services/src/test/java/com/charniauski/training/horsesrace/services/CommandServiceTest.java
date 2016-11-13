@@ -1,11 +1,13 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.CommandDao;
+
+import com.charniauski.training.horsesrace.daoapi.CommandDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,16 +25,15 @@ public class CommandServiceTest {
     @Inject
     private CommandService commandService;
 
-    @Inject
-    private CommandDao commandDao;
-
     private Command testCommand;
 
     private Long testCommandId;
 
+
     @BeforeClass
     public static void prepareTestData() {
-        new CreateBase().init();
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -42,6 +43,8 @@ public class CommandServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testCommand = new Command();
         testCommand.setJockey("Joi");
         testCommand.setTrainer("Join");
@@ -58,7 +61,7 @@ public class CommandServiceTest {
 
     @Test
     public void getByIdTest() {
-        Command command = commandDao.get(1L);
+        Command command = commandService.get(1L);
         assertNotNull(command);
         assertEquals(new Long(1L), command.getId());
     }
@@ -66,29 +69,24 @@ public class CommandServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-        if (testCommand.getId() == null) {
             testCommand.setJockey("Joi1");
             testCommand.setTrainer("Join1");
             testCommand.setUrlImageColor("HTTP-1");
-            id = commandDao.insert(testCommand);
-        } else {
-        }
-        Command command = commandDao.get(id);
+            id = commandService.save(testCommand);
+        Command command = commandService.get(id);
         assertNotNull(command);
         testCommand.setId(id);
         assertEquals(testCommand, command);
-        commandDao.delete(id);
+        testCommand.setId(id);
+        commandService.delete(testCommand);
     }
 
     @Test
     public void saveUpdateTest() {
         assertNotNull(testCommandId);
         testCommand.setId(testCommandId);
-        if (testCommand.getId() == null) {
-        } else {
-            commandDao.update(testCommand);
-        }
-        Command command = commandDao.get(testCommandId);
+            commandService.save(testCommand);
+        Command command = commandService.get(testCommandId);
         assertEquals(testCommand, command);
     }
 
@@ -97,8 +95,9 @@ public class CommandServiceTest {
         testCommand.setJockey("Joi1");
         testCommand.setTrainer("Join1");
         testCommand.setUrlImageColor("HTTP-1");
-        Long id = commandDao.insert(testCommand);
-        boolean delete = commandDao.delete(id);
+        Long id = commandService.save(testCommand);
+        testCommand.setId(id);
+        boolean delete = commandService.delete(testCommand);
         assertTrue(delete);
     }
 
@@ -114,26 +113,26 @@ public class CommandServiceTest {
         testCommand.setUrlImageColor("HTTP-2");
         arrayList.addAll(Arrays.asList(testCommand, testCommand1));
         List<Long> longs = commandService.saveAll(arrayList);
-        Command command = commandDao.get(longs.get(0));
-        Command command1 = commandDao.get(longs.get(1));
+        Command command = commandService.get(longs.get(0));
+        Command command1 = commandService.get(longs.get(1));
         testCommand.setId(command.getId());
         testCommand1.setId(command1.getId());
         assertEquals(testCommand, command);
         assertEquals(testCommand1, command1);
-        commandDao.delete(command1.getId());
-        commandDao.delete(command.getId());
+        commandService.delete(command1);
+        commandService.delete(command);
     }
 
     @Test
     public void getAll() {
-        List<Command> all = commandDao.getAll();
+        List<Command> all = commandService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
 
     @Test
     public void getByTrainerAndJockeyAndUrlTest(){
-        Command command = commandDao.get(1L);
+        Command command = commandService.get(1L);
         Command command1 = commandService.getByTrainerAndJockeyAndUrl("jon", "uri", "http1");
         assertEquals(command,command1);
     }

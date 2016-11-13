@@ -15,6 +15,14 @@
 			<groupId>com.charniauski.training.horsesRace2016</groupId>
 			<artifactId>dao-impl-db</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.charniauski.training.horsesRace2016</groupId>
+			<artifactId>dao-impl-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.charniauski.training.horsesRace2016</groupId>
+			<artifactId>dao-api</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -54,6 +62,13 @@
 			<artifactId>log4j-jcl</artifactId>
 			<version>2.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 </project>

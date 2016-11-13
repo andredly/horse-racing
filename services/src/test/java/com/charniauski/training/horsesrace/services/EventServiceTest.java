@@ -1,13 +1,14 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.daodb.EventDao;
+import com.charniauski.training.horsesrace.daoapi.EventDao;
 import com.charniauski.training.horsesrace.datamodel.Event;
 import com.charniauski.training.horsesrace.datamodel.enums.EventType;
 import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.testUtil.CreateBase;
+import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,16 +28,13 @@ public class EventServiceTest {
     @Inject
     private EventService eventService;
 
-    @Inject
-    private EventDao eventDao;
-
     private Event testEvent;
     private Long testEventId;
 
-
     @BeforeClass
     public static void prepareTestData() {
-        new CreateBase().init();
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -46,6 +44,8 @@ public class EventServiceTest {
 
     @Before
     public void prepareMethodData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
         testEvent = new Event();
         testEvent.setDateRegister(new Timestamp(new Date().getTime()));
         testEvent.setBookmaker("dred");
@@ -66,7 +66,7 @@ public class EventServiceTest {
     @Test
     public void getByIdTest() {
         testEvent.setId(testEventId);
-        Event event = eventDao.get(testEvent.getId());
+        Event event = eventService.get(testEvent.getId());
         assertNotNull(event);
         assertEquals(testEvent.getId(), event.getId());
     }
@@ -74,30 +74,24 @@ public class EventServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-        if (testEvent.getId() == null) {
             testEvent.setEventType(EventType.PLACE3);
             testEvent.setResultEvent(ResultEvent.UNKNOWN);
             testEvent.setRaceDetailId(1L);
-            id = eventDao.insert(testEvent);
-        } else {
-        }
-        Event event = eventDao.get(id);
+            id = eventService.save(testEvent);
+        Event event = eventService.get(id);
         assertNotNull(event);
         testEvent.setDateRegister(new Date(testEvent.getDateRegister().getTime()));
         testEvent.setId(id);
         assertEquals(testEvent, event);
-        eventDao.delete(id);
+        eventService.delete(testEvent);
     }
 
     @Test
     public void saveUpdateTest() {
         assertNotNull(testEventId);
         testEvent.setId(testEventId);
-        if (testEvent.getId() == null) {
-        } else {
-            eventDao.update(testEvent);
-        }
-        Event event = eventDao.get(testEventId);
+            eventService.save(testEvent);
+        Event event = eventService.get(testEventId);
         testEvent.setDateRegister(new Date(testEvent.getDateRegister().getTime()));
         assertEquals(testEvent, event);
     }
@@ -107,13 +101,14 @@ public class EventServiceTest {
         testEvent.setEventType(EventType.PLACE3);
         testEvent.setResultEvent(ResultEvent.UNKNOWN);
         testEvent.setRaceDetailId(1L);
-        Long id = eventDao.insert(testEvent);
-        boolean delete = eventDao.delete(id);
+        Long id = eventService.save(testEvent);
+        testEvent.setId(id);
+        boolean delete = eventService.delete(testEvent);
         assertTrue(delete);
     }
 
     @Test
-    public void saveAllTest() throws NoSuchEntityException {
+    public void saveAllTest() {
         Event testEvent2 = new Event();
         testEvent2.setEventType(EventType.PLACE3);
         testEvent2.setResultEvent(ResultEvent.UNKNOWN);
@@ -134,13 +129,13 @@ public class EventServiceTest {
         testEvent2.setDateRegister(new Date(testEvent2.getDateRegister().getTime()));
         assertEquals(testEvent, event);
         assertEquals(testEvent2, event2);
-        eventDao.delete(event.getId());
-        eventDao.delete(event2.getId());
+        eventService.delete(event);
+        eventService.delete(event2);
     }
 
     @Test
     public void getAllTest() {
-        List<Event> all = eventDao.getAll();
+        List<Event> all = eventService.getAll();
         assertNotNull(all);
         assertNotNull(all.get(0).getId());
     }
@@ -174,10 +169,10 @@ public void getAllByResultEventAndRaceDetailTest(){
 
     @Test
     public void updateResultEventTest(){
-        Event event = eventDao.get(4L);
+        Event event = eventService.get(4L);
         event.setResultEvent(ResultEvent.CANCELED);
         eventService.updateResultEvent(4L,ResultEvent.CANCELED);
-        Event event1 = eventDao.get(4L);
+        Event event1 = eventService.get(4L);
         assertEquals(event, event1);
     }
 

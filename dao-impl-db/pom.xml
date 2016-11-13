@@ -16,6 +16,10 @@
             <groupId>com.charniauski.training.horsesRace2016</groupId>
             <artifactId>datamodel</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.charniauski.training.horsesRace2016</groupId>
+            <artifactId>dao-api</artifactId>
+        </dependency>
 
 
         <dependency>

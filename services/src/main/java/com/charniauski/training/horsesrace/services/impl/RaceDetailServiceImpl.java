@@ -1,7 +1,8 @@
 package com.charniauski.training.horsesrace.services.impl;
 
-import com.charniauski.training.horsesrace.daodb.GenericDao;
-import com.charniauski.training.horsesrace.daodb.RaceDetailDao;
+
+import com.charniauski.training.horsesrace.daoapi.GenericDao;
+import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
 import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.services.*;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;

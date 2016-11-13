@@ -1,6 +1,6 @@
 package com.charniauski.training.horsesrace.daodb.impl;
 
-import com.charniauski.training.horsesrace.daodb.RaceCardDao;
+import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +13,7 @@ import static java.lang.String.format;
  * Created by Andre on 19.10.2016.
  */
 @Repository
-public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceCardDao{
+public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceCardDao {
 
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
