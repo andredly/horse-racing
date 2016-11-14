@@ -1,9 +1,11 @@
 package com.charniauski.training.horsesrace.daoxml.impl;
 
 import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
+import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -19,28 +21,47 @@ public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements 
     private final AtomicLong sequence=new AtomicLong(0L);
     @Override
     public RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId) {
-        String sql = format("%s WHERE race_card_id=%d AND horse_id=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, horseId);
-        return getEntity(sql, RaceDetail.class);
+        for (RaceDetail raceDetail:readCollection()){
+            if (raceDetail.getRaceCardId().equals(raceCardId)&&raceDetail.getHorseId().equals(horseId)) {
+                return  raceDetail;
+            }
+        }
+        return null;
     }
 
     @Override
     public RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId) {
-        String sql = format("%s WHERE race_card_id=%d AND command_id=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, commandId);
-        return getEntity(sql, RaceDetail.class);
+        for (RaceDetail raceDetail:readCollection()){
+            if (raceDetail.getRaceCardId().equals(raceCardId)&&raceDetail.getCommandId().equals(commandId)) {
+                return  raceDetail;
+            }
+        }
+        return null;
     }
 
     @Override
     public RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox) {
-        String sql = format("%s WHERE race_card_id=%d AND number_start_box=%d;", sqlSelectEntity(RaceDetail.class), raceCardId, numberStartBox);
-        return getEntity(sql, RaceDetail.class);
+        for (RaceDetail raceDetail:readCollection()){
+            if (raceDetail.getRaceCardId().equals(raceCardId)&&raceDetail.getNumberStartBox().equals(numberStartBox)) {
+                return  raceDetail;
+            }
+        }
+        return null;
     }
 
     @Override
     public List<RaceDetail> getByRaceCard(Long raceCardId) {
-        String sql= format("SELECT * FROM race_card rc LEFT JOIN race_detail ON" +
-                " rc.id = race_detail.race_card_id WHERE rc.id=%d;",raceCardId);
-        return getListEntity(sql,RaceDetail.class);
+        List<RaceDetail> list = readCollection();
+        Iterator<RaceDetail> raceDetailIterator = list.iterator();
+        while (raceDetailIterator.hasNext()) {
+            RaceDetail next = raceDetailIterator.next();
+            if (!next.getRaceCardId().equals(raceCardId)) {
+                raceDetailIterator.remove();
+            }
+        }
+        return list;
     }
+
     public Long next() {
         return sequence.incrementAndGet();
     }

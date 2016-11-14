@@ -1,9 +1,11 @@
 package com.charniauski.training.horsesrace.daoxml.impl;
 
 import com.charniauski.training.horsesrace.daoapi.CommandDao;
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static com.charniauski.training.horsesrace.daoxml.util.SqlBuilder.sqlSelectEntity;
@@ -18,9 +20,13 @@ public class CommandDaoImpl extends AbstractDao<Command,Long> implements Command
     private final AtomicLong sequence=new AtomicLong(0L);
     @Override
     public Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage) {
-        String sql = format("%s WHERE trainer='%s' AND jockey='%s' AND url_image_color='%s';",
-                sqlSelectEntity(Command.class), trainer, jockey,urlImage);
-        return getEntity(sql, Command.class);
+        List<Command> commands = readCollection();
+        for (Command command:commands){
+            if (command.getTrainer().equals(trainer)&&command.getJockey().equals(jockey)
+                    &&command.getUrlImageColor().equals(urlImage)) {
+                return command;}
+        }
+        return null;
     }
 
     public Long next() {

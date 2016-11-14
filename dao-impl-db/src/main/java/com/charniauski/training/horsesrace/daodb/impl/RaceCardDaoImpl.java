@@ -27,11 +27,11 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
 
 
     @Override
-    public Date getDateStartByEvent(Long eventId) {
-        String sql= format("SELECT rc.date_start FROM race_card rc LEFT JOIN race_detail rd ON" +
+    public RaceCard getByEvent(Long eventId) {
+        String sql= format("SELECT rc.id, rc.racecourse_id, rc.date_start, rc.date_finish, rc.race_type FROM race_card rc LEFT JOIN race_detail rd ON" +
                 " rc.id = rd.race_card_id LEFT JOIN event ev ON rd.id = ev.race_detail_id" +
                 " WHERE ev.id=%d",eventId);
-        return getEntity(sql, RaceCard.class).getDateStart();
+        return getEntity(sql, RaceCard.class);
     }
 
 }

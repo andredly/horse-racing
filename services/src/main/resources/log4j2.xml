@@ -34,14 +34,14 @@
             <PatternLayout pattern="%-5level, %m"/>
         </SMTP>
 
-        <JDBC name="databaseAppender" tableName="logging">
-        <ConnectionFactory class="com.charniauski.training.horsesrace.services.appender.ConnectionFactory" method="getDatabaseConnection" />
-        <Column name="event_date" isEventTimestamp="true" />
-        <Column name="level" pattern="%level"  isUnicode="false"/>
-        <Column name="logger" pattern="%logger" isUnicode="false"/>
-        <Column name="msg" pattern="%message" isUnicode="false"/>
-        <Column name="throwable" pattern="%ex{full}" isUnicode="false"/>
-        </JDBC>
+        <!--<JDBC name="databaseAppender" tableName="logging">-->
+        <!--<ConnectionFactory class="com.charniauski.training.horsesrace.services.appender.ConnectionFactory" method="getDatabaseConnection" />-->
+        <!--<Column name="event_date" isEventTimestamp="true" />-->
+        <!--<Column name="level" pattern="%level"  isUnicode="false"/>-->
+        <!--<Column name="logger" pattern="%logger" isUnicode="false"/>-->
+        <!--<Column name="msg" pattern="%message" isUnicode="false"/>-->
+        <!--<Column name="throwable" pattern="%ex{full}" isUnicode="false"/>-->
+        <!--</JDBC>-->
 
         <!--<JDBCAppender name="dbAppender" class="com.charniauski.training.horsesrace.services.appender.JDBCAppender"-->
                       <!--tableName="logging"-->

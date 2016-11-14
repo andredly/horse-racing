@@ -47,6 +47,8 @@ public class AccountServiceTest {
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         springContext.getBean(BaseCreator.class).createRelationDB();
+        springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        springContext.getBean(BaseCreator.class).createXMLDB();
     }
 
     @AfterClass
@@ -88,14 +90,14 @@ public class AccountServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
         testAccount.setLogin("TestLogin1");
-        id = accountService.save(testAccount);
+        Long id = accountService.save(testAccount);
         Account account = accountService.get(id);
         assertNotNull(account);
         testAccount.setDateRegisterAccount(new Date(testAccount.getDateRegisterAccount().getTime()));
         testAccount.setId(id);
         assertEquals(testAccount, account);
+        account.setId(id);
         accountService.delete(account);
     }
 

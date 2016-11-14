@@ -29,7 +29,6 @@ public class CommandServiceTest {
 
     private Long testCommandId;
 
-
     @BeforeClass
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");

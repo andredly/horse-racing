@@ -127,7 +127,6 @@ public class RaceCardServiceTest {
     public void getAllByRacecourseAfterCurrentDateTest() {
         Date date = new Date();
         List<RaceCard> raceCards = raceCardService.getAllByRacecourseAfterCurrentDate(1L);
-        System.out.println(raceCards);
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
         instance.add(Calendar.HOUR,24);

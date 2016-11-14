@@ -1,11 +1,14 @@
 package com.charniauski.training.horsesrace.daoxml.impl;
 
 import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
+import com.charniauski.training.horsesrace.datamodel.Event;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.datamodel.RaceDetail;
+import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.String.format;
@@ -21,21 +24,45 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
 
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
-        String sql=String.format("SELECT rc.id, rc.racecourse_id, rc.date_start, rc.date_finish, rc.race_type" +
-                " FROM race_card rc LEFT JOIN race_detail rd ON rc.id = rd.race_card_id" +
-                " WHERE rc.date_start>(current_timestamp+INTERVAL '5 second') AND" +
-                "  rc.date_start<(current_timestamp+INTERVAL '24 hours')"  +
-                " AND racecourse_id=%d GROUP BY rc.id ORDER BY rc.date_start;",racecourseId);
-        return getListEntity(sql,RaceCard.class);
+        List<RaceCard> listRaceCard = readCollection();
+        Iterator<RaceCard> iteratorListRaceCard = listRaceCard.iterator();
+        Date date = new Date();
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(date);
+        instance.add(Calendar.HOUR,24);
+        while (iteratorListRaceCard.hasNext()) {
+            RaceCard raceCard = iteratorListRaceCard.next();
+            if (raceCard.getDateStart().before(date)||raceCard.getDateStart().after(instance.getTime())
+                    ||!raceCard.getRacecourseId().equals(racecourseId)) {
+                System.out.println(raceCard);
+                iteratorListRaceCard.remove();
+            }
+        }
+        return listRaceCard;
     }
 
 
     @Override
-    public Date getDateStartByEvent(Long eventId) {
-        String sql= format("SELECT rc.date_start FROM race_card rc LEFT JOIN race_detail rd ON" +
-                " rc.id = rd.race_card_id LEFT JOIN event ev ON rd.id = ev.race_detail_id" +
-                " WHERE ev.id=%d",eventId);
-        return getEntity(sql, RaceCard.class).getDateStart();
+    public RaceCard getByEvent(Long eventId) {
+        File fileEvent = new File(getBasePath() + "/" + Event.class.getSimpleName() + ".xml");
+        getXstream().alias(Event.class.getSimpleName(), Event.class);
+        List<Event> eventList = new ArrayList<>((List<Event>) getXstream().fromXML(fileEvent));
+        Iterator<Event> iteratorListEvent = eventList.iterator();
+        Event event=null;
+        while (iteratorListEvent.hasNext()) {
+            Event next = iteratorListEvent.next();
+            if (next.getId().equals(eventId)) {event=next;}
+        }
+        File fileRaceDetail = new File(getBasePath() + "/" + RaceDetail.class.getSimpleName() + ".xml");
+        getXstream().alias(RaceDetail.class.getSimpleName(), RaceDetail.class);
+        List<RaceDetail> list = new ArrayList<>((List<RaceDetail>) getXstream().fromXML(fileRaceDetail));
+        for (RaceDetail rd : list) {
+            assert event != null;
+            if (rd.getId().equals(event.getRaceDetailId())) {
+                return get(rd.getRaceCardId());
+            }
+        }
+        return null;
     }
 
     public Long next() {

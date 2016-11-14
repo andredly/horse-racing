@@ -9,10 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 
+import static com.charniauski.training.horsesrace.daoxml.util.SqlBuilder.sqlInsertOrUpdateEntity;
 import static com.charniauski.training.horsesrace.daoxml.util.SqlBuilder.sqlSelectEntity;
 import static java.lang.String.format;
 
@@ -26,20 +28,6 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
 
     private final AtomicLong sequence=new AtomicLong(0L);
 
-//    public void initSequence(){
-//        List<Account> accounts = readCollection();
-//        Long maxId=0L;
-//        if (!accounts.isEmpty()) {
-//            for (Account account : accounts) {
-//                maxId=Math.max(maxId,account.getId());
-//            }
-//        }
-//       LOGGER.info(maxId.toString());
-//        sequence.set(maxId);
-//    }
-
-
-
     @Override
     public Account getByLogin(String login) {
         List<Account> accounts = readCollection();
@@ -50,21 +38,18 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
         return null;
     }
 
-    @Override
-    public Status getStatusByLogin(String login) {
-        String sql = format("%s WHERE login='%s';", sqlSelectEntity(Account.class), login);
-        return getEntity(sql,Account.class).getStatus();
-    }
 
     @Override
     public List<Account> getAllByStatus(Status status) {
-        String sql = format("%s WHERE status='%s';", sqlSelectEntity(Account.class), status.name());
-        return getListEntity(sql,Account.class);
+        List<Account> accounts = readCollection();
+        Iterator<Account> iterator = accounts.iterator();
+        while (iterator.hasNext()){
+            if (!iterator.next().getStatus().equals(status)) {iterator.remove();}
+        }
+        return accounts;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.incrementAndGet(); }
 
     public AtomicLong getSequence() {
         return sequence;

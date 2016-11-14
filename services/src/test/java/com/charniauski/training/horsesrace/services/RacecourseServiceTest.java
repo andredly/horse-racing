@@ -129,7 +129,7 @@ public class RacecourseServiceTest {
     }
 
     @Test
-    public void getRacecourseByNameTest() {
+    public void getByNameTest() {
         Racecourse racecourse = racecourseService.getByName("germ");
         assertEquals("germ", racecourse.getName());
     }

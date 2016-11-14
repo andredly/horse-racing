@@ -1,10 +1,14 @@
 package com.charniauski.training.horsesrace.daoxml.impl;
 
 import com.charniauski.training.horsesrace.daoapi.BetDao;
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -17,9 +21,22 @@ public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao {
 
     @Override
     public List<Bet> getAllByLogin(String login) {
-        String sql = String.format("SELECT * FROM account ac" +
-                " LEFT JOIN bet bt ON bt.account_id = ac.id WHERE login='%s';",login);
-        return getListEntity(sql,Bet.class);
+        File fileAccount = new File(getBasePath() + "/" + Account.class.getSimpleName() + ".xml");
+        getXstream().alias(Account.class.getSimpleName(), Account.class);
+        List<Account> listAccount = new ArrayList<>((List<Account>) getXstream().fromXML(fileAccount));
+        Account account = null;
+        for (Account ac:listAccount){
+            if (ac.getLogin().equals(login)){account=ac;}
+        }
+        List<Bet> bets = readCollection();
+        Iterator<Bet> betIterator = bets.iterator();
+        while (betIterator.hasNext()) {
+            Bet next = betIterator.next();
+            if (!next.getAccountId().equals(account.getId())) {
+                betIterator.remove();
+            }
+        }
+        return bets;
     }
 
     @Override

@@ -55,7 +55,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Override
     public Status getStatusByLogin(String login) {
-        return accountDao.getStatusByLogin(login);
+        return accountDao.getByLogin(login).getStatus();
     }
 
     @Override

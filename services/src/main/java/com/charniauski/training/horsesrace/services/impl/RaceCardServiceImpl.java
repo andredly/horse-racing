@@ -86,7 +86,7 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
 
     @Override
     public Date getDateStartByEvent(Long eventId) {
-        return raceCardDao.getDateStartByEvent(eventId);
+        return raceCardDao.getByEvent(eventId).getDateStart();
     }
 
     @Transactional

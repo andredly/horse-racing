@@ -12,7 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -29,18 +31,23 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     private File file;
 
-
     @Value("${basePath}")
     private String basePath;
+
+    public String getBasePath() {
+        return basePath;
+    }
 
     @PostConstruct
     private void initialize() throws IOException {
         xstream = new XStream();
         xstream.alias(clazz.getSimpleName(), clazz);
-        file = new File(basePath + "/" + clazz.getSimpleName() + ".xml");
-        if (!file.exists()) {
-            file.createNewFile();
-            xstream.toXML(new ArrayList<>(), new FileOutputStream(file));
+        File dir = new File(basePath);
+        if (!dir.exists()){dir.mkdir();}
+        this.file = new File(basePath + "/" + clazz.getSimpleName() + ".xml");
+        if (!this.file.exists()) {
+            this.file.createNewFile();
+            xstream.toXML(new ArrayList<>(), new FileOutputStream(this.file));
         }
         initSequence();
     }
@@ -56,7 +63,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public T get(PK id) {
         List<T> entities = readCollection();
-
         for (T entity : entities) {
             if (entity.getId().equals(id)) {
                 return entity;
@@ -70,11 +76,10 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public PK insert(T entity) {
         List<T> entities = readCollection();
         Long id = (Long) next();
+        System.out.println(id);
 //        Long id = getNextId(entities);
-
         entities.add(entity);
-
-        entity.setId(new Long(id));
+        entity.setId(id);
         writeCollection(entities);
         return (PK) id;
     }
@@ -95,17 +100,26 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public boolean delete(PK id) {
         List<T> list = readCollection();
+        Iterator<T> iterator = list.iterator();
         boolean isDelete = false;
-        List<T> newList = new ArrayList<>();
-        // TODO: don't iterate whole collection
-        for (T entity : list) {
-            if (!entity.getId().equals(id)) {
+        while (iterator.hasNext()){
+            if (!iterator.next().getId().equals(id)) {
+                iterator.remove();
                 isDelete = true;
-                continue;
-            }
-            newList.add(entity);
+                continue;}
         }
-        writeCollection(newList);
+
+//        boolean isDelete = false;
+//        List<T> newList = new ArrayList<>();
+//        // TODO: don't iterate whole collection
+//        for (T entity : list) {
+//            if (!entity.getId().equals(id)) {
+//                isDelete = true;
+//                continue;
+//            }
+//            newList.add(entity);
+//        }
+        writeCollection(list);
         return isDelete;
     }
 
@@ -124,10 +138,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         throw new UnsupportedOperationException();
 
     }
-
-//    JdbcTemplate getJdbcTemplate() {
-//        return jdbcTemplate;
-//    }
 
 
     List<T> readCollection() {
@@ -171,6 +181,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     }
 
     public AtomicLong getSequence() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }

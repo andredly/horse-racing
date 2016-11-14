@@ -12,6 +12,6 @@ public interface RaceCardDao extends GenericDao<RaceCard, Long>{
 
     List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId);
 
-    Date getDateStartByEvent(Long eventId);
+    RaceCard getByEvent(Long eventId);
 
 }

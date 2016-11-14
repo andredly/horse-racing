@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.Account;
+import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.cache.CacheAdapterEhcache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import net.sf.ehcache.Cache;
@@ -10,6 +11,7 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class SpringScopeTest {
 
@@ -96,12 +98,8 @@ public class SpringScopeTest {
 ////        account.setId(testAccountId);
 //        System.out.println(account);
 //        CacheAdapterEhcache bean = springContext.getBean(CacheAdapterEhcache.class);
-
-        for (int i=0;i<10;i++) {
-//             Account account =accountServiceBean.;
-//            System.out.println(i+"  "+account);
-//
-        }
+        List<Racecourse> allAfterCurrentDate = racecourseServiceBean.getAllAfterCurrentDate();
+        allAfterCurrentDate.forEach(System.out::println);
 //        bean.setDisabled();
 
     }

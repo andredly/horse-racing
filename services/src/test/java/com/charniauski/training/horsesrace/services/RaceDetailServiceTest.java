@@ -134,7 +134,7 @@ public class RaceDetailServiceTest {
     public void saveHorseResultTest() {
         RaceDetail raceDetail = raceDetailService.get(2L);
         raceDetail.setHorseResult(2);
-        boolean b = raceDetailService.saveHorseResult(1L, 2L, 2);
+        boolean b = raceDetailService.saveHorseResult(2L, 2L, 2);
         RaceDetail raceDetail1 = raceDetailService.get(2L);
         assertEquals(raceDetail, raceDetail1);
     }
