@@ -14,19 +14,6 @@ public class CacheAdapterSimpleCache implements Cacheable {
     public CacheAdapterSimpleCache() {
     }
 
-    //    @Named("timeToLiveSeconds")
-    private int timeToLiveSeconds;
-//    @Inject
-//    public CacheAdapter(CacheManager cacheManager) {
-//        System.out.println(cacheManager);
-//        cache = cacheManager.getCache("DB");
-//        if (cache==null) {
-//            cacheManager.addCache("DB");
-//            cache = cacheManager.getCache("DB");
-//        }
-//        System.out.println(cache.getStatus());
-//    }
-
     @Override
     public Object get(String key) {
         Object element = cache.get(key);
@@ -34,20 +21,12 @@ public class CacheAdapterSimpleCache implements Cacheable {
     }
 
     @Override
-    public void put(String key, Object value)
-    {
-        System.out.println(timeToLiveSeconds);
-        put(key, value, timeToLiveSeconds);
-    }
-
-    @Override
-    public void put(String key, Object value, int timeToLiveInSeconds) {
-        cache.put(key,value,timeToLiveInSeconds);
+    public void put(String key, Object value) {
+        put(key, value);
     }
 
     public boolean isKeyInCache(String key) {
         return cache.isKeyInCache(key);
     }
-
 
 }

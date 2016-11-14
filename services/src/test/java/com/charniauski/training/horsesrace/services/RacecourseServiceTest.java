@@ -72,7 +72,7 @@ public class RacecourseServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id =racecourseService.save(testRacecourse);
+        Long id = racecourseService.save(testRacecourse);
         Racecourse racecourse = racecourseService.get(id);
         assertNotNull(racecourse);
         testRacecourse.setId(id);
@@ -84,13 +84,15 @@ public class RacecourseServiceTest {
     @Test
     public void saveUpdateTest() {
         Racecourse racecourse1 = racecourseService.get(1L);
-        racecourse1.setId(null);
+//        racecourse1.setId(null);
         racecourse1.setName("test2");
         Long id = racecourseService.save(racecourse1);
-            racecourseService.save(racecourse1);
+        racecourseService.save(racecourse1);
         racecourse1.setId(id);
         Racecourse racecourse = racecourseService.get(id);
         assertEquals(racecourse1, racecourse);
+        racecourse1.setName("germ");
+        racecourseService.save(racecourse1);
     }
 
     @Test
@@ -138,13 +140,13 @@ public class RacecourseServiceTest {
     public void getAllAfterCurrentDateTest() {
         Date date = new Date();
         List<Racecourse> racecourses = racecourseService.getAllAfterCurrentDate();
-        Set<RaceCard> raceCards=new HashSet<>();
+        Set<RaceCard> raceCards = new HashSet<>();
         List<RaceCard> list;
-        for (Racecourse racecourse:racecourses) {
+        for (Racecourse racecourse : racecourses) {
             list = raceCardService.getAllByRacecourseAfterCurrentDate(racecourse.getId());
             System.out.println(list);
-            if (list.isEmpty())continue;
-            for (RaceCard raceCard:list) {
+            if (list.isEmpty()) continue;
+            for (RaceCard raceCard : list) {
                 raceCards.add(raceCard);
                 break;
             }
@@ -152,7 +154,7 @@ public class RacecourseServiceTest {
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
         instance.add(Calendar.HOUR, 24);
-        for (RaceCard raceCard:raceCards) {
+        for (RaceCard raceCard : raceCards) {
             assertTrue(raceCard.getDateStart().after(date));
             assertTrue(raceCard.getDateStart().before(instance.getTime()));
         }

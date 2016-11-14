@@ -21,13 +21,7 @@ public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao {
 
     @Override
     public List<Bet> getAllByLogin(String login) {
-        File fileAccount = new File(getBasePath() + "/" + Account.class.getSimpleName() + ".xml");
-        getXstream().alias(Account.class.getSimpleName(), Account.class);
-        List<Account> listAccount = new ArrayList<>((List<Account>) getXstream().fromXML(fileAccount));
-        Account account = null;
-        for (Account ac:listAccount){
-            if (ac.getLogin().equals(login)){account=ac;}
-        }
+        Account account = getAccount(login);
         List<Bet> bets = readCollection();
         Iterator<Bet> betIterator = bets.iterator();
         while (betIterator.hasNext()) {
@@ -39,26 +33,55 @@ public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao {
         return bets;
     }
 
+
     @Override
     public List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet) {
-        String sql = String.format("SELECT * FROM account ac" +
-                " LEFT JOIN bet bt ON bt.account_id = ac.id WHERE login='%s' AND status_bet='%s';",login,statusBet);
-        return getListEntity(sql,Bet.class);
+        Account account = getAccount(login);
+        List<Bet> bets = readCollection();
+        Iterator<Bet> betIterator = bets.iterator();
+        while (betIterator.hasNext()) {
+            Bet next = betIterator.next();
+            if (!next.getStatusBet().equals(statusBet)||!next.getAccountId().equals(account.getId())) {
+                betIterator.remove();
+            }
+        }
+        return bets;
     }
 
     @Override
     public List<Bet> getAllByStatusBet(StatusBet statusBet) {
-        String sql = String.format("SELECT * FROM account ac" +
-                " LEFT JOIN bet bt ON bt.account_id = ac.id WHERE status_bet='%s';",statusBet);
-        return getListEntity(sql,Bet.class);
+        List<Bet> bets = readCollection();
+        Iterator<Bet> betIterator = bets.iterator();
+        while (betIterator.hasNext()) {
+            Bet next = betIterator.next();
+            if (!next.getStatusBet().equals(statusBet)) {
+                betIterator.remove();
+            }
+        }
+        return bets;
     }
 
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
-        String sql = String.format("SELECT * FROM account ac" +
-                " LEFT JOIN bet bt ON bt.account_id = ac.id WHERE login='%s' AND event_id=%d;",login,eventId);
-        return getEntity(sql,Bet.class);
+        Account account = getAccount(login);
+        for (Bet bet:readCollection())
+            if (bet.getEventId().equals(eventId)&&bet.getAccountId().equals(account.getId())) {
+               return bet;
+            }
+        return null;
     }
+
+    private Account getAccount(String login) {
+        File fileAccount = new File(getBasePath() + "/" + Account.class.getSimpleName() + ".xml");
+        getXstream().alias(Account.class.getSimpleName(), Account.class);
+        List<Account> listAccount = new ArrayList<>((List<Account>) getXstream().fromXML(fileAccount));
+        Account account = null;
+        for (Account ac:listAccount){
+            if (ac.getLogin().equals(login)){account=ac;}
+        }
+        return account;
+    }
+
     public Long next() {
         return sequence.incrementAndGet();
     }

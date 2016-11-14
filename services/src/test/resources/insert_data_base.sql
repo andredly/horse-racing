@@ -22,14 +22,14 @@ VALUES ('faster4',2,62,'45','henk4');
 INSERT INTO racecourse (name, country) VALUES ('germ','g');
 INSERT INTO racecourse (name, country) VALUES ('germ1','g');
 
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 22:00',NULL ,'1000',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 21:10',NULL ,'1500',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.08 23:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.15 22:00',NULL ,'1000',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.15 21:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.15 23:10',NULL ,'1500',1);
 INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.06 23:10',NULL ,'1500',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.14 12:10',NULL ,'1500',2);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.17 12:10',NULL ,'1500',2);
 
 INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,1,1,1,NULL );
-INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,2,2,2,NULL);
+INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (2,2,2,2,NULL);
 -- INSERT INTO race_detail (race_card_id,horse_id, command_id,number_start_box,horse_result) VALUES (1,3,3,3,NULL);
 
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event, result_event,bookmaker)
@@ -41,6 +41,6 @@ VALUES (2,'WIN','2016.11.15 04:04',1.5,'UNKNOWN','dred');
 INSERT INTO event (race_detail_id,event_type,date_register,coefficient_event,result_event,bookmaker)
 VALUES (1,'PLACE2','2016.11.15 04:50',0.6,'UNKNOWN','dred');
 
-INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.11.18 20:12',1,1,10,1,'ACTIVE',0);
-INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.11.18 20:12',2,1,20,1,'ACTIVE',0);
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.11.16 20:12',1,1,10,1,'ACTIVE',0);
+INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.11.16 20:12',2,1,20,1,'ACTIVE',0);
 INSERT INTO bet (date_bet,event_id,account_id,sum,coefficient_bet,status_bet,calculate) VALUES ('2016.11.08 10:12',3,2,5,2.0,'CLOSED',10);

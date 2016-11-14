@@ -12,7 +12,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @BindingAnnotation
 @Target(ElementType.METHOD)
 public @interface Cached {
-    int timeToLiveSeconds() default 600;
-
-    Class<? extends KeyGenerator> keyGeneratorClass() default CacheKeyGenerator.class;
 }
