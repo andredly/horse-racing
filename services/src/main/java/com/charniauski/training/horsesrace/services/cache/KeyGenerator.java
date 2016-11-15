@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.services.cache;
 
 
-import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**

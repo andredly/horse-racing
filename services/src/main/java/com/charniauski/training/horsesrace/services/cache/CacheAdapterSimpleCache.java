@@ -16,8 +16,7 @@ public class CacheAdapterSimpleCache implements Cacheable {
 
     @Override
     public Object get(String key) {
-        Object element = cache.get(key);
-        return element == null ? null : element;
+        return cache.get(key);
     }
 
     @Override

@@ -100,16 +100,21 @@ public class SpringScopeTest {
 //        List<Racecourse> allAfterCurrentDate = racecourseServiceBean.getAllAfterCurrentDate();
 //        allAfterCurrentDate.forEach(System.out::println);
 //        bean.setDisabled();
-        for (int i=0;i<10;i++) {
+        for (int i=0;i<100;i++) {
             accountServiceBean.get(1L);
             accountServiceBean.get(2L);
+
             accountServiceBean.get(3L);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            List<RaceCard> all = raceCardServiceBean.getAll();
+            raceCardServiceBean.get(1L);
+            raceDetailService.get(1L);
+            raceDetailService.get(2L);
+
+            RaceCard raceCard = raceCardServiceBean.get(2L);
+        }
+        for (int i=0;i<50;i++) {
+
+            Racecourse racecourse = racecourseServiceBean.get(1L);
+
         }
 
     }

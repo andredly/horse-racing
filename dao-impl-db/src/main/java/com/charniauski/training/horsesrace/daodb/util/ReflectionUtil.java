@@ -31,17 +31,17 @@ public class ReflectionUtil {
                 String enumName = (String) mapResultQuery.get(column.columnName());
                 Enum[] anEnum = (Enum[]) enumType.nameClass().getEnumConstants();
                 for (Enum enumInstance : anEnum) {
-                    if (enumInstance.name().equals(enumName)) beanParameter.put(field.getName(), enumInstance);
+                    if (enumInstance.name().equals(enumName)) {beanParameter.put(field.getName(), enumInstance);}
                 }
                 continue;
             }
-            if (mapResultQuery.containsKey(column.columnName()))
-                beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));
+            if (mapResultQuery.containsKey(column.columnName())){
+                beanParameter.put(field.getName(), mapResultQuery.get(column.columnName()));}
         }
         for (Map.Entry<String, Object> map : mapResultQuery.entrySet()) {
             String columnNameChanged = map.getKey().replace("_", "").replace("_id", "");
             String nameClass = clazz.getSimpleName().toLowerCase();
-            if (columnNameChanged.equals(nameClass)) beanParameter.put("id", map.getValue());
+            if (columnNameChanged.equals(nameClass)) {beanParameter.put("id", map.getValue());}
         }
         T entity = null;
         try {
@@ -68,15 +68,15 @@ public class ReflectionUtil {
         @Override
         public void populate(final Object bean, final Map<String, ? extends Object> properties)
                 throws IllegalAccessException, InvocationTargetException {
-            if ((bean == null) || (properties == null))  return;
+            if ((bean == null) || (properties == null))  {return;}
             if (log.isDebugEnabled()) {
                 log.debug("BeanUtils.populate(" + bean + ", " +
                         properties + ")");
             }
             for (final Map.Entry<String, ? extends Object> entry : properties.entrySet()) {
                 final String name = entry.getKey();
-                if (name == null) continue;
-                if (entry.getValue() == null) continue;
+                if (name == null) {continue;}
+                if (entry.getValue() == null){ continue;}
                 super.setProperty(bean, name, entry.getValue());
             }
         }
@@ -170,7 +170,5 @@ public class ReflectionUtil {
             e.printStackTrace();
         }
     }
-
-
 
 }

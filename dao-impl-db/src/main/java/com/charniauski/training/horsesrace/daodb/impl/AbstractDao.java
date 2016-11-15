@@ -66,7 +66,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public boolean delete(PK id) {
         String sql = format("%s%d;", sqlDeleteEntity(clazz), id);
-
         return jdbcTemplate.update(sql) == 1;
     }
 

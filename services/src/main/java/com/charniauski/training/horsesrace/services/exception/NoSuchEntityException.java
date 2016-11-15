@@ -7,6 +7,10 @@ public class NoSuchEntityException extends RuntimeException {
     public NoSuchEntityException() {
     }
 
+    public NoSuchEntityException(Throwable cause) {
+        super(cause);
+    }
+
     public NoSuchEntityException(String message) {
         super(message);
     }

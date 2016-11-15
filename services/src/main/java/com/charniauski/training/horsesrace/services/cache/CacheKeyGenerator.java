@@ -3,8 +3,6 @@ package com.charniauski.training.horsesrace.services.cache;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 
-import java.util.Arrays;
-
 /**
  * Created by ivc4 on 11.11.2016.
  */
@@ -12,16 +10,16 @@ public class CacheKeyGenerator implements KeyGenerator{
 
     @Override
     public String generate(ProceedingJoinPoint joinPoint) {
-        String nameClass = joinPoint.getSignature().getDeclaringTypeName();
+        String nameClass = joinPoint.getTarget().getClass().getName();
         String method=joinPoint.getSignature().toLongString();
-        StringBuilder stringBuilder=new StringBuilder(nameClass).append(method);
+        StringBuilder stringBuilder=new StringBuilder(nameClass).append(" ").append(method);
         Object[] args = joinPoint.getArgs();
         if (args.length==0) {
             return stringBuilder.toString();
         }
-        stringBuilder.append("(").append(args[0]);
+        stringBuilder.append("(").append(args[0].getClass().getName()).append(" ").append(args[0]);
         for (int i = 1; i < args.length; i++) {
-            stringBuilder.append(", ").append(args[i].toString());
+            stringBuilder.append(", ").append(args[i].getClass().getName()).append(" ").append(args[i]);
         }
         return stringBuilder.append(")").toString();
     }

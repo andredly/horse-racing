@@ -15,6 +15,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -106,17 +107,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
                 isDelete = true;
                 continue;}
         }
-
-//        boolean isDelete = false;
-//        List<T> newList = new ArrayList<>();
-//        // TODO: don't iterate whole collection
-//        for (T entity : list) {
-//            if (!entity.getId().equals(id)) {
-//                isDelete = true;
-//                continue;
-//            }
-//            newList.add(entity);
-//        }
         writeCollection(list);
         return isDelete;
     }
@@ -127,17 +117,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     }
 
-    final T getEntity(String sql, Class<T> clazz) {
-        throw new UnsupportedOperationException();
-
-    }
-
-    final List<T> getListEntity(String sql, Class<T> clazz) {
-        throw new UnsupportedOperationException();
-
-    }
-
-
+    @SuppressWarnings("unchecked")
     List<T> readCollection() {
         return new ArrayList<>((List<T>) xstream.fromXML(file));
     }
@@ -147,7 +127,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
             xstream.toXML(newList, new BufferedOutputStream(new FileOutputStream(file)));
 
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);// TODO custom exception
+            throw new NoSuchElementException();
         }
     }
 
@@ -157,17 +137,12 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 //    }
 
 
-    public XStream getXstream() {
+    XStream getXstream() {
         return xstream;
     }
 
-    public PK next() {
-//        return sequence.incrementAndGet();
-        throw new UnsupportedOperationException();
-    }
 
-
-    public void initSequence() {
+    private void initSequence() {
         List<T> list = readCollection();
         Long maxId = 0L;
         if (!list.isEmpty()) {
@@ -176,7 +151,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         getSequence().set(maxId);
     }
 
-    public AtomicLong getSequence() {
-        throw new UnsupportedOperationException();
-    }
+    abstract AtomicLong getSequence();
+
+    abstract PK next();
 }
