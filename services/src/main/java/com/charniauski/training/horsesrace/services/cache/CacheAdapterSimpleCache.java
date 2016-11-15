@@ -24,6 +24,7 @@ public class CacheAdapterSimpleCache implements Cacheable {
         cache.put(key, value);
     }
 
+    @Override
     public boolean isKeyInCache(String key) {
         return cache.isKeyInCache(key);
     }

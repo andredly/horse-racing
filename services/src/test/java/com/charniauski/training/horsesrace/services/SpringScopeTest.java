@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import com.charniauski.training.horsesrace.services.cache.SimpleCache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

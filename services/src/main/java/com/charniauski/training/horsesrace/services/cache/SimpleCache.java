@@ -70,9 +70,9 @@ public class SimpleCache implements Cacheable {
         cache.clear();
     }
 
+
     public void clear() {
         executorService.submit(new ClearCache());
-
     }
 
     private class ClearCache implements Callable {
