@@ -22,7 +22,7 @@ public class CacheAdapterSimpleCache implements Cacheable {
 
     @Override
     public void put(String key, Object value) {
-        put(key, value);
+        cache.put(key, value);
     }
 
     public boolean isKeyInCache(String key) {

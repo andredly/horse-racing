@@ -1,16 +1,12 @@
 package com.charniauski.training.horsesrace.daoxml.impl;
 
 import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
-import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-
-import static com.charniauski.training.horsesrace.daoxml.util.SqlBuilder.sqlSelectEntity;
-import static java.lang.String.format;
 
 /**
  * Created by Andre on 19.10.2016.

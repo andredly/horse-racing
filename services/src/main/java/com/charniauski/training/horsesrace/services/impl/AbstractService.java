@@ -45,6 +45,7 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
     }
 
     @SuppressWarnings("unchecked")
+    @Cached
     @Override
     public T get(PK id) {
         return (T) getGenericDao().get(id);

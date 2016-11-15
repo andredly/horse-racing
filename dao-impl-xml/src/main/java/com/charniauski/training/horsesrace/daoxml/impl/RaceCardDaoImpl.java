@@ -4,14 +4,11 @@ import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.Event;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
-
-import static java.lang.String.format;
 
 /**
  * Created by Andre on 19.10.2016.

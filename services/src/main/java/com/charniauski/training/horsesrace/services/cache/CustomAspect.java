@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
-//@Service
+@Service
 @Aspect
 public class CustomAspect {
 
     @Inject
-//    private CacheAdapterEhcache cache;
     private CacheAdapterSimpleCache cache;
+//    private CacheAdapterEhcache cache;
+
 
 
 
@@ -24,7 +25,6 @@ public class CustomAspect {
         String key = keyGenerator.generate(joinPoint);
         System.out.println("key " + key);
         if (cache.get(key)!=null){
-            System.out.println(cache);
             return cache.get(key);
         }
         Object result = joinPoint.proceed();

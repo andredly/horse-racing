@@ -47,7 +47,6 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         return accountDao;
     }
 
-    @Cached
     @Override
     public Account getByLogin(String login) {
         return accountDao.getByLogin(login);

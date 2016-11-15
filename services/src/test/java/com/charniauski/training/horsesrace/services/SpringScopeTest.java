@@ -1,5 +1,8 @@
 package com.charniauski.training.horsesrace.services;
 
+import com.charniauski.training.horsesrace.datamodel.Account;
+import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -7,6 +10,7 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class SpringScopeTest {
 
@@ -96,6 +100,17 @@ public class SpringScopeTest {
 //        List<Racecourse> allAfterCurrentDate = racecourseServiceBean.getAllAfterCurrentDate();
 //        allAfterCurrentDate.forEach(System.out::println);
 //        bean.setDisabled();
+        for (int i=0;i<10;i++) {
+            accountServiceBean.get(1L);
+            accountServiceBean.get(2L);
+            accountServiceBean.get(3L);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            List<RaceCard> all = raceCardServiceBean.getAll();
+        }
 
     }
 

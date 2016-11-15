@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -76,7 +75,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public PK insert(T entity) {
         List<T> entities = readCollection();
         Long id = (Long) next();
-        System.out.println(id);
 //        Long id = getNextId(entities);
         entities.add(entity);
         entity.setId(id);
@@ -171,12 +169,10 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     public void initSequence() {
         List<T> list = readCollection();
-        System.out.println(list);
         Long maxId = 0L;
         if (!list.isEmpty()) {
             maxId = list.get(list.size() - 1).getId() + 1;
         }
-        LOGGER.info(maxId.toString());
         getSequence().set(maxId);
     }
 

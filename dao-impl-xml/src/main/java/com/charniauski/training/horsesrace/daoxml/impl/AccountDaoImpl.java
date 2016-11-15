@@ -7,16 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-
-
-import static com.charniauski.training.horsesrace.daoxml.util.SqlBuilder.sqlInsertOrUpdateEntity;
-import static com.charniauski.training.horsesrace.daoxml.util.SqlBuilder.sqlSelectEntity;
-import static java.lang.String.format;
 
 /**
  * Created by Andre on 19.10.2016.
