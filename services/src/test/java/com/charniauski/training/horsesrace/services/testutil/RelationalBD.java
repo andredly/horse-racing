@@ -21,35 +21,15 @@ public class RelationalBD implements BaseCreator {
     @Override
     public void createRelationDB() {
 
-        Properties properties=new Properties();
-        try {
-            URL file=this.getClass().getClassLoader().getResource("db.properties");
-            assert file != null;
-            properties.load(new FileInputStream(file.getPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//
-//        final String DB_URL = properties.getProperty("jdbc.url");
-//        final String USER = properties.getProperty("jdbc.username");;
-//        final String PASS = properties.getProperty("jdbc.password");;
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
         SchemaNameAwareBasicDataSource bean = springContext.getBean(SchemaNameAwareBasicDataSource.class);
 
-        Connection connection= null;
+        Connection connection = null;
         try {
             connection = bean.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        try {
-//            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-//            System.out.println(connection);
-//        } catch (SQLException e) {
-//            System.out.println("Connection Failed");
-//            e.printStackTrace();
-//            return;
-//        }
         Resource resourceCreate = new FileSystemResource("src/test/resources/horses_race_postgres_create.sql");
         Resource resourceCreateData = new FileSystemResource("src/test/resources/insert_data_base.sql");
         Resource resourceDrop = new FileSystemResource("src/test/resources/horses_race_postgres_drop.sql");

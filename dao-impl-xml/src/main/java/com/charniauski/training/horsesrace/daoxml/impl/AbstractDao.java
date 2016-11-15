@@ -31,11 +31,18 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     private File file;
 
+    private final Class<T> clazz;
+
     @Value("${basePath}")
     private String basePath;
 
     public String getBasePath() {
         return basePath;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected AbstractDao() {
+        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     @PostConstruct
@@ -51,14 +58,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         }
         initSequence();
     }
-
-    private final Class<T> clazz;
-
-    @SuppressWarnings("unchecked")
-    protected AbstractDao() {
-        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    }
-
 
     @Override
     public T get(PK id) {
@@ -114,7 +113,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public List<T> getAll() {
         return readCollection();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -136,11 +134,9 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 //                list.size() - 1).getId() + 1;
 //    }
 
-
     XStream getXstream() {
         return xstream;
     }
-
 
     private void initSequence() {
         List<T> list = readCollection();

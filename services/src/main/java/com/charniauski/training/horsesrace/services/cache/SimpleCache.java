@@ -16,9 +16,7 @@ import java.util.concurrent.Executors;
 public class SimpleCache implements Cacheable {
 
     private ExecutorService executorService;
-
     private Map<String, Map<Object, Date>> cache;
-
     private static final int DEFAULT_TIME_TO_LIFE_SECOND = 30;
     private static final int DEFAULT_SIZE = 1000;
     private volatile boolean flagClearCache;
@@ -73,6 +71,11 @@ public class SimpleCache implements Cacheable {
 
     public void clear() {
         executorService.submit(new ClearCache());
+    }
+
+    public void stopClear(){
+        flagClearCache=true;
+        executorService.shutdown();
     }
 
     private class ClearCache implements Callable {
