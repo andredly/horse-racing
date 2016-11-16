@@ -15,6 +15,9 @@ import java.util.concurrent.Executors;
 @Service
 public class SimpleCache implements Cacheable {
 
+//    org.clapper.util.misc
+//    Класс FileHashMap <K, V>
+
     private ExecutorService executorService;
     private Map<String, Map<Object, Date>> cache;
     private static final int DEFAULT_TIME_TO_LIFE_SECOND = 30;
@@ -40,6 +43,7 @@ public class SimpleCache implements Cacheable {
         Object obj = cache.get(key).keySet().iterator().next();
         System.out.println("get "+obj);
         return obj;
+
     }
 
     @Override

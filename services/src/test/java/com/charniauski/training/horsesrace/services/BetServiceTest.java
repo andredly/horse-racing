@@ -93,13 +93,13 @@ public class BetServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
+
         testBet.setEventId(1L);
         testBet.setCoefficientBet(1.0);
         testBet.setStatusBet(StatusBet.ACTIVE);
         testBet.setAccountId(2L);
         testBet.setSum(20.0);
-        id = betService.save(testBet);
+        Long id = betService.save(testBet);
         Bet bet = betService.get(id);
         assertNotNull(bet);
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));

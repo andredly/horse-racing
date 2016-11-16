@@ -23,10 +23,8 @@ public class RelationalBD implements BaseCreator {
     @Override
     public void createRelationDB() {
 
-
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream("src/main/resources/db.properties"));
             URL file = this.getClass().getClassLoader().getResource("db.properties");
             assert file != null;
             properties.load(new FileInputStream(file.getPath()));
@@ -34,12 +32,9 @@ public class RelationalBD implements BaseCreator {
             e.printStackTrace();
         }
 
-
         final String DB_URL = properties.getProperty("jdbc.url");
         final String USER = properties.getProperty("jdbc.username");
         final String PASS = properties.getProperty("jdbc.password");
-
-
 
 //        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
 //        SchemaNameAwareBasicDataSource bean = springContext.getBean(SchemaNameAwareBasicDataSource.class);

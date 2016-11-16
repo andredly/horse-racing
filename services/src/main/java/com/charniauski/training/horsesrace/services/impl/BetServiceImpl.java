@@ -64,6 +64,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
             bet.setCoefficientBet(event.getCoefficientEvent());
             Date dateStart = raceCardService.getDateStartByEvent(bet.getEventId());
             bet.setDateBet(new Timestamp(new Date().getTime()));
+            System.out.println(bet.getDateBet()+"  ++   "+(dateStart));
             if(bet.getDateBet().after(dateStart))throw new DateTimeException("Date bet after date start");
             bet.setStatusBet(ACTIVE);
             betId = betDao.insert(bet);
