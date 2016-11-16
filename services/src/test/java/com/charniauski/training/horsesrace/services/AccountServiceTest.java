@@ -3,29 +3,35 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.daoapi.AccountDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
-import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
+import com.charniauski.training.horsesrace.services.testutil.RelationalBD;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class})
 public class AccountServiceTest {
-
 
     @Inject
     private AccountService accountService;
@@ -34,21 +40,27 @@ public class AccountServiceTest {
     private AccountDao accountDao;
 
     @Inject
-    private BetService betService;
+    private BaseCreator baseCreator;
 
     @Inject
-    private ClientService clientService;
+    private BetService betService;
 
     private Account testAccount;
 
     private Long testAccountId;
 
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    @Parameterized.Parameters
+    public static void getBaseCreator(BaseCreator baseCreator){
+        baseCreator.createRelationDB();
+    }
+
+
     @BeforeClass
     public static void prepareTestData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createRelationDB();
-        springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createXMLDB();
+        BaseCreator baseCreator=new RelationalBD();
+        baseCreator.createRelationDB();
     }
 
     @AfterClass
@@ -58,12 +70,21 @@ public class AccountServiceTest {
 
     @Before
     public void prepareMethodData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createXMLDB();
+//        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
+//        springContext.getBean(BaseCreator.class).createXMLDB();
+        baseCreator.createXMLDB();
         testAccount = new Account();
         testAccount.setLogin("TestLoginNew");
         testAccount.setPassword("pass");
         testAccount.setIsDelete(false);
+        testAccount.setFirstName("Test");
+        testAccount.setLastName("Test");
+        try {
+            testAccount.setDateBirth(simpleDateFormat.parse("2016-10-12"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        testAccount.setAddress("address");
         Timestamp timestamp = new Timestamp(new Date().getTime());
         testAccount.setDateRegisterAccount(timestamp);
         testAccount.setBalance(0.0);
@@ -131,6 +152,14 @@ public class AccountServiceTest {
         testAccount1.setBalance(0.0);
         testAccount1.setStatus(Status.CLIENT);
         testAccount1.setEmail("test1@test.ru");
+        testAccount1.setFirstName("Test");
+        testAccount1.setLastName("Test");
+        try {
+            testAccount1.setDateBirth(simpleDateFormat.parse("2016-10-12"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        testAccount1.setAddress("address");
         List<Account> arrayList = new ArrayList<>();
         testAccount.setLogin("TestLoginNew2");
         testAccount.setIsDelete(false);
@@ -175,23 +204,12 @@ public class AccountServiceTest {
         allAccountsByStatus.forEach(account -> assertEquals(Status.CLIENT, account.getStatus()));
     }
 
-    @Test
-    public void saveByAccountAndClientTest() {
-        Account account = accountService.get(1L);
-        Client client = clientService.get(1L);
-        Long id = accountService.save(account, client);
-        Account account1 = accountService.get(id);
-        Client client1 = clientService.get(id);
-        assertEquals(account, account1);
-        assertEquals(client, client1);
-    }
 
     @Test
     public void getAccountWrapperTest() {
         AccountWrapper accountWrapper = new AccountWrapper();
         Account account1 = accountService.get(1L);
         accountWrapper.setAccount(account1);
-        accountWrapper.setClient(clientService.get(1L));
         accountWrapper.setBets(betService.getAllByLogin(account1.getLogin()));
         AccountWrapper accountWrapper1 = accountService.getAccountWrapper("log");
         assertEquals(accountWrapper, accountWrapper1);

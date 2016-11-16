@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao {
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
     @Override
     public Horse getByNickName(String nickName) {
         List<Horse> horses = readCollection();
@@ -43,9 +43,7 @@ public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao {
     }
 
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

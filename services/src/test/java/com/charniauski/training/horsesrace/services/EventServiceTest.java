@@ -8,9 +8,14 @@ import com.charniauski.training.horsesrace.services.exception.NoSuchEntityExcept
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
@@ -23,18 +28,25 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class})
 public class EventServiceTest {
 
     @Inject
     private EventService eventService;
 
+    @Inject
+    private BaseCreator baseCreator;
+
     private Event testEvent;
     private Long testEventId;
 
+    @Parameterized.Parameters
+    public static void getBaseCreator(BaseCreator baseCreator){
+        baseCreator.createRelationDB();
+    }
     @BeforeClass
     public static void prepareTestData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -44,8 +56,7 @@ public class EventServiceTest {
 
     @Before
     public void prepareMethodData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createXMLDB();
+      baseCreator.createXMLDB();
         testEvent = new Event();
         testEvent.setDateRegister(new Timestamp(new Date().getTime()));
         testEvent.setBookmaker("dred");
@@ -74,10 +85,10 @@ public class EventServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-            testEvent.setEventType(EventType.PLACE3);
-            testEvent.setResultEvent(ResultEvent.UNKNOWN);
-            testEvent.setRaceDetailId(1L);
-            id = eventService.save(testEvent);
+        testEvent.setEventType(EventType.PLACE3);
+        testEvent.setResultEvent(ResultEvent.UNKNOWN);
+        testEvent.setRaceDetailId(1L);
+        id = eventService.save(testEvent);
         Event event = eventService.get(id);
         assertNotNull(event);
         testEvent.setDateRegister(new Date(testEvent.getDateRegister().getTime()));
@@ -90,9 +101,9 @@ public class EventServiceTest {
     public void saveUpdateTest() {
         assertNotNull(testEventId);
         testEvent.setId(testEventId);
-            eventService.save(testEvent);
+        Long save = eventService.save(testEvent);
         Event event = eventService.get(testEventId);
-        testEvent.setDateRegister(new Date(testEvent.getDateRegister().getTime()));
+        testEvent.setDateRegister(new Date(event.getDateRegister().getTime()));
         assertEquals(testEvent, event);
     }
 
@@ -157,8 +168,8 @@ public class EventServiceTest {
     }
 
     @Test
-public void getAllByResultEventAndRaceDetailTest(){
-        List<Event> events = eventService.getAllByResultEventAndRaceDetail(ResultEvent.UNKNOWN,2L);
+    public void getAllByResultEventAndRaceDetailTest() {
+        List<Event> events = eventService.getAllByResultEventAndRaceDetail(ResultEvent.UNKNOWN, 2L);
         events.forEach(event -> {
             assertEquals(ResultEvent.UNKNOWN, event.getResultEvent());
             assertEquals(new Long(2L), event.getRaceDetailId());
@@ -168,10 +179,10 @@ public void getAllByResultEventAndRaceDetailTest(){
     }
 
     @Test
-    public void updateResultEventTest(){
+    public void updateResultEventTest() {
         Event event = eventService.get(4L);
         event.setResultEvent(ResultEvent.CANCELED);
-        eventService.updateResultEvent(4L,ResultEvent.CANCELED);
+        eventService.updateResultEvent(4L, ResultEvent.CANCELED);
         Event event1 = eventService.get(4L);
         assertEquals(event, event1);
     }

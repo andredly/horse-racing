@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class EventDaoImpl extends AbstractDao<Event,Long> implements EventDao {
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
     @Override
     public List<Event> getAllByRaceDetail(Long raceDetail) {
         List<Event> events = readCollection();
@@ -56,9 +56,7 @@ public class EventDaoImpl extends AbstractDao<Event,Long> implements EventDao {
         return events;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

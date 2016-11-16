@@ -1,9 +1,6 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
-import com.charniauski.training.horsesrace.services.cache.SimpleCache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,15 +8,13 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class SpringScopeTest {
 
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, NoSuchEntityException, IntrospectionException, SQLException {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        ClientService clientServiceBean = springContext.getBean(ClientService.class);
         AccountService accountServiceBean = springContext.getBean(AccountService.class);
         BetService betServiceBean = springContext.getBean(BetService.class);
         CommandService commandServiceBean = springContext.getBean(CommandService.class);
@@ -101,23 +96,16 @@ public class SpringScopeTest {
 //        List<Racecourse> allAfterCurrentDate = racecourseServiceBean.getAllAfterCurrentDate();
 //        allAfterCurrentDate.forEach(System.out::println);
 //        bean.setDisabled();
-        for (int i=0;i<100;i++) {
-            accountServiceBean.get(1L);
-            accountServiceBean.get(2L);
-
-            accountServiceBean.get(3L);
-            raceCardServiceBean.get(1L);
-            raceDetailService.get(1L);
-            raceDetailService.get(2L);
-
-            RaceCard raceCard = raceCardServiceBean.get(2L);
+        for (int i=0;i<20;i++) {
+            RaceCard raceCard = raceCardServiceBean.get(1L);
+            RaceCard raceCard1 = raceCardServiceBean.get(2L);
+            RaceCard raceCard2 = raceCardServiceBean.get(3L);
+            RaceCard raceCard3 = raceCardServiceBean.get(4L);
+            System.out.println(raceCard);
+            System.out.println(raceCard1);
+            System.out.println(raceCard2);
+            System.out.println(raceCard3);
         }
-        for (int i=0;i<50;i++) {
-
-            Racecourse racecourse = racecourseServiceBean.get(1L);
-
-        }
-
     }
 
 

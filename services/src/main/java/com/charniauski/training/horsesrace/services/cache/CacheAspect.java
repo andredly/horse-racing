@@ -21,6 +21,7 @@ public class CacheAspect {
         String key = keyGenerator.generate(joinPoint);
         if (cache.isKeyInCache(key)){return cache.get(key);}
         Object result = joinPoint.proceed();
+        System.out.println("put "+result);
         cache.put(key, result);
         return result;
     }

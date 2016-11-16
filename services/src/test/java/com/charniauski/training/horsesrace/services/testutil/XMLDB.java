@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.services.testutil;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;

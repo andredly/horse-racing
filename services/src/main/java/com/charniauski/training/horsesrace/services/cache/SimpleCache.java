@@ -38,6 +38,7 @@ public class SimpleCache implements Cacheable {
     @Override
     public Object get(String key) {
         Object obj = cache.get(key).keySet().iterator().next();
+        System.out.println("get "+obj);
         return obj;
     }
 

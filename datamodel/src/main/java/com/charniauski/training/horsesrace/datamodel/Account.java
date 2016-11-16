@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 /**
@@ -37,8 +38,17 @@ public class Account extends AbstractModel {
     @Column(columnName = "is_delete")
     private Boolean isDelete;
 
-//    private SecurityLevel securityLevel;
-//    private User user;
+    @Column(columnName = "first_name")
+    private String firstName;
+
+    @Column(columnName = "last_name")
+    private String lastName;
+
+    @Column(columnName = "date_birth")
+    private Date dateBirth;
+
+    @Column(columnName = "address")
+    private String address;
 
     public Account() {
     }
@@ -66,6 +76,7 @@ public class Account extends AbstractModel {
     public void setDateRegisterAccount(Date dateRegisterAccount) {
         this.dateRegisterAccount = dateRegisterAccount;
     }
+
 
     public Status getStatus() {
         return status;
@@ -99,17 +110,53 @@ public class Account extends AbstractModel {
         isDelete = delete;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
-                "id=" + getId() +
-                ", login='" + login + '\'' +
+                " id=" + getId() +
+                " login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", dateRegisterAccount='" + dateRegisterAccount + '\'' +
+                ", dateRegisterAccount=" + dateRegisterAccount +
                 ", status=" + status +
                 ", balance=" + balance +
                 ", email='" + email + '\'' +
-                ", isDelete='" + isDelete + '\'' +
+                ", isDelete=" + isDelete +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", date=" + dateBirth +
+                ", address='" + address + '\'' +
                 '}';
     }
 
@@ -127,8 +174,12 @@ public class Account extends AbstractModel {
                 .append(dateRegisterAccount, account.dateRegisterAccount)
                 .append(status, account.status)
                 .append(balance, account.balance)
-                .append(isDelete, account.isDelete)
-                .append(email, account.email).isEquals();
+                .append(email, account.email)
+                .append(firstName,account.firstName)
+                .append(lastName,account.lastName)
+                .append(dateBirth,account.dateBirth)
+                .append(address,account.address)
+                .append(isDelete, account.isDelete).isEquals();
     }
 
     @Override
@@ -141,6 +192,10 @@ public class Account extends AbstractModel {
                 .append(status)
                 .append(balance)
                 .append(email)
+                .append(firstName)
+                .append(lastName)
+                .append(dateBirth)
+                .append(address)
                 .append(isDelete).hashCode();
     }
 

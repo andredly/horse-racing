@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceCardDao {
 
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
 
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
@@ -31,7 +31,6 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
             RaceCard raceCard = iteratorListRaceCard.next();
             if (raceCard.getDateStart().before(date)||raceCard.getDateStart().after(instance.getTime())
                     ||!raceCard.getRacecourseId().equals(racecourseId)) {
-                System.out.println(raceCard);
                 iteratorListRaceCard.remove();
             }
         }
@@ -62,9 +61,7 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
         return null;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

@@ -2,7 +2,6 @@ package com.charniauski.training.horsesrace.services.wrapper;
 
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
-import com.charniauski.training.horsesrace.datamodel.Client;
 
 import java.util.List;
 
@@ -11,16 +10,7 @@ import java.util.List;
  */
 public class AccountWrapper {
     private Account account;
-    private Client client;
     private List<Bet> bets;
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     public Account getAccount() {
         return account;
@@ -46,7 +36,6 @@ public class AccountWrapper {
         AccountWrapper that = (AccountWrapper) o;
 
         if (account != null ? !account.equals(that.account) : that.account != null) return false;
-        if (client != null ? !client.equals(that.client) : that.client != null) return false;
         return bets != null ? bets.equals(that.bets) : that.bets == null;
 
     }
@@ -54,7 +43,6 @@ public class AccountWrapper {
     @Override
     public int hashCode() {
         int result = account != null ? account.hashCode() : 0;
-        result = 31 * result + (client != null ? client.hashCode() : 0);
         result = 31 * result + (bets != null ? bets.hashCode() : 0);
         return result;
     }

@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class CommandDaoImpl extends AbstractDao<Command,Long> implements CommandDao {
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
     @Override
     public Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage) {
         List<Command> commands = readCollection();
@@ -25,9 +25,7 @@ public class CommandDaoImpl extends AbstractDao<Command,Long> implements Command
         return null;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

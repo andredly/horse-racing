@@ -4,12 +4,9 @@ import com.charniauski.training.horsesrace.daoapi.AccountDao;
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
-import com.charniauski.training.horsesrace.datamodel.Client;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
-import com.charniauski.training.horsesrace.services.ClientService;
-import com.charniauski.training.horsesrace.services.cache.Cached;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -18,7 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +37,6 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     @Inject
     private AccountDao accountDao;
 
-    @Inject
-    private ClientService clientService;
 
     @Inject
     private BetService betService;
@@ -65,12 +64,10 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     @Override
     public AccountWrapper getAccountWrapper(String login) {
         Account account = getByLogin(login);
-        Client client = clientService.get(account.getId());
         List<Bet> bets = betService.getAllByLogin(account.getLogin());
         AccountWrapper accountWrapper = new AccountWrapper();
         accountWrapper.setAccount(account);
         accountWrapper.setBets(bets);
-        accountWrapper.setClient(client);
         return accountWrapper;
     }
 
@@ -81,15 +78,6 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         accountDao.update(account);
     }
 
-
-    @Transactional
-    @Override
-    public Long save(Account account, Client client) {
-        Long id = save(account);
-        client.setId(id);
-        clientService.save(client);
-        return id;
-    }
 
     @Transactional
     @Override

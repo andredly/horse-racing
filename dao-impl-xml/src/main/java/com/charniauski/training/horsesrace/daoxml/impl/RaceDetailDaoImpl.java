@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements RaceDetailDao {
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
     @Override
     public RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId) {
         for (RaceDetail raceDetail:readCollection()){
@@ -58,9 +58,7 @@ public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements 
         return list;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

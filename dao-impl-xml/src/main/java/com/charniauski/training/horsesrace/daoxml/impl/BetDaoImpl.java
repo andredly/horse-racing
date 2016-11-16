@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @Repository
 public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao {
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
 
     @Override
     public List<Bet> getAllByLogin(String login) {
@@ -82,9 +82,7 @@ public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao {
         return account;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

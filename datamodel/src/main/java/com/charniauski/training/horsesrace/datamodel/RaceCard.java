@@ -58,13 +58,15 @@ public class RaceCard extends AbstractModel {
         this.racecourseId = racecourseId;
     }
 
+
     @Override
     public String toString() {
         return "RaceCard{" +
-                "id=" + getId() +
-                ", dateStart=" + dateStart +
+                " id=" + getId() +
+                " dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
                 ", raceType='" + raceType + '\'' +
+                ", racecourseId=" + racecourseId +
                 '}';
     }
 

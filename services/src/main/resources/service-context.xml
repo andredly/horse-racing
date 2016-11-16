@@ -60,8 +60,4 @@
         <!--<constructor-arg type="java.lang.String" value="DB"/>-->
     <!--</bean>-->
 
-    <!--<bean id="cacheManager"-->
-          <!--class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"-->
-          <!--p:shared="true"/>-->
-
 </beans>

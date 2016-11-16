@@ -81,17 +81,17 @@ OIDS=FALSE
 );
 
 
-
-CREATE TABLE "client" (
-  "id" BIGINT NOT NULL,
-  "first_name" character varying(256) NOT NULL,
-  "last_name" character varying(256) NOT NULL,
-  "date_birth" DATE NOT NULL,
-  "address" character varying(512) NOT NULL,
-  CONSTRAINT client_pk PRIMARY KEY ("id")
-) WITH (
-OIDS=FALSE
-);
+--
+-- CREATE TABLE "client" (
+--   "id" BIGINT NOT NULL,
+--   "first_name" character varying(256) NOT NULL,
+--   "last_name" character varying(256) NOT NULL,
+--   "date_birth" DATE NOT NULL,
+--   "address" character varying(512) NOT NULL,
+--   CONSTRAINT client_pk PRIMARY KEY ("id")
+-- ) WITH (
+-- OIDS=FALSE
+-- );
 
 
 
@@ -103,6 +103,10 @@ CREATE TABLE "account" (
   "status" VARCHAR(16) NOT NULL,
   "balance" double PRECISION NOT NULL,
   "email" character varying(256) NOT NULL,
+  "first_name" character varying(256) NOT NULL,
+  "last_name" character varying(256) NOT NULL,
+  "date_birth" DATE NOT NULL,
+  "address" character varying(512) NOT NULL,
   "is_delete" BOOLEAN NOT NULL,
   CONSTRAINT account_pk PRIMARY KEY ("id")
 ) WITH (
@@ -143,6 +147,16 @@ CREATE TABLE "racecourse" (
 OIDS=FALSE
 );
 
+CREATE TABLE "logging" (
+  ID SERIAL NOT NULL,
+  EVENT_DATE TIMESTAMP DEFAULT NULL,
+  LEVEL varchar(256) DEFAULT NULL,
+  LOGGER varchar(256) DEFAULT NULL,
+  MSG varchar(256) DEFAULT NULL,
+  THROWABLE varchar DEFAULT NULL,
+  PRIMARY KEY (ID)
+);
+
 
 
 ALTER TABLE "race_card" ADD CONSTRAINT "race_card_fk0" FOREIGN KEY ("racecourse_id") REFERENCES "racecourse"("id");
@@ -160,7 +174,7 @@ ALTER TABLE "bet" ADD CONSTRAINT "bet_fk0" FOREIGN KEY ("event_id") REFERENCES "
 ALTER TABLE "bet" ADD CONSTRAINT "bet_fk1" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 
 
-ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("id") REFERENCES "account"("id");
+-- ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("id") REFERENCES "account"("id");
 -- ALTER TABLE "account" ADD CONSTRAINT "account_fk1" FOREIGN KEY ("security_level_id") REFERENCES "security_level"("id");
 
 ALTER TABLE "bet" ADD UNIQUE ( event_id , account_id );

@@ -1,15 +1,19 @@
 package com.charniauski.training.horsesrace.services;
 
 
-import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
@@ -19,20 +23,26 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class})
 public class RaceCardServiceTest {
 
 
     @Inject
     private RaceCardService raceCardService;
+    @Inject
+    private BaseCreator baseCreator;
 
     private RaceCard testRaceCard;
 
     private Long testRaceCardId;
 
+    @Parameterized.Parameters
+    public static void getBaseCreator(BaseCreator baseCreator){
+        baseCreator.createRelationDB();
+    }
     @BeforeClass
     public static void prepareTestData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -42,8 +52,7 @@ public class RaceCardServiceTest {
 
     @Before
     public void prepareMethodData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createXMLDB();
+       baseCreator.createXMLDB();
         testRaceCard = new RaceCard();
         testRaceCard.setRacecourseId(1L);
         testRaceCard.setRaceType("Type");
@@ -68,8 +77,7 @@ public class RaceCardServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
-            id = raceCardService.save(testRaceCard);
+        Long id =raceCardService.save(testRaceCard);
         RaceCard raceCard = raceCardService.get(id);
         assertNotNull(raceCard);
         testRaceCard.setDateStart(new Date(testRaceCard.getDateStart().getTime()));
@@ -82,7 +90,7 @@ public class RaceCardServiceTest {
     public void saveUpdateTest() {
         assertNotNull(testRaceCardId);
         testRaceCard.setId(testRaceCardId);
-            raceCardService.save(testRaceCard);
+        raceCardService.save(testRaceCard);
         RaceCard raceCard = raceCardService.get(testRaceCardId);
         testRaceCard.setDateStart(new Date(testRaceCard.getDateStart().getTime()));
         assertEquals(testRaceCard, raceCard);
@@ -129,7 +137,7 @@ public class RaceCardServiceTest {
         List<RaceCard> raceCards = raceCardService.getAllByRacecourseAfterCurrentDate(1L);
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
-        instance.add(Calendar.HOUR,24);
+        instance.add(Calendar.HOUR, 24);
         for (RaceCard raceCard : raceCards) {
             assertEquals(new Long(1L), raceCard.getRacecourseId());
             assertTrue(raceCard.getDateStart().after(date));
@@ -144,7 +152,7 @@ public class RaceCardServiceTest {
         System.out.println(raceCards);
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
-        instance.add(Calendar.HOUR,24);
+        instance.add(Calendar.HOUR, 24);
         for (RaceCard raceCard : raceCards) {
             assertEquals(new Long(1L), raceCard.getRacecourseId());
             assertTrue(raceCard.getDateStart().after(date));
@@ -156,19 +164,20 @@ public class RaceCardServiceTest {
 
     @Test
     public void getDateStartByEventTest() {
-        RaceCard raceCard = raceCardService.get(1L);
-        Date date = raceCardService.getDateStartByEvent(4L);
+        RaceCard raceCard = raceCardService.get(2L);
+        System.out.println(raceCard);
+        Date date = raceCardService.getDateStartByEvent(3L);
         assertNotNull(date);
-        assertEquals(raceCard.getDateStart(),date);
+        assertEquals(raceCard.getDateStart(), date);
 
     }
 
     @Test
-    public void saveDateFinishTest(){
-        RaceCard raceCard=raceCardService.get(2L);
+    public void saveDateFinishTest() {
+        RaceCard raceCard = raceCardService.get(2L);
         Timestamp timestamp = new Timestamp(new Date().getTime());
         raceCard.setDateFinish(timestamp);
-        raceCardService.saveDateFinish(2L,timestamp);
+        raceCardService.saveDateFinish(2L, timestamp);
         raceCard.setDateFinish(new Date(raceCard.getDateFinish().getTime()));
         RaceCard raceCard1 = raceCardService.get(2L);
         assertEquals(raceCard, raceCard1);

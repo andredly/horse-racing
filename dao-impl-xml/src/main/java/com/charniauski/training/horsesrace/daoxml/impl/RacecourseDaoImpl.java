@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements RacecourseDao {
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
 
     @Override
     public List<Racecourse> getAllAfterCurrentDate() {
@@ -51,9 +51,7 @@ public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements R
         return null;
     }
 
-    public Long next() {
-        return sequence.incrementAndGet();
-    }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;

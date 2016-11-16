@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.daoxml.impl;
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.thoughtworks.xstream.XStream;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +13,11 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -63,7 +65,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public T get(PK id) {
         List<T> entities = readCollection();
         for (T entity : entities) {
-            if (entity.getId().equals(id)) {
+            if (id.equals(entity.getId())) {
                 return entity;
             }
         }
@@ -101,7 +103,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         Iterator<T> iterator = list.iterator();
         boolean isDelete = false;
         while (iterator.hasNext()){
-            if (!iterator.next().getId().equals(id)) {
+            if (iterator.next().getId().equals(id)) {
                 iterator.remove();
                 isDelete = true;
                 continue;}
@@ -122,8 +124,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     private void writeCollection(List<T> newList) {
         try {
-            xstream.toXML(newList, new BufferedOutputStream(new FileOutputStream(file)));
-
+            xstream.toXML(newList, new FileOutputStream(file));
         } catch (FileNotFoundException e) {
             throw new NoSuchElementException();
         }

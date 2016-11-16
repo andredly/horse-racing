@@ -59,7 +59,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     @Override
     public Integer update(T entity) {
         String sql = sqlInsertOrUpdateEntity(entity, false);
-        LOGGER.debug(sql);
+        LOGGER.info(sql);
         return jdbcTemplate.update(sql);
     }
 

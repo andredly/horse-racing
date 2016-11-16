@@ -7,9 +7,14 @@ import com.charniauski.training.horsesrace.services.exception.NoSuchEntityExcept
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -20,20 +25,28 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class})
 public class HorseServiceTest {
 
 
     @Inject
     private HorseService horseService;
 
+    @Inject
+    private BaseCreator baseCreator;
+
     private Horse testHorse;
 
     private Long testHorseId;
+    @Parameterized.Parameters
+    public static void getBaseCreator(BaseCreator baseCreator){
+        baseCreator.createRelationDB();
+    }
 
     @BeforeClass
     public static void prepareTestData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createRelationDB();
+
     }
 
     @AfterClass
@@ -43,8 +56,7 @@ public class HorseServiceTest {
 
     @Before
     public void prepareMethodData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createXMLDB();
+       baseCreator.createXMLDB();
         testHorse = new Horse();
         testHorse.setNickName("TestNickName");
         testHorse.setAge(3);

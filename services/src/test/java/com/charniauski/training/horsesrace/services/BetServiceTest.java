@@ -10,9 +10,14 @@ import com.charniauski.training.horsesrace.services.exception.NoSuchEntityExcept
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
@@ -25,6 +30,8 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:service-context.xml")
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class, TransactionalTestExecutionListener.class})
 public class BetServiceTest {
 
     @Inject
@@ -34,16 +41,21 @@ public class BetServiceTest {
     private AccountService accountService;
 
     @Inject
-    private EventService eventService;
+    private BaseCreator baseCreator;
 
+    @Inject
+    private EventService eventService;
 
     private Bet testBet;
     private Long testBetId;
 
+    @Parameterized.Parameters
+    public static void getBaseCreator(BaseCreator baseCreator){
+        baseCreator.createRelationDB();
+    }
+
     @BeforeClass
     public static void prepareTestData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createRelationDB();
     }
 
     @AfterClass
@@ -53,8 +65,7 @@ public class BetServiceTest {
 
     @Before
     public void prepareMethodData() {
-        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        springContext.getBean(BaseCreator.class).createXMLDB();
+        baseCreator.createXMLDB();
         testBet = new Bet();
         testBet.setDateBet(new Timestamp(new Date().getTime()));
         testBet.setEventId(1L);

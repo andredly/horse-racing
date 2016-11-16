@@ -19,7 +19,7 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountDaoImpl.class);
 
-    private final AtomicLong sequence=new AtomicLong(0L);
+    private final AtomicLong sequence=new AtomicLong(1L);
 
     @Override
     public Account getByLogin(String login) {
@@ -42,7 +42,7 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
         return accounts;
     }
 
-    public Long next() { return sequence.incrementAndGet(); }
+    public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {
         return sequence;
