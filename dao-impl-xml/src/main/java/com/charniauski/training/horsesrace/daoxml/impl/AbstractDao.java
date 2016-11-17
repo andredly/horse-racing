@@ -3,7 +3,6 @@ package com.charniauski.training.horsesrace.daoxml.impl;
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.thoughtworks.xstream.XStream;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,13 +10,15 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -30,17 +31,11 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     @Inject
     private XStream xstream;
-
     private File file;
-
     private final Class<T> clazz;
 
     @Value("${basePath}")
     private String basePath;
-
-    public String getBasePath() {
-        return basePath;
-    }
 
     @SuppressWarnings("unchecked")
     protected AbstractDao() {
@@ -49,7 +44,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     @PostConstruct
     private void initialize() throws IOException {
-        xstream = new XStream();
         xstream.alias(clazz.getSimpleName(), clazz);
         File dir = new File(basePath);
         if (!dir.exists()){dir.mkdir();}
@@ -58,18 +52,16 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
             this.file.createNewFile();
             xstream.toXML(new ArrayList<>(), new FileOutputStream(this.file));
         }
-        initSequence();
+        readSequence();
     }
 
     @Override
     public T get(PK id) {
-        List<T> entities = readCollection();
-        for (T entity : entities) {
-            if (id.equals(entity.getId())) {
-                return entity;
-            }
+        try {
+            return readCollection().stream().filter(ac -> ac.getId().equals(id)).findFirst().get();
+        } catch (NoSuchElementException e) {
+            return null;
         }
-        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +69,6 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public PK insert(T entity) {
         List<T> entities = readCollection();
         Long id = (Long) next();
-//        Long id = getNextId(entities);
         entities.add(entity);
         entity.setId(id);
         writeCollection(entities);
@@ -130,22 +121,21 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         }
     }
 
-//    private long getNextId(List<T> list) {
-//        return list.isEmpty() ? 1l : list.get(
-//                list.size() - 1).getId() + 1;
-//    }
-
-    XStream getXstream() {
-        return xstream;
-    }
-
-    private void initSequence() {
+    private void readSequence() {
         List<T> list = readCollection();
         Long maxId = 0L;
         if (!list.isEmpty()) {
             maxId = list.get(list.size() - 1).getId() + 1;
         }
         getSequence().set(maxId);
+    }
+
+    XStream getXstream() {
+        return xstream;
+    }
+
+    String getBasePath() {
+        return basePath;
     }
 
     abstract AtomicLong getSequence();

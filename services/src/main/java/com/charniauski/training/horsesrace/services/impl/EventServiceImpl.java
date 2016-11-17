@@ -47,7 +47,7 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
         if (raceDetail == null) throw new NoSuchEntityException("RaceDetail not found. Enter valid id!");
         Long eventId;
         if (event.getId() == null) {
-            if (event.getResultEvent() != null) throw new IllegalArgumentException("ResultEvent must not be if insert");
+//            if (event.getResultEvent() != null) throw new IllegalArgumentException("ResultEvent must not be if insert");
             event.setDateRegister(new Timestamp(new Date().getTime()));
             eventId = eventDao.insert(event);
         } else {

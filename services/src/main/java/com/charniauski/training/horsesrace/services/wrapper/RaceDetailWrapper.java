@@ -53,4 +53,29 @@ public class RaceDetailWrapper {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RaceDetailWrapper)) return false;
+
+        RaceDetailWrapper that = (RaceDetailWrapper) o;
+
+        if (raceDetail != null ? !raceDetail.equals(that.raceDetail) : that.raceDetail != null) return false;
+        if (raceCard != null ? !raceCard.equals(that.raceCard) : that.raceCard != null) return false;
+        if (horse != null ? !horse.equals(that.horse) : that.horse != null) return false;
+        if (command != null ? !command.equals(that.command) : that.command != null) return false;
+        return events != null ? events.equals(that.events) : that.events == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = raceDetail != null ? raceDetail.hashCode() : 0;
+        result = 31 * result + (raceCard != null ? raceCard.hashCode() : 0);
+        result = 31 * result + (horse != null ? horse.hashCode() : 0);
+        result = 31 * result + (command != null ? command.hashCode() : 0);
+        result = 31 * result + (events != null ? events.hashCode() : 0);
+        return result;
+    }
 }

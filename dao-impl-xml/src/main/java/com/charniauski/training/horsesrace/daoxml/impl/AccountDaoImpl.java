@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -23,23 +26,17 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
 
     @Override
     public Account getByLogin(String login) {
-        List<Account> accounts = readCollection();
-        for (Account account:accounts){
-            if (account.getLogin().equals(login)) {
-                return account;}
-        };
-        return null;
+        try {
+            return readCollection().stream().filter(ac -> ac.getLogin().equals(login)).findFirst().get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
 
     @Override
     public List<Account> getAllByStatus(Status status) {
-        List<Account> accounts = readCollection();
-        Iterator<Account> iterator = accounts.iterator();
-        while (iterator.hasNext()){
-            if (!iterator.next().getStatus().equals(status)) {iterator.remove();}
-        }
-        return accounts;
+        return readCollection().stream().filter(ac->ac.getStatus().equals(status)).collect(Collectors.toList());
     }
 
     public Long next() { return sequence.getAndIncrement(); }

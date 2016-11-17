@@ -8,6 +8,10 @@
     <balance>10.0</balance>
     <email>test@test.ru</email>
     <isDelete>false</isDelete>
+      <firstName>Test</firstName>
+      <lastName>Test</lastName>
+      <dateBirth>2016-10-11 21:00:00.0 UTC</dateBirth>
+      <address>address</address>
   </Account>
    <Account>
     <id>2</id>
@@ -18,6 +22,10 @@
     <balance>100.0</balance>
     <email>test1@test.ru</email>
     <isDelete>false</isDelete>
+       <firstName>Test</firstName>
+       <lastName>Test</lastName>
+       <dateBirth>2016-10-11 21:00:00.0 UTC</dateBirth>
+       <address>address</address>
   </Account>
    <Account>
     <id>3</id>
@@ -28,6 +36,10 @@
     <balance>110.0</balance>
     <email>test2@test.ru</email>
     <isDelete>false</isDelete>
+       <firstName>Test</firstName>
+       <lastName>Test</lastName>
+       <dateBirth>2016-10-11 21:00:00.0 UTC</dateBirth>
+       <address>address</address>
   </Account>
  
 </list>

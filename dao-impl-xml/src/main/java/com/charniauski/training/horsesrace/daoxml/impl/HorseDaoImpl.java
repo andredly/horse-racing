@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -20,12 +21,11 @@ public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao {
     private final AtomicLong sequence=new AtomicLong(1L);
     @Override
     public Horse getByNickName(String nickName) {
-        List<Horse> horses = readCollection();
-        for (Horse horse:horses){
-            if (horse.getNickName().equals(nickName)) {
-                return horse;}
+        try {
+            return readCollection().stream().filter(hr -> hr.getNickName().equals(nickName)).findFirst().get();
+        } catch (NoSuchElementException e) {
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -33,7 +33,6 @@ public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao {
         File fileRaceDetail = new File(getBasePath() + "/" + RaceDetail.class.getSimpleName() + ".xml");
         getXstream().alias(RaceDetail.class.getSimpleName(), RaceDetail.class);
         List<RaceDetail> list = new ArrayList<>((List<RaceDetail>) getXstream().fromXML(fileRaceDetail));
-        System.out.println(list);
         for (RaceDetail rd : list) {
             if (rd.getId().equals(raceDetail)) {
                 return get(rd.getHorseId());

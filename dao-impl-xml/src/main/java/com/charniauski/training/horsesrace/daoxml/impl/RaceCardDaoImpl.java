@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -21,20 +22,13 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
 
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
-        List<RaceCard> listRaceCard = readCollection();
-        Iterator<RaceCard> iteratorListRaceCard = listRaceCard.iterator();
         Date date = new Date();
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
         instance.add(Calendar.HOUR,24);
-        while (iteratorListRaceCard.hasNext()) {
-            RaceCard raceCard = iteratorListRaceCard.next();
-            if (raceCard.getDateStart().before(date)||raceCard.getDateStart().after(instance.getTime())
-                    ||!raceCard.getRacecourseId().equals(racecourseId)) {
-                iteratorListRaceCard.remove();
-            }
-        }
-        return listRaceCard;
+        return readCollection().stream().filter(rc->rc.getDateStart().after(date)
+                &&rc.getDateStart().before(instance.getTime())
+                &&rc.getRacecourseId().equals(racecourseId)).collect(Collectors.toList());
     }
 
 
