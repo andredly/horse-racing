@@ -8,6 +8,7 @@ import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,8 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
 
     @Override
     public Racecourse getByName(String name) {
+        Validate.notNull(name);
+        Validate.notEmpty(name);
         return racecourseDao.getByName(name);
     }
 
@@ -65,9 +68,8 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Transactional
     @Override
     public Long save(Racecourse racecourse) {
-//        Validate.notNull(racecourse.getName(),"Arguments Name may not by null");
-//        Validate.notNull(racecourse.getCountry(),"Arguments Country may not by null");
-
+        Validate.notNull(racecourse.getName(),"Arguments Name may not by null");
+        Validate.notNull(racecourse.getCountry(),"Arguments Country may not by null");
         Long racecourseId;
         if (racecourse.getId() == null) {
             Racecourse oldRacecourse = racecourseDao.getByName(racecourse.getName());

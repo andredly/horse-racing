@@ -92,11 +92,7 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     @Transactional
     @Override
     public Long save(RaceDetail raceDetail)  {
-//        Validate.notNull(raceDetail.getRaceCardId(), "Arguments RaceCardId may not by null");
-//        Validate.notNull(raceDetail.getHorseId(), "Arguments HorseId may not by null");
-//        Validate.notNull(raceDetail.getCommandId(), "Arguments CommandId may not by null");
-//        Validate.notNull(raceDetail.getNumberStartBox(), "Arguments NumberStartBox may not by null");
-        System.out.println("++++"+raceDetail+"+++++");
+        validateDataRaceDetail(raceDetail);
         RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
         Horse horse =horseService.get(raceDetail.getHorseId());
         Command command =commandService.get(raceDetail.getCommandId());
@@ -112,6 +108,13 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
             raceDetailId=raceDetail.getId();
         }
         return raceDetailId;
+    }
+
+    private void validateDataRaceDetail(RaceDetail raceDetail) {
+        Validate.notNull(raceDetail.getRaceCardId(), "Arguments RaceCardId may not by null");
+        Validate.notNull(raceDetail.getHorseId(), "Arguments HorseId may not by null");
+        Validate.notNull(raceDetail.getCommandId(), "Arguments CommandId may not by null");
+        Validate.notNull(raceDetail.getNumberStartBox(), "Arguments NumberStartBox may not by null");
     }
 
 }

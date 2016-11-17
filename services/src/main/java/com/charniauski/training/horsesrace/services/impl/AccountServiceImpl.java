@@ -15,11 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -48,12 +44,19 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Override
     public Account getByLogin(String login) {
+        validateSetLogin(login);
         return accountDao.getByLogin(login);
     }
 
     @Override
     public Status getStatusByLogin(String login) {
+        validateSetLogin(login);
         return accountDao.getByLogin(login).getStatus();
+    }
+
+    private void validateSetLogin(String login) {
+        Validate.notNull(login);
+        Validate.notEmpty(login);
     }
 
     @Override
@@ -63,6 +66,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Override
     public AccountWrapper getAccountWrapper(String login) {
+        validateSetLogin(login);
         Account account = getByLogin(login);
         List<Bet> bets = betService.getAllByLogin(account.getLogin());
         AccountWrapper accountWrapper = new AccountWrapper();
@@ -76,6 +80,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     public void fakeDelete(Account account) {
         account.setIsDelete(true);
         accountDao.update(account);
+        LOGGER.info("Account ={} is deleted",account.getLogin());
     }
 
 

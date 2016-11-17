@@ -1,13 +1,17 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.services.cache.SimpleCache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.beans.IntrospectionException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 public class SpringScopeTest {
 
@@ -96,15 +100,23 @@ public class SpringScopeTest {
 //        List<Racecourse> allAfterCurrentDate = racecourseServiceBean.getAllAfterCurrentDate();
 //        allAfterCurrentDate.forEach(System.out::println);
 //        bean.setDisabled();
-        for (int i=0;i<20;i++) {
-            RaceCard raceCard = raceCardServiceBean.get(1L);
-            RaceCard raceCard1 = raceCardServiceBean.get(2L);
-            RaceCard raceCard2 = raceCardServiceBean.get(3L);
-            RaceCard raceCard3 = raceCardServiceBean.get(4L);
-            System.out.println(raceCard);
-            System.out.println(raceCard1);
-            System.out.println(raceCard2);
-            System.out.println(raceCard3);
+        RaceCard raceCard = raceCardServiceBean.get(1L);
+        RaceCard raceCard1 = raceCardServiceBean.get(2L);
+        RaceCard raceCard2 = raceCardServiceBean.get(3L);
+        RaceCard raceCard3 = raceCardServiceBean.get(4L);
+        SimpleCache simpleCache = new SimpleCache();
+        simpleCache.put("1",raceCard);
+        simpleCache.put("2",raceCard2);
+        try {
+            simpleCache.serialize("D://Cache/cache.data");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Map<String, Map<Object, Date>> deserialize = simpleCache.deserialize("D://Cache/cache.data");
+            System.out.println(deserialize);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

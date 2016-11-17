@@ -8,6 +8,7 @@ import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 import com.charniauski.training.horsesrace.services.EventService;
 import com.charniauski.training.horsesrace.services.RaceDetailService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,17 +42,12 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
     @Transactional
     @Override
     public Long save(Event event){
-//        Validate.notNull(event.getRaceDetailId(), "Arguments RaceDetailId may not by null");
-//        Validate.notNull(event.getEventType(), "Arguments EventType may not by null");
-//        Validate.notNull(event.getCoefficientEvent(), "Arguments CoefficientEvent may not by null");
-//        Validate.notNull(event.getBookmaker(), "Arguments Bookmaker may not by null");
-//        Validate.notNull(event.getResultEvent(), "Arguments ResultEvent may not by null");
-
+        validateDataEvent(event);
         RaceDetail raceDetail =raceDetailService.get(event.getRaceDetailId());
         if (raceDetail == null) throw new NoSuchEntityException("RaceDetail not found. Enter valid id!");
         Long eventId;
         if (event.getId() == null) {
-//            if (event.getResultEvent() != null) throw new IllegalArgumentException("ResultEvent must not be if insert");
+            if (event.getResultEvent() != null) throw new IllegalArgumentException("ResultEvent must not be if insert");
             event.setDateRegister(new Timestamp(new Date().getTime()));
             eventId = eventDao.insert(event);
         } else {
@@ -59,6 +55,14 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
             eventId=event.getId();
         }
         return eventId;
+    }
+
+    private void validateDataEvent(Event event) {
+        Validate.notNull(event.getRaceDetailId(), "Arguments RaceDetailId may not by null");
+        Validate.notNull(event.getEventType(), "Arguments EventType may not by null");
+        Validate.notNull(event.getCoefficientEvent(), "Arguments CoefficientEvent may not by null");
+        Validate.notNull(event.getBookmaker(), "Arguments Bookmaker may not by null");
+        Validate.notNull(event.getResultEvent(), "Arguments ResultEvent may not by null");
     }
 
     @Override

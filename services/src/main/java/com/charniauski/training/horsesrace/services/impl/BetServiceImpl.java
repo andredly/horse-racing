@@ -56,7 +56,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         validateDataBet(bet);
         Event event = eventService.get(bet.getEventId());
         Account account=accountService.get(bet.getAccountId());
-        Validate.isTrue(!account.getIsDelete());
+        Validate.isTrue(!account.getIsDelete(),"This account is deleted");
         if (event == null||account==null)
             throw new NoSuchEntityException("Event or Account not found. Enter valid id!");
         Long betId;
@@ -68,9 +68,11 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
             if(bet.getDateBet().after(dateStart))throw new DateTimeException("Date bet after date start");
             bet.setStatusBet(ACTIVE);
             betId = betDao.insert(bet);
+            LOGGER.info("Bet={} for account={}  is set",bet.getId(),account.getLogin());
         } else {
             betDao.update(bet);
             betId=bet.getId();
+            LOGGER.info("Bet={} for account={}  is update",bet.getId(),account.getLogin());
         }
         return betId;
     }
@@ -84,12 +86,19 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
 
     @Override
     public List<Bet> getAllByLogin(String login) {
+        validateSetLogin(login);
         return betDao.getAllByLogin(login);
+    }
+
+    private void validateSetLogin(String login) {
+        Validate.notNull(login);
+        Validate.notEmpty(login);
     }
 
     @Cached
     @Override
     public List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet) {
+        validateSetLogin(login);
         return betDao.getAllByLoginAndStatusBet(login,statusBet);
     }
 
@@ -101,6 +110,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
 
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
+        validateSetLogin(login);
         return betDao.getByAccountAndEvent(login,eventId);
     }
 

@@ -67,21 +67,25 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
     @Transactional
     @Override
     public Long save(RaceCard raceCard)  {
-//        Validate.notNull(raceCard.getRacecourseId(),"Arguments RacecourseId may not by null");
-//        Validate.notNull(raceCard.getDateStart(),"Arguments DateStart may not by null");
-//        Validate.notNull(raceCard.getRaceType(),"Arguments RaceType may not by null");
+        validateDataRacecard(raceCard);
         Racecourse racecourse = racecourseService.get(raceCard.getRacecourseId());
         if (racecourse.getId() == null)
             throw new NoSuchEntityException("RacecourseId " + raceCard.getRacecourseId() + " not found. Enter valid id!");
         Long raceCardId;
         if (raceCard.getId() == null) {
-//            if (raceCard.getDateFinish() != null) throw new IllegalArgumentException("Date Finish must not be if insert");
+            if (raceCard.getDateFinish() != null) throw new IllegalArgumentException("Date Finish must not be if insert");
             raceCardId = raceCardDao.insert(raceCard);
         } else {
             raceCardDao.update(raceCard);
             raceCardId=raceCard.getId();
         }
         return raceCardId;
+    }
+
+    private void validateDataRacecard(RaceCard raceCard) {
+        Validate.notNull(raceCard.getRacecourseId(),"Arguments RacecourseId may not by null");
+        Validate.notNull(raceCard.getDateStart(),"Arguments DateStart may not by null");
+        Validate.notNull(raceCard.getRaceType(),"Arguments RaceType may not by null");
     }
 
     @Override

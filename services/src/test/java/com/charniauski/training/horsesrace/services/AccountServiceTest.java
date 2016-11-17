@@ -59,8 +59,6 @@ public class AccountServiceTest {
 
     @BeforeClass
     public static void prepareTestData() {
-        BaseCreator baseCreator=new RelationalBD();
-        baseCreator.createRelationDB();
     }
 
     @AfterClass

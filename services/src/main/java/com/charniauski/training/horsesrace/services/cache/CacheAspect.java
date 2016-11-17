@@ -19,9 +19,11 @@ public class CacheAspect {
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         CacheKeyGenerator keyGenerator = new CacheKeyGenerator();
         String key = keyGenerator.generate(joinPoint);
-        if (cache.isKeyInCache(key)){return cache.get(key);}
+        if (cache.isKeyInCache(key)){
+            Object o = cache.get(key);
+            if (o!=null)return o;
+        }
         Object result = joinPoint.proceed();
-        System.out.println("put "+result);
         cache.put(key, result);
         return result;
     }

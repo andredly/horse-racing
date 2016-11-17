@@ -1,12 +1,9 @@
 package com.charniauski.training.horsesrace.services.testutil;
 
-import com.charniauski.training.horsesrace.daodb.util.SchemaNameAwareBasicDataSource;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.ScriptStatementFailedException;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
-import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
