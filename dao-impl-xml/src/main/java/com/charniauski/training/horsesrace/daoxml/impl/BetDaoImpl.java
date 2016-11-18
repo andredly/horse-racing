@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -22,64 +23,37 @@ public class BetDaoImpl extends AbstractDao<Bet,Long> implements BetDao {
     @Override
     public List<Bet> getAllByLogin(String login) {
         Account account = getAccount(login);
-        List<Bet> bets = readCollection();
-        Iterator<Bet> betIterator = bets.iterator();
-        while (betIterator.hasNext()) {
-            Bet next = betIterator.next();
-            if (!next.getAccountId().equals(account.getId())) {
-                betIterator.remove();
-            }
-        }
-        return bets;
+        return readCollection().stream().filter(bt->bt.getAccountId().equals(account.getId()))
+                .collect(Collectors.toList());
     }
 
 
     @Override
     public List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet) {
         Account account = getAccount(login);
-        List<Bet> bets = readCollection();
-        Iterator<Bet> betIterator = bets.iterator();
-        while (betIterator.hasNext()) {
-            Bet next = betIterator.next();
-            if (!next.getStatusBet().equals(statusBet)||!next.getAccountId().equals(account.getId())) {
-                betIterator.remove();
-            }
-        }
-        return bets;
+        return readCollection().stream().filter(bt->bt.getAccountId().equals(account.getId())
+                &&bt.getStatusBet().equals(statusBet)).collect(Collectors.toList());
     }
 
     @Override
     public List<Bet> getAllByStatusBet(StatusBet statusBet) {
-        List<Bet> bets = readCollection();
-        Iterator<Bet> betIterator = bets.iterator();
-        while (betIterator.hasNext()) {
-            Bet next = betIterator.next();
-            if (!next.getStatusBet().equals(statusBet)) {
-                betIterator.remove();
-            }
-        }
-        return bets;
+        return readCollection().stream().filter(bt->bt.getStatusBet().equals(statusBet))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
         Account account = getAccount(login);
-        for (Bet bet:readCollection())
-            if (bet.getEventId().equals(eventId)&&bet.getAccountId().equals(account.getId())) {
-               return bet;
-            }
-        return null;
+        return readCollection().stream().filter(bet -> bet.getEventId().equals(eventId)
+            &&bet.getAccountId().equals(account.getId())).findFirst().orElse(null);
     }
 
+    @SuppressWarnings("unchecked")
     private Account getAccount(String login) {
-        File fileAccount = new File(getBasePath() + "/" + Account.class.getSimpleName() + ".xml");
+        File fileAccount = new File(String.format("%s/%s.xml",getBasePath(),Account.class.getSimpleName())) ;
         getXstream().alias(Account.class.getSimpleName(), Account.class);
         List<Account> listAccount = new ArrayList<>((List<Account>) getXstream().fromXML(fileAccount));
-        Account account = null;
-        for (Account ac:listAccount){
-            if (ac.getLogin().equals(login)){account=ac;}
-        }
-        return account;
+        return listAccount.stream().filter(ac -> ac.getLogin().equals(login)).findFirst().orElse(null);
     }
 
     public Long next() { return sequence.getAndIncrement(); }

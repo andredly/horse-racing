@@ -93,20 +93,21 @@ public class BetServiceTest {
 
     @Test
     public void saveInsertTest() {
-
         testBet.setEventId(1L);
         testBet.setCoefficientBet(1.0);
         testBet.setStatusBet(StatusBet.ACTIVE);
         testBet.setAccountId(2L);
         testBet.setSum(20.0);
+        System.out.println(testBet);
         Long id = betService.save(testBet);
         Bet bet = betService.get(id);
+        System.out.println(bet);
         assertNotNull(bet);
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         testBet.setId(id);
         assertEquals(testBet, bet);
         bet.setId(id);
-        betService.delete(bet);
+//        betService.delete(bet);
     }
 
 //    @Test(expected = DateTimeException.class)
@@ -182,8 +183,8 @@ public class BetServiceTest {
         testBet2.setDateBet(new Date(testBet2.getDateBet().getTime()));
         assertEquals(testBet, bet);
         assertEquals(testBet2, bet2);
-        betService.delete(bet);
-        betService.delete(bet2);
+//        betService.delete(bet);
+//        betService.delete(bet2);
     }
 
     @Test

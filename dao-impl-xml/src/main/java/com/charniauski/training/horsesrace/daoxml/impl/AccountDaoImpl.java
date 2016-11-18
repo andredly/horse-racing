@@ -22,24 +22,22 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountDaoImpl.class);
 
-    private final AtomicLong sequence=new AtomicLong(1L);
+    private final AtomicLong sequence = new AtomicLong(1L);
 
     @Override
     public Account getByLogin(String login) {
-        try {
-            return readCollection().stream().filter(ac -> ac.getLogin().equals(login)).findFirst().get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+        return readCollection().stream().filter(ac -> ac.getLogin().equals(login)).findFirst().orElse(null);
     }
 
 
     @Override
     public List<Account> getAllByStatus(Status status) {
-        return readCollection().stream().filter(ac->ac.getStatus().equals(status)).collect(Collectors.toList());
+        return readCollection().stream().filter(ac -> ac.getStatus().equals(status)).collect(Collectors.toList());
     }
 
-    public Long next() { return sequence.getAndIncrement(); }
+    public Long next() {
+        return sequence.getAndIncrement();
+    }
 
     public AtomicLong getSequence() {
         return sequence;

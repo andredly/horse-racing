@@ -32,27 +32,18 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public RaceCard getByEvent(Long eventId) {
         File fileEvent = new File(getBasePath() + "/" + Event.class.getSimpleName() + ".xml");
         getXstream().alias(Event.class.getSimpleName(), Event.class);
         List<Event> eventList = new ArrayList<>((List<Event>) getXstream().fromXML(fileEvent));
-        Iterator<Event> iteratorListEvent = eventList.iterator();
-        Event event=null;
-        while (iteratorListEvent.hasNext()) {
-            Event next = iteratorListEvent.next();
-            if (next.getId().equals(eventId)) {event=next;}
-        }
+        Event event=eventList.stream().filter(ev->ev.getId().equals(eventId)).findFirst().orElse(null);
         File fileRaceDetail = new File(getBasePath() + "/" + RaceDetail.class.getSimpleName() + ".xml");
         getXstream().alias(RaceDetail.class.getSimpleName(), RaceDetail.class);
         List<RaceDetail> list = new ArrayList<>((List<RaceDetail>) getXstream().fromXML(fileRaceDetail));
-        for (RaceDetail rd : list) {
-            assert event != null;
-            if (rd.getId().equals(event.getRaceDetailId())) {
-                return get(rd.getRaceCardId());
-            }
-        }
-        return null;
+        RaceDetail raceDetail=list.stream().filter(rd->rd.getId().equals(event.getRaceDetailId())).findFirst().orElse(null);
+        return get(raceDetail.getRaceCardId());
     }
 
     public Long next() { return sequence.getAndIncrement(); }

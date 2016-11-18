@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -14,51 +15,35 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements RaceDetailDao {
 
-    private final AtomicLong sequence=new AtomicLong(1L);
+    private final AtomicLong sequence = new AtomicLong(1L);
+
     @Override
     public RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId) {
-        for (RaceDetail raceDetail:readCollection()){
-            if (raceDetail.getRaceCardId().equals(raceCardId)&&raceDetail.getHorseId().equals(horseId)) {
-                return  raceDetail;
-            }
-        }
-        return null;
+        return readCollection().stream().filter(raceDetail -> raceDetail.getRaceCardId().equals(raceCardId)
+                && raceDetail.getHorseId().equals(horseId)).findFirst().orElse(null);
     }
 
     @Override
     public RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId) {
-        for (RaceDetail raceDetail:readCollection()){
-            if (raceDetail.getRaceCardId().equals(raceCardId)&&raceDetail.getCommandId().equals(commandId)) {
-                return  raceDetail;
-            }
-        }
-        return null;
+        return readCollection().stream().filter(raceDetail -> raceDetail.getRaceCardId().equals(raceCardId)
+                && raceDetail.getCommandId().equals(commandId)).findFirst().orElse(null);
     }
 
     @Override
     public RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox) {
-        for (RaceDetail raceDetail:readCollection()){
-            if (raceDetail.getRaceCardId().equals(raceCardId)&&raceDetail.getNumberStartBox().equals(numberStartBox)) {
-                return  raceDetail;
-            }
-        }
-        return null;
+        return readCollection().stream().filter(raceDetail -> raceDetail.getRaceCardId().equals(raceCardId)
+                && raceDetail.getNumberStartBox().equals(numberStartBox)).findFirst().orElse(null);
     }
 
     @Override
     public List<RaceDetail> getByRaceCard(Long raceCardId) {
-        List<RaceDetail> list = readCollection();
-        Iterator<RaceDetail> raceDetailIterator = list.iterator();
-        while (raceDetailIterator.hasNext()) {
-            RaceDetail next = raceDetailIterator.next();
-            if (!next.getRaceCardId().equals(raceCardId)) {
-                raceDetailIterator.remove();
-            }
-        }
-        return list;
+        return readCollection().stream().filter(raceDetail -> raceDetail.getRaceCardId().equals(raceCardId))
+                .collect(Collectors.toList());
     }
 
-    public Long next() { return sequence.getAndIncrement(); }
+    public Long next() {
+        return sequence.getAndIncrement();
+    }
 
     public AtomicLong getSequence() {
         return sequence;

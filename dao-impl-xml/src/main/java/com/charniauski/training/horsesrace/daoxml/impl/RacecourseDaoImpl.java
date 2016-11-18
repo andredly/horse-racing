@@ -6,8 +6,12 @@ import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -17,38 +21,26 @@ public class RacecourseDaoImpl extends AbstractDao<Racecourse,Long> implements R
 
     private final AtomicLong sequence=new AtomicLong(1L);
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Racecourse> getAllAfterCurrentDate() {
         File fileRaceCard = new File(getBasePath() + "/" + RaceCard.class.getSimpleName() + ".xml");
         getXstream().alias(RaceCard.class.getSimpleName(), RaceCard.class);
         List<RaceCard> listRaceCard = new ArrayList<>((List<RaceCard>) getXstream().fromXML(fileRaceCard));
-        Iterator<RaceCard> iteratorListRaceCard = listRaceCard.iterator();
         Date date = new Date();
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
         instance.add(Calendar.HOUR,24);
-        while (iteratorListRaceCard.hasNext()) {
-            RaceCard next = iteratorListRaceCard.next();
-            if (next.getDateStart().before(date)||next.getDateStart().after(instance.getTime())) {
-                iteratorListRaceCard.remove();
-            }
-        }
-        Set<Racecourse> racecourseSet=new HashSet<>();
-        for (RaceCard raceCard:listRaceCard){
-            Long racecourseId = raceCard.getRacecourseId();
-            racecourseSet.add(get(racecourseId));
-        }
-        return new ArrayList<>(racecourseSet);
+        List<Racecourse> racecourses=new ArrayList<>();
+        listRaceCard.stream().filter(raceCard->raceCard.getDateStart().after(date)
+                &&raceCard.getDateStart().before(instance.getTime())).collect(Collectors.toList())
+                .forEach(raceCard -> racecourses.add(get(raceCard.getRacecourseId())));
+        return racecourses.stream().distinct().collect(Collectors.toList());
     }
 
     @Override
     public Racecourse getByName(String name) {
-        List<Racecourse> racecourses = readCollection();
-        for (Racecourse racecourse:racecourses){
-            if (racecourse.getName().equals(name)) {
-                return racecourse;}
-        }
-        return null;
+        return readCollection().stream().filter(rc -> rc.getName().equals(name)).findFirst().orElse(null);
     }
 
     public Long next() { return sequence.getAndIncrement(); }

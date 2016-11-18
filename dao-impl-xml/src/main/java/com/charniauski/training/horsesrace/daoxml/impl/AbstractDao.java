@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Created by ivc4 on 21.10.2016.
@@ -46,7 +47,9 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     private void initialize() throws IOException {
         xstream.alias(clazz.getSimpleName(), clazz);
         File dir = new File(basePath);
-        if (!dir.exists()){dir.mkdir();}
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
         this.file = new File(basePath + "/" + clazz.getSimpleName() + ".xml");
         if (!this.file.exists()) {
             this.file.createNewFile();
@@ -57,11 +60,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     @Override
     public T get(PK id) {
-        try {
-            return readCollection().stream().filter(ac -> ac.getId().equals(id)).findFirst().get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+        return readCollection().stream().filter(ac -> ac.getId().equals(id)).findFirst().orElse(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -93,13 +92,14 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         List<T> list = readCollection();
         Iterator<T> iterator = list.iterator();
         boolean isDelete = false;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             if (iterator.next().getId().equals(id)) {
                 iterator.remove();
                 isDelete = true;
-                continue;}
+                writeCollection(list);
+                break;
+            }
         }
-        writeCollection(list);
         return isDelete;
     }
 
@@ -123,11 +123,12 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
 
     private void readSequence() {
         List<T> list = readCollection();
-        Long maxId = 0L;
+//        Long maxId = 0L;
         if (!list.isEmpty()) {
-            maxId = list.get(list.size() - 1).getId() + 1;
+            System.out.println("----------"+list.get(list.size() - 1).getId() + 1);
+            getSequence().set(list.get(list.size() - 1).getId() + 1);
         }
-        getSequence().set(maxId);
+//        getSequence().set(maxId);
     }
 
     XStream getXstream() {

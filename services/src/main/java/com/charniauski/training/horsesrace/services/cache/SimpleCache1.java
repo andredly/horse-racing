@@ -12,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 
-@Service
-public class SimpleCache implements Cacheable {
+//@Service
+public class SimpleCache1 implements Cacheable {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleCache.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleCache1.class);
 //    org.clapper.util.misc
 //    Класс FileHashMap <K, V>
 
@@ -29,14 +29,14 @@ public class SimpleCache implements Cacheable {
     private int timeToLiveSeconds;
     private int size;
 
-    public SimpleCache() {
+    public SimpleCache1() {
         this(DEFAULT_TIME_TO_LIFE_SECOND, DEFAULT_SIZE);
     }
 
-    public SimpleCache(int timeToLiveSeconds, int size) {
+    public SimpleCache1(int timeToLiveSeconds, int size) {
         cache = new ConcurrentHashMap<>();
         this.timeToLiveSeconds = timeToLiveSeconds;
-        this.executorService = Executors.newCachedThreadPool();
+        this.executorService = Executors.newSingleThreadExecutor();
         this.size = size;
         this.flagClearCache = false;
         this.flagStopCaching = false;

@@ -1,6 +1,8 @@
 package com.charniauski.training.horsesrace.services;
 
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.cache.SimpleCache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,13 +11,20 @@ import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
+import java.time.*;
+import java.time.temporal.TemporalQueries;
+import java.time.temporal.TemporalQuery;
+import java.time.temporal.TemporalUnit;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SpringScopeTest {
 
-    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, NoSuchEntityException, IntrospectionException, SQLException {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, NoSuchEntityException, IntrospectionException, SQLException, ExecutionException, InterruptedException {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -99,29 +108,85 @@ public class SpringScopeTest {
 //        CacheAdapterEhcache bean = springContext.getBean(CacheAdapterEhcache.class);
 //        List<Racecourse> allAfterCurrentDate = racecourseServiceBean.getAllAfterCurrentDate();
 //        allAfterCurrentDate.forEach(System.out::println);
-//        bean.setDisabled();
-        RaceCard raceCard = raceCardServiceBean.get(1L);
-        RaceCard raceCard1 = raceCardServiceBean.get(2L);
-        RaceCard raceCard2 = raceCardServiceBean.get(3L);
-        RaceCard raceCard3 = raceCardServiceBean.get(4L);
-        SimpleCache simpleCache = new SimpleCache();
-        simpleCache.put("1",raceCard);
-        simpleCache.put("2",raceCard2);
-        try {
-            simpleCache.serialize("D://Cache/cache.data");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Map<String, Map<Object, Date>> deserialize = simpleCache.deserialize("D://Cache/cache.data");
-            System.out.println(deserialize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//
+//        Account testAccount;
+//        testAccount = new Account();
+//        testAccount.setLogin("TestLoginNew1");
+//        testAccount.setPassword("pass");
+//        testAccount.setIsDelete(false);
+//        testAccount.setFirstName("Test");
+//        testAccount.setLastName("Test");
+//        try {
+//            testAccount.setDateBirth(simpleDateFormat.parse("2016-10-12"));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        testAccount.setAddress("address");
+//        Timestamp timestamp = new Timestamp(new Date().getTime());
+//        testAccount.setDateRegisterAccount(timestamp);
+//        testAccount.setBalance(0.0);
+//        testAccount.setStatus(Status.CLIENT);
+//        testAccount.setEmail("test@test.ru");
+//        Long save = accountServiceBean.save(testAccount);
+//        Account account = accountServiceBean.get(save);
+//        System.out.println(account);
+//        Account testLoginNew = accountServiceBean.getByLogin("TestLoginNew");
+//        System.out.println(testLoginNew);
+//        testLoginNew.setLogin("sdf1");
+//        testLoginNew.setId(null);
+//        Long account1 = accountServiceBean.save(testLoginNew);
+//        List<Account> all = accountServiceBean.getAll();
+//        System.out.println(all);
+
+//ScheduledExecutorService executor=Executors.newScheduledThreadPool(5);
+ExecutorService executor=Executors.newCachedThreadPool();
+
+//        Future<String> future = executor.submit(new Task());
+        Collection<Callable<String>> tasks = new ArrayList<>();
+        tasks.add(new Task());
+        List<Future<String>> futures = executor.invokeAll(tasks, 4, TimeUnit.SECONDS);
+//        ScheduledFuture<?> scheduledFuture = executor.scheduleAtFixedRate(new Task1(), 5, 1, TimeUnit.SECONDS);
+//        try {
+            System.out.println("Started..");
+//            System.out.println(scheduledFuture.get(10, TimeUnit.SECONDS));
+//            System.out.println(futures.get(70, TimeUnit.SECONDS));
+            System.out.println("Finished!");
+//        } catch (TimeoutException e) {
+////            scheduledFuture.cancel(true);
+////            future.cancel(true);
+//            System.out.println("Terminated!");
+//        }
+        executor.shutdownNow();
+
+//        http://www.baeldung.com/java-executor-service-tutorial
+
+    }
+}
+
+class Task implements Callable<String> {
+    @Override
+    public String call() throws Exception {
+        return "Delete!";
     }
 
-
 }
+
+class Task1 implements Runnable {
+
+
+    @Override
+    public void run() {
+        System.out.println("Delete");
+    }
+}
+
+
+
+
+
+
+
+
 
 
 

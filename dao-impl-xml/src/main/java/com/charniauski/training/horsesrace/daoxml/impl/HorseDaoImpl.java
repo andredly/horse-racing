@@ -21,24 +21,17 @@ public class HorseDaoImpl extends AbstractDao<Horse,Long> implements HorseDao {
     private final AtomicLong sequence=new AtomicLong(1L);
     @Override
     public Horse getByNickName(String nickName) {
-        try {
-            return readCollection().stream().filter(hr -> hr.getNickName().equals(nickName)).findFirst().get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+            return readCollection().stream().filter(hr -> hr.getNickName().equals(nickName)).findFirst().orElse(null);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Horse getByRaceDetail(Long raceDetail) {
+    public Horse getByRaceDetail(Long raceDetailId) {
         File fileRaceDetail = new File(getBasePath() + "/" + RaceDetail.class.getSimpleName() + ".xml");
         getXstream().alias(RaceDetail.class.getSimpleName(), RaceDetail.class);
         List<RaceDetail> list = new ArrayList<>((List<RaceDetail>) getXstream().fromXML(fileRaceDetail));
-        for (RaceDetail rd : list) {
-            if (rd.getId().equals(raceDetail)) {
-                return get(rd.getHorseId());
-            }
-        }
-        return null;
+        RaceDetail raceDetail=list.stream().filter(rd->rd.getId().equals(raceDetailId)).findFirst().orElse(null);
+        return get(raceDetail.getRaceCardId());
     }
 
 
