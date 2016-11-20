@@ -11,16 +11,18 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Created by ivc4 on 21.10.2016.
@@ -68,8 +70,8 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     public PK insert(T entity) {
         List<T> entities = readCollection();
         Long id = (Long) next();
-        entities.add(entity);
         entity.setId(id);
+        entities.add(entity);
         writeCollection(entities);
         return (PK) id;
     }
@@ -116,19 +118,17 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
     private void writeCollection(List<T> newList) {
         try {
             xstream.toXML(newList, new FileOutputStream(file));
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new NoSuchElementException();
         }
     }
 
+
     private void readSequence() {
         List<T> list = readCollection();
-//        Long maxId = 0L;
         if (!list.isEmpty()) {
-            System.out.println("----------"+list.get(list.size() - 1).getId() + 1);
             getSequence().set(list.get(list.size() - 1).getId() + 1);
         }
-//        getSequence().set(maxId);
     }
 
     XStream getXstream() {

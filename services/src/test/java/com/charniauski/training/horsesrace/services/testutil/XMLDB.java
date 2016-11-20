@@ -1,12 +1,9 @@
 package com.charniauski.training.horsesrace.services.testutil;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-
-import static com.sun.deploy.cache.Cache.exists;
 
 /**
  * Created by Andre on 12.11.2016.
@@ -18,7 +15,6 @@ public class XMLDB implements BaseCreator {
 
     @Override
     public void createXMLDB() {
-
         try {
             File file = new File("D://xmlstorage");
             if (file.exists()&&file.mkdir()) {FileUtils.cleanDirectory(file);}

@@ -5,25 +5,32 @@ import com.charniauski.training.horsesrace.daoapi.AccountDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
-import com.charniauski.training.horsesrace.services.testutil.RelationalBD;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
+import org.h2.engine.Constants;
+import org.h2.tools.RunScript;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -53,12 +60,20 @@ public class AccountServiceTest {
 
     @Parameterized.Parameters
     public static void getBaseCreator(BaseCreator baseCreator){
-        baseCreator.createRelationDB();
     }
 
 
     @BeforeClass
     public static void prepareTestData() {
+//        try {
+//            RunScript.execute("jdbc:postgresql://localhost:5432/postgres",
+//                    "postgres", "root", "src/test/resources/horses_race_postgres_create.sql", Constants.UTF8, true);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
+        baseCreator1.createRelationDB();
     }
 
     @AfterClass
@@ -68,8 +83,6 @@ public class AccountServiceTest {
 
     @Before
     public void prepareMethodData() {
-//        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
-//        springContext.getBean(BaseCreator.class).createXMLDB();
         baseCreator.createXMLDB();
         testAccount = new Account();
         testAccount.setLogin("TestLoginNew");
@@ -216,7 +229,7 @@ public class AccountServiceTest {
 
     @Test
     public void fakeDelete() {
-        Account account = accountDao.get(1L);
+        Account account = accountDao.get(2L);
         account.setIsDelete(true);
         accountDao.update(account);
         Account account1 = accountDao.get(account.getId());

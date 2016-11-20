@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.services;
 
 
-import com.charniauski.training.horsesrace.daoapi.HorseDao;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
@@ -41,12 +40,14 @@ public class HorseServiceTest {
     private Long testHorseId;
     @Parameterized.Parameters
     public static void getBaseCreator(BaseCreator baseCreator){
-        baseCreator.createRelationDB();
+//        baseCreator.createRelationDB();
     }
 
     @BeforeClass
     public static void prepareTestData() {
-
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
+        baseCreator1.createRelationDB();
     }
 
     @AfterClass

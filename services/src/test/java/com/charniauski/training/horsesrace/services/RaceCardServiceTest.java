@@ -39,10 +39,13 @@ public class RaceCardServiceTest {
 
     @Parameterized.Parameters
     public static void getBaseCreator(BaseCreator baseCreator){
-        baseCreator.createRelationDB();
+//        baseCreator.createRelationDB();
     }
     @BeforeClass
     public static void prepareTestData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
+        baseCreator1.createRelationDB();
     }
 
     @AfterClass
@@ -149,7 +152,6 @@ public class RaceCardServiceTest {
     public void getThreeNextAfterCurrentDateTest() {
         Date date = new Date();
         List<RaceCard> raceCards = raceCardService.getThreeNextAfterCurrentDate(1L);
-        System.out.println(raceCards);
         Calendar instance = Calendar.getInstance();
         instance.setTime(date);
         instance.add(Calendar.HOUR, 24);
@@ -158,14 +160,12 @@ public class RaceCardServiceTest {
             assertTrue(raceCard.getDateStart().after(date));
             assertTrue(raceCard.getDateStart().before(instance.getTime()));
         }
-        System.out.println(raceCards.size());
         assertTrue(raceCards.size() < 4);
     }
 
     @Test
     public void getDateStartByEventTest() {
         RaceCard raceCard = raceCardService.get(2L);
-        System.out.println(raceCard);
         Date date = raceCardService.getDateStartByEvent(3L);
         assertNotNull(date);
         assertEquals(raceCard.getDateStart(), date);

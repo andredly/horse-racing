@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.services;
 
 
-import com.charniauski.training.horsesrace.daoapi.BetDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.Event;
@@ -51,11 +50,14 @@ public class BetServiceTest {
 
     @Parameterized.Parameters
     public static void getBaseCreator(BaseCreator baseCreator){
-        baseCreator.createRelationDB();
+//        baseCreator.createRelationDB();
     }
 
     @BeforeClass
     public static void prepareTestData() {
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
+        baseCreator1.createRelationDB();
     }
 
     @AfterClass
@@ -98,10 +100,8 @@ public class BetServiceTest {
         testBet.setStatusBet(StatusBet.ACTIVE);
         testBet.setAccountId(2L);
         testBet.setSum(20.0);
-        System.out.println(testBet);
         Long id = betService.save(testBet);
         Bet bet = betService.get(id);
-        System.out.println(bet);
         assertNotNull(bet);
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         testBet.setId(id);
@@ -146,7 +146,7 @@ public class BetServiceTest {
         testBet.setEventId(1L);
         testBet.setCoefficientBet(1.0);
         testBet.setStatusBet(StatusBet.ACTIVE);
-        testBet.setAccountId(2L);
+        testBet.setAccountId(3L);
         testBet.setSum(20.0);
         Long id = betService.save(testBet);
         testBet.setId(id);
@@ -163,20 +163,17 @@ public class BetServiceTest {
         testBet2.setStatusBet(StatusBet.ACTIVE);
         testBet2.setAccountId(2L);
         testBet2.setSum(20.0);
-        System.out.println(testBet2);
         List<Bet> arrayList = new ArrayList<>();
         testBet.setEventId(3L);
         testBet.setCoefficientBet(1.0);
         testBet.setStatusBet(StatusBet.ACTIVE);
         testBet.setAccountId(1L);
         testBet.setSum(10.0);
-        System.out.println(testBet);
         arrayList.addAll(Arrays.asList(testBet, testBet2));
         betService.saveAll(arrayList);
         Bet bet = betService.get(6L);
         Bet bet2 = betService.get(7L);
         List<Bet> all = betService.getAll();
-        all.forEach(bet1 -> System.out.println(bet1.getId()));
         testBet.setId(bet.getId());
         testBet2.setId(bet2.getId());
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));

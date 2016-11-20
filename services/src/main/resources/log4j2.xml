@@ -44,9 +44,8 @@
         <!--</JDBC>-->
 
         <!--<JDBCAppender name="dbAppender" class="com.charniauski.training.horsesrace.services.appender.JDBCAppender"-->
-                      <!--tableName="logging"-->
-        <!--&gt;-->
-            <!--<ConnectionFactory class="com.charniauski.training.horsesrace.daodb.util.ConnectionFactory"-->
+                      <!--tableName="logging">-->
+            <!--<ConnectionFactory class="com.charniauski.training.horsesrace.services.appender.ConnectionFactory"-->
                                <!--method="getDatabaseConnection"/>-->
             <!--<Column name="event_date" isEventTimestamp="true"/>-->
             <!--<Column name="level" pattern="%level" isUnicode="false"/>-->
@@ -68,7 +67,7 @@
             <AppenderRef ref="Console" level="error"/>
             <AppenderRef ref="RollingFile" level="info"/>
             <AppenderRef ref="myapp" level="info"/>
-            <!--<AppenderRef ref="dbAppender" level="info"/>-->
+            <!--<AppenderRef ref="dbAppender" level="error"/>-->
             <!--<AppenderRef ref="EMail" level="error"/>-->
             <!--<AppenderRef ref="databaseAppender" level="error"/>-->
 

@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.services;
 
 
-import com.charniauski.training.horsesrace.daoapi.RacecourseDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
@@ -38,11 +37,14 @@ public class RacecourseServiceTest {
 
     @Parameterized.Parameters
     public static void getBaseCreator(BaseCreator baseCreator){
-        baseCreator.createRelationDB();
+//        baseCreator.createRelationDB();
     }
+
     @BeforeClass
     public static void prepareTestData() {
-
+        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
+        baseCreator1.createRelationDB();
     }
 
     @Inject
@@ -156,7 +158,6 @@ public class RacecourseServiceTest {
         List<RaceCard> list;
         for (Racecourse racecourse : racecourses) {
             list = raceCardService.getAllByRacecourseAfterCurrentDate(racecourse.getId());
-            System.out.println(list);
             if (list.isEmpty()) continue;
             for (RaceCard raceCard : list) {
                 raceCards.add(raceCard);
