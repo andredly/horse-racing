@@ -19,7 +19,7 @@ public class ServletExample extends HttpServlet {
 
         // Actual logic goes here.
         PrintWriter out = response.getWriter();
-        out.println("<h1>Hello world</h1>");
+        out.println("<h1>Hello </h1>");
         System.out.println("servlet executed");
 
     }
