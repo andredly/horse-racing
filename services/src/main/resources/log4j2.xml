@@ -24,7 +24,7 @@
                 <SizeBasedTriggeringPolicy size="250 MB"/>
             </Policies>
         </RollingFile>
-        <CustomAppender name="myapp" class="com.charniauski.training.horsesrace.services.appender.CustomAppenderImpl">
+        <CustomAppender name="myapp">
             <PatternLayout pattern="%-5level, %m"/>
         </CustomAppender>
 
@@ -43,7 +43,7 @@
         <!--<Column name="throwable" pattern="%ex{full}" isUnicode="false"/>-->
         <!--</JDBC>-->
 
-        <!--<JDBCAppender name="dbAppender" class="com.charniauski.training.horsesrace.services.appender.JDBCAppender"-->
+        <!--<JDBCAppender name="dbAppender" -->
                       <!--tableName="logging">-->
             <!--<ConnectionFactory class="com.charniauski.training.horsesrace.services.appender.ConnectionFactory"-->
                                <!--method="getDatabaseConnection"/>-->

@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.Map;
 import java.util.concurrent.*;
 
-@Service
+//@Service
 public class SimpleCache implements Cacheable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleCache.class);
@@ -56,7 +56,7 @@ public class SimpleCache implements Cacheable {
 
     @Override
     public void put(String key, Object value) {
-        put(key, value, 0);
+        put(key, value, timeToLiveSeconds);
     }
 
     @Override

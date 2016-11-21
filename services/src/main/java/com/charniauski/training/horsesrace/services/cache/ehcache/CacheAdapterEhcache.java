@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
-@Service
+//@Service
 public class CacheAdapterEhcache implements Cacheable {
 
     @Inject

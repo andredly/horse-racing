@@ -4,6 +4,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.ScriptStatementFailedException;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.Properties;
 /**
  * Created by Andre on 07.11.2016.
  */
+@ContextConfiguration(locations = "classpath:test-applicationContext.xml")
 public class RelationalBD implements BaseCreator {
     @Override
     public void createRelationDB() {

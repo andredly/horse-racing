@@ -1,20 +1,19 @@
 package com.charniauski.training.horsesrace.services.cache;
 
-import com.charniauski.training.horsesrace.services.cache.ehcache.CacheAdapterEhcache;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
-@Service
+//@Service
 @Aspect
 public class CacheAspect {
 
     @Inject
-    private SimpleCache cache;
+    private Cacheable cache;
+//    private SimpleCache cache;
 //    private CacheAdapterEhcache cache;
 
     @Pointcut(value="execution(* com.charniauski.training.horsesrace.services.*.get*(..))")
