@@ -5,6 +5,7 @@ import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.cache.SimpleCache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import org.apache.commons.io.FileUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -102,6 +103,8 @@ public class SpringScopeTest {
 //        List<Account> all = accountServiceBean.getAll();
 //        System.out.println(all);
 //        springContext.getBean("")
+        RaceCardWrapper raceCardWrapper = raceCardServiceBean.getRaceCardWrapper(2L);
+        System.out.println(raceCardServiceBean);
 
     }
 }

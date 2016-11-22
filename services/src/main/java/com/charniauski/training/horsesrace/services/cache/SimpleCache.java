@@ -154,6 +154,7 @@ public class SimpleCache implements Cacheable {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public Map<String, Object[]> deserialize(String path) throws IOException {
         stopClear();
         stopCaching();

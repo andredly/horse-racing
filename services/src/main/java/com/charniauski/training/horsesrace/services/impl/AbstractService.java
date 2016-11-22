@@ -19,19 +19,17 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
     @Transactional
     @Override
     public List<PK> saveAll(List<T> listEntity) {
-        ArrayList<PK> arrayList=new ArrayList<>();
-        for (T entity : listEntity) {
-            arrayList.add(save(entity));
-        }
-        return arrayList;
+        ArrayList<PK> listPK=new ArrayList<>();
+        listEntity.forEach(entity -> listPK.add(save(entity)));
+        return listPK;
     }
 
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
     public PK save(T entity)  {
-        if (entity.getId() == null) return getGenericDao().insert(entity);
-        else {
+        if (entity.getId() == null) {return getGenericDao().insert(entity);
+        }else {
             getGenericDao().update(entity);
             return (PK) entity.getId();
         }

@@ -1,8 +1,9 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.RaceDetail;
+import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
+import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -33,6 +34,14 @@ public class RaceDetailServiceTest {
 
     @Inject
     private BaseCreator baseCreator;
+    @Inject
+    private HorseService horseService;
+    @Inject
+    private CommandService commandService;
+    @Inject
+    private RaceCardService raceCardService;
+    @Inject
+    private EventService eventService;
 
     private RaceDetail testRaceDetail;
     private Long testRaceDetailId;
@@ -198,7 +207,23 @@ public class RaceDetailServiceTest {
         List<RaceDetail> raceDetails = raceDetailService.getByRaceCard(raceDetail.getRaceCardId());
         raceDetails.forEach(raceDetail1 -> assertEquals(raceDetail.getRaceCardId(), raceDetail1.getRaceCardId()));
     }
-//
-//    RaceDetailWrapper getRaceDetailWrapper(Long raceDetailId);
+
+
+    @Test
+   public void getRaceDetailWrapperTest(){
+        RaceDetailWrapper raceDetailWrapper = raceDetailService.getRaceDetailWrapper(1L);
+        RaceDetail raceDetail=raceDetailService.get(1L);
+        Horse horse=horseService.get(raceDetail.getHorseId());
+        Command command = commandService.get(raceDetail.getCommandId());
+        List<Event> allByRaceDetail = eventService.getAllByRaceDetail(1L);
+        RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
+        RaceDetailWrapper raceDetailWrapper1=new RaceDetailWrapper();
+        raceDetailWrapper1.setCommand(command);
+        raceDetailWrapper1.setEvents(allByRaceDetail);
+        raceDetailWrapper1.setHorse(horse);
+        raceDetailWrapper1.setRaceCard(raceCard);
+        raceDetailWrapper1.setRaceDetail(raceDetail);
+        assertEquals(raceDetailWrapper1,raceDetailWrapper);
+    }
 
 }

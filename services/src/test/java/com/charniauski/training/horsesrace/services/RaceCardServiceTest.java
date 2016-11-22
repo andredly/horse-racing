@@ -2,8 +2,11 @@ package com.charniauski.training.horsesrace.services;
 
 
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
+import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
+import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
+import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -32,6 +35,10 @@ public class RaceCardServiceTest {
     private RaceCardService raceCardService;
     @Inject
     private BaseCreator baseCreator;
+    @Inject
+    private RaceDetailService raceDetailService;
+    @Inject
+    private RacecourseService racecourseService;
 
     private RaceCard testRaceCard;
 
@@ -183,20 +190,20 @@ public class RaceCardServiceTest {
         assertEquals(raceCard, raceCard1);
     }
 
-//    @Test
-//    public void getRaceCardWrapperTest(){
-//        RaceCardWrapper raceCardWrapper=new RaceCardWrapper();
-//        RaceCard raceCard=raceCardService.get(1L);
-//        raceCardWrapper.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
-//        raceCardWrapper.setRaceCard(raceCard);
-//        List<RaceDetail> raceDetails=raceDetailService.getByRaceCard(raceCard.getId());
-//        List<RaceDetailWrapper> raceDetailWrappers=new ArrayList<>();
-//        for (RaceDetail raceDetail:raceDetails) {
-//            raceDetailWrappers.add(raceDetailService.getRaceDetailWrapper(raceDetail.getId()));
-//        }
-//        raceCardWrapper.setRaceDetailWrappers(raceDetailWrappers);
-//        RaceCardWrapper raceCardWrapper1 = raceCardService.getRaceCardWrapper(1L);
-//        assertNotNull(raceCardWrapper1);
-//        assertEquals(raceCardWrapper,raceCardWrapper1);
-//    }
+    @Test
+    public void getRaceCardWrapperTest(){
+        RaceCardWrapper raceCardWrapper=new RaceCardWrapper();
+        RaceCard raceCard=raceCardService.get(1L);
+        raceCardWrapper.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
+        raceCardWrapper.setRaceCard(raceCard);
+        List<RaceDetail> raceDetails=raceDetailService.getByRaceCard(raceCard.getId());
+        List<RaceDetailWrapper> raceDetailWrappers=new ArrayList<>();
+        for (RaceDetail raceDetail:raceDetails) {
+            raceDetailWrappers.add(raceDetailService.getRaceDetailWrapper(raceDetail.getId()));
+        }
+        raceCardWrapper.setRaceDetailWrappers(raceDetailWrappers);
+        RaceCardWrapper raceCardWrapper1 = raceCardService.getRaceCardWrapper(1L);
+        assertNotNull(raceCardWrapper1);
+        assertEquals(raceCardWrapper,raceCardWrapper1);
+    }
 }
