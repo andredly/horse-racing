@@ -20,7 +20,7 @@ public interface GenericService<T,PK> {
 
     PK save(T entity) ;
 
-    boolean delete(T Entity);
+    boolean delete(PK id);
 
     T get(PK id);
 }

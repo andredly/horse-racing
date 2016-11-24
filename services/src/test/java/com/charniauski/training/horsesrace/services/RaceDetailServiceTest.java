@@ -100,7 +100,7 @@ public class RaceDetailServiceTest {
         assertNotNull(raceDetail);
         testRaceDetail.setId(id);
         assertEquals(testRaceDetail, raceDetail);
-        raceDetailService.delete(testRaceDetail);
+        raceDetailService.delete(testRaceDetail.getId());
     }
 
     @Test
@@ -119,7 +119,7 @@ public class RaceDetailServiceTest {
         testRaceDetail.setCommandId(3L);
         Long id = raceDetailService.save(testRaceDetail);
         testRaceDetail.setId(id);
-        boolean delete = raceDetailService.delete(testRaceDetail);
+        boolean delete = raceDetailService.delete(testRaceDetail.getId());
         assertTrue(delete);
     }
 
@@ -142,8 +142,8 @@ public class RaceDetailServiceTest {
         testRaceDetail2.setId(raceCardAndHorse1.getId());
         assertEquals(testRaceDetail, raceCardAndHorse);
         assertEquals(testRaceDetail2, raceCardAndHorse1);
-        raceDetailService.delete(raceCardAndHorse1);
-        raceDetailService.delete(raceCardAndHorse);
+        raceDetailService.delete(raceCardAndHorse1.getId());
+        raceDetailService.delete(raceCardAndHorse.getId());
     }
 
     @Test
@@ -172,7 +172,7 @@ public class RaceDetailServiceTest {
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndHorse(1L, 3L);
         RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
-        raceDetailService.delete(raceDetail);
+        raceDetailService.delete(raceDetail.getId());
     }
 
     @Test
@@ -185,7 +185,7 @@ public class RaceDetailServiceTest {
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndCommand(1L, 3L);
         RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
-        raceDetailService.delete(raceDetail);
+        raceDetailService.delete(raceDetail.getId());
     }
 
     @Test
@@ -198,7 +198,7 @@ public class RaceDetailServiceTest {
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndNumberStartBox(1L, 10);
         RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
-        raceDetailService.delete(raceDetail);
+        raceDetailService.delete(raceDetail.getId());
     }
 
     @Test

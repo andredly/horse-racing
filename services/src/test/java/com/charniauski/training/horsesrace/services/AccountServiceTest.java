@@ -129,7 +129,7 @@ public class AccountServiceTest {
         testAccount.setId(id);
         assertEquals(testAccount, account);
         account.setId(id);
-        accountService.delete(account);
+        accountService.delete(account.getId());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class AccountServiceTest {
         testAccount.setLogin("Delete");
         Long id = accountService.save(testAccount);
         testAccount.setId(id);
-        boolean delete = accountService.delete(testAccount);
+        boolean delete = accountService.delete(testAccount.getId());
         assertTrue(delete);
     }
 
@@ -184,8 +184,8 @@ public class AccountServiceTest {
         assertEquals(testAccount, account);
         assertEquals(testAccount1, account1);
         //// TODO: 13.11.2016
-        accountService.delete(account);
-        accountService.delete(account1);
+        accountService.delete(account.getId());
+        accountService.delete(account1.getId());
     }
 
     @Test

@@ -91,7 +91,7 @@ public class HorseServiceTest {
         assertNotNull(horse);
         testHorse.setId(id);
         assertEquals(testHorse, horse);
-        horseService.delete(testHorse);
+        horseService.delete(testHorse.getId());
     }
 
     @Test
@@ -108,7 +108,7 @@ public class HorseServiceTest {
         testHorse.setNickName("Delete");
         Long id = horseService.save(testHorse);
         testHorse.setId(id);
-        boolean delete = horseService.delete(testHorse);
+        boolean delete = horseService.delete(testHorse.getId());
         assertTrue(delete);
     }
 
@@ -130,8 +130,8 @@ public class HorseServiceTest {
         testHorse1.setId(horse1.getId());
         assertEquals(testHorse, horse);
         assertEquals(testHorse1, horse1);
-        horseService.delete(horse1);
-        horseService.delete(horse);
+        horseService.delete(horse1.getId());
+        horseService.delete(horse.getId());
     }
 
     @Test

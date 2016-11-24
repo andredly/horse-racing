@@ -92,7 +92,7 @@ public class CommandServiceTest {
         testCommand.setId(id);
         assertEquals(testCommand, command);
         testCommand.setId(id);
-        commandService.delete(testCommand);
+        commandService.delete(testCommand.getId());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class CommandServiceTest {
         testCommand.setUrlImageColor("HTTP-1");
         Long id = commandService.save(testCommand);
         testCommand.setId(id);
-        boolean delete = commandService.delete(testCommand);
+        boolean delete = commandService.delete(testCommand.getId());
         assertTrue(delete);
     }
 
@@ -133,8 +133,8 @@ public class CommandServiceTest {
         testCommand1.setId(command1.getId());
         assertEquals(testCommand, command);
         assertEquals(testCommand1, command1);
-        commandService.delete(command1);
-        commandService.delete(command);
+        commandService.delete(command1.getId());
+        commandService.delete(command.getId());
     }
 
     @Test

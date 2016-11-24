@@ -38,8 +38,8 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
-    public boolean delete(T entity) {
-        return getGenericDao().delete((PK)entity.getId());
+    public boolean delete(PK id) {
+        return getGenericDao().delete(id);
     }
 
     @SuppressWarnings("unchecked")

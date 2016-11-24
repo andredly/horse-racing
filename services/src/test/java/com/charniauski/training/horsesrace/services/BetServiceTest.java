@@ -150,7 +150,7 @@ public class BetServiceTest {
         testBet.setSum(20.0);
         Long id = betService.save(testBet);
         testBet.setId(id);
-        boolean delete = betService.delete(testBet);
+        boolean delete = betService.delete(testBet.getId());
         assertTrue(delete);
     }
 
@@ -227,7 +227,7 @@ public class BetServiceTest {
         Bet bet1 = betService.get(id);
         Bet bet = betService.getByAccountAndEvent("log", 3L);
         assertEquals(bet1, bet);
-        betService.delete(bet1);
+        betService.delete(bet1.getId());
     }
 
     @Test

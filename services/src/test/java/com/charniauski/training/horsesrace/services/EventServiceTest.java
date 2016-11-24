@@ -95,7 +95,7 @@ public class EventServiceTest {
         testEvent.setDateRegister(new Date(testEvent.getDateRegister().getTime()));
         testEvent.setId(id);
         assertEquals(testEvent, event);
-        eventService.delete(testEvent);
+        eventService.delete(testEvent.getId());
     }
 
     @Test
@@ -115,7 +115,7 @@ public class EventServiceTest {
         testEvent.setRaceDetailId(1L);
         Long id = eventService.save(testEvent);
         testEvent.setId(id);
-        boolean delete = eventService.delete(testEvent);
+        boolean delete = eventService.delete(testEvent.getId());
         assertTrue(delete);
     }
 
@@ -141,8 +141,8 @@ public class EventServiceTest {
         testEvent2.setDateRegister(new Date(testEvent2.getDateRegister().getTime()));
         assertEquals(testEvent, event);
         assertEquals(testEvent2, event2);
-        eventService.delete(event);
-        eventService.delete(event2);
+        eventService.delete(event.getId());
+        eventService.delete(event2.getId());
     }
 
     @Test
