@@ -2,7 +2,11 @@ package com.charniauski.training.horsesrace.datamodel;
 
 import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity(tableName = "race_card", autoincrementColumn = "id")
@@ -11,6 +15,9 @@ public class RaceCard extends AbstractModel {
     @Column(columnName = "date_start")
     private Date dateStart;
 
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotBlank
     @Column(columnName = "date_finish")
     private Date dateFinish;
 

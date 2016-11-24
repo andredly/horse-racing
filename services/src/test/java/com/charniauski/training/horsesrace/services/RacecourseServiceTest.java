@@ -175,6 +175,7 @@ public class RacecourseServiceTest {
         }
     }
 
+    @Ignore
     @Test
     public void getRacecourseWrapperTest(){
         RacecourseWrapper racecourseWrapper = racecourseService.getRacecourseWrapper(1L);

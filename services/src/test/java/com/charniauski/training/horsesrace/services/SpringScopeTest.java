@@ -1,32 +1,22 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.Account;
+import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.enums.Status;
-import com.charniauski.training.horsesrace.services.cache.SimpleCache;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.beans.IntrospectionException;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
-import java.time.temporal.TemporalQueries;
-import java.time.temporal.TemporalQuery;
-import java.time.temporal.TemporalUnit;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 public class SpringScopeTest {
 
@@ -103,8 +93,17 @@ public class SpringScopeTest {
 //        List<Account> all = accountServiceBean.getAll();
 //        System.out.println(all);
 //        springContext.getBean("")
-        RaceCardWrapper raceCardWrapper = raceCardServiceBean.getRaceCardWrapper(2L);
-        System.out.println(raceCardServiceBean);
+//        Racecourse racecourse=racecourseServiceBean.get(1L);
+        RaceCard racecourse=raceCardServiceBean.get(1L);
+        Validator validator=Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<RaceCard>> validate = validator.validate(racecourse);
+        System.out.println(validate);
+        Map<String, Object> describe = PropertyUtils.describe(racecourse);
+        BeanUtilsBean instance = NullAwareBeanUtilsBean.getInstance();
+        RaceCard racecourse1 = RaceCard.class.newInstance();
+        instance.populate(racecourse1,describe);
+        System.out.println(racecourse1);
+
 
     }
 }
