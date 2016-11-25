@@ -94,7 +94,7 @@ public class RacecourseServiceTest {
         testRacecourse.setId(id);
         assertEquals(testRacecourse, racecourse);
         testRacecourse.setId(id);
-        racecourseService.delete(testRacecourse);
+        racecourseService.delete(testRacecourse.getId());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class RacecourseServiceTest {
         testRacecourse.setName("TEST1");
         Long id = racecourseService.save(testRacecourse);
         testRacecourse.setId(id);
-        boolean delete = racecourseService.delete(testRacecourse);
+        boolean delete = racecourseService.delete(testRacecourse.getId());
         assertTrue(delete);
     }
 
@@ -135,8 +135,8 @@ public class RacecourseServiceTest {
         testRacecourse1.setId(racecourse1.getId());
         assertEquals(testRacecourse, racecourse);
         assertEquals(testRacecourse1, racecourse1);
-        racecourseService.delete(racecourse1);
-        racecourseService.delete(racecourse);
+        racecourseService.delete(racecourse1.getId());
+        racecourseService.delete(racecourse.getId());
     }
 
     @Test

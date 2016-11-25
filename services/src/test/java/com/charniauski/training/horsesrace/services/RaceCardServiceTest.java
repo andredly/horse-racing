@@ -93,7 +93,7 @@ public class RaceCardServiceTest {
         testRaceCard.setDateStart(new Date(testRaceCard.getDateStart().getTime()));
         testRaceCard.setId(id);
         assertEquals(testRaceCard, raceCard);
-        raceCardService.delete(testRaceCard);
+        raceCardService.delete(testRaceCard.getId());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class RaceCardServiceTest {
     public void deleteTest() {
         Long id = raceCardService.save(testRaceCard);
         testRaceCard.setId(id);
-        boolean delete = raceCardService.delete(testRaceCard);
+        boolean delete = raceCardService.delete(testRaceCard.getId());
         assertTrue(delete);
     }
 
@@ -130,8 +130,8 @@ public class RaceCardServiceTest {
         testRaceCard1.setDateStart(new Date(testRaceCard1.getDateStart().getTime()));
         assertEquals(testRaceCard, list.get(5));
         assertEquals(testRaceCard1, list.get(6));
-        raceCardService.delete(list.get(5));
-        raceCardService.delete(list.get(6));
+        raceCardService.delete(list.get(5).getId());
+        raceCardService.delete(list.get(6).getId());
     }
 
     @Test
