@@ -17,4 +17,5 @@
     <mvc:annotation-driven />
 
     <context:component-scan base-package="com.charniauski.training.horsesrace.web.controller" />
+    <context:component-scan base-package="com.charniauski.training.horsesrace.web.converter" />
 </beans>

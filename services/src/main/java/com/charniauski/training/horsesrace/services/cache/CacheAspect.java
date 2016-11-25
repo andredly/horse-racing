@@ -16,7 +16,7 @@ public class CacheAspect {
 //    private SimpleCache cache;
 //    private CacheAdapterEhcache cache;
 
-    @Pointcut(value="execution(* com.charniauski.training.horsesrace.services.*.get*(..))")
+    @Pointcut(value = "execution(* com.charniauski.training.horsesrace.services.*.get*(..))")
     public void anyGetMethod() {
     }
 
@@ -24,15 +24,18 @@ public class CacheAspect {
     protected void annotatedCachedMethods(Cached cached) {
     }
 
-    @Around(value = "anyGetMethod()&&annotatedCachedMethods(cached)",argNames = "joinPoint,cached")
+    @Around(value = "anyGetMethod()&&annotatedCachedMethods(cached)", argNames = "joinPoint,cached")
     public Object around(ProceedingJoinPoint joinPoint, Cached cached) throws Throwable {
         KeyGenerator keyGenerator = cached.keyGeneratorClass().newInstance();
         String key = keyGenerator.generate(joinPoint);
-        if (cache.isKeyInCache(key)){
+        if (cache.isKeyInCache(key)) {
             Object o = cache.get(key);
-            if (o!=null)return o;
+            if (o != null) return o;
         }
         Object result = joinPoint.proceed();
+        if (result == null) {
+            return null;
+        }
         cache.put(key, result, cached.timeToLiveSeconds());
         return result;
     }

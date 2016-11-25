@@ -1,9 +1,10 @@
 package com.charniauski.training.horsesrace.daodb.test;
 
 import java.sql.*;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class ConvertCalendarTimestamp {
 
@@ -13,6 +14,25 @@ public class ConvertCalendarTimestamp {
 
 
 
+    private java.util.Date parseDate(String date) {
+
+        SimpleDateFormat[] possibleFormats = new SimpleDateFormat[]{
+                new SimpleDateFormat("yyyy-MM-dd"),
+                new SimpleDateFormat("yyyy,MM,dd"),
+                new SimpleDateFormat("yyyy,MM,dd,HH,mm"),
+                new SimpleDateFormat("yyyy-MM-dd HH-mm"),
+                new SimpleDateFormat("yyyy-MM-dd HH:mm")};
+
+        java.util.Date retVal = null;
+        for (SimpleDateFormat f : possibleFormats) {
+            f.setLenient(false);
+            try {
+                retVal = f.parse(date);
+            } catch (ParseException e) {
+            }
+        }
+        return retVal;
+    }
 
     public static void main(String[] a) throws SQLException {
 

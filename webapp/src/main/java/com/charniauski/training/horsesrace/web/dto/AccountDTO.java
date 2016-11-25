@@ -1,55 +1,65 @@
 package com.charniauski.training.horsesrace.web.dto;
 
-import com.charniauski.training.horsesrace.datamodel.annotation.Column;
-import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
-import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * Created by ivc4 on 13.10.2016.
  */
-@Entity(tableName = "account", autoincrementColumn = "id")
-public class Account extends AbstractModel {
+public class AccountDTO {
 
-    @Column(columnName = "login")
+    private Long id;
+
+    @NotBlank
+    @Size(min=2, max=30)
     private String login;
 
-    @Column(columnName = "password")
+    @NotBlank
+    @Size(min=6, max=16)
     private String password;
 
-    @Column(columnName = "data_register_account")
     private Date dateRegisterAccount;
 
-    @EnumType(nameClass = Status.class)
-    @Column(columnName = "status")
     private Status status;
 
-    @Column(columnName = "balance")
+    @Min(0)
     private Double balance;
 
-    @Column(columnName = "email")
+    @Email
     private String email;
 
-    @Column(columnName = "is_delete")
     private Boolean isDelete;
 
-    @Column(columnName = "first_name")
+    @NotBlank
+    @Size(min=2, max=256)
     private String firstName;
 
-    @Column(columnName = "last_name")
+    @NotBlank
+    @Size(min=2, max=256)
     private String lastName;
 
-    @Column(columnName = "date_birth")
+    @Past
     private Date dateBirth;
 
-    @Column(columnName = "address")
+    @NotBlank
+    @Size(min=2, max=256)
     private String address;
 
-    public Account() {
+    public AccountDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -144,7 +154,7 @@ public class Account extends AbstractModel {
     @Override
     public String toString() {
         return "Account{" +
-                " id=" + getId() +
+                " id=" + id +
                 " login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", dateRegisterAccount=" + dateRegisterAccount +
@@ -158,45 +168,5 @@ public class Account extends AbstractModel {
                 ", address='" + address + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) return false;
-        if (o == this) return true;
-        if (o.getClass() != getClass()) return false;
-        Account account = (Account) o;
-        return new EqualsBuilder()
-//                .appendSuper(super.equals(o))
-                .append(getId(), account.getId())
-                .append(login, account.login)
-                .append(password, account.password)
-                .append(dateRegisterAccount, account.dateRegisterAccount)
-                .append(status, account.status)
-                .append(balance, account.balance)
-                .append(email, account.email)
-                .append(firstName,account.firstName)
-                .append(lastName,account.lastName)
-                .append(dateBirth,account.dateBirth)
-                .append(address,account.address)
-                .append(isDelete, account.isDelete).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(getId())
-                .append(login)
-                .append(password)
-                .append(dateRegisterAccount)
-                .append(status)
-                .append(balance)
-                .append(email)
-                .append(firstName)
-                .append(lastName)
-                .append(dateBirth)
-                .append(address)
-                .append(isDelete).hashCode();
-    }
-
 
 }

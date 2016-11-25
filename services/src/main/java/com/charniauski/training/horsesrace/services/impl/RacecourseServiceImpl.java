@@ -45,8 +45,6 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
 
     @Override
     public Racecourse getByName(String name) {
-        Validate.notNull(name);
-        Validate.notEmpty(name);
         return racecourseDao.getByName(name);
     }
 
@@ -68,8 +66,6 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     @Transactional
     @Override
     public Long save(Racecourse racecourse) {
-        Validate.notNull(racecourse.getName(),"Arguments Name may not by null");
-        Validate.notNull(racecourse.getCountry(),"Arguments Country may not by null");
         Long racecourseId;
         if (racecourse.getId() == null) {
             Racecourse oldRacecourse = racecourseDao.getByName(racecourse.getName());
