@@ -33,7 +33,7 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
     @Transactional
     @Override
     public Long save(Command command) {
-        validateDataCommand(command);
+//        validateDataCommand(command);
         Long commandId;
         if (command.getId() == null) {
             Command oldCommand = commandDao.getByTrainerAndJockeyAndUrl(command.getTrainer(),command.getJockey(),command.getUrlImageColor());
@@ -46,11 +46,11 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
         return commandId;
     }
 
-    private void validateDataCommand(Command command) {
-        Validate.notNull(command.getJockey(),"Arguments Jockey may not by null");
-        Validate.notNull(command.getTrainer(),"Arguments Trainer may not by null");
-        Validate.notNull(command.getUrlImageColor(),"Arguments UrlImageColor may not by null");
-    }
+//    private void validateDataCommand(Command command) {
+//        Validate.notNull(command.getJockey(),"Arguments Jockey may not by null");
+//        Validate.notNull(command.getTrainer(),"Arguments Trainer may not by null");
+//        Validate.notNull(command.getUrlImageColor(),"Arguments UrlImageColor may not by null");
+//    }
 
     @Override
     public Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage) {

@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.web.dto;
 
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -24,6 +25,7 @@ public class AccountDTO {
     @Size(min=6, max=16)
     private String password;
 
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z", timezone="GMT")
     private Date dateRegisterAccount;
 
     private Status status;
@@ -45,6 +47,7 @@ public class AccountDTO {
     private String lastName;
 
     @Past
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date dateBirth;
 
     @NotBlank

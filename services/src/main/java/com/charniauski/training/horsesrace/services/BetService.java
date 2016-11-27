@@ -18,5 +18,4 @@ public interface BetService extends GenericService<Bet,Long> {
 
     Bet getByAccountAndEvent(String login, Long eventId);
 
-    void updateStatusBetAndCalculate(Long betId, StatusBet statusBet, Double calculate);
 }

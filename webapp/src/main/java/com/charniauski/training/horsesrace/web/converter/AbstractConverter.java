@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.web.converter;
 import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.lang.reflect.InvocationTargetException;
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Created by ivc4 on 25.11.2016.
  */
-@Controller
+@Component
 public abstract class AbstractConverter <T,D> implements GenericConverter<T,D> {
 
     private final Class<T> clazzT;

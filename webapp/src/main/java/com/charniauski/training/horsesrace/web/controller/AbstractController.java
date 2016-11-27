@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -24,9 +25,7 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     public ResponseEntity<D> getById(
             @PathVariable Long id) {
         T entity = (T) getGenericService().get(id);
-        if (entity == null) {
-            throw new NoSuchEntityException("Do not found entity");
-        }
+       checkNull(entity, id);
         return new ResponseEntity<>(getConverter().toDTO(entity), HttpStatus.OK);
     }
 
@@ -34,6 +33,13 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     public ResponseEntity<D> create(
             @RequestBody @Valid D dto) {
         getGenericService().save(getConverter().toEntity(dto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/all",produces = "application/json")
+    public ResponseEntity<List<D>> createAll(
+            @RequestBody @Valid List<D> dtos) {
+        getGenericService().saveAll(getConverter().toListEntity(dtos));
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
@@ -46,7 +52,6 @@ public abstract class AbstractController<T extends AbstractModel,D> {
         entity.setId(id);
         getGenericService().save(entity);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 
     @DeleteMapping(value = "/{id}")
@@ -59,5 +64,11 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     public abstract GenericConverter<T, D> getConverter();
 
     public abstract GenericService getGenericService();
+
+    void checkNull(Object checkObject, Object ... arg) {
+        if (checkObject == null) {
+            throw new NoSuchEntityException("Do not found entity for arg: "+ Arrays.toString(arg));
+        }
+    }
 
 }

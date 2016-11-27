@@ -16,6 +16,5 @@ public interface EventService extends GenericService<Event,Long> {
 
     List<Event> getAllByResultEventAndRaceDetail(ResultEvent resultEvent, Long raceDetail);
 
-    void updateResultEvent(Long eventId, ResultEvent resultEvent);
 
 }

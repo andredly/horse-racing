@@ -179,16 +179,6 @@ public class RaceCardServiceTest {
 
     }
 
-    @Test
-    public void saveDateFinishTest() {
-        RaceCard raceCard = raceCardService.get(2L);
-        Timestamp timestamp = new Timestamp(new Date().getTime());
-        raceCard.setDateFinish(timestamp);
-        raceCardService.saveDateFinish(2L, timestamp);
-        raceCard.setDateFinish(new Date(raceCard.getDateFinish().getTime()));
-        RaceCard raceCard1 = raceCardService.get(2L);
-        assertEquals(raceCard, raceCard1);
-    }
 
     @Test
     public void getRaceCardWrapperTest(){

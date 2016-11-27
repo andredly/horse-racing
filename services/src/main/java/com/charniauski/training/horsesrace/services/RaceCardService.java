@@ -17,7 +17,5 @@ public interface RaceCardService extends GenericService<RaceCard,Long> {
 
     Date getDateStartByEvent(Long eventId);
 
-    void saveDateFinish(Long raceCardId, Date dateFinish);
-
     RaceCardWrapper getRaceCardWrapper(Long raceCardId);
 }

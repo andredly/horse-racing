@@ -230,13 +230,4 @@ public class BetServiceTest {
         betService.delete(bet1.getId());
     }
 
-    @Test
-    public void updateStatusBetAndCalculateTest() {
-        Bet bet = betService.get(3L);
-        bet.setStatusBet(StatusBet.CANCELLED);
-        bet.setCalculate(100.0);
-        betService.updateStatusBetAndCalculate(3L, StatusBet.CANCELLED, 100.0);
-        Bet bet1 = betService.get(3L);
-        assertEquals(bet, bet1);
-    }
 }

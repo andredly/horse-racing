@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.web.dto;
 
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ public class BetDTO {
 
     private Long id;
 
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z", timezone="GMT")
     private Date dateBet;
 
     @NotNull

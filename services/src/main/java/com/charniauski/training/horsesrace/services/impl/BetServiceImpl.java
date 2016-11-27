@@ -53,7 +53,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
     @Transactional
     @Override
     public Long save(Bet bet)  {
-        validateDataBet(bet);
+//        validateDataBet(bet);
         Event event = eventService.get(bet.getEventId());
         Account account=accountService.get(bet.getAccountId());
         Validate.isTrue(!account.getIsDelete(),"This account is deleted");
@@ -65,7 +65,6 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
             Date dateStart = raceCardService.getDateStartByEvent(bet.getEventId());
             bet.setDateBet(new Timestamp(new Date().getTime()));
             if(bet.getDateBet().after(dateStart))throw new DateTimeException("Date bet after date start");
-            bet.setStatusBet(ACTIVE);
             betId = betDao.insert(bet);
             LOGGER.info("Bet id={} for account with login={}  is save",bet.getId(),account.getLogin());
         } else {
@@ -76,28 +75,28 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         return betId;
     }
 
-    private void validateDataBet(Bet bet) {
-        Validate.notNull(bet.getEventId(), "Arguments EventId may not by null");
-        Validate.notNull(bet.getAccountId(), "Arguments AccountId may not by null");
-        Validate.notNull(bet.getSum(), "Arguments Sum may not by null");
-        Validate.isTrue(bet.getSum()>=0.0,"Sum Arguments Sum may not by <=0",bet.getSum());
-    }
+//    private void validateDataBet(Bet bet) {
+//        Validate.notNull(bet.getEventId(), "Arguments EventId may not by null");
+//        Validate.notNull(bet.getAccountId(), "Arguments AccountId may not by null");
+//        Validate.notNull(bet.getSum(), "Arguments Sum may not by null");
+//        Validate.isTrue(bet.getSum()>=0.0,"Sum Arguments Sum may not by <=0",bet.getSum());
+//    }
 
     @Override
     public List<Bet> getAllByLogin(String login) {
-        validateSetLogin(login);
+//        validateSetLogin(login);
         return betDao.getAllByLogin(login);
     }
 
-    private void validateSetLogin(String login) {
-        Validate.notNull(login);
-        Validate.notEmpty(login);
-    }
+//    private void validateSetLogin(String login) {
+//        Validate.notNull(login);
+//        Validate.notEmpty(login);
+//    }
 
     @Cached
     @Override
     public List<Bet> getAllByLoginAndStatusBet(String login, StatusBet statusBet) {
-        validateSetLogin(login);
+//        validateSetLogin(login);
         return betDao.getAllByLoginAndStatusBet(login,statusBet);
     }
 
@@ -109,17 +108,8 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
 
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
-        validateSetLogin(login);
+//        validateSetLogin(login);
         return betDao.getByAccountAndEvent(login,eventId);
-    }
-
-    @Transactional
-    @Override
-    public void updateStatusBetAndCalculate(Long betId, StatusBet statusBet, Double calculate) {
-        Bet bet = get(betId);
-        bet.setStatusBet(statusBet);
-        bet.setCalculate(calculate);
-        save(bet);
     }
 
 }

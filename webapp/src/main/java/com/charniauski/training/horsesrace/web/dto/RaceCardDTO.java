@@ -1,5 +1,6 @@
 package com.charniauski.training.horsesrace.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -11,8 +12,10 @@ public class RaceCardDTO {
     private Long id;
 
     @NotNull
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z", timezone="GMT")
     private Date dateStart;
 
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z", timezone="GMT")
     private Date dateFinish;
 
     @NotBlank

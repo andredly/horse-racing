@@ -44,20 +44,20 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Override
     public Account getByLogin(String login) {
-        validateSetLogin(login);
+//        validateSetLogin(login);
         return accountDao.getByLogin(login);
     }
 
     @Override
     public Status getStatusByLogin(String login) {
-        validateSetLogin(login);
+//        validateSetLogin(login);
         return accountDao.getByLogin(login).getStatus();
     }
 
-    private void validateSetLogin(String login) {
-        Validate.notNull(login);
-        Validate.notEmpty(login);
-    }
+//    private void validateSetLogin(String login) {
+//        Validate.notNull(login);
+//        Validate.notEmpty(login);
+//    }
 
     @Override
     public List<Account> getAllByStatus(Status status) {
@@ -66,7 +66,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Override
     public AccountWrapper getAccountWrapper(String login) {
-        validateSetLogin(login);
+//        validateSetLogin(login);
         Account account = getByLogin(login);
         List<Bet> bets = betService.getAllByLogin(account.getLogin());
         AccountWrapper accountWrapper = new AccountWrapper();
@@ -86,15 +86,14 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Transactional
     @Override
-    public Long save(Account account) throws NullPointerException, IllegalArgumentException {
-        accountDataValidate(account);
+    public Long save(Account account) {
+//        accountDataValidate(account);
         Long accountId;
         if (account.getId() == null) {
             Account oldAccount = accountDao.getByLogin(account.getLogin());
             if (oldAccount != null)
                 throw new IllegalArgumentException("Login " + account.getLogin() + " already exists");
             account.setDateRegisterAccount(new Timestamp(new Date().getTime()));
-            account.setStatus(CLIENT);
             account.setBalance(0.0);
             accountId = accountDao.insert(account);
             LOGGER.info("Create Account={}", account.getLogin());
@@ -106,12 +105,12 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         return accountId;
     }
 
-    private void accountDataValidate(Account account) {
-        Validate.notNull(account.getLogin(), "Arguments Login may not by null");
-        Validate.notNull(account.getPassword(), "Arguments Password may not by null");
-        Validate.notNull(account.getEmail(), "Arguments Email may not by null");
-        Validate.notEmpty(account.getLogin());
-        Validate.notEmpty(account.getPassword());
-        Validate.notEmpty(account.getEmail());
-    }
+//    private void accountDataValidate(Account account) {
+//        Validate.notNull(account.getLogin(), "Arguments Login may not by null");
+//        Validate.notNull(account.getPassword(), "Arguments Password may not by null");
+//        Validate.notNull(account.getEmail(), "Arguments Email may not by null");
+//        Validate.notEmpty(account.getLogin());
+//        Validate.notEmpty(account.getPassword());
+//        Validate.notEmpty(account.getEmail());
+//    }
 }

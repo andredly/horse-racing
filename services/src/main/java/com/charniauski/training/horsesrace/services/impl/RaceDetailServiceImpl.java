@@ -43,15 +43,6 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailDao;
     }
 
-    @Transactional
-    @Override
-    public boolean saveHorseResult(Long raceCardId, Long horseId, Integer result) {
-        RaceDetail oldRaceDetail = getByRaceCardAndHorse(raceCardId, horseId);
-        Validate.notNull(oldRaceDetail);
-        oldRaceDetail.setHorseResult(result);
-        Long saveId = save(oldRaceDetail);
-        return saveId != null;
-    }
 
     @Override
     public RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId) {
@@ -92,7 +83,7 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     @Transactional
     @Override
     public Long save(RaceDetail raceDetail)  {
-        validateDataRaceDetail(raceDetail);
+//        validateDataRaceDetail(raceDetail);
         RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
         Horse horse =horseService.get(raceDetail.getHorseId());
         Command command =commandService.get(raceDetail.getCommandId());
@@ -100,8 +91,6 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
             throw new NoSuchEntityException("RaceCardId or HorseId and CommandId not found. Enter valid id!");
         Long raceDetailId;
         if (raceDetail.getId() == null) {
-            if (raceDetail.getHorseResult() != null)
-                throw new IllegalArgumentException("Horse result must not be if insert");
             raceDetailId = raceDetailDao.insert(raceDetail);
         } else {
             raceDetailDao.update(raceDetail);
@@ -110,11 +99,11 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailId;
     }
 
-    private void validateDataRaceDetail(RaceDetail raceDetail) {
-        Validate.notNull(raceDetail.getRaceCardId(), "Arguments RaceCardId may not by null");
-        Validate.notNull(raceDetail.getHorseId(), "Arguments HorseId may not by null");
-        Validate.notNull(raceDetail.getCommandId(), "Arguments CommandId may not by null");
-        Validate.notNull(raceDetail.getNumberStartBox(), "Arguments NumberStartBox may not by null");
-    }
+//    private void validateDataRaceDetail(RaceDetail raceDetail) {
+//        Validate.notNull(raceDetail.getRaceCardId(), "Arguments RaceCardId may not by null");
+//        Validate.notNull(raceDetail.getHorseId(), "Arguments HorseId may not by null");
+//        Validate.notNull(raceDetail.getCommandId(), "Arguments CommandId may not by null");
+//        Validate.notNull(raceDetail.getNumberStartBox(), "Arguments NumberStartBox may not by null");
+//    }
 
 }

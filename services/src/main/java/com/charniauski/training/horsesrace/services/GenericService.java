@@ -18,8 +18,10 @@ public interface GenericService<T,PK> {
     @Transactional
     List<PK> saveAll(List<T> entity) ;
 
+    @Transactional
     PK save(T entity) ;
 
+    @Transactional
     boolean delete(PK id);
 
     T get(PK id);

@@ -179,13 +179,4 @@ public class EventServiceTest {
         assertFalse(events.size() > all.size());
     }
 
-    @Test
-    public void updateResultEventTest() {
-        Event event = eventService.get(4L);
-        event.setResultEvent(ResultEvent.CANCELED);
-        eventService.updateResultEvent(4L, ResultEvent.CANCELED);
-        Event event1 = eventService.get(4L);
-        assertEquals(event, event1);
-    }
-
 }

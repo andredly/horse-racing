@@ -31,8 +31,6 @@ public class HorseServiceImpl extends AbstractService<Horse, Long> implements Ho
 
     @Override
     public Horse getByNickName(String nickName) {
-        Validate.notNull(nickName);
-        Validate.notEmpty(nickName);
         return horseDao.getByNickName(nickName);
     }
 
@@ -44,7 +42,7 @@ public class HorseServiceImpl extends AbstractService<Horse, Long> implements Ho
     @Transactional
     @Override
     public Long save(Horse horse) {
-        validateDataHorse(horse);
+//        validateDataHorse(horse);
         Long horseId;
         if (horse.getId() == null) {
             Horse oldHorse = horseDao.getByNickName(horse.getNickName());
@@ -58,10 +56,10 @@ public class HorseServiceImpl extends AbstractService<Horse, Long> implements Ho
         return horseId;
     }
 
-    private void validateDataHorse(Horse horse) {
-        Validate.notNull(horse.getNickName(),"Arguments NickName may not by null");
-        Validate.notNull(horse.getEquipmentWeight(),"Arguments EquipmentWeight may not by null");
-        Validate.notNull(horse.getOwner(),"Arguments Owner may not by null");
-        Validate.notNull(horse.getAge(),"Arguments Age may not by null");
-    }
+//    private void validateDataHorse(Horse horse) {
+//        Validate.notNull(horse.getNickName(),"Arguments NickName may not by null");
+//        Validate.notNull(horse.getEquipmentWeight(),"Arguments EquipmentWeight may not by null");
+//        Validate.notNull(horse.getOwner(),"Arguments Owner may not by null");
+//        Validate.notNull(horse.getAge(),"Arguments Age may not by null");
+//    }
 }

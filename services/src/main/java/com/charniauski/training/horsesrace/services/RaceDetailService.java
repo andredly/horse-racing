@@ -10,8 +10,6 @@ import java.util.List;
  */
 public interface RaceDetailService extends GenericService<RaceDetail,Long> {
 
-    boolean saveHorseResult(Long raceCardId, Long horseId, Integer result);
-
     RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId);
 
     RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId);

@@ -154,15 +154,6 @@ public class RaceDetailServiceTest {
     }
 
     @Test
-    public void saveHorseResultTest() {
-        RaceDetail raceDetail = raceDetailService.get(2L);
-        raceDetail.setHorseResult(2);
-        boolean b = raceDetailService.saveHorseResult(2L, 2L, 2);
-        RaceDetail raceDetail1 = raceDetailService.get(2L);
-        assertEquals(raceDetail, raceDetail1);
-    }
-
-    @Test
     public void getByRaceCardAndHorseTest() {
         testRaceDetail.setRaceCardId(1L);
         testRaceDetail.setHorseId(3L);

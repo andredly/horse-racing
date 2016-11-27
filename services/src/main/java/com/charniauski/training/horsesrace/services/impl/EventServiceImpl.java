@@ -42,12 +42,11 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
     @Transactional
     @Override
     public Long save(Event event){
-        validateDataEvent(event);
+//        validateDataEvent(event);
         RaceDetail raceDetail =raceDetailService.get(event.getRaceDetailId());
-        if (raceDetail == null) throw new NoSuchEntityException("RaceDetail not found. Enter valid id!");
+        if (raceDetail == null) {throw new NoSuchEntityException("RaceDetail not found. Enter valid id!");}
         Long eventId;
         if (event.getId() == null) {
-//            if (event.getResultEvent() != null) throw new IllegalArgumentException("ResultEvent must not be if insert");
             event.setDateRegister(new Timestamp(new Date().getTime()));
             eventId = eventDao.insert(event);
         } else {
@@ -57,13 +56,13 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
         return eventId;
     }
 
-    private void validateDataEvent(Event event) {
-        Validate.notNull(event.getRaceDetailId(), "Arguments RaceDetailId may not by null");
-        Validate.notNull(event.getEventType(), "Arguments EventType may not by null");
-        Validate.notNull(event.getCoefficientEvent(), "Arguments CoefficientEvent may not by null");
-        Validate.notNull(event.getBookmaker(), "Arguments Bookmaker may not by null");
-        Validate.notNull(event.getResultEvent(), "Arguments ResultEvent may not by null");
-    }
+//    private void validateDataEvent(Event event) {
+//        Validate.notNull(event.getRaceDetailId(), "Arguments RaceDetailId may not by null");
+//        Validate.notNull(event.getEventType(), "Arguments EventType may not by null");
+//        Validate.notNull(event.getCoefficientEvent(), "Arguments CoefficientEvent may not by null");
+//        Validate.notNull(event.getBookmaker(), "Arguments Bookmaker may not by null");
+//        Validate.notNull(event.getResultEvent(), "Arguments ResultEvent may not by null");
+//    }
 
     @Override
     public List<Event> getAllByRaceDetail(Long raceDetail) {
@@ -80,11 +79,4 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
         return eventDao.getAllByResultEventAndRaceDetail(resultEvent,raceDetail);
     }
 
-    @Transactional
-    @Override
-    public void updateResultEvent(Long eventId, ResultEvent resultEvent) {
-        Event event = get(eventId);
-        event.setResultEvent(resultEvent);
-        save(event);
-    }
 }
