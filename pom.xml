@@ -14,7 +14,8 @@
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<jetty9.version>9.2.13.v20150730</jetty9.version>
 		<jackson.library>2.7.5</jackson.library>
-	</properties>
+        <springsecurity.version>4.1.1.RELEASE</springsecurity.version>
+    </properties>
 
 	<modules>
 	  <module>datamodel</module>
@@ -292,6 +293,17 @@
 				<groupId>org.glassfish.web</groupId>
 				<artifactId>javax.el</artifactId>
 				<version>2.2.4</version>
+			</dependency>
+			<!-- Spring Security -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${springsecurity.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${springsecurity.version}</version>
 			</dependency>
 
 
