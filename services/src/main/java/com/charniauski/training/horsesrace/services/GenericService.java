@@ -2,6 +2,8 @@ package com.charniauski.training.horsesrace.services;
 
 
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
