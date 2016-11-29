@@ -1,8 +1,6 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.Account;
-
-public interface AuthenticationService {
+public interface CustomAuthenticationService {
 
     boolean validateUserPassword(String username, String password);
 

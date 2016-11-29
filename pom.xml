@@ -14,7 +14,7 @@
 		<spring.version>4.3.4.RELEASE</spring.version>
 		<jetty9.version>9.2.13.v20150730</jetty9.version>
 		<jackson.library>2.7.5</jackson.library>
-        <springsecurity.version>4.1.1.RELEASE</springsecurity.version>
+        <springsecurity.version>4.2.0.RELEASE</springsecurity.version>
     </properties>
 
 	<modules>
@@ -305,7 +305,11 @@
 				<artifactId>spring-security-config</artifactId>
 				<version>${springsecurity.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${springsecurity.version}</version>
+			</dependency>
 
 
 		</dependencies>

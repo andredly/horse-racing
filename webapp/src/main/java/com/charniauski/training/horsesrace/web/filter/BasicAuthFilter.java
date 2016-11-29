@@ -1,7 +1,6 @@
-package com.charniauski.training.horsesrace.web;
+package com.charniauski.training.horsesrace.web.filter;
 
-
-import com.charniauski.training.horsesrace.services.AuthenticationService;
+import com.charniauski.training.horsesrace.services.CustomAuthenticationService;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.*;
@@ -12,12 +11,12 @@ import java.util.Base64;
 import java.util.Enumeration;
 
 public class BasicAuthFilter implements Filter {
-    private AuthenticationService authService;
+    private CustomAuthenticationService customAuthenticationService;
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-        authService = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext()).getBean(
-                AuthenticationService.class);
+        customAuthenticationService = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext()).getBean(
+                CustomAuthenticationService.class);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class BasicAuthFilter implements Filter {
 
         String username = credentials[0];
         String password = credentials[1];
-        if (authService.validateUserPassword(username, password)) {
+        if (customAuthenticationService.validateUserPassword(username, password)) {
             chain.doFilter(request, response);
         } else {
             res.sendError(401);

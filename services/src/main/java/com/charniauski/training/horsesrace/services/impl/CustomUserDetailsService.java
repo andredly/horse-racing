@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 
 @Service
-public class AuthenticationServiceCustom implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Inject
     private AccountService accountService;
