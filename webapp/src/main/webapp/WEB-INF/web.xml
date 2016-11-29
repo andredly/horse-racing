@@ -8,7 +8,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:service-context.xml, classpath:spring-security.xml</param-value>
+        <param-value>classpath:service-context.xml</param-value>
     </context-param>
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -32,7 +32,7 @@
         </servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:web-applicationContext.xml</param-value>
+            <param-value>classpath:web-applicationContext.xml, classpath:spring-security.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
