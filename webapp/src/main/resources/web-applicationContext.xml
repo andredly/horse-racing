@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/cache
        http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="classpath:service-context.xml"/>
+    <!--<import resource="classpath:service-context.xml"/>-->
 
     <mvc:annotation-driven />
 

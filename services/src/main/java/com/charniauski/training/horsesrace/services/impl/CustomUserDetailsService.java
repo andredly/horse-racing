@@ -24,6 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         GrantedAuthority authority = new SimpleGrantedAuthority(account.getStatus().name());
         UserDetails userDetails = (UserDetails)new User(account.getLogin(),
                 account.getPassword(), Arrays.asList(authority));
+        System.out.println(userDetails);
         return userDetails;
     }
 
