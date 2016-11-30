@@ -27,8 +27,6 @@ public class RacecourseController extends AbstractController<Racecourse,Racecour
     @Inject
     private RacecourseConverter converter;
 
-    @GetMapping(value = "/search/racecourse/{name}")
-    @Security(role = "ROLE_ADMIN")
     @Override
     public ResponseEntity<RacecourseDTO> getByName(
             @PathVariable String name) {
@@ -37,7 +35,7 @@ public class RacecourseController extends AbstractController<Racecourse,Racecour
         return new ResponseEntity<>(converter.toDTO(racecourse), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/all/currentDate")
+
     @Override
     public ResponseEntity<List<RacecourseDTO>> getAllAfterCurrentDate() {
         List<Racecourse> racecourses = racecourseService.getAllAfterCurrentDate();

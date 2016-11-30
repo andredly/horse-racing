@@ -16,6 +16,7 @@
     <context:annotation-config/>
     <aop:aspectj-autoproxy />
 
+
      <import resource="classpath:db-dao-beans.xml" />
     <!--<import resource="classpath:xml-dao-beans.xml"/>-->
     <import resource="classpath*:test-applicationContext.xml"/>

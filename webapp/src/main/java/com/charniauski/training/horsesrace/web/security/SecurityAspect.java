@@ -1,33 +1,38 @@
 package com.charniauski.training.horsesrace.web.security;
 
 import com.charniauski.training.horsesrace.services.customsecurity.SecurityContextHolder;
+import com.charniauski.training.horsesrace.web.controller.RacecourseController;
+import com.charniauski.training.horsesrace.web.security.Security;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-@Service
+@Component
 @Aspect
-@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy
 public class SecurityAspect {
 
-    @Pointcut(value = "execution(* com.charniauski.training.horsesrace.web.controller.*.*(..))")
+    @Pointcut(value = "execution(* com.charniauski.training.horsesrace.services.*.get*(..))")
     public void anyGetMethod() {
     }
+
+//    @Pointcut(value = "execution(* com.charniauski.training.horsesrace.web.controller.*.*(..))")
+//    public void anyGetMethod() {
+//    }
 
     @Pointcut(value = "@annotation(security)", argNames = "security")
     protected void annotatedSecurityMethods(Security security) {
@@ -54,5 +59,11 @@ public class SecurityAspect {
         System.out.println(contains);
         Object result = joinPoint.proceed();
         return result;
+    }
+
+
+    @Before("anyGetMethod()")
+    public void beforeFoo(JoinPoint joinPoint) {
+        System.out.println("foooo");
     }
 }

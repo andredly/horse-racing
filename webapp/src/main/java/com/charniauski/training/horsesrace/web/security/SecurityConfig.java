@@ -4,6 +4,7 @@
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.ComponentScan;
 //import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.ImportResource;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +15,8 @@
 //import javax.inject.Inject;
 //
 //@Configuration
-//@ComponentScan("com.charniauski.training.horsesrace.web.security.*")
+//@ComponentScan("com.charniauski.training.horsesrace.web.security.*, com.charniauski.training.horsesrace.web.controller.*" +
+//        "com.charniauski.training.horsesrace.web.converter.*")
 //@EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 //public class SecurityConfig extends WebSecurityConfigurerAdapter {
