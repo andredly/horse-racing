@@ -6,8 +6,6 @@ import com.charniauski.training.horsesrace.services.exception.NoSuchEntityExcept
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,15 +13,17 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public abstract class AbstractController<T extends AbstractModel,D> {
+public abstract class AbstractController<T extends AbstractModel,D> implements IGenericController<D>{
 
     @GetMapping
+    @Override
     public ResponseEntity<List<D>> getAll() {
         List<T> all = getGenericService().getAll();
         return new ResponseEntity<>(getConverter().toListDTO(all), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
+    @Override
     public ResponseEntity<D> getById(
             @PathVariable Long id) {
         T entity = (T) getGenericService().get(id);
@@ -32,6 +32,7 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     }
 
     @PostMapping(produces = "application/json")
+    @Override
     public ResponseEntity<D> create(
             @RequestBody @Valid D dto) {
         getGenericService().save(getConverter().toEntity(dto));
@@ -39,6 +40,7 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     }
 
     @PostMapping(value = "/all",produces = "application/json")
+    @Override
     public ResponseEntity<List<D>> createAll(
             @RequestBody @Valid List<D> dtos) {
         getGenericService().saveAll(getConverter().toListEntity(dtos));
@@ -47,6 +49,7 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     }
 
     @PostMapping(value = "/{id}")
+    @Override
     public ResponseEntity<Void> update(
             @RequestBody D dto,
             @PathVariable Long id) {
@@ -57,6 +60,7 @@ public abstract class AbstractController<T extends AbstractModel,D> {
     }
 
     @DeleteMapping(value = "/{id}")
+    @Override
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         getGenericService().delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

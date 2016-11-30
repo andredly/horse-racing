@@ -98,7 +98,7 @@ public class AccountServiceTest {
         Timestamp timestamp = new Timestamp(new Date().getTime());
         testAccount.setDateRegisterAccount(timestamp);
         testAccount.setBalance(0.0);
-        testAccount.setStatus(Status.CLIENT);
+        testAccount.setStatus(Status.ROLE_USER);
         testAccount.setEmail("test@test.ru");
         testAccountId = 3L;
 
@@ -160,7 +160,7 @@ public class AccountServiceTest {
         testAccount1.setIsDelete(false);
         testAccount1.setDateRegisterAccount(new Date());
         testAccount1.setBalance(0.0);
-        testAccount1.setStatus(Status.CLIENT);
+        testAccount1.setStatus(Status.ROLE_USER);
         testAccount1.setEmail("test1@test.ru");
         testAccount1.setFirstName("Test");
         testAccount1.setLastName("Test");
@@ -204,14 +204,14 @@ public class AccountServiceTest {
     @Test
     public void getAccountStatusByLoginTest() {
         Status status = accountService.getStatusByLogin("log");
-        assertEquals(Status.ADMIN, status);
+        assertEquals(Status.ROLE_ADMIN, status);
     }
 
     @Test
     public void getAllAccountsByStatusTest() {
-        List<Account> allAccountsByStatus = accountService.getAllByStatus(Status.CLIENT);
+        List<Account> allAccountsByStatus = accountService.getAllByStatus(Status.ROLE_USER);
         assertEquals(2, allAccountsByStatus.size());
-        allAccountsByStatus.forEach(account -> assertEquals(Status.CLIENT, account.getStatus()));
+        allAccountsByStatus.forEach(account -> assertEquals(Status.ROLE_USER, account.getStatus()));
     }
 
 

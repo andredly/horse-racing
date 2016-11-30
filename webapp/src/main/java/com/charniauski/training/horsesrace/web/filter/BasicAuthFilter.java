@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.web.filter;
 
 import com.charniauski.training.horsesrace.services.CustomAuthenticationService;
+import com.charniauski.training.horsesrace.web.security.SecurityAspect;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.*;
@@ -12,11 +13,16 @@ import java.util.Enumeration;
 
 public class BasicAuthFilter implements Filter {
     private CustomAuthenticationService customAuthenticationService;
+    SecurityAspect securityAspect;
 
     @Override
     public void init(FilterConfig config) throws ServletException {
         customAuthenticationService = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext()).getBean(
                 CustomAuthenticationService.class);
+        securityAspect = WebApplicationContextUtils.getRequiredWebApplicationContext(config.getServletContext()).getBean(
+                SecurityAspect.class);
+
+
     }
 
     @Override
@@ -30,7 +36,7 @@ public class BasicAuthFilter implements Filter {
 
         boolean isCredentialsResolved = credentials != null && credentials.length == 2;
         if (!isCredentialsResolved) {
-            res.sendError(401);
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -39,7 +45,7 @@ public class BasicAuthFilter implements Filter {
         if (customAuthenticationService.validateUserPassword(username, password)) {
             chain.doFilter(request, response);
         } else {
-            res.sendError(401);
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
     }

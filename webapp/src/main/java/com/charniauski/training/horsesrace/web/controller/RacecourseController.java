@@ -6,6 +6,7 @@ import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.converter.RacecourseConverter;
 import com.charniauski.training.horsesrace.web.dto.RacecourseDTO;
+import com.charniauski.training.horsesrace.web.security.Security;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/racecourses")
-public class RacecourseController extends AbstractController<Racecourse,RacecourseDTO>{
+public class RacecourseController extends AbstractController<Racecourse,RacecourseDTO> implements IRacecourseController{
 
     @Inject
     private RacecourseService racecourseService;
@@ -27,6 +28,8 @@ public class RacecourseController extends AbstractController<Racecourse,Racecour
     private RacecourseConverter converter;
 
     @GetMapping(value = "/search/racecourse/{name}")
+    @Security(role = "ROLE_ADMIN")
+    @Override
     public ResponseEntity<RacecourseDTO> getByName(
             @PathVariable String name) {
         Racecourse racecourse = racecourseService.getByName(name);
@@ -35,6 +38,7 @@ public class RacecourseController extends AbstractController<Racecourse,Racecour
     }
 
     @GetMapping(value = "/search/all/currentDate")
+    @Override
     public ResponseEntity<List<RacecourseDTO>> getAllAfterCurrentDate() {
         List<Racecourse> racecourses = racecourseService.getAllAfterCurrentDate();
         return new ResponseEntity<>(converter.toListDTO(racecourses), HttpStatus.OK);

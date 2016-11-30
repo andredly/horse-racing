@@ -8,7 +8,6 @@ import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,6 @@ import javax.inject.Inject;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
-import static com.charniauski.training.horsesrace.datamodel.enums.Status.CLIENT;
 
 
 /**
