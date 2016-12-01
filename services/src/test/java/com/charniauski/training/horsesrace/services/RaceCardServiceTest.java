@@ -186,7 +186,7 @@ public class RaceCardServiceTest {
         RaceCard raceCard=raceCardService.get(1L);
         raceCardWrapper.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
         raceCardWrapper.setRaceCard(raceCard);
-        List<RaceDetail> raceDetails=raceDetailService.getByRaceCard(raceCard.getId());
+        List<RaceDetail> raceDetails=raceDetailService.getAllByRaceCard(raceCard.getId());
         List<RaceDetailWrapper> raceDetailWrappers=new ArrayList<>();
         for (RaceDetail raceDetail:raceDetails) {
             raceDetailWrappers.add(raceDetailService.getRaceDetailWrapper(raceDetail.getId()));

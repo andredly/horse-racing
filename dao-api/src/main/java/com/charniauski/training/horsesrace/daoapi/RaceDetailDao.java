@@ -15,6 +15,6 @@ public interface RaceDetailDao extends GenericDao<RaceDetail, Long> {
 
     RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox);
 
-    List<RaceDetail> getByRaceCard(Long raceCardId);
+    List<RaceDetail> getAllByRaceCard(Long raceCardId);
 
 }

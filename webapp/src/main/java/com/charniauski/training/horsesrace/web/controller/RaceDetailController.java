@@ -8,6 +8,7 @@ import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.RaceDetailDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
     @Inject
     private RaceDetailConverter converter;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/raceCard/{raceCardId}/horse/{horseId}")
     public ResponseEntity<RaceDetailDTO> getByRaceCardAndHorse(
             @PathVariable Long raceCardId, Long horseId) {
@@ -37,6 +39,7 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
         return new ResponseEntity<>(converter.toDTO(raceDetail), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/raceCard/{raceCardId}/command/{commandId}")
     public ResponseEntity<RaceDetailDTO> getByRaceCardAndCommand(
             @PathVariable Long raceCardId, Long horseId) {
@@ -45,6 +48,7 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
         return new ResponseEntity<>(converter.toDTO(raceDetail), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/raceCard/{raceCardId}/numberStartBox/{numberStartBox}")
     public ResponseEntity<RaceDetailDTO> getByRaceCardAndNumberStartBox(
             @PathVariable Long raceCardId, Long numberStartBox) {
@@ -53,9 +57,10 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
         return new ResponseEntity<>(converter.toDTO(raceDetail), HttpStatus.OK);
     }
 
+
     @GetMapping(value = "/search/all/raceCard/{raceCardId}")
-    public ResponseEntity<List<RaceDetailDTO>> getByRaceCard(@PathVariable Long raceCardId) {
-        List<RaceDetail> raceDetail = raceDetailService.getByRaceCard(raceCardId);
+    public ResponseEntity<List<RaceDetailDTO>> getAllByRaceCard(@PathVariable Long raceCardId) {
+        List<RaceDetail> raceDetail = raceDetailService.getAllByRaceCard(raceCardId);
         return new ResponseEntity<>(converter.toListDTO(raceDetail), HttpStatus.OK);
     }
 

@@ -16,7 +16,7 @@ public interface RaceDetailService extends GenericService<RaceDetail,Long> {
 
     RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox);
 
-    List<RaceDetail> getByRaceCard(Long raceCardId);
+    List<RaceDetail> getAllByRaceCard(Long raceCardId);
 
     RaceDetailWrapper getRaceDetailWrapper(Long raceDetailId);
 

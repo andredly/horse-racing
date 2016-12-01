@@ -36,7 +36,7 @@ public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements 
     }
 
     @Override
-    public List<RaceDetail> getByRaceCard(Long raceCardId) {
+    public List<RaceDetail> getAllByRaceCard(Long raceCardId) {
         return readCollection().stream().filter(raceDetail -> raceDetail.getRaceCardId().equals(raceCardId))
                 .collect(Collectors.toList());
     }

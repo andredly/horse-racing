@@ -81,11 +81,6 @@
 			<!--<artifactId>spring-boot-starter-security</artifactId>-->
 
 		<!--</dependency>-->
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-		</dependency>
-
 
 	</dependencies>
 

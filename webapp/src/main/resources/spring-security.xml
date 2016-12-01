@@ -3,21 +3,21 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:sec="http://www.springframework.org/schema/security"
-             xsi:schemaLocation="
-      http://www.springframework.org/schema/security
+             xmlns:aop="http://www.springframework.org/schema/aop"
+             xsi:schemaLocation="http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security.xsd
       http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd">
+      http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <http auto-config='true'>
-        <intercept-url pattern="/**" access="hasRole ('ROLE_ADMIN')"/>
-        <form-login/>
-        <!--<http-basic/>-->
-    </http>
+    <global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
 
+        <http auto-config="true">
+            <http-basic/>
+        </http>
 
-    <!--<authentication-manager>-->
-        <!--<authentication-provider user-service-ref="customUserDetailsService"/>-->
-    <!--</authentication-manager>-->
+    <authentication-manager id="dao-auth">
+        <authentication-provider user-service-ref="customUserDetailsService">
+        </authentication-provider>
+    </authentication-manager>
 
 </beans:beans>

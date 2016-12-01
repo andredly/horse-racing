@@ -195,7 +195,7 @@ public class RaceDetailServiceTest {
     @Test
     public void getByRaceCardTest() {
         RaceDetail raceDetail = raceDetailService.get(1L);
-        List<RaceDetail> raceDetails = raceDetailService.getByRaceCard(raceDetail.getRaceCardId());
+        List<RaceDetail> raceDetails = raceDetailService.getAllByRaceCard(raceDetail.getRaceCardId());
         raceDetails.forEach(raceDetail1 -> assertEquals(raceDetail.getRaceCardId(), raceDetail1.getRaceCardId()));
     }
 

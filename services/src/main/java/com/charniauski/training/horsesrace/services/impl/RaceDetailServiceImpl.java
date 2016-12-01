@@ -7,7 +7,6 @@ import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.services.*;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -60,8 +59,8 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     }
 
     @Override
-    public List<RaceDetail> getByRaceCard(Long raceCardId) {
-        return raceDetailDao.getByRaceCard(raceCardId);
+    public List<RaceDetail> getAllByRaceCard(Long raceCardId) {
+        return raceDetailDao.getAllByRaceCard(raceCardId);
     }
 
     @Override

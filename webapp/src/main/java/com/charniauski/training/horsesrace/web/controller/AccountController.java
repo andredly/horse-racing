@@ -10,6 +10,7 @@ import com.charniauski.training.horsesrace.web.dto.AccountDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -38,6 +39,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return accountService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/search/{login}")
     public ResponseEntity<AccountDTO> getByLogin(
             @PathVariable @NotBlank String login) {
@@ -46,6 +48,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(converter.toDTO(account), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/search/status/account/{login}")
     public ResponseEntity<Status> getStatusByLogin(
             @PathVariable @NotBlank String login) {
@@ -54,6 +57,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/search/status/{status}")
     public ResponseEntity<List<AccountDTO>> getAllByStatus(
             @PathVariable Status status) {

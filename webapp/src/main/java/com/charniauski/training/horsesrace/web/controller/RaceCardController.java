@@ -40,7 +40,7 @@ public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>
     }
 
     @GetMapping(value = "/search/date/event/{eventId}")
-    public ResponseEntity<Date> getByName(
+    public ResponseEntity<Date> getByEventId(
             @PathVariable Long eventId) {
         Date date = raceCardService.getDateStartByEvent(eventId);
         checkNull(date,eventId);

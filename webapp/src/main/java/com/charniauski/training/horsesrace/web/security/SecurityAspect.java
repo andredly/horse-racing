@@ -3,6 +3,7 @@ package com.charniauski.training.horsesrace.web.security;
 import com.charniauski.training.horsesrace.services.customsecurity.SecurityContextHolder;
 import com.charniauski.training.horsesrace.web.controller.RacecourseController;
 import com.charniauski.training.horsesrace.web.security.Security;
+import org.aopalliance.aop.Advice;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,6 +11,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-@Component
-@Aspect
+//@Component
+//@Aspect
 //@EnableAspectJAutoProxy
-public class SecurityAspect {
+public class SecurityAspect implements Advice {
 
     @Pointcut(value = "execution(* com.charniauski.training.horsesrace.services.*.get*(..))")
     public void anyGetMethod() {
@@ -60,7 +62,6 @@ public class SecurityAspect {
         Object result = joinPoint.proceed();
         return result;
     }
-
 
     @Before("anyGetMethod()")
     public void beforeFoo(JoinPoint joinPoint) {

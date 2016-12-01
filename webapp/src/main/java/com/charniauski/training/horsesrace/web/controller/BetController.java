@@ -11,6 +11,7 @@ import com.charniauski.training.horsesrace.web.dto.BetDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class BetController extends AbstractController<Bet,BetDTO>{
     @Inject
     private BetConverter converter;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/search/all/account/{login}")
     public ResponseEntity<List<BetDTO>> getAllByStatus(
             @PathVariable @NotBlank String login) {
@@ -39,6 +41,7 @@ public class BetController extends AbstractController<Bet,BetDTO>{
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/all/account/{login}/status/{status}")
     public ResponseEntity<List<BetDTO>> getAllByLoginAndStatusBet(
             @PathVariable @NotBlank String login, StatusBet statusBet) {
@@ -46,6 +49,7 @@ public class BetController extends AbstractController<Bet,BetDTO>{
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/all/status/{status}")
     public ResponseEntity<List<BetDTO>> getAllByStatusBet(
             @PathVariable StatusBet statusBet) {
@@ -53,6 +57,7 @@ public class BetController extends AbstractController<Bet,BetDTO>{
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/account/{login}/event/{eventId}")
     public ResponseEntity<BetDTO> getByAccountAndEvent(
             @PathVariable @NotBlank String login,Long eventId) {

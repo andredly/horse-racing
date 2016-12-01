@@ -12,7 +12,6 @@ import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -100,7 +99,7 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
     public RaceCardWrapper getRaceCardWrapper(Long raceCardId) {
         RaceCard raceCard = get(raceCardId);
         Racecourse racecourse = racecourseService.get(raceCard.getRacecourseId());
-        List<RaceDetail> raceDetails = raceDetailService.getByRaceCard(raceCardId);
+        List<RaceDetail> raceDetails = raceDetailService.getAllByRaceCard(raceCardId);
         List<RaceDetailWrapper> raceDetailWrappers = new ArrayList<>();
         for (RaceDetail raceDetail : raceDetails) {
             raceDetailWrappers.add(raceDetailService.getRaceDetailWrapper(raceDetail.getId()));
