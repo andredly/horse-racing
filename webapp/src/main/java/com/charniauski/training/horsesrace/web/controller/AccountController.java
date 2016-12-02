@@ -8,12 +8,15 @@ import com.charniauski.training.horsesrace.web.converter.AccountConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.AccountDTO;
 import org.hibernate.validator.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,16 +42,60 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return accountService;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping(value = "/search/{login}")
-    public ResponseEntity<AccountDTO> getByLogin(
-            @PathVariable @NotBlank String login) {
-        Account account = accountService.getByLogin(login);
-        checkNull(account,login);
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
+    @GetMapping
+    public ResponseEntity<List<AccountDTO>> getAll() {
+        List<Account> all = accountService.getAll();
+        return new ResponseEntity<>(getConverter().toListDTO(all), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<AccountDTO> getById(
+            @PathVariable Long id) {
+        Account account = accountService.get(id);
+        if (isNotAuthorization(account.getLogin())) {
+            return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
+        checkNull(account, id);
         return new ResponseEntity<>(converter.toDTO(account), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value = "/create",produces = "application/json")
+    public ResponseEntity<AccountDTO> createAccount(
+            @RequestBody @Valid AccountDTO dto) {
+        accountService.save(converter.toEntity(dto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping(value = "/update/{id}")
+    public ResponseEntity<Void> updateAccount(
+            @RequestBody AccountDTO dto,
+            @PathVariable Long id) {
+        Account account = converter.toEntity(dto);
+        if (isNotAuthorization(account.getLogin())) {
+            return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
+        account.setId(id);
+        accountService.save(account);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_BOOKMAKER')")
+    @GetMapping(value = "/search/{login}")
+    public ResponseEntity<AccountDTO> getByLogin(
+            @PathVariable @NotBlank String login) {
+        if (isNotAuthorization(login)) {
+            return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
+        Account account = accountService.getByLogin(login);
+        checkNull(account, login);
+        return new ResponseEntity<>(converter.toDTO(account), HttpStatus.OK);
+    }
+
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/status/account/{login}")
     public ResponseEntity<Status> getStatusByLogin(
             @PathVariable @NotBlank String login) {
@@ -57,7 +104,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/status/{status}")
     public ResponseEntity<List<AccountDTO>> getAllByStatus(
             @PathVariable Status status) {
@@ -65,5 +112,10 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(converter.toListDTO(allByStatus), HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<Void> fakeDelete(@PathVariable Long id) {
+        accountService.fakeDelete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -6,7 +6,6 @@ import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.converter.RacecourseConverter;
 import com.charniauski.training.horsesrace.web.dto.RacecourseDTO;
-import com.charniauski.training.horsesrace.web.security.Security;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

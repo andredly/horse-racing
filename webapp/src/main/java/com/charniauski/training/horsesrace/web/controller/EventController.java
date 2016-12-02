@@ -31,13 +31,21 @@ public class EventController extends AbstractController<Event,EventDTO>{
     @Inject
     private EventConverter converter;
 
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
+    @GetMapping
+    public ResponseEntity<List<EventDTO>> getAll() {
+        List<Event> all = eventService.getAll();
+        return new ResponseEntity<>(converter.toListDTO(all), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/search/all/raceDetail/{raceDetailId}")
     public ResponseEntity<List<EventDTO>> getAllByRaceDetail(@PathVariable Long raceDetailId) {
         List<Event> events = eventService.getAllByRaceDetail(raceDetailId);
         return new ResponseEntity<>(converter.toListDTO(events), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
     @GetMapping(value = "/search/all/result/{resultEvent}")
     public ResponseEntity<List<EventDTO>> getAllByResultEvent(@PathVariable ResultEvent resultEvent) {
         List<Event> events = eventService.getAllByResultEvent(resultEvent);

@@ -3,7 +3,6 @@ package com.charniauski.training.horsesrace.services.impl;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.CustomAuthenticationService;
-import com.charniauski.training.horsesrace.services.customsecurity.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -27,7 +26,6 @@ public class CustomAuthenticationServiceImpl implements CustomAuthenticationServ
         GrantedAuthority authority = new SimpleGrantedAuthority(account.getStatus().name());
         User user = new User(account.getLogin(),
                 account.getPassword(), Arrays.asList(authority));
-        SecurityContextHolder.setLoggedUser(user);
         return true;
     }
 

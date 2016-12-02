@@ -81,7 +81,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         try {
             entity = getBean(jdbcTemplate.queryForMap(sql), clazz);
         } catch (EmptyResultDataAccessException e) {
-            LOGGER.error("Not found entity",e);
+            LOGGER.info("Not found entity", e);
             return null;
         }
         LOGGER.debug(entity.toString());
@@ -96,9 +96,5 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
             listT.add(entity);
         }
         return listT;
-    }
-
-    JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
     }
 }

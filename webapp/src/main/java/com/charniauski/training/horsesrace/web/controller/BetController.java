@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.web.controller;
 
 import com.charniauski.training.horsesrace.datamodel.Bet;
-import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.GenericService;
@@ -12,12 +11,10 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/bets")
-public class BetController extends AbstractController<Bet,BetDTO>{
+public class BetController extends AbstractController<Bet, BetDTO> {
 
     @Inject
     private BetService betService;
@@ -33,19 +30,35 @@ public class BetController extends AbstractController<Bet,BetDTO>{
     @Inject
     private BetConverter converter;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
+    @GetMapping
+    public ResponseEntity<List<BetDTO>> getAll() {
+        List<Bet> all = betService.getAll();
+        return new ResponseEntity<>(converter.toListDTO(all), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER','ROLE_USER')")
     @GetMapping(value = "/search/all/account/{login}")
-    public ResponseEntity<List<BetDTO>> getAllByStatus(
+    public ResponseEntity<List<BetDTO>> getAllByLogin(
             @PathVariable @NotBlank String login) {
+        if(isNotAuthorization(login))new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         List<Bet> bets = betService.getAllByLogin(login);
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping(value = "/create",produces = "application/json")
+    public ResponseEntity<BetDTO> createBet(
+            @RequestBody @Valid BetDTO dto) {
+        betService.save(converter.toEntity(dto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/all/account/{login}/status/{status}")
     public ResponseEntity<List<BetDTO>> getAllByLoginAndStatusBet(
             @PathVariable @NotBlank String login, StatusBet statusBet) {
-        List<Bet> bets = betService.getAllByLoginAndStatusBet(login,statusBet);
+        List<Bet> bets = betService.getAllByLoginAndStatusBet(login, statusBet);
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
     }
 
@@ -60,14 +73,14 @@ public class BetController extends AbstractController<Bet,BetDTO>{
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/account/{login}/event/{eventId}")
     public ResponseEntity<BetDTO> getByAccountAndEvent(
-            @PathVariable @NotBlank String login,Long eventId) {
-        Bet bet = betService.getByAccountAndEvent(login,eventId);
-        checkNull(bet, login,eventId);
+            @PathVariable @NotBlank String login, Long eventId) {
+        Bet bet = betService.getByAccountAndEvent(login, eventId);
+        checkNull(bet, login, eventId);
         return new ResponseEntity<>(converter.toDTO(bet), HttpStatus.OK);
     }
 
     @Override
-    public GenericConverter<Bet,BetDTO> getConverter() {
+    public GenericConverter<Bet, BetDTO> getConverter() {
         return converter;
     }
 

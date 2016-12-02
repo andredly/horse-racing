@@ -6,7 +6,6 @@ import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.web.converter.HorseConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.HorseDTO;
-import com.charniauski.training.horsesrace.web.security.Security;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,6 @@ public class HorseController extends AbstractController<Horse,HorseDTO>{
         return new ResponseEntity<>(converter.toDTO(horse), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/raceDetail/{raceDetailId}")
     public ResponseEntity<HorseDTO> getByRaceDetail(@PathVariable Long raceDetailId) {
         Horse horse = horseService.getByRaceDetail(raceDetailId);

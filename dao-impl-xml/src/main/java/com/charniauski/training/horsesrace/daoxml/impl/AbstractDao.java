@@ -119,6 +119,7 @@ public abstract class AbstractDao<T extends AbstractModel, PK> implements Generi
         try {
             xstream.toXML(newList, new FileOutputStream(file));
         } catch (IOException e) {
+            LOGGER.error("", e);
             throw new NoSuchElementException();
         }
     }

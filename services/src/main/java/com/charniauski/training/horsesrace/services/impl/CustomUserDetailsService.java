@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.services.AccountService;
+import com.charniauski.training.horsesrace.services.customauthorization.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         GrantedAuthority authority = new SimpleGrantedAuthority(account.getStatus().name());
         UserDetails userDetails = (UserDetails)new User(account.getLogin(),
                 account.getPassword(), Arrays.asList(authority));
+        SecurityContextHolder.setLoggedUserDetails(userDetails);
         return userDetails;
     }
 

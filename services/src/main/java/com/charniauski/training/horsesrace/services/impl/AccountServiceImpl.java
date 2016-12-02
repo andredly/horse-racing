@@ -74,10 +74,14 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 
     @Transactional
     @Override
-    public void fakeDelete(Account account) {
+    public void fakeDelete(Long accountId) {
+        Account account = accountDao.get(accountId);
+        if (account != null) {
+            throw new IllegalArgumentException("Account " + account.getLogin() + " already exists");
+        }
         account.setIsDelete(true);
         accountDao.update(account);
-        LOGGER.info("Account ={} is deleted",account.getLogin());
+        LOGGER.info("Account ={} is deleted", account.getLogin());
     }
 
 
@@ -88,8 +92,9 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         Long accountId;
         if (account.getId() == null) {
             Account oldAccount = accountDao.getByLogin(account.getLogin());
-            if (oldAccount != null)
+            if (oldAccount != null) {
                 throw new IllegalArgumentException("Login " + account.getLogin() + " already exists");
+            }
             account.setDateRegisterAccount(new Timestamp(new Date().getTime()));
             account.setBalance(0.0);
             accountId = accountDao.insert(account);

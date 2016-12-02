@@ -23,12 +23,12 @@ public class AccountDaoImpl extends AbstractDao<Account, Long> implements Accoun
     @Override
     public Account getByLogin(String login) {
         String sql = format("%s WHERE login='%s';", sqlSelectEntity(Account.class), login);
-        return getEntity(sql,Account.class);
+        return getEntity(sql, Account.class);
     }
 
     @Override
     public List<Account> getAllByStatus(Status status) {
         String sql = format("%s WHERE status='%s';", sqlSelectEntity(Account.class), status.name());
-        return getListEntity(sql,Account.class);
+        return getListEntity(sql, Account.class);
     }
 }

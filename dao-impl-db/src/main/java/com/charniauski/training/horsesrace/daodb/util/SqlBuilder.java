@@ -73,6 +73,7 @@ public class SqlBuilder {
                         .append(valueSb.toString());
             }
         } catch (IllegalArgumentException | IllegalAccessException e) {
+            LOGGER.error("Field error",e);
             e.printStackTrace();
         }
         return columnSb.toString();
