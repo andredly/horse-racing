@@ -12,8 +12,4 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class CommandConverter extends AbstractConverter<Command,CommandDTO>{
 
-    @Override
-    public Command updateEntity(Command entity, CommandDTO dto) {
-        return null;
-    }
 }

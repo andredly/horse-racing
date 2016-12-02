@@ -10,8 +10,4 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class EventConverter extends AbstractConverter<Event,EventDTO>{
 
-    @Override
-    public Event updateEntity(Event entity, EventDTO dto) {
-        return null;
-    }
 }

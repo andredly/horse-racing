@@ -9,8 +9,4 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class RacecourseConverter extends AbstractConverter<Racecourse,RacecourseDTO>{
-    @Override
-    public Racecourse updateEntity(Racecourse entity, RacecourseDTO dto) {
-        return null;
-    }
 }

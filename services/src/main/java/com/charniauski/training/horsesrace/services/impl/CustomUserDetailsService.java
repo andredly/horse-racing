@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException {
         Account account = accountService.getByLogin(username);
         GrantedAuthority authority = new SimpleGrantedAuthority(account.getStatus().name());
-        UserDetails userDetails = (UserDetails)new User(account.getLogin(),
+        UserDetails userDetails = new User(account.getLogin(),
                 account.getPassword(), Arrays.asList(authority));
         SecurityContextHolder.setLoggedUserDetails(userDetails);
         return userDetails;

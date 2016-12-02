@@ -3,6 +3,8 @@ package com.charniauski.training.horsesrace.web.converter;
 import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -15,6 +17,8 @@ import java.util.Map;
  */
 @Component
 public abstract class AbstractConverter <T,D> implements GenericConverter<T,D> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractConverter.class);
 
     private final Class<T> clazzT;
     private final Class<D> clazzD;
@@ -42,7 +46,7 @@ public abstract class AbstractConverter <T,D> implements GenericConverter<T,D> {
         try {
             describe = PropertyUtils.describe(object);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+            LOGGER.error("",e);
             return null;
         }
         BeanUtilsBean instance = NullAwareBeanUtilsBean.getInstance();
@@ -50,13 +54,13 @@ public abstract class AbstractConverter <T,D> implements GenericConverter<T,D> {
         try {
             entity = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+            LOGGER.error("",e);
             return null;
         }
         try {
             instance.populate(entity,describe);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            LOGGER.error("",e);
             return null;
         }
         return entity;

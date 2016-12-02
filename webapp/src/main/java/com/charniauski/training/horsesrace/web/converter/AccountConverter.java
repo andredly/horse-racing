@@ -12,8 +12,4 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class AccountConverter extends AbstractConverter<Account,AccountDTO>{
 
-    @Override
-    public Account updateEntity(Account entity, AccountDTO dto) {
-        return null;
-    }
 }

@@ -11,11 +11,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-/**
- * Separate startup class for people that want to run the examples directly. Use
- * parameter -Dcom.sun.management.jmxremote to startup JMX (and e.g. connect
- * with jconsole).
- */
 public class StartJetty {
     /**
      * Main function, starts the jetty server.
@@ -40,7 +35,6 @@ public class StartJetty {
         bb.setServer(server);
         bb.setContextPath("/");
         bb.setWar("webapp/src/main/webapp");
-//        Started o.e.j.w.WebAppContext@240237d2{/,file:/D:/Programm/project/training_2016_horses_race-master/webapp/src/main/webapp/,AVAILABLE}{webapp/src/main/webapp}
 
         server.setHandler(bb);
 

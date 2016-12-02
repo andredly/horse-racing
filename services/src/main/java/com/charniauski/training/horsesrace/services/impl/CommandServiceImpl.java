@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 public class CommandServiceImpl extends AbstractService<Command,Long> implements CommandService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommandServiceImpl.class);
     @Inject
     private CommandDao commandDao;
 

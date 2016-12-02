@@ -10,8 +10,4 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class HorseConverter extends AbstractConverter<Horse,HorseDTO>{
 
-    @Override
-    public Horse updateEntity(Horse entity, HorseDTO dto) {
-        return null;
-    }
 }

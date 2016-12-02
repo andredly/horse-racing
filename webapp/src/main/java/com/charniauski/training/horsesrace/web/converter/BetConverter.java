@@ -10,8 +10,4 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BetConverter extends AbstractConverter<Bet,BetDTO>{
 
-    @Override
-    public Bet updateEntity(Bet entity, BetDTO dto) {
-        return null;
-    }
 }

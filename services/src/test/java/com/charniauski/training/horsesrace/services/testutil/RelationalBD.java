@@ -42,9 +42,7 @@ public class RelationalBD implements BaseCreator {
 
         try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println(connection);
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
             e.printStackTrace();
             return;
         }

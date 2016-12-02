@@ -88,7 +88,6 @@ public abstract class AbstractController<T extends AbstractModel, D> {
     boolean isNotAuthorization(String login) {
         UserDetails loggedUserDetails = SecurityContextHolder.getLoggedUserDetails();
         for (GrantedAuthority grantedAuthority : loggedUserDetails.getAuthorities()) {
-            System.out.println(grantedAuthority.getAuthority());
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
                 if (!loggedUserDetails.getUsername().equals(login)) {
                     return true;

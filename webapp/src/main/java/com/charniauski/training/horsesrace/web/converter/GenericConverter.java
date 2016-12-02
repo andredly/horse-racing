@@ -10,8 +10,6 @@ public interface GenericConverter <T,D>{
 
    D toDTO(T entity);
 
-   T updateEntity(T entity, D dto);
-
    default List<D> toListDTO(final Collection<T> entities) {
        return entities.stream()
                .map(this::toDTO)

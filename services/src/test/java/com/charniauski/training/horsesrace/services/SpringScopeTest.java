@@ -97,12 +97,10 @@ public class SpringScopeTest {
         RaceCard racecourse=raceCardServiceBean.get(1L);
         Validator validator=Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<RaceCard>> validate = validator.validate(racecourse);
-        System.out.println(validate);
         Map<String, Object> describe = PropertyUtils.describe(racecourse);
         BeanUtilsBean instance = NullAwareBeanUtilsBean.getInstance();
         RaceCard racecourse1 = RaceCard.class.newInstance();
         instance.populate(racecourse1,describe);
-        System.out.println(racecourse1);
 
 
     }
