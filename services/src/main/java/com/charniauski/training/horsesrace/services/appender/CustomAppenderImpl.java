@@ -56,6 +56,7 @@ public class CustomAppenderImpl extends AbstractAppender {
         readLock.lock();
         try {
             final byte[] bytes = getLayout().toByteArray(event);
+            System.out.println("LOG: " +new String(bytes, "UTF-8"));
         } catch (Exception ex) {
             if (!ignoreExceptions()) {
                 throw new AppenderLoggingException(ex);
