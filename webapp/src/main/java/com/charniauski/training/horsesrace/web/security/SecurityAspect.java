@@ -1,6 +1,6 @@
 //package com.charniauski.training.horsesrace.web.security;
 //
-//import com.charniauski.training.horsesrace.services.customauthorization.SecurityContextHolder;
+//import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
 //import com.charniauski.training.horsesrace.web.controller.RacecourseController;
 //import com.charniauski.training.horsesrace.web.security.Security;
 //import org.aopalliance.aop.Advice;

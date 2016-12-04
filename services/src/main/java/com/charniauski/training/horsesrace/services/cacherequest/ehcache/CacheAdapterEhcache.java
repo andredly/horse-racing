@@ -1,10 +1,9 @@
-package com.charniauski.training.horsesrace.services.cache.ehcache;
+package com.charniauski.training.horsesrace.services.cacherequest.ehcache;
 
-import com.charniauski.training.horsesrace.services.cache.Cacheable;
+import com.charniauski.training.horsesrace.services.cacherequest.Cacheable;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 

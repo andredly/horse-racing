@@ -1,14 +1,13 @@
-package com.charniauski.training.horsesrace.services.cache;
+package com.charniauski.training.horsesrace.services.cacherequest;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.security.access.prepost.PreAuthorize;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
-import java.sql.Array;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -25,6 +24,11 @@ public class SimpleCache implements Cacheable {
     private int timeToLiveSeconds;
     @Value("${maxEntriesLocalHeap}")
     private int maxEntriesLocalHeap;
+
+    @PostConstruct
+    void init() throws IOException {
+        deserialize("D://server_cache/cache.dat");
+    }
 
 //    private static final int DEFAULT_TIME_TO_LIFE_SECOND = 5 * 60;
 //    private static final int DEFAULT_SIZE = 1000;
@@ -47,6 +51,7 @@ public class SimpleCache implements Cacheable {
         this.executorService = Executors.newCachedThreadPool();
         this.flagClearCache = false;
         this.flagStopCaching = false;
+        LOGGER.info("Start caching request");
     }
 
     @Override
@@ -66,7 +71,9 @@ public class SimpleCache implements Cacheable {
         if (flagStopCaching || flagClearCache || isFull()) {
             return;
         }
-        if (timeToLiveSeconds == 0) timeToLiveSeconds = this.timeToLiveSeconds;
+        if (timeToLiveSeconds == 0) {
+            timeToLiveSeconds = this.timeToLiveSeconds;
+        }
         Object[] arr = new Object[2];
         arr[0] = value;
         Long timeToLive = System.currentTimeMillis() + timeToLiveSeconds * 1000;
@@ -151,6 +158,12 @@ public class SimpleCache implements Cacheable {
     public void serialize(String path) throws IOException {
         stopClear();
         stopCaching();
+        File file = new File(path);
+        if (!file.exists()) {
+            file.createNewFile();
+        } else {
+            file.delete();
+        }
         try (ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream(new File(path)))) {
             objectOutput.writeObject(cache);
         }
@@ -158,10 +171,12 @@ public class SimpleCache implements Cacheable {
 
     @SuppressWarnings("unchecked")
     public Map<String, Object[]> deserialize(String path) throws IOException {
-        stopClear();
-        stopCaching();
+//        stopClear();
+//        stopCaching();
         File file = new File(path);
-        if (!file.exists()) file.createNewFile();
+        if (!file.exists()) {
+            return cache;
+        }
         try (ObjectInput objectInput = new ObjectInputStream(new FileInputStream(file))) {
             try {
                 cache = (Map<String, Object[]>) objectInput.readObject();
@@ -170,8 +185,8 @@ public class SimpleCache implements Cacheable {
                 e.printStackTrace();
             }
         }
-        startCaching();
-        startClear();
+//        startCaching();
+//        startClear();
         return cache;
     }
 

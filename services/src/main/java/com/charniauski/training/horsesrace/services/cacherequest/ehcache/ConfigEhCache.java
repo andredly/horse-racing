@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.services.cache.ehcache;
+package com.charniauski.training.horsesrace.services.cacherequest.ehcache;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;

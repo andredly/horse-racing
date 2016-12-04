@@ -5,6 +5,7 @@ import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.daoapi.HorseDao;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.HorseService;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,13 @@ public class HorseServiceImpl extends AbstractService<Horse, Long> implements Ho
         return horseDao;
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public Horse getByNickName(String nickName) {
         return horseDao.getByNickName(nickName);
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public Horse getByRaceDetail(Long raceDetail) {
         return horseDao.getByRaceDetail(raceDetail);

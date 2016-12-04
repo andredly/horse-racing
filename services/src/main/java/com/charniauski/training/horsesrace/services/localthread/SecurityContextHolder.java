@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.services.customauthorization;
+package com.charniauski.training.horsesrace.services.localthread;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

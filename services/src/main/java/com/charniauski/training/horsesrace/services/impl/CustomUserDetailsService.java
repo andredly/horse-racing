@@ -2,7 +2,7 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.services.AccountService;
-import com.charniauski.training.horsesrace.services.customauthorization.SecurityContextHolder;
+import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -1,7 +1,6 @@
-package com.charniauski.training.horsesrace.services.cache;
+package com.charniauski.training.horsesrace.services.cacherequest;
 
 
-import org.aspectj.apache.bcel.classfile.Method;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**

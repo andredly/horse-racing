@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +40,14 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         return accountDao;
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public Account getByLogin(String login) {
 //        validateSetLogin(login);
         return accountDao.getByLogin(login);
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public Status getStatusByLogin(String login) {
 //        validateSetLogin(login);
@@ -56,6 +59,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 //        Validate.notEmpty(login);
 //    }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<Account> getAllByStatus(Status status) {
         return accountDao.getAllByStatus(status);

@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.daoapi.CommandDao;
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.CommandService;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,7 @@ public class CommandServiceImpl extends AbstractService<Command,Long> implements
 //        Validate.notNull(command.getUrlImageColor(),"Arguments UrlImageColor may not by null");
 //    }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public Command getByTrainerAndJockeyAndUrl(String trainer, String jockey, String urlImage) {
         return commandDao.getByTrainerAndJockeyAndUrl(trainer,jockey,urlImage);

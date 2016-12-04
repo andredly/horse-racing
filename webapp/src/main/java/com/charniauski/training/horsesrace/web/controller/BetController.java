@@ -1,11 +1,14 @@
 package com.charniauski.training.horsesrace.web.controller;
 
+import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
+import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.web.converter.BetConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
+import com.charniauski.training.horsesrace.web.dto.AccountDTO;
 import com.charniauski.training.horsesrace.web.dto.BetDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,9 @@ public class BetController extends AbstractController<Bet, BetDTO> {
     @Inject
     private BetConverter converter;
 
+    @Inject
+    private AccountService accountService;
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping
     public ResponseEntity<List<BetDTO>> getAll() {
@@ -37,11 +43,24 @@ public class BetController extends AbstractController<Bet, BetDTO> {
         return new ResponseEntity<>(converter.toListDTO(all), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<BetDTO> getById(
+            @PathVariable Long id) {
+        Bet bet = betService.get(id);
+        Account account = accountService.get(bet.getAccountId());
+        checkNull(account, id);
+        if (isNotAuthorization(account.getLogin())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(converter.toDTO(bet), HttpStatus.OK);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER','ROLE_USER')")
     @GetMapping(value = "/search/all/account/{login}")
     public ResponseEntity<List<BetDTO>> getAllByLogin(
             @PathVariable @NotBlank String login) {
-        if(isNotAuthorization(login))new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        if(isNotAuthorization(login)) { return new ResponseEntity<>(HttpStatus.FORBIDDEN);}
         List<Bet> bets = betService.getAllByLogin(login);
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
     }

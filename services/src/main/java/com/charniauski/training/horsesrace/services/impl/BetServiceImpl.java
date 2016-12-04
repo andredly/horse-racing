@@ -10,7 +10,7 @@ import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.EventService;
 import com.charniauski.training.horsesrace.services.RaceCardService;
-import com.charniauski.training.horsesrace.services.cache.Cached;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -23,8 +23,6 @@ import java.sql.Timestamp;
 import java.time.DateTimeException;
 import java.util.Date;
 import java.util.List;
-
-import static com.charniauski.training.horsesrace.datamodel.enums.StatusBet.ACTIVE;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -82,6 +80,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
 //        Validate.isTrue(bet.getSum()>=0.0,"Sum Arguments Sum may not by <=0",bet.getSum());
 //    }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<Bet> getAllByLogin(String login) {
 //        validateSetLogin(login);
@@ -100,12 +99,13 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         return betDao.getAllByLoginAndStatusBet(login,statusBet);
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<Bet> getAllByStatusBet(StatusBet statusBet) {
         return betDao.getAllByStatusBet(statusBet);
     }
 
-
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
 //        validateSetLogin(login);

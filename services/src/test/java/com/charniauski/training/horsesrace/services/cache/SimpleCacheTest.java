@@ -1,5 +1,6 @@
 package com.charniauski.training.horsesrace.services.cache;
 
+import com.charniauski.training.horsesrace.services.cacherequest.Cacheable;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

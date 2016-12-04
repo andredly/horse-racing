@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.services.cache;
+package com.charniauski.training.horsesrace.services.cacherequest;
 
 public interface Cacheable {
 

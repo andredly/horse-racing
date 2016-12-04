@@ -6,6 +6,7 @@ import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
 import org.apache.commons.lang3.Validate;
@@ -37,12 +38,14 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
         return racecourseDao;
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<Racecourse> getAllAfterCurrentDate() {
         return racecourseDao.getAllAfterCurrentDate();
     }
 
 
+    @Cached
     @Override
     public Racecourse getByName(String name) {
         return racecourseDao.getByName(name);

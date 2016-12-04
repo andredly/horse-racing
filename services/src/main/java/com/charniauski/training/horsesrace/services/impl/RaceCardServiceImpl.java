@@ -9,6 +9,7 @@ import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RaceDetailService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
@@ -44,11 +45,13 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         return raceCardDao;
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
         return raceCardDao.getAllByRacecourseAfterCurrentDate(racecourseId);
     }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId) {
         List<RaceCard> racecoursesAfterCurrentDate = getAllByRacecourseAfterCurrentDate(racecourseId);
@@ -89,6 +92,7 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
 //        Validate.notNull(raceCard.getRaceType(),"Arguments RaceType may not by null");
 //    }
 
+    @Cached
     @Override
     public Date getDateStartByEvent(Long eventId) {
         return raceCardDao.getByEvent(eventId).getDateStart();

@@ -17,8 +17,13 @@
         </http>
 
     <authentication-manager id="dao-auth">
-        <authentication-provider user-service-ref="customUserDetailsService">
+        <authentication-provider ref="customAuthenticationProvider">
         </authentication-provider>
     </authentication-manager>
+
+    <!--<authentication-manager id="dao-auth">-->
+        <!--<authentication-provider user-service-ref="customUserDetailsService">-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
 
 </beans:beans>

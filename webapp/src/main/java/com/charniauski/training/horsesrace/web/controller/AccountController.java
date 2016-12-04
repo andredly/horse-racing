@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -54,10 +55,10 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     public ResponseEntity<AccountDTO> getById(
             @PathVariable Long id) {
         Account account = accountService.get(id);
-        if (isNotAuthorization(account.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
-        }
         checkNull(account, id);
+        if (isNotAuthorization(account.getLogin())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(converter.toDTO(account), HttpStatus.OK);
     }
 
@@ -74,20 +75,22 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
             @RequestBody AccountDTO dto,
             @PathVariable Long id) {
         Account account = converter.toEntity(dto);
+        checkNull(account, id);
         if (isNotAuthorization(account.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         account.setId(id);
         accountService.save(account);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_BOOKMAKER')")
+
     @GetMapping(value = "/search/{login}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_BOOKMAKER')")
     public ResponseEntity<AccountDTO> getByLogin(
             @PathVariable @NotBlank String login) {
         if (isNotAuthorization(login)) {
-            return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         Account account = accountService.getByLogin(login);
         checkNull(account, login);

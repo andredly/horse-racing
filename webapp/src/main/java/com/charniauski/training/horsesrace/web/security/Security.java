@@ -1,7 +1,7 @@
 //package com.charniauski.training.horsesrace.web.security;
 //
-//import com.charniauski.training.horsesrace.services.cache.CacheKeyGenerator;
-//import com.charniauski.training.horsesrace.services.cache.KeyGenerator;
+//import CacheKeyGenerator;
+//import KeyGenerator;
 //import org.springframework.security.access.annotation.Secured;
 //
 //import java.lang.annotation.ElementType;

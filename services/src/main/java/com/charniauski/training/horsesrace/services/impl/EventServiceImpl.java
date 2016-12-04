@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 import com.charniauski.training.horsesrace.services.EventService;
 import com.charniauski.training.horsesrace.services.RaceDetailService;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -64,16 +65,19 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
 //        Validate.notNull(event.getResultEvent(), "Arguments ResultEvent may not by null");
 //    }
 
+    @Cached(timeToLiveSeconds = 500)
     @Override
     public List<Event> getAllByRaceDetail(Long raceDetail) {
         return eventDao.getAllByRaceDetail(raceDetail);
     }
 
+    @Cached
     @Override
     public List<Event> getAllByResultEvent(ResultEvent resultEvent) {
         return eventDao.getAllByResultEvent(resultEvent);
     }
 
+    @Cached
     @Override
     public List<Event> getAllByResultEventAndRaceDetail(ResultEvent resultEvent, Long raceDetail) {
         return eventDao.getAllByResultEventAndRaceDetail(resultEvent,raceDetail);

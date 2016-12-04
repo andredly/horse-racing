@@ -1,6 +1,5 @@
-package com.charniauski.training.horsesrace.services.cache;
+package com.charniauski.training.horsesrace.services.cacherequest;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -40,6 +39,4 @@ public class CacheAspect {
         cache.put(key, result, cached.timeToLiveSeconds());
         return result;
     }
-
-
 }

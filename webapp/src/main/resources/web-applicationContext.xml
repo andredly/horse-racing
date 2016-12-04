@@ -23,6 +23,4 @@
     <context:component-scan base-package="com.charniauski.training.horsesrace.web.controller" />
     <context:component-scan base-package="com.charniauski.training.horsesrace.web.converter" />
     <!--<context:component-scan base-package="com.charniauski.training.horsesrace" />-->
-
-
 </beans>
