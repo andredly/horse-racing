@@ -15,8 +15,11 @@ public class Horse extends AbstractModel {
     @Column(columnName = "equipment_weight")
     private Integer equipmentWeight;
 
-    @Column(columnName = "form")
-    private String form;
+    @Column(columnName = "form_ru")
+    private String formEn;
+
+    @Column(columnName = "form_en")
+    private String formRu;
 
     @Column(columnName = "owner")
     private String owner;
@@ -50,12 +53,20 @@ public class Horse extends AbstractModel {
         this.equipmentWeight = equipmentWeight;
     }
 
-    public String getForm() {
-        return form;
+    public String getFormEn() {
+        return formEn;
     }
 
-    public void setForm(String form) {
-        this.form = form;
+    public void setFormEn(String formEn) {
+        this.formEn = formEn;
+    }
+
+    public String getFormRu() {
+        return formRu;
+    }
+
+    public void setFormRu(String formRu) {
+        this.formRu = formRu;
     }
 
     public String getOwner() {
@@ -73,7 +84,8 @@ public class Horse extends AbstractModel {
                 ", nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", equipmentWeight=" + equipmentWeight +
-                ", form='" + form + '\'' +
+                ", formRu='" + formRu + '\'' +
+                ", formEn='" + formEn + '\'' +
                 ", owner='" + owner + '\'' +
                 '}';
     }
@@ -89,7 +101,8 @@ public class Horse extends AbstractModel {
         if (age != null ? !age.equals(horse.age) : horse.age != null) return false;
         if (equipmentWeight != null ? !equipmentWeight.equals(horse.equipmentWeight) : horse.equipmentWeight != null)
             return false;
-        if (form != null ? !form.equals(horse.form) : horse.form != null) return false;
+        if (formRu != null ? !formRu.equals(horse.formRu) : horse.formRu != null) return false;
+        if (formEn != null ? !formEn.equals(horse.formEn) : horse.formEn != null) return false;
         return owner != null ? owner.equals(horse.owner) : horse.owner == null;
 
     }
@@ -100,7 +113,8 @@ public class Horse extends AbstractModel {
         result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (equipmentWeight != null ? equipmentWeight.hashCode() : 0);
-        result = 31 * result + (form != null ? form.hashCode() : 0);
+        result = 31 * result + (formRu != null ? formRu.hashCode() : 0);
+        result = 31 * result + (formEn != null ? formEn.hashCode() : 0);
         result = 31 * result + (owner != null ? owner.hashCode() : 0);
         return result;
     }

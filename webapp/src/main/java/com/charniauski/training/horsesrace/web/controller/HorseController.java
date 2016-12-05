@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.web.converter.HorseConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.HorseDTO;
 import org.hibernate.validator.constraints.NotBlank;
+import org.intellij.lang.annotations.Language;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by ivc4 on 25.11.2016.
@@ -32,10 +34,11 @@ public class HorseController extends AbstractController<Horse,HorseDTO>{
 
     @GetMapping(value = "/search/{nickName}")
     public ResponseEntity<HorseDTO> getByNickName(
-            @PathVariable @NotBlank String nickName) {
+            @PathVariable @NotBlank String nickName, HttpServletRequest request) {
+        String language = request.getHeader("Language");
         Horse horse = horseService.getByNickName(nickName);
         checkNull(horse,nickName);
-        return new ResponseEntity<>(converter.toDTO(horse), HttpStatus.OK);
+        return new ResponseEntity<>(converter.toDTO(horse, language), HttpStatus.OK);
     }
 
     @GetMapping(value = "/search/raceDetail/{raceDetailId}")

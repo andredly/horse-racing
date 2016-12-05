@@ -57,7 +57,7 @@ public class SimpleCache implements Cacheable {
     @Override
     public Object get(String key) {
         Object obj = cache.get(key)[0];
-        LOGGER.debug("Get value={}", obj);
+        LOGGER.info("Get value={}", obj);
         return obj;
     }
 
@@ -79,7 +79,7 @@ public class SimpleCache implements Cacheable {
         Long timeToLive = System.currentTimeMillis() + timeToLiveSeconds * 1000;
         arr[1] = timeToLive;
         cache.put(key, arr);
-        LOGGER.debug("Put value={}", value);
+        LOGGER.info("Put value={}", value);
     }
 
     @Override
@@ -155,6 +155,7 @@ public class SimpleCache implements Cacheable {
         }
     }
 
+    @Override
     public void serialize(String path) throws IOException {
         stopClear();
         stopCaching();
@@ -195,6 +196,7 @@ public class SimpleCache implements Cacheable {
     }
 
     private void startCaching() {
+        LOGGER.info("Start caching request");
         flagStopCaching = false;
     }
 

@@ -81,28 +81,4 @@ public class RaceCardDTO {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RaceCardDTO that = (RaceCardDTO) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (dateStart != null ? !dateStart.equals(that.dateStart) : that.dateStart != null) return false;
-        if (dateFinish != null ? !dateFinish.equals(that.dateFinish) : that.dateFinish != null) return false;
-        if (raceType != null ? !raceType.equals(that.raceType) : that.raceType != null) return false;
-        return racecourseId != null ? racecourseId.equals(that.racecourseId) : that.racecourseId == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (dateStart != null ? dateStart.hashCode() : 0);
-        result = 31 * result + (dateFinish != null ? dateFinish.hashCode() : 0);
-        result = 31 * result + (raceType != null ? raceType.hashCode() : 0);
-        result = 31 * result + (racecourseId != null ? racecourseId.hashCode() : 0);
-        return result;
-    }
 }

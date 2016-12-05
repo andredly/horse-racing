@@ -1,5 +1,7 @@
 package com.charniauski.training.horsesrace.web.dto;
 
+import com.charniauski.training.horsesrace.web.anotation.I18n;
+import com.charniauski.training.horsesrace.web.anotation.Language;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Min;
@@ -22,9 +24,13 @@ public class HorseDTO {
     @Min(0)
     private Integer equipmentWeight;
 
+    @I18n
+    private String formEn;
 
-    private String form;
+    @I18n(language = Language.RU)
+    private String formRu;
 
+    @NotBlank
     private String owner;
 
 //    private Command command;
@@ -64,12 +70,20 @@ public class HorseDTO {
         this.equipmentWeight = equipmentWeight;
     }
 
-    public String getForm() {
-        return form;
+    public String getFormEn() {
+        return formEn;
     }
 
-    public void setForm(String form) {
-        this.form = form;
+    public void setFormEn(String formEn) {
+        this.formEn = formEn;
+    }
+
+    public String getFormRu() {
+        return formRu;
+    }
+
+    public void setFormRu(String formRu) {
+        this.formRu = formRu;
     }
 
     public String getOwner() {
@@ -87,36 +101,10 @@ public class HorseDTO {
                 ", nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", equipmentWeight=" + equipmentWeight +
-                ", form='" + form + '\'' +
+                ", formRu='" + formRu + '\'' +
+                ", formEn='" + formEn + '\'' +
                 ", owner='" + owner + '\'' +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        HorseDTO horseDTO = (HorseDTO) o;
-
-        if (id != null ? !id.equals(horseDTO.id) : horseDTO.id != null) return false;
-        if (nickName != null ? !nickName.equals(horseDTO.nickName) : horseDTO.nickName != null) return false;
-        if (age != null ? !age.equals(horseDTO.age) : horseDTO.age != null) return false;
-        if (equipmentWeight != null ? !equipmentWeight.equals(horseDTO.equipmentWeight) : horseDTO.equipmentWeight != null)
-            return false;
-        if (form != null ? !form.equals(horseDTO.form) : horseDTO.form != null) return false;
-        return owner != null ? owner.equals(horseDTO.owner) : horseDTO.owner == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
-        result = 31 * result + (age != null ? age.hashCode() : 0);
-        result = 31 * result + (equipmentWeight != null ? equipmentWeight.hashCode() : 0);
-        result = 31 * result + (form != null ? form.hashCode() : 0);
-        result = 31 * result + (owner != null ? owner.hashCode() : 0);
-        return result;
-    }
 }

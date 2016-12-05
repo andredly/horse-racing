@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class CacheAspect {
 
     @Inject
-    private Cacheable cache;
+    private Cacheable cacheable;
 //    private SimpleCache cache;
 //    private CacheAdapterEhcache cache;
 
@@ -28,15 +28,15 @@ public class CacheAspect {
     public Object around(ProceedingJoinPoint joinPoint, Cached cached) throws Throwable {
         KeyGenerator keyGenerator = cached.keyGeneratorClass().newInstance();
         String key = keyGenerator.generate(joinPoint);
-        if (cache.isKeyInCache(key)) {
-            Object o = cache.get(key);
+        if (cacheable.isKeyInCache(key)) {
+            Object o = cacheable.get(key);
             if (o != null) return o;
         }
         Object result = joinPoint.proceed();
         if (result == null) {
             return null;
         }
-        cache.put(key, result, cached.timeToLiveSeconds());
+        cacheable.put(key, result, cached.timeToLiveSeconds());
         return result;
     }
 }

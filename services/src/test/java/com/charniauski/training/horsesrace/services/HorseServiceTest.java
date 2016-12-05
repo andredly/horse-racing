@@ -62,7 +62,7 @@ public class HorseServiceTest {
         testHorse.setNickName("TestNickName");
         testHorse.setAge(3);
         testHorse.setEquipmentWeight(60);
-        testHorse.setForm("TestForm");
+        testHorse.setFormEn("TestForm");
         testHorse.setOwner("TestOwner");
         testHorseId = 3L;
     }
@@ -118,7 +118,7 @@ public class HorseServiceTest {
         testHorse1.setNickName("TestNickName1");
         testHorse1.setAge(3);
         testHorse1.setEquipmentWeight(60);
-        testHorse1.setForm("TestForm1");
+        testHorse1.setFormRu("TestForm1");
         testHorse1.setOwner("TestOwner1");
         List<Horse> arrayList = new ArrayList<>();
         testHorse.setNickName("TestNickName2");

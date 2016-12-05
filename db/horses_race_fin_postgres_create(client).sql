@@ -16,7 +16,8 @@ CREATE TABLE "horse" (
   "nick_name" character varying(18) NOT NULL,
   "age" int NOT NULL,
   "equipment_weight" int NOT NULL,
-  "form" character varying(256),
+  "form_ru" character varying(256),
+  "form_en" character varying(256),
   "owner" character varying(256) NOT NULL,
   CONSTRAINT horse_pk PRIMARY KEY ("id")
 ) WITH (

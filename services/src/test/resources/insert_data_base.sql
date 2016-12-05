@@ -13,14 +13,14 @@ INSERT INTO command (trainer,jockey,url_image_color) VALUES ('igi','mor','http2'
 INSERT INTO command (trainer,jockey,url_image_color) VALUES ('петя','коля','http3');
 INSERT INTO command (trainer,jockey,url_image_color) VALUES ('петя1','коля1','http4');
 
-INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
-VALUES ('faster1',3,60,'1245','henk1');
-INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
-VALUES ('faster2',2,61,'245','henk2');
-INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
-VALUES ('faster3',2,62,'45','henk3');
-INSERT INTO horse (nick_name,age,equipment_weight,form,owner)
-VALUES ('faster4',2,62,'45','henk4');
+INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
+VALUES ('faster1',3,60,'black','черный','henk1');
+INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
+VALUES ('faster2',2,61,'white','белый','henk2');
+INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
+VALUES ('faster3',2,62,'brown','коричневый','henk3');
+INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
+VALUES ('faster4',2,62,'gray','серый','henk4');
 
 INSERT INTO racecourse (name, country) VALUES ('germ','g');
 INSERT INTO racecourse (name, country) VALUES ('germ1','g');

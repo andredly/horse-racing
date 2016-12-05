@@ -33,11 +33,11 @@
     </bean>
 
     <!--ehcache-->
-    <!--<bean class="ConfigEhCache"/>-->
-    <!--<bean id="cache" class="CacheAdapterEhcache"/>-->
+    <bean class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.ConfigEhCache"/>
+    <bean id="cache" class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.CacheAdapterEhcache"/>
 
     <!--simple cacherequest-->
-    <bean id="cache" class="com.charniauski.training.horsesrace.services.cacherequest.SimpleCache"/>
+    <!--<bean id="cacheable" class="com.charniauski.training.horsesrace.services.cacherequest.SimpleCache"/>-->
     <!--start cacherequest-->
     <bean class="com.charniauski.training.horsesrace.services.cacherequest.CacheAspect"/>
 

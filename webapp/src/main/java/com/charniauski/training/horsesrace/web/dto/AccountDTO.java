@@ -172,43 +172,4 @@ public class AccountDTO {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AccountDTO that = (AccountDTO) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (dateRegisterAccount != null ? !dateRegisterAccount.equals(that.dateRegisterAccount) : that.dateRegisterAccount != null)
-            return false;
-        if (status != that.status) return false;
-        if (balance != null ? !balance.equals(that.balance) : that.balance != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (isDelete != null ? !isDelete.equals(that.isDelete) : that.isDelete != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (dateBirth != null ? !dateBirth.equals(that.dateBirth) : that.dateBirth != null) return false;
-        return address != null ? address.equals(that.address) : that.address == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (dateRegisterAccount != null ? dateRegisterAccount.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (balance != null ? balance.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (isDelete != null ? isDelete.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (dateBirth != null ? dateBirth.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        return result;
-    }
 }

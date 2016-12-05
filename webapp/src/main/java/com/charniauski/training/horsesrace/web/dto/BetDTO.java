@@ -116,35 +116,4 @@ public class BetDTO {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BetDTO betDTO = (BetDTO) o;
-
-        if (id != null ? !id.equals(betDTO.id) : betDTO.id != null) return false;
-        if (dateBet != null ? !dateBet.equals(betDTO.dateBet) : betDTO.dateBet != null) return false;
-        if (eventId != null ? !eventId.equals(betDTO.eventId) : betDTO.eventId != null) return false;
-        if (accountId != null ? !accountId.equals(betDTO.accountId) : betDTO.accountId != null) return false;
-        if (sum != null ? !sum.equals(betDTO.sum) : betDTO.sum != null) return false;
-        if (coefficientBet != null ? !coefficientBet.equals(betDTO.coefficientBet) : betDTO.coefficientBet != null)
-            return false;
-        if (statusBet != betDTO.statusBet) return false;
-        return calculate != null ? calculate.equals(betDTO.calculate) : betDTO.calculate == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (dateBet != null ? dateBet.hashCode() : 0);
-        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
-        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
-        result = 31 * result + (sum != null ? sum.hashCode() : 0);
-        result = 31 * result + (coefficientBet != null ? coefficientBet.hashCode() : 0);
-        result = 31 * result + (statusBet != null ? statusBet.hashCode() : 0);
-        result = 31 * result + (calculate != null ? calculate.hashCode() : 0);
-        return result;
-    }
 }
