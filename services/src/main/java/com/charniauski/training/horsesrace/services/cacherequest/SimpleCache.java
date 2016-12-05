@@ -57,7 +57,7 @@ public class SimpleCache implements Cacheable {
     @Override
     public Object get(String key) {
         Object obj = cache.get(key)[0];
-        LOGGER.info("Get value={}", obj);
+        LOGGER.debug("Get value={}", obj);
         return obj;
     }
 
@@ -79,7 +79,7 @@ public class SimpleCache implements Cacheable {
         Long timeToLive = System.currentTimeMillis() + timeToLiveSeconds * 1000;
         arr[1] = timeToLive;
         cache.put(key, arr);
-        LOGGER.info("Put value={}", value);
+        LOGGER.debug("Put value={}", value);
     }
 
     @Override

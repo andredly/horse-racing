@@ -11,12 +11,20 @@
 
     <global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
 
-        <http auto-config="true">
+
+        <http auto-config="true" authentication-manager-ref="auth" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
             <csrf disabled="true"/>
             <http-basic/>
         </http>
 
-    <authentication-manager id="dao-auth">
+    <!--<http auto-config="false" authentication-manager-ref="auth" create-session="stateless">-->
+        <!--<csrf disabled="true"/>-->
+        <!--<http-basic/>-->
+    <!--</http>-->
+
+    <beans:bean id="restAuthenticationEntryPoint" class="com.charniauski.training.horsesrace.web.security.RestAuthenticationEntryPoint"/>
+
+    <authentication-manager id="auth">
         <authentication-provider ref="customAuthenticationProvider">
         </authentication-provider>
     </authentication-manager>

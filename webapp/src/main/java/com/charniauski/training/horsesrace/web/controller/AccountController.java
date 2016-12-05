@@ -12,8 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -57,7 +60,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         Account account = accountService.get(id);
         checkNull(account, id);
         if (isNotAuthorization(account.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            throw new AuthorizationServiceException("Access is denied");
         }
         return new ResponseEntity<>(converter.toDTO(account), HttpStatus.OK);
     }
@@ -77,7 +80,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         Account account = converter.toEntity(dto);
         checkNull(account, id);
         if (isNotAuthorization(account.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            throw new AuthorizationServiceException("Access is denied");
         }
         account.setId(id);
         accountService.save(account);
@@ -90,7 +93,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     public ResponseEntity<AccountDTO> getByLogin(
             @PathVariable @NotBlank String login) {
         if (isNotAuthorization(login)) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            throw new AuthorizationServiceException("Access is denied");
         }
         Account account = accountService.getByLogin(login);
         checkNull(account, login);

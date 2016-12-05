@@ -13,6 +13,7 @@ import com.charniauski.training.horsesrace.web.dto.BetDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +52,7 @@ public class BetController extends AbstractController<Bet, BetDTO> {
         Account account = accountService.get(bet.getAccountId());
         checkNull(account, id);
         if (isNotAuthorization(account.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            throw new AuthorizationServiceException("Access is denied");
         }
         return new ResponseEntity<>(converter.toDTO(bet), HttpStatus.OK);
     }
@@ -60,13 +61,15 @@ public class BetController extends AbstractController<Bet, BetDTO> {
     @GetMapping(value = "/search/all/account/{login}")
     public ResponseEntity<List<BetDTO>> getAllByLogin(
             @PathVariable @NotBlank String login) {
-        if(isNotAuthorization(login)) { return new ResponseEntity<>(HttpStatus.FORBIDDEN);}
+        if (isNotAuthorization(login)) {
+            throw new AuthorizationServiceException("Access is denied");
+        }
         List<Bet> bets = betService.getAllByLogin(login);
         return new ResponseEntity<>(converter.toListDTO(bets), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping(value = "/create",produces = "application/json")
+    @PostMapping(value = "/create", produces = "application/json")
     public ResponseEntity<BetDTO> createBet(
             @RequestBody @Valid BetDTO dto) {
         betService.save(converter.toEntity(dto));

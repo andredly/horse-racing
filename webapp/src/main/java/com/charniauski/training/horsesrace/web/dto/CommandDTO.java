@@ -62,4 +62,26 @@ public class CommandDTO {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CommandDTO that = (CommandDTO) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (trainer != null ? !trainer.equals(that.trainer) : that.trainer != null) return false;
+        if (jockey != null ? !jockey.equals(that.jockey) : that.jockey != null) return false;
+        return urlImageColor != null ? urlImageColor.equals(that.urlImageColor) : that.urlImageColor == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (trainer != null ? trainer.hashCode() : 0);
+        result = 31 * result + (jockey != null ? jockey.hashCode() : 0);
+        result = 31 * result + (urlImageColor != null ? urlImageColor.hashCode() : 0);
+        return result;
+    }
 }

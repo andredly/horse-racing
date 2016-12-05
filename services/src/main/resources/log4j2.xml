@@ -64,9 +64,9 @@
 
         <Logger level="info" name="com.charniauski.training.horsesrace"
                 additivity="false">
-            <AppenderRef ref="Console" level="info"/>
+            <AppenderRef ref="Console" level="error"/>
             <AppenderRef ref="RollingFile" level="error"/>
-            <AppenderRef ref="myapp" level="error"/>
+            <AppenderRef ref="myapp" level="info"/>
             <!--<AppenderRef ref="dbAppender" level="error"/>-->
             <!--<AppenderRef ref="EMail" level="error"/>-->
             <!--<AppenderRef ref="databaseAppender" level="error"/>-->

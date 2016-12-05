@@ -26,7 +26,7 @@ public class StartJetty {
 
         ServerConnector http = new ServerConnector(server,
                 new HttpConnectionFactory(http_config));
-        http.setPort(8082);
+        http.setPort(8080);
         http.setIdleTimeout(1000 * 60 * 60);
 
         server.addConnector(http);

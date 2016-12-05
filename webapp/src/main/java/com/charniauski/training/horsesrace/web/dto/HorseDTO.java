@@ -92,4 +92,31 @@ public class HorseDTO {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        HorseDTO horseDTO = (HorseDTO) o;
+
+        if (id != null ? !id.equals(horseDTO.id) : horseDTO.id != null) return false;
+        if (nickName != null ? !nickName.equals(horseDTO.nickName) : horseDTO.nickName != null) return false;
+        if (age != null ? !age.equals(horseDTO.age) : horseDTO.age != null) return false;
+        if (equipmentWeight != null ? !equipmentWeight.equals(horseDTO.equipmentWeight) : horseDTO.equipmentWeight != null)
+            return false;
+        if (form != null ? !form.equals(horseDTO.form) : horseDTO.form != null) return false;
+        return owner != null ? owner.equals(horseDTO.owner) : horseDTO.owner == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (equipmentWeight != null ? equipmentWeight.hashCode() : 0);
+        result = 31 * result + (form != null ? form.hashCode() : 0);
+        result = 31 * result + (owner != null ? owner.hashCode() : 0);
+        return result;
+    }
 }

@@ -108,4 +108,35 @@ public class EventDTO {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EventDTO eventDTO = (EventDTO) o;
+
+        if (id != null ? !id.equals(eventDTO.id) : eventDTO.id != null) return false;
+        if (raceDetailId != null ? !raceDetailId.equals(eventDTO.raceDetailId) : eventDTO.raceDetailId != null)
+            return false;
+        if (eventType != eventDTO.eventType) return false;
+        if (dateRegister != null ? !dateRegister.equals(eventDTO.dateRegister) : eventDTO.dateRegister != null)
+            return false;
+        if (coefficientEvent != null ? !coefficientEvent.equals(eventDTO.coefficientEvent) : eventDTO.coefficientEvent != null)
+            return false;
+        if (bookmaker != null ? !bookmaker.equals(eventDTO.bookmaker) : eventDTO.bookmaker != null) return false;
+        return resultEvent == eventDTO.resultEvent;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (raceDetailId != null ? raceDetailId.hashCode() : 0);
+        result = 31 * result + (eventType != null ? eventType.hashCode() : 0);
+        result = 31 * result + (dateRegister != null ? dateRegister.hashCode() : 0);
+        result = 31 * result + (coefficientEvent != null ? coefficientEvent.hashCode() : 0);
+        result = 31 * result + (bookmaker != null ? bookmaker.hashCode() : 0);
+        result = 31 * result + (resultEvent != null ? resultEvent.hashCode() : 0);
+        return result;
+    }
 }
