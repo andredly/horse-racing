@@ -6,7 +6,7 @@ import java.net.*;
 public class SimpleProxyServer {
   public static void main(String[] args) throws IOException {
     try {
-      String host = "your Proxy Server";
+      String host = "localhost";
       int remoteport = 8080;
       int localport = 8081;
       // Print a start-up message
@@ -65,6 +65,7 @@ public class SimpleProxyServer {
             int bytesRead;
             try {
               while ((bytesRead = streamFromClient.read(request)) != -1) {
+                System.out.println(request);
                 streamToServer.write(request, 0, bytesRead);
                 streamToServer.flush();
               }
@@ -88,6 +89,7 @@ public class SimpleProxyServer {
         int bytesRead;
         try {
           while ((bytesRead = streamFromServer.read(reply)) != -1) {
+            System.out.println(reply);
             streamToClient.write(reply, 0, bytesRead);
             streamToClient.flush();
           }

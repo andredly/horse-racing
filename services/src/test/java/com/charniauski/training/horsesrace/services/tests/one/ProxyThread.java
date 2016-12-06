@@ -29,49 +29,60 @@ public class ProxyThread extends Thread {
             String urlToCall = "";
             ///////////////////////////////////
             //begin get request from client
-            while ((inputLine = in.readLine()) != null) {
-                try {
-                    StringTokenizer tok = new StringTokenizer(inputLine);
-                    tok.nextToken();
-                } catch (Exception e) {
-                    break;
-                }
-                //parse the first line of the request to find the url
-                if (cnt == 0) {
-                    String[] tokens = inputLine.split(" ");
-                    urlToCall = tokens[1];
-                    //can redirect this to output log
-                    System.out.println("Request for : " + urlToCall);
-                }
-
-                cnt++;
+            String line;
+            String tmp = "";
+            while ((line = in.readLine()) != null&&line.trim().length() != 0) {
+//            System.out.println(line);
+                tmp = tmp + line+"\n\r";
             }
+            System.out.println(tmp);
+
+//            while ((inputLine = in.readLine()) != null) {
+//                try {
+//                    StringTokenizer tok = new StringTokenizer(inputLine);
+//                    System.out.println(tok.nextToken());
+//                } catch (Exception e) {
+//                    break;
+//                }
+//                //parse the first line of the request to find the url
+//                if (cnt == 0) {
+//                    String[] tokens = inputLine.split(" ");
+//                    urlToCall = tokens[1];
+//                    //can redirect this to output log
+//                    System.out.println("Request for : " + urlToCall);
+//                }
+//
+//                cnt++;
+//            }
             //end get request from client
             ///////////////////////////////////
 
 
             BufferedReader rd = null;
             try {
-                //System.out.println("sending request
-		//to real server for url: "
-                //        + urlToCall);
+//                System.out.println("sending request to real server for url: "
+//                        + urlToCall);
                 ///////////////////////////////////
                 //begin send request to server, get response from server
-                URL url = new URL(urlToCall);
+                URL url = new URL("http://localhost:8080/horses/1");
+//                URL url = new URL(urlToCall);
                 URLConnection conn = url.openConnection();
+
                 conn.setDoInput(true);
                 //not doing HTTP posts
-                conn.setDoOutput(false);
-                //System.out.println("Type is: "
-			//+ conn.getContentType());
-                //System.out.println("content length: "
-			//+ conn.getContentLength());
-                //System.out.println("allowed user interaction: "
-			//+ conn.getAllowUserInteraction());
-                //System.out.println("content encoding: "
-			//+ conn.getContentEncoding());
-                //System.out.println("content type: "
-			//+ conn.getContentType());
+                conn.setDoOutput(true);
+                System.out.println("+++++++++++++++++++++++++++");
+                System.out.println("Type is: "
+			+ conn.getContentType());
+                System.out.println("content length: "
+			+ conn.getContentLength());
+                System.out.println("allowed user interaction: "
+			+ conn.getAllowUserInteraction());
+                System.out.println("content encoding: "
+			+ conn.getContentEncoding());
+                System.out.println("content type: "
+			+ conn.getContentType());
+                System.out.println("+++++++++++++++++++++++++++");
 
                 // Get the response
                 InputStream is = null;
