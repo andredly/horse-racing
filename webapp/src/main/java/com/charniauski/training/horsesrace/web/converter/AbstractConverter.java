@@ -1,14 +1,17 @@
 package com.charniauski.training.horsesrace.web.converter;
 
 import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
+import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.web.anotation.I18n;
 import com.charniauski.training.horsesrace.web.anotation.Language;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -57,8 +60,8 @@ public abstract class AbstractConverter<T, D> implements GenericConverter<T, D> 
         Object entity;
         try {
             describe = PropertyUtils.describe(object);
-            if (language!=null&&clazzT.isInstance(object)) {
-                filterLanguageField(describe, (T) object,language);
+            if (clazzT.isInstance(object)) {
+                filterLanguageField(describe, (T) object, language);
             }
             BeanUtilsBean instance = NullAwareBeanUtilsBean.getInstance();
             try {
@@ -77,24 +80,17 @@ public abstract class AbstractConverter<T, D> implements GenericConverter<T, D> 
 
 
     private void filterLanguageField(Map<String, Object> describe, T entity, String lang) {
-        Map<String, Object> newDescribe = new HashMap<>(describe);
-        System.out.println(newDescribe);
-        Class<?> clazz = entity.getClass();
-        for (Map.Entry<String, Object> elem : newDescribe.entrySet()) {
-            Field declaredField = null;
-            try {
-                System.out.println(Arrays.toString(clazz.getDeclaredFields()));
-                System.out.println(elem.getKey());
-                // TODO: 05.12.2016  
-                declaredField = clazz.getDeclaredField(elem.getKey());
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-            I18n annotation = declaredField.getAnnotation(I18n.class);
+        if (lang == null) {
+            lang = Language.EN.name();
+        }
+        Field[] declaredFields = clazzD.getDeclaredFields();
+        for (Field field : declaredFields) {
+            I18n annotation = field.getAnnotation(I18n.class);
             if (annotation != null) {
                 Language language = annotation.language();
                 if (!lang.equals(language.name())) {
-                    describe.put(elem.getKey(), null);
+                    describe.remove(field.getName());
+//                    describe.put(field.getName(), null);
                 }
             }
         }

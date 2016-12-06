@@ -23,21 +23,21 @@
     <context:component-scan base-package="com.charniauski.training.horsesrace.services.authcaching"/>
 
     <!--authcache-->
-    <bean id="memcachedClient"
-          class="net.spy.memcached.spring.MemcachedClientFactoryBean">
-        <property name="servers" value="127.0.0.1:11211"/>
-        <property name="protocol" value="BINARY"/>
-    </bean>
-    <bean id="authenticationMemcachedService" class="com.charniauski.training.horsesrace.services.authcaching.AuthenticationMemcachedServiceImp">
-        <constructor-arg ref="memcachedClient"/>
-    </bean>
+    <!--<bean id="memcachedClient"-->
+          <!--class="net.spy.memcached.spring.MemcachedClientFactoryBean">-->
+        <!--<property name="servers" value="127.0.0.1:11211"/>-->
+        <!--<property name="protocol" value="BINARY"/>-->
+    <!--</bean>-->
+    <!--<bean id="authenticationMemcachedService" class="com.charniauski.training.horsesrace.services.authcaching.AuthenticationMemcachedServiceImp">-->
+        <!--<constructor-arg ref="memcachedClient"/>-->
+    <!--</bean>-->
 
     <!--ehcache-->
-    <bean class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.ConfigEhCache"/>
-    <bean id="cache" class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.CacheAdapterEhcache"/>
+    <!--<bean class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.ConfigEhCache"/>-->
+    <!--<bean id="cache" class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.CacheAdapterEhcache"/>-->
 
     <!--simple cacherequest-->
-    <!--<bean id="cacheable" class="com.charniauski.training.horsesrace.services.cacherequest.SimpleCache"/>-->
+    <bean id="cacheable" class="com.charniauski.training.horsesrace.services.cacherequest.SimpleCache"/>
     <!--start cacherequest-->
     <bean class="com.charniauski.training.horsesrace.services.cacherequest.CacheAspect"/>
 

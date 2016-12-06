@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface I18n {
 
-    Language language() default Language.RU;
+    Language language() default Language.EN;
 }
