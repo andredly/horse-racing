@@ -33,7 +33,7 @@ public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>
         return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/all/{racecourseId}/currentDate/three")
+    @GetMapping(value = "/search/all/{racecourseId}/currentDate/loadbalanser")
     public ResponseEntity<List<RaceCardDTO>> getThreeNextAfterCurrentDate(@PathVariable Long racecourseId) {
         List<RaceCard> raceCards = raceCardService.getThreeNextAfterCurrentDate(racecourseId);
         return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
