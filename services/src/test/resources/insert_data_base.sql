@@ -14,13 +14,13 @@ INSERT INTO command (trainer,jockey,url_image_color) VALUES ('петя','кол�
 INSERT INTO command (trainer,jockey,url_image_color) VALUES ('петя1','коля1','http4');
 
 INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
-VALUES ('faster1',3,60,'black','черный','henk1');
+VALUES ('faster1',3,60,'черный','black','henk1');
 INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
-VALUES ('faster2',2,61,'white','белый','henk2');
+VALUES ('faster2',2,61,'белый','white','henk2');
 INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
-VALUES ('faster3',2,62,'brown','коричневый','henk3');
+VALUES ('faster3',2,62,'коричневый','brown','henk3');
 INSERT INTO horse (nick_name,age,equipment_weight,form_ru,form_en,owner)
-VALUES ('faster4',2,62,'gray','серый','henk4');
+VALUES ('faster4',2,62,'серый','gray','henk4');
 
 INSERT INTO racecourse (name, country) VALUES ('germ','g');
 INSERT INTO racecourse (name, country) VALUES ('germ1','g');
