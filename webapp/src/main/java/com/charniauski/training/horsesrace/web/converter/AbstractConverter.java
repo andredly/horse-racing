@@ -1,23 +1,21 @@
 package com.charniauski.training.horsesrace.web.converter;
 
 import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
-import com.charniauski.training.horsesrace.daodb.util.ReflectionUtil;
 import com.charniauski.training.horsesrace.web.anotation.I18n;
 import com.charniauski.training.horsesrace.web.anotation.Language;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ivc4 on 25.11.2016.
@@ -61,7 +59,7 @@ public abstract class AbstractConverter<T, D> implements GenericConverter<T, D> 
         try {
             describe = PropertyUtils.describe(object);
             if (clazzT.isInstance(object)) {
-                filterLanguageField(describe, (T) object, language);
+                filterLanguageField(describe, language);
             }
             BeanUtilsBean instance = NullAwareBeanUtilsBean.getInstance();
             try {
@@ -79,18 +77,20 @@ public abstract class AbstractConverter<T, D> implements GenericConverter<T, D> 
     }
 
 
-    private void filterLanguageField(Map<String, Object> describe, T entity, String lang) {
+    private void filterLanguageField(Map<String, Object> describe, String lang) {
+        Set<String> setLang=new HashSet<>();
         if (lang == null) {
-            lang = Language.EN.name();
+            setLang.add(Language.EN.name());
+        }else {
+            setLang.addAll(Arrays.asList(lang.split(",")));
         }
         Field[] declaredFields = clazzD.getDeclaredFields();
         for (Field field : declaredFields) {
             I18n annotation = field.getAnnotation(I18n.class);
             if (annotation != null) {
                 Language language = annotation.language();
-                if (!lang.equals(language.name())) {
+                if (!setLang.contains(language.name())) {
                     describe.remove(field.getName());
-//                    describe.put(field.getName(), null);
                 }
             }
         }

@@ -8,18 +8,14 @@ import com.charniauski.training.horsesrace.web.converter.AccountConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.AccountDTO;
 import org.hibernate.validator.constraints.NotBlank;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -48,21 +44,23 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping
-    public ResponseEntity<List<AccountDTO>> getAll() {
+    public ResponseEntity<List<AccountDTO>> getAll(HttpServletRequest request) {
+        String language = request.getHeader("Language");
         List<Account> all = accountService.getAll();
-        return new ResponseEntity<>(getConverter().toListDTO(all), HttpStatus.OK);
+        return new ResponseEntity<>(getConverter().toListDTO(all,language), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<AccountDTO> getById(
-            @PathVariable Long id) {
+            @PathVariable Long id,HttpServletRequest request) {
+        String language = request.getHeader("Language");
         Account account = accountService.get(id);
         checkNull(account, id);
         if (isNotAuthorization(account.getLogin())) {
             throw new AuthorizationServiceException("Access is denied");
         }
-        return new ResponseEntity<>(converter.toDTO(account), HttpStatus.OK);
+        return new ResponseEntity<>(converter.toDTO(account,language), HttpStatus.OK);
     }
 
     @PostMapping(value = "/create",produces = "application/json")

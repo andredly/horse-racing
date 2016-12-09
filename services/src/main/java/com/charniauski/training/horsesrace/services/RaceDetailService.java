@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 
 import java.util.List;

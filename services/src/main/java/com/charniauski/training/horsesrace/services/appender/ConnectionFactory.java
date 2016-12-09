@@ -12,7 +12,6 @@ import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
 import javax.sql.DataSource;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;

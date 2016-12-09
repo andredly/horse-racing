@@ -15,10 +15,10 @@ public class Horse extends AbstractModel {
     @Column(columnName = "equipment_weight")
     private Integer equipmentWeight;
 
-    @Column(columnName = "form_ru")
+    @Column(columnName = "form_en")
     private String formEn;
 
-    @Column(columnName = "form_en")
+    @Column(columnName = "form_ru")
     private String formRu;
 
     @Column(columnName = "owner")

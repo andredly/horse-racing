@@ -4,7 +4,6 @@ import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;

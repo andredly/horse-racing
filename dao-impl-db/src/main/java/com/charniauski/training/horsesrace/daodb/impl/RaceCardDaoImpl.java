@@ -4,7 +4,6 @@ import com.charniauski.training.horsesrace.daoapi.RaceCardDao;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 import static java.lang.String.format;

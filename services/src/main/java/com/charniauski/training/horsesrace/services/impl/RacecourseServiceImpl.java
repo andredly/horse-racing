@@ -9,7 +9,6 @@ import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
         return racecourseDao;
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 60)
     @Override
     public List<Racecourse> getAllAfterCurrentDate() {
         return racecourseDao.getAllAfterCurrentDate();

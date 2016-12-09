@@ -1,10 +1,10 @@
 package com.charniauski.training.horsesrace.web.controller;
 
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
-import com.charniauski.training.horsesrace.services.RaceDetailService;
 import com.charniauski.training.horsesrace.services.GenericService;
-import com.charniauski.training.horsesrace.web.converter.RaceDetailConverter;
+import com.charniauski.training.horsesrace.services.RaceDetailService;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
+import com.charniauski.training.horsesrace.web.converter.RaceDetailConverter;
 import com.charniauski.training.horsesrace.web.dto.RaceDetailDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

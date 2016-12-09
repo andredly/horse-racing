@@ -40,14 +40,14 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         return accountDao;
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 10)
     @Override
     public Account getByLogin(String login) {
 //        validateSetLogin(login);
         return accountDao.getByLogin(login);
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public Status getStatusByLogin(String login) {
 //        validateSetLogin(login);
@@ -59,7 +59,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 //        Validate.notEmpty(login);
 //    }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public List<Account> getAllByStatus(Status status) {
         return accountDao.getAllByStatus(status);

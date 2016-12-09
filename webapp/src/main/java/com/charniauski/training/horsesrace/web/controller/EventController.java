@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,9 +35,10 @@ public class EventController extends AbstractController<Event,EventDTO>{
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping
-    public ResponseEntity<List<EventDTO>> getAll() {
+    public ResponseEntity<List<EventDTO>> getAll(HttpServletRequest request) {
+        String language = request.getHeader("Language");
         List<Event> all = eventService.getAll();
-        return new ResponseEntity<>(converter.toListDTO(all), HttpStatus.OK);
+        return new ResponseEntity<>(converter.toListDTO(all,language), HttpStatus.OK);
     }
 
     @GetMapping(value = "/search/all/raceDetail/{raceDetailId}")

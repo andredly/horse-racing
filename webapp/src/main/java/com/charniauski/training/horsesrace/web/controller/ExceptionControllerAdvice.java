@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.web.controller;
 
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.impl.AccountServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;

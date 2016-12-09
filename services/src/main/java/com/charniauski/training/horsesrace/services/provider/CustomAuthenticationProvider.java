@@ -4,6 +4,7 @@ import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.authcaching.AuthenticationMemcachedService;
 import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,14 +22,13 @@ import java.util.Collection;
 @Service
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Inject
+//    @Inject
     AuthenticationMemcachedService authenticationCachingService;
 
     @Inject
     private AccountService accountService;
 
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
         String username = String.valueOf(auth.getPrincipal());
         if (username.equals("")) {
@@ -59,7 +59,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             }
             return token;
         } else {
-            return null;
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+            return token;
         }
     }
 

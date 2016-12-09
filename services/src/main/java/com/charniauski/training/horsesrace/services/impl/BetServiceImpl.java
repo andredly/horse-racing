@@ -80,7 +80,7 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
 //        Validate.isTrue(bet.getSum()>=0.0,"Sum Arguments Sum may not by <=0",bet.getSum());
 //    }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public List<Bet> getAllByLogin(String login) {
 //        validateSetLogin(login);
@@ -99,13 +99,13 @@ public class BetServiceImpl extends AbstractService<Bet,Long> implements BetServ
         return betDao.getAllByLoginAndStatusBet(login,statusBet);
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public List<Bet> getAllByStatusBet(StatusBet statusBet) {
         return betDao.getAllByStatusBet(statusBet);
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public Bet getByAccountAndEvent(String login, Long eventId) {
 //        validateSetLogin(login);

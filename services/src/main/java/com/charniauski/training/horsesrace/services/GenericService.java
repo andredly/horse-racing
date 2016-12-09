@@ -2,8 +2,7 @@ package com.charniauski.training.horsesrace.services;
 
 
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,15 +14,13 @@ public interface GenericService<T,PK> {
 
     GenericDao<T,PK> getGenericDao();
 
+
     List<T> getAll();
 
-    @Transactional
     List<PK> saveAll(List<T> entity) ;
 
-    @Transactional
     PK save(T entity) ;
 
-    @Transactional
     boolean delete(PK id);
 
     T get(PK id);

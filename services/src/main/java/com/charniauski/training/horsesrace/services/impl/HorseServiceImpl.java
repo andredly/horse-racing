@@ -29,13 +29,13 @@ public class HorseServiceImpl extends AbstractService<Horse, Long> implements Ho
         return horseDao;
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public Horse getByNickName(String nickName) {
         return horseDao.getByNickName(nickName);
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public Horse getByRaceDetail(Long raceDetail) {
         return horseDao.getByRaceDetail(raceDetail);

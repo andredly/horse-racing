@@ -7,7 +7,10 @@ import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 

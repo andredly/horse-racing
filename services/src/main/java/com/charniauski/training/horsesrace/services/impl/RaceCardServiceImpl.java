@@ -45,13 +45,13 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         return raceCardDao;
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId) {
         return raceCardDao.getAllByRacecourseAfterCurrentDate(racecourseId);
     }
 
-    @Cached(timeToLiveSeconds = 500)
+    @Cached(timeToLiveSeconds = 100)
     @Override
     public List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId) {
         List<RaceCard> racecoursesAfterCurrentDate = getAllByRacecourseAfterCurrentDate(racecourseId);

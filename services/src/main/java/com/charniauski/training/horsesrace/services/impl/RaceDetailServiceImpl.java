@@ -5,6 +5,7 @@ import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.daoapi.RaceDetailDao;
 import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.services.*;
+import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import org.slf4j.Logger;
@@ -42,22 +43,25 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailDao;
     }
 
-
+    @Cached
     @Override
     public RaceDetail getByRaceCardAndHorse(Long raceCardId, Long horseId) {
         return raceDetailDao.getByRaceCardAndHorse(raceCardId, horseId);
     }
 
+    @Cached
     @Override
     public RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId) {
         return raceDetailDao.getByRaceCardAndCommand(raceCardId,commandId);
     }
 
+    @Cached
     @Override
     public RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox) {
         return raceDetailDao.getByRaceCardAndNumberStartBox(raceCardId,numberStartBox);
     }
 
+    @Cached
     @Override
     public List<RaceDetail> getAllByRaceCard(Long raceCardId) {
         return raceDetailDao.getAllByRaceCard(raceCardId);

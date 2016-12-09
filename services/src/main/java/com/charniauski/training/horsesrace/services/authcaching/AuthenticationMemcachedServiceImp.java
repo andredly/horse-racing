@@ -1,13 +1,10 @@
 package com.charniauski.training.horsesrace.services.authcaching;
 
-import com.charniauski.training.horsesrace.services.cacherequest.SimpleCache;
 import net.spy.memcached.MemcachedClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
-import javax.inject.Inject;
 
 /**
  * Created by Andre on 03.12.2016.

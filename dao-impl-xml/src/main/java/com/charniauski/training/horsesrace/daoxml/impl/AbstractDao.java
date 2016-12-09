@@ -14,15 +14,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Created by ivc4 on 21.10.2016.

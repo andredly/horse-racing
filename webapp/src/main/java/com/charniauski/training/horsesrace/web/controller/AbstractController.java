@@ -2,8 +2,8 @@ package com.charniauski.training.horsesrace.web.controller;
 
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
-import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
@@ -21,18 +22,20 @@ public abstract class AbstractController<T extends AbstractModel, D> {
 
     @SuppressWarnings("unchecked")
     @GetMapping
-    public ResponseEntity<List<D>> getAll() {
+    public ResponseEntity<List<D>> getAll(HttpServletRequest request) {
+        String language = request.getHeader("Language");
         List<T> all = getGenericService().getAll();
-        return new ResponseEntity<>(getConverter().toListDTO(all), HttpStatus.OK);
+        return new ResponseEntity<>(getConverter().toListDTO(all,language), HttpStatus.OK);
     }
 
     @SuppressWarnings("unchecked")
     @GetMapping(value = "/{id}")
     public ResponseEntity<D> getById(
-            @PathVariable Long id) {
+            @PathVariable Long id, HttpServletRequest request) {
+        String language = request.getHeader("Language");
         T entity = (T) getGenericService().get(id);
         checkNull(entity, id);
-        return new ResponseEntity<>(getConverter().toDTO(entity), HttpStatus.OK);
+        return new ResponseEntity<>(getConverter().toDTO(entity,language), HttpStatus.OK);
     }
 
     @SuppressWarnings("unchecked")

@@ -1,9 +1,7 @@
 package com.charniauski.training.horsesrace.web.converter;
 
 import com.charniauski.training.horsesrace.datamodel.Command;
-import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.web.dto.CommandDTO;
-import com.charniauski.training.horsesrace.web.dto.RacecourseDTO;
 import org.springframework.stereotype.Controller;
 
 /**

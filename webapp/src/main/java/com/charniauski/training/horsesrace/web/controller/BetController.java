@@ -8,7 +8,6 @@ import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.web.converter.BetConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
-import com.charniauski.training.horsesrace.web.dto.AccountDTO;
 import com.charniauski.training.horsesrace.web.dto.BetDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
@@ -18,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -39,22 +39,25 @@ public class BetController extends AbstractController<Bet, BetDTO> {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping
-    public ResponseEntity<List<BetDTO>> getAll() {
+    public ResponseEntity<List<BetDTO>> getAll(HttpServletRequest request) {
+        String language = request.getHeader("Language");
         List<Bet> all = betService.getAll();
-        return new ResponseEntity<>(converter.toListDTO(all), HttpStatus.OK);
+        return new ResponseEntity<>(converter.toListDTO(all,language), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<BetDTO> getById(
-            @PathVariable Long id) {
+            @PathVariable Long id, HttpServletRequest request) {
+        String language = request.getHeader("Language");
         Bet bet = betService.get(id);
+        checkNull(bet, id);
         Account account = accountService.get(bet.getAccountId());
         checkNull(account, id);
         if (isNotAuthorization(account.getLogin())) {
             throw new AuthorizationServiceException("Access is denied");
         }
-        return new ResponseEntity<>(converter.toDTO(bet), HttpStatus.OK);
+        return new ResponseEntity<>(converter.toDTO(bet,language), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER','ROLE_USER')")

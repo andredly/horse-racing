@@ -4,8 +4,6 @@ import com.charniauski.training.horsesrace.daoapi.CommandDao;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**

@@ -3,11 +3,7 @@ package com.charniauski.training.horsesrace.daodb.util;
 import com.charniauski.training.horsesrace.datamodel.annotation.Column;
 import com.charniauski.training.horsesrace.datamodel.annotation.Entity;
 import com.charniauski.training.horsesrace.datamodel.annotation.EnumType;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

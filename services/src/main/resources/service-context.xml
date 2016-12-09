@@ -14,7 +14,7 @@
 	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <context:annotation-config/>
-    <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy/>
 
      <import resource="classpath:db-dao-beans.xml" />
     <!--<import resource="classpath:xml-dao-beans.xml"/>-->
