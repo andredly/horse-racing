@@ -19,6 +19,7 @@ public class AuthenticationMemcachedServiceImp implements AuthenticationMemcache
 
     public AuthenticationMemcachedServiceImp(MemcachedClient memcachedClient) {
         this.memcachedClient = memcachedClient;
+        memcachedClient.flush(60);
     }
 
     @Override
