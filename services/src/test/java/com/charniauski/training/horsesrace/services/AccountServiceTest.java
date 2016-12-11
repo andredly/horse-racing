@@ -6,12 +6,9 @@ import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
-import org.h2.engine.Constants;
-import org.h2.tools.RunScript;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -20,9 +17,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,6 +68,7 @@ public class AccountServiceTest {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
         baseCreator1.createRelationDB();
+        baseCreator1.createXMLDB();
     }
 
     @AfterClass

@@ -1,19 +1,19 @@
 <list>
   <RaceCard>
     <id>1</id>
-    <dateStart class="sql-timestamp">2016-11-20 17:31:22.118</dateStart>
+    <dateStart class="sql-timestamp">2016-12-11 17:31:22.118</dateStart>
     <raceType>1000</raceType>
     <racecourseId>1</racecourseId>
   </RaceCard>
   <RaceCard>
     <id>2</id>
-    <dateStart class="sql-timestamp">2016-11-20 17:31:22.118</dateStart>
+    <dateStart class="sql-timestamp">2016-12-11 17:31:22.118</dateStart>
     <raceType>1500</raceType>
     <racecourseId>1</racecourseId>
   </RaceCard>
   <RaceCard>
     <id>3</id>
-    <dateStart class="sql-timestamp">2017-11-20 17:31:22.118</dateStart>
+    <dateStart class="sql-timestamp">2017-12-11 17:31:22.118</dateStart>
     <raceType>1600</raceType>
     <racecourseId>1</racecourseId>
   </RaceCard>

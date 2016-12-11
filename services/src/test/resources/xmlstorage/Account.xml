@@ -4,7 +4,7 @@
     <login>log</login>
     <password>pas</password>
     <dateRegisterAccount class="sql-timestamp">2016-11-13 14:15:38.91</dateRegisterAccount>
-    <status>ADMIN</status>
+    <status>ROLE_ADMIN</status>
     <balance>10.0</balance>
     <email>test@test.ru</email>
     <isDelete>false</isDelete>
@@ -18,7 +18,7 @@
     <login>log1</login>
     <password>pas1</password>
     <dateRegisterAccount class="sql-timestamp">2016-11-13 14:15:38.91</dateRegisterAccount>
-    <status>CLIENT</status>
+    <status>ROLE_USER</status>
     <balance>100.0</balance>
     <email>test1@test.ru</email>
     <isDelete>false</isDelete>
@@ -32,7 +32,7 @@
     <login>log2</login>
     <password>pas2</password>
     <dateRegisterAccount class="sql-timestamp">2016-11-13 14:15:38.91</dateRegisterAccount>
-    <status>CLIENT</status>
+    <status>ROLE_USER</status>
     <balance>110.0</balance>
     <email>test2@test.ru</email>
     <isDelete>false</isDelete>

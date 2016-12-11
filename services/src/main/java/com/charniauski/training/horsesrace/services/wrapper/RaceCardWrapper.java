@@ -38,6 +38,15 @@ public class RaceCardWrapper {
     }
 
     @Override
+    public String toString() {
+        return "RaceCardWrapper{" +
+                "raceCard=" + raceCard +
+                ", racecourse=" + racecourse +
+                ", raceDetailWrappers=" + raceDetailWrappers +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof RaceCardWrapper)) return false;

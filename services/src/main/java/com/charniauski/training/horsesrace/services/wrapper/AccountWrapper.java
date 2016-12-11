@@ -29,6 +29,14 @@ public class AccountWrapper {
     }
 
     @Override
+    public String toString() {
+        return "AccountWrapper{" +
+                "account=" + account +
+                ", bets=" + bets +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AccountWrapper)) return false;

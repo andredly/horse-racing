@@ -4,8 +4,8 @@
     <nickName>faster1</nickName>
     <age>3</age>
     <equipmentWeight>60</equipmentWeight>
-    <form_ru>черный</form_ru>
-    <form_en>black</form_en>
+    <formRu>черный</formRu>
+    <formEn>black</formEn>
     <owner>henk1</owner>
   </Horse>
    <Horse>
@@ -13,8 +13,8 @@
     <nickName>faster2</nickName>
     <age>2</age>
     <equipmentWeight>61</equipmentWeight>
-       <form_ru>белый</form_ru>
-       <form_en>white</form_en>
+       <formRu>белый</formRu>
+       <formEn>white</formEn>
     <owner>henk2</owner>
   </Horse>
    <Horse>
@@ -22,8 +22,8 @@
     <nickName>faster3</nickName>
     <age>4</age>
     <equipmentWeight>59</equipmentWeight>
-       <form_ru>коричневый</form_ru>
-       <form_en>brown</form_en>
+       <formRu>коричневый</formRu>
+       <formEn>brown</formEn>
     <owner>henk3</owner>
   </Horse>
    <Horse>
@@ -31,8 +31,8 @@
     <nickName>faster4</nickName>
     <age>3</age>
     <equipmentWeight>62</equipmentWeight>
-       <form_ru>серый</form_ru>
-       <form_en>gray</form_en>
+       <formRu>серый</formRu>
+       <formEn>gray</formEn>
     <owner>henk4</owner>
   </Horse>
 </list>

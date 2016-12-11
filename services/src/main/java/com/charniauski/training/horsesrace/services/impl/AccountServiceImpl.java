@@ -16,8 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 /**
@@ -74,6 +77,16 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
         accountWrapper.setAccount(account);
         accountWrapper.setBets(bets);
         return accountWrapper;
+    }
+
+    @Override
+    public AccountWrapper getAllDataForAccount(String login) {
+        return getAccountWrapper(login);
+    }
+
+    @Override
+    public List<AccountWrapper> getAllDataForAllAccount(String login) {
+        return new ArrayList<AccountWrapper>().stream().map(aw -> getAccountWrapper(login)).collect(Collectors.toList());
     }
 
     @Transactional

@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Andre on 19.10.2016.
  */
 @Service
-public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> implements RacecourseService {
+public class RacecourseServiceImpl extends AbstractService<Racecourse, Long> implements RacecourseService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RacecourseServiceImpl.class);
 
     @Inject
@@ -51,17 +51,16 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
     }
 
     @Override
-    public RacecourseWrapper getRacecourseWrapper(Long racecourseId) {
-        Racecourse racecourse =get(racecourseId);
-        List<RaceCard> raceCards=raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
-        List<RaceCardWrapper> raceCardWrappers =new ArrayList<>();
-        for (RaceCard raceCard:raceCards){
-            raceCardWrappers.add(raceCardService.getRaceCardWrapper(raceCard.getId()));
-        }
-        RacecourseWrapper racecourseWrapper=new RacecourseWrapper();
-        racecourseWrapper.setRacecourse(racecourse);
-        racecourseWrapper.setRaceCardWrappers(raceCardWrappers);
-        return racecourseWrapper;
+    public RacecourseWrapper getRacecourseWithRaceCards(Long racecourseId) {
+        Racecourse racecourse=get(racecourseId);
+        //// TODO: 11.12.2016  getallByRacecourse
+        return null;
+    }
+
+    @Override
+    public List<RacecourseWrapper> getAllRacecourseWithRaceCardsAfterCurrentDate(Long racecourseId) {
+        //// TODO: 11.12.2016
+        return null;
     }
 
 
@@ -71,11 +70,12 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse,Long> impl
         Long racecourseId;
         if (racecourse.getId() == null) {
             Racecourse oldRacecourse = racecourseDao.getByName(racecourse.getName());
-            if (oldRacecourse!=null)throw new IllegalArgumentException("Name "+ racecourse.getName()+" already exists");
+            if (oldRacecourse != null)
+                throw new IllegalArgumentException("Name " + racecourse.getName() + " already exists");
             racecourseId = racecourseDao.insert(racecourse);
         } else {
             racecourseDao.update(racecourse);
-            racecourseId=racecourse.getId();
+            racecourseId = racecourse.getId();
         }
         return racecourseId;
     }

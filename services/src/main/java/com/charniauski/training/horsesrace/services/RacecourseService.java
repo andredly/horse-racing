@@ -14,6 +14,8 @@ public interface RacecourseService extends GenericService<Racecourse,Long> {
 
     Racecourse getByName(String nameRacecourse);
 
-    RacecourseWrapper getRacecourseWrapper(Long racecourseId);
+    RacecourseWrapper getRacecourseWithRaceCards(Long racecourseId);
+
+    List<RacecourseWrapper> getAllRacecourseWithRaceCardsAfterCurrentDate(Long racecourseId);
 
 }

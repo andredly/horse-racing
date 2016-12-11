@@ -48,6 +48,7 @@ public class EventServiceTest {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
         baseCreator1.createRelationDB();
+        baseCreator1.createXMLDB();
     }
 
     @AfterClass

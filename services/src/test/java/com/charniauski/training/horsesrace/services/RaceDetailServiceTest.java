@@ -56,6 +56,7 @@ public class RaceDetailServiceTest {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
         baseCreator1.createRelationDB();
+        baseCreator1.createXMLDB();
     }
 
     @AfterClass
@@ -124,7 +125,7 @@ public class RaceDetailServiceTest {
     }
 
     @Test
-    public void saveAllTest() throws NoSuchEntityException {
+    public void saveAllTest() {
         RaceDetail testRaceDetail2 = new RaceDetail();
         testRaceDetail2.setRaceCardId(1L);
         testRaceDetail2.setHorseId(3L);
@@ -155,12 +156,14 @@ public class RaceDetailServiceTest {
 
     @Test
     public void getByRaceCardAndHorseTest() {
-        testRaceDetail.setRaceCardId(1L);
-        testRaceDetail.setHorseId(3L);
-        testRaceDetail.setCommandId(3L);
+        testRaceDetail.setRaceCardId(2L);
+        testRaceDetail.setHorseId(4L);
+        testRaceDetail.setCommandId(4L);
         testRaceDetail.setNumberStartBox(10);
         Long id = raceDetailService.save(testRaceDetail);
-        RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndHorse(1L, 3L);
+        System.out.println(id);
+        RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndHorse(2L, 4L);
+        System.out.println(raceDetail1.getId());
         RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
         raceDetailService.delete(raceDetail.getId());

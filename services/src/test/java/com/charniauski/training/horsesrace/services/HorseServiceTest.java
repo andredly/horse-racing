@@ -48,6 +48,7 @@ public class HorseServiceTest {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
         baseCreator1.createRelationDB();
+        baseCreator1.createXMLDB();
     }
 
     @AfterClass
@@ -63,6 +64,7 @@ public class HorseServiceTest {
         testHorse.setAge(3);
         testHorse.setEquipmentWeight(60);
         testHorse.setFormEn("TestForm");
+        testHorse.setFormRu("коричневый");
         testHorse.setOwner("TestOwner");
         testHorseId = 3L;
     }

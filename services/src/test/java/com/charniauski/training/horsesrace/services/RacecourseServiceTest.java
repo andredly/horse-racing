@@ -47,6 +47,7 @@ public class RacecourseServiceTest {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
         baseCreator1.createRelationDB();
+        baseCreator1.createXMLDB();
     }
 
     @Inject
@@ -175,7 +176,7 @@ public class RacecourseServiceTest {
         }
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void getRacecourseWrapperTest(){
         RacecourseWrapper racecourseWrapper = racecourseService.getRacecourseWrapper(1L);

@@ -83,6 +83,11 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailWrapper;
     }
 
+    @Override
+    public RaceDetailWrapper getAllDataForRaceDetail(Long raceDetailId) {
+        return getRaceDetailWrapper(raceDetailId);
+    }
+
     @Transactional
     @Override
     public Long save(RaceDetail raceDetail)  {

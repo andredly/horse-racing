@@ -13,9 +13,15 @@ public interface RaceCardService extends GenericService<RaceCard,Long> {
 
     List<RaceCard> getAllByRacecourseAfterCurrentDate(Long racecourseId);
 
-    List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId);
+//    List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId);
 
     Date getDateStartByEvent(Long eventId);
 
     RaceCardWrapper getRaceCardWrapper(Long raceCardId);
+
+    List<RaceCardWrapper> getAllDataForAllRaceCardAfterCurrentDate(Long racecourseId);
+
+    List<RaceCardWrapper> getAllDataForTreeRaceCardAfterCurrentDate(Long racecourseId);
+
+    RaceCardWrapper getAllDataForRaceCard(Long raceCardId);
 }

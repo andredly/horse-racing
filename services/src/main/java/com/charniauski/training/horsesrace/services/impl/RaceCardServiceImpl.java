@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andre on 19.10.2016.
@@ -51,23 +52,23 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         return raceCardDao.getAllByRacecourseAfterCurrentDate(racecourseId);
     }
 
-    @Cached(timeToLiveSeconds = 100)
-    @Override
-    public List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId) {
-        List<RaceCard> racecoursesAfterCurrentDate = getAllByRacecourseAfterCurrentDate(racecourseId);
-        List<RaceCard> threeNextAfterCurrentDate = new ArrayList<>();
-        if (racecoursesAfterCurrentDate.isEmpty()) {return threeNextAfterCurrentDate;}
-        int size;
-        if (racecoursesAfterCurrentDate.size() <= 3) {
-            size = racecoursesAfterCurrentDate.size();
-        } else {
-            size = 3;
-        }
-        for (int i = 0; i < size; i++) {
-            threeNextAfterCurrentDate.add(racecoursesAfterCurrentDate.get(i));
-        }
-        return threeNextAfterCurrentDate;
-    }
+//    @Cached(timeToLiveSeconds = 100)
+//    @Override
+//    public List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId) {
+//        List<RaceCard> racecoursesAfterCurrentDate = getAllByRacecourseAfterCurrentDate(racecourseId);
+//        List<RaceCard> threeNextAfterCurrentDate = new ArrayList<>();
+//        if (racecoursesAfterCurrentDate.isEmpty()) {return threeNextAfterCurrentDate;}
+//        int size;
+//        if (racecoursesAfterCurrentDate.size() <= 3) {
+//            size = racecoursesAfterCurrentDate.size();
+//        } else {
+//            size = 3;
+//        }
+//        for (int i = 0; i < size; i++) {
+//            threeNextAfterCurrentDate.add(racecoursesAfterCurrentDate.get(i));
+//        }
+//        return threeNextAfterCurrentDate;
+//    }
 
     @Transactional
     @Override
@@ -113,5 +114,38 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         raceCardWrapper.setRacecourse(racecourse);
         raceCardWrapper.setRaceDetailWrappers(raceDetailWrappers);
         return raceCardWrapper;
+    }
+
+
+    @Override
+    public RaceCardWrapper getAllDataForRaceCard(Long raceCardId) {
+        return getRaceCardWrapper(raceCardId);
+    }
+
+    @Override
+    public List<RaceCardWrapper> getAllDataForAllRaceCardAfterCurrentDate(Long racecourseId) {
+        List<RaceCard> list = getAllByRacecourseAfterCurrentDate(racecourseId);
+        List<RaceCardWrapper> raceCardWrapperList=new ArrayList<>();
+        for (RaceCard raceCard:list){
+            raceCardWrapperList.add(getAllDataForRaceCard(raceCard.getId()));
+        }
+        return raceCardWrapperList;
+    }
+
+    @Override
+    public List<RaceCardWrapper> getAllDataForTreeRaceCardAfterCurrentDate(Long racecourseId) {
+        List<RaceCardWrapper> list = getAllDataForAllRaceCardAfterCurrentDate(racecourseId);
+        List<RaceCardWrapper> threeNextAfterCurrentDate = new ArrayList<>();
+        if (list.isEmpty()) {return threeNextAfterCurrentDate;}
+        int size;
+        if (list.size() <= 3) {
+            size = list.size();
+        } else {
+            size = 3;
+        }
+        for (int i = 0; i < size; i++) {
+            threeNextAfterCurrentDate.add(list.get(i));
+        }
+        return threeNextAfterCurrentDate;
     }
 }
