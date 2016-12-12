@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class CorrectorEventDTO extends AbstractCorrector<EventDTO, Status>{
     @Override
     public EventDTO getDTOForRole(EventDTO entity, Status role) {
-        System.out.println(role);
         if (role==null){
             entity.setBookmaker(null);
             entity.setDateRegister(null);

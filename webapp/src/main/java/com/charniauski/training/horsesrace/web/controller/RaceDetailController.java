@@ -3,9 +3,12 @@ package com.charniauski.training.horsesrace.web.controller;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.services.RaceDetailService;
+import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.converter.RaceDetailConverter;
+import com.charniauski.training.horsesrace.web.converter.RaceDetailWrapperConverter;
 import com.charniauski.training.horsesrace.web.dto.RaceDetailDTO;
+import com.charniauski.training.horsesrace.web.dto.wrapper.RaceDetailWrapperDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +24,7 @@ import java.util.List;
  * Created by ivc4 on 25.11.2016.
  */
 @RestController
-@RequestMapping("/raceDetails")
+@RequestMapping("/race-details")
 public class RaceDetailController extends AbstractController<RaceDetail,RaceDetailDTO>{
 
     @Inject
@@ -30,8 +33,11 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
     @Inject
     private RaceDetailConverter converter;
 
+    @Inject
+    private RaceDetailWrapperConverter wrapperConverter;
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
-    @GetMapping(value = "/search/raceCard/{raceCardId}/horse/{horseId}")
+    @GetMapping(value = "/search/race-card/{raceCardId}/horse/{horseId}")
     public ResponseEntity<RaceDetailDTO> getByRaceCardAndHorse(
             @PathVariable Long raceCardId, Long horseId) {
         RaceDetail raceDetail = raceDetailService.getByRaceCardAndHorse(raceCardId,horseId);
@@ -40,7 +46,7 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
-    @GetMapping(value = "/search/raceCard/{raceCardId}/command/{commandId}")
+    @GetMapping(value = "/search/race-card/{raceCardId}/command/{commandId}")
     public ResponseEntity<RaceDetailDTO> getByRaceCardAndCommand(
             @PathVariable Long raceCardId, Long horseId) {
         RaceDetail raceDetail = raceDetailService.getByRaceCardAndHorse(raceCardId,horseId);
@@ -49,7 +55,7 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
-    @GetMapping(value = "/search/raceCard/{raceCardId}/numberStartBox/{numberStartBox}")
+    @GetMapping(value = "/search/race-card/{raceCardId}/number-start-box/{numberStartBox}")
     public ResponseEntity<RaceDetailDTO> getByRaceCardAndNumberStartBox(
             @PathVariable Long raceCardId, Long numberStartBox) {
         RaceDetail raceDetail = raceDetailService.getByRaceCardAndHorse(raceCardId,numberStartBox);
@@ -59,10 +65,19 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
 
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
-    @GetMapping(value = "/search/all/raceCard/{raceCardId}")
+    @GetMapping(value = "/search/all/race-card/{raceCardId}")
     public ResponseEntity<List<RaceDetailDTO>> getAllByRaceCard(@PathVariable Long raceCardId) {
         List<RaceDetail> raceDetail = raceDetailService.getAllByRaceCard(raceCardId);
         return new ResponseEntity<>(converter.toListDTO(raceDetail), HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
+    @GetMapping(value = "/all-data/{raceDetailId}")
+    public ResponseEntity<RaceDetailWrapperDTO> getAllDataFromRaceDetail(
+            @PathVariable Long raceDetailId) {
+        RaceDetailWrapper raceDetailWrapper = raceDetailService.getAllDataForRaceDetail(raceDetailId);
+        checkNull(raceDetailWrapper,raceDetailId);
+        return new ResponseEntity<>(wrapperConverter.toDTO(raceDetailWrapper), HttpStatus.OK);
     }
 
     @Override

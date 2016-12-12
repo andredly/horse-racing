@@ -22,6 +22,14 @@ public class RacecourseWrapperDTO {
         this.raceCards = raceCards;
     }
 
+    public RacecourseDTO getRacecourse() {
+        return racecourse;
+    }
+
+    public List<RaceCardDTO> getRaceCards() {
+        return raceCards;
+    }
+
     @Override
     public String toString() {
         return "RacecourseWrapperDTO{" +

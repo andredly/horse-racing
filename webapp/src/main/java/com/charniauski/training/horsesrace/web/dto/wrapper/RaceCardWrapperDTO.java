@@ -11,6 +11,8 @@ import java.util.List;
  * Created by Andre on 05.11.2016.
  */
 public class RaceCardWrapperDTO {
+
+    //// TODO: 12.12.2016 ???????
     private RaceCardDTO raceCard;
     private RacecourseDTO racecourse;
     private List<RaceDetailWrapperDTO> raceDetailWrappers;
@@ -25,6 +27,18 @@ public class RaceCardWrapperDTO {
 
     public void setRaceDetailWrappers(List<RaceDetailWrapperDTO> raceDetailWrappers) {
         this.raceDetailWrappers = raceDetailWrappers;
+    }
+
+    public RaceCardDTO getRaceCard() {
+        return raceCard;
+    }
+
+    public RacecourseDTO getRacecourse() {
+        return racecourse;
+    }
+
+    public List<RaceDetailWrapperDTO> getRaceDetailWrappers() {
+        return raceDetailWrappers;
     }
 
     @Override

@@ -14,7 +14,6 @@ public class RaceDetailWrapperDTO {
     private CommandDTO command;
     private List<EventDTO> events;
 
-
     public void setRaceDetail(RaceDetailDTO raceDetail) {
         this.raceDetail = raceDetail;
     }
@@ -33,6 +32,27 @@ public class RaceDetailWrapperDTO {
 
     public void setEvents(List<EventDTO> events) {
         this.events = events;
+    }
+
+
+    public RaceDetailDTO getRaceDetail() {
+        return raceDetail;
+    }
+
+    public RaceCardDTO getRaceCard() {
+        return raceCard;
+    }
+
+    public HorseDTO getHorse() {
+        return horse;
+    }
+
+    public CommandDTO getCommand() {
+        return command;
+    }
+
+    public List<EventDTO> getEvents() {
+        return events;
     }
 
     @Override

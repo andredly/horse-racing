@@ -3,9 +3,12 @@ package com.charniauski.training.horsesrace.web.controller;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.services.RaceCardService;
+import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.converter.RaceCardConverter;
+import com.charniauski.training.horsesrace.web.converter.RaceCardWrapperConverter;
 import com.charniauski.training.horsesrace.web.dto.RaceCardDTO;
+import com.charniauski.training.horsesrace.web.dto.wrapper.RaceCardWrapperDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +25,7 @@ import java.util.List;
  * Created by ivc4 on 25.11.2016.
  */
 @RestController
-@RequestMapping("/raceCards")
+@RequestMapping("/race-cards")
 public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>{
 
     @Inject
@@ -31,18 +34,27 @@ public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>
     @Inject
     private RaceCardConverter converter;
 
+    @Inject
+    private RaceCardWrapperConverter wrapperConverter;
+
     @PreAuthorize("isAnonymous() or isAuthenticated()")
-    @GetMapping(value = "/search/all/{racecourseId}/currentDate")
+    @GetMapping(value = "/search/all/{racecourseId}/current-date")
     public ResponseEntity<List<RaceCardDTO>> getAllAfterCurrentDate(@PathVariable Long racecourseId) {
         List<RaceCard> raceCards = raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
         return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/search/all/{racecourseId}/currentDate/three")
-//    public ResponseEntity<List<RaceCardDTO>> getThreeNextAfterCurrentDate(@PathVariable Long racecourseId) {
-//        List<RaceCard> raceCards = raceCardService.getThreeNextAfterCurrentDate(racecourseId);
-//        return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
-//    }
+    @GetMapping(value = "/search/all/{racecourseId}/current-date/three/all-data")
+    public ResponseEntity<List<RaceCardWrapperDTO>> getAllDataThreeNextAfterCurrentDate(@PathVariable Long racecourseId) {
+        List<RaceCardWrapper> raceCards = raceCardService.getAllDataForTreeRaceCardAfterCurrentDate(racecourseId);
+        return new ResponseEntity<>(wrapperConverter.toListDTO(raceCards), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/search/all/{racecourseId}/current-date/all-data")
+    public ResponseEntity<List<RaceCardWrapperDTO>> getAllDataAfterCurrentDate(@PathVariable Long racecourseId) {
+        List<RaceCardWrapper> raceCards = raceCardService.getAllDataForAllRaceCardAfterCurrentDate(racecourseId);
+        return new ResponseEntity<>(wrapperConverter.toListDTO(raceCards), HttpStatus.OK);
+    }
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/date/event/{eventId}")

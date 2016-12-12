@@ -42,7 +42,7 @@ public class EventController extends AbstractController<Event,EventDTO>{
     }
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
-    @GetMapping(value = "/search/all/raceDetail/{raceDetailId}")
+    @GetMapping(value = "/search/all/race-detail/{raceDetailId}")
     public ResponseEntity<List<EventDTO>> getAllByRaceDetail(@PathVariable Long raceDetailId) {
         List<Event> events = eventService.getAllByRaceDetail(raceDetailId);
         return new ResponseEntity<>(converter.toListDTO(events), HttpStatus.OK);
@@ -56,7 +56,7 @@ public class EventController extends AbstractController<Event,EventDTO>{
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
-    @GetMapping(value = "/search/all/result/{resultEvent}/raceDetail/{raceDetailId}")
+    @GetMapping(value = "/search/all/result/{resultEvent}/race-detail/{raceDetailId}")
     public ResponseEntity<List<EventDTO>> getAllByResultEventAndRaceDetail(@PathVariable ResultEvent resultEvent, Long raceDetailId) {
         List<Event> events = eventService.getAllByResultEventAndRaceDetail(resultEvent,raceDetailId);
         return new ResponseEntity<>(converter.toListDTO(events), HttpStatus.OK);

@@ -130,12 +130,14 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/search/alldata/{login}")
+    @GetMapping(value = "/search/all-data/{login}")
     public ResponseEntity<AccountWrapperDTO> getAllDataByLogin(
             @PathVariable @NotBlank String login) {
         if (isNotAuthorization(login)) {
             throw new AuthorizationServiceException("Access is denied");
         }
+        Account account = accountService.getByLogin(login);
+        checkNull(account, login);
         AccountWrapper accountWrapper=accountService.getAllDataForAccount(login);
         checkNull(accountWrapper.getAccount(), login);
         return new ResponseEntity<>(wrapperConverter.toDTO(accountWrapper), HttpStatus.OK);

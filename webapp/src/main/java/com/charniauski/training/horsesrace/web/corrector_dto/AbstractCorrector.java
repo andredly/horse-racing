@@ -5,8 +5,6 @@ import com.charniauski.training.horsesrace.services.localthread.SecurityContextH
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-
 /**
  * Created by ivc4 on 12.12.2016.
  */

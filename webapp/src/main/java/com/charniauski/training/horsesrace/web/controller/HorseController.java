@@ -42,7 +42,7 @@ public class HorseController extends AbstractController<Horse,HorseDTO>{
     }
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
-    @GetMapping(value = "/search/raceDetail/{raceDetailId}")
+    @GetMapping(value = "/search/race-detail/{raceDetailId}")
     public ResponseEntity<HorseDTO> getByRaceDetail(@PathVariable Long raceDetailId, HttpServletRequest request) {
         String language = request.getHeader("Language");
         Horse horse = horseService.getByRaceDetail(raceDetailId);
