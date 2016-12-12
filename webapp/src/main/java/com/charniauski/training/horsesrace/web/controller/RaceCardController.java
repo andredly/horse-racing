@@ -8,6 +8,7 @@ import com.charniauski.training.horsesrace.web.converter.RaceCardConverter;
 import com.charniauski.training.horsesrace.web.dto.RaceCardDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,18 +31,20 @@ public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>
     @Inject
     private RaceCardConverter converter;
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/all/{racecourseId}/currentDate")
     public ResponseEntity<List<RaceCardDTO>> getAllAfterCurrentDate(@PathVariable Long racecourseId) {
         List<RaceCard> raceCards = raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
         return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/all/{racecourseId}/currentDate/three")
-    public ResponseEntity<List<RaceCardDTO>> getThreeNextAfterCurrentDate(@PathVariable Long racecourseId) {
-        List<RaceCard> raceCards = raceCardService.getThreeNextAfterCurrentDate(racecourseId);
-        return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
-    }
+//    @GetMapping(value = "/search/all/{racecourseId}/currentDate/three")
+//    public ResponseEntity<List<RaceCardDTO>> getThreeNextAfterCurrentDate(@PathVariable Long racecourseId) {
+//        List<RaceCard> raceCards = raceCardService.getThreeNextAfterCurrentDate(racecourseId);
+//        return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
+//    }
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/date/event/{eventId}")
     public ResponseEntity<Date> getByEventId(
             @PathVariable Long eventId) {

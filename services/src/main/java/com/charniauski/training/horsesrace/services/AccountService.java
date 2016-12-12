@@ -17,11 +17,9 @@ public interface AccountService extends GenericService<Account,Long> {
 
     List<Account> getAllByStatus(Status status);
 
-    AccountWrapper getAccountWrapper(String login);
-
     AccountWrapper getAllDataForAccount(String login);
 
-    List<AccountWrapper> getAllDataForAllAccount(String login);
+    List<AccountWrapper> getAllDataForAllAccount();
 
     void fakeDelete(Long accountId);
 }

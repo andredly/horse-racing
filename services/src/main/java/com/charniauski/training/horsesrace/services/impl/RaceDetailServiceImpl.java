@@ -52,13 +52,13 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     @Cached
     @Override
     public RaceDetail getByRaceCardAndCommand(Long raceCardId, Long commandId) {
-        return raceDetailDao.getByRaceCardAndCommand(raceCardId,commandId);
+        return raceDetailDao.getByRaceCardAndCommand(raceCardId, commandId);
     }
 
     @Cached
     @Override
     public RaceDetail getByRaceCardAndNumberStartBox(Long raceCardId, Integer numberStartBox) {
-        return raceDetailDao.getByRaceCardAndNumberStartBox(raceCardId,numberStartBox);
+        return raceDetailDao.getByRaceCardAndNumberStartBox(raceCardId, numberStartBox);
     }
 
     @Cached
@@ -68,13 +68,13 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     }
 
     @Override
-    public RaceDetailWrapper getRaceDetailWrapper(Long raceDetailId) {
+    public RaceDetailWrapper getAllDataForRaceDetail(Long raceDetailId) {
         RaceDetail raceDetail = get(raceDetailId);
-        Horse horse=horseService.get(raceDetail.getHorseId());
-        Command command=commandService.get(raceDetail.getCommandId());
-        List<Event> events=eventService.getAllByRaceDetail(raceDetailId);
-        RaceCard raceCard=raceCardService.get(raceDetail.getRaceCardId());
-        RaceDetailWrapper raceDetailWrapper=new RaceDetailWrapper();
+        Horse horse = horseService.get(raceDetail.getHorseId());
+        Command command = commandService.get(raceDetail.getCommandId());
+        List<Event> events = eventService.getAllByRaceDetail(raceDetailId);
+        RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
+        RaceDetailWrapper raceDetailWrapper = new RaceDetailWrapper();
         raceDetailWrapper.setRaceCard(raceCard);
         raceDetailWrapper.setHorse(horse);
         raceDetailWrapper.setCommand(command);
@@ -83,26 +83,21 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         return raceDetailWrapper;
     }
 
-    @Override
-    public RaceDetailWrapper getAllDataForRaceDetail(Long raceDetailId) {
-        return getRaceDetailWrapper(raceDetailId);
-    }
-
     @Transactional
     @Override
-    public Long save(RaceDetail raceDetail)  {
+    public Long save(RaceDetail raceDetail) {
 //        validateDataRaceDetail(raceDetail);
         RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
-        Horse horse =horseService.get(raceDetail.getHorseId());
-        Command command =commandService.get(raceDetail.getCommandId());
-        if (raceCard == null||horse==null||command==null)
+        Horse horse = horseService.get(raceDetail.getHorseId());
+        Command command = commandService.get(raceDetail.getCommandId());
+        if (raceCard == null || horse == null || command == null)
             throw new NoSuchEntityException("RaceCardId or HorseId and CommandId not found. Enter valid id!");
         Long raceDetailId;
         if (raceDetail.getId() == null) {
             raceDetailId = raceDetailDao.insert(raceDetail);
         } else {
             raceDetailDao.update(raceDetail);
-            raceDetailId=raceDetail.getId();
+            raceDetailId = raceDetail.getId();
         }
         return raceDetailId;
     }

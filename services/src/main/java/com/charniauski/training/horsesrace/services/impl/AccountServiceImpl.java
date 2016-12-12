@@ -69,8 +69,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     }
 
     @Override
-    public AccountWrapper getAccountWrapper(String login) {
-//        validateSetLogin(login);
+    public AccountWrapper getAllDataForAccount(String login) {
         Account account = getByLogin(login);
         List<Bet> bets = betService.getAllByLogin(account.getLogin());
         AccountWrapper accountWrapper = new AccountWrapper();
@@ -80,13 +79,13 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     }
 
     @Override
-    public AccountWrapper getAllDataForAccount(String login) {
-        return getAccountWrapper(login);
-    }
-
-    @Override
-    public List<AccountWrapper> getAllDataForAllAccount(String login) {
-        return new ArrayList<AccountWrapper>().stream().map(aw -> getAccountWrapper(login)).collect(Collectors.toList());
+    public List<AccountWrapper> getAllDataForAllAccount() {
+        ArrayList<AccountWrapper> accountWrappers = new ArrayList<>();
+        List<Account> accounts = getAll();
+        for (Account account : accounts) {
+            accountWrappers.add(getAllDataForAccount(account.getLogin()));
+        }
+        return accountWrappers;
     }
 
     @Transactional
@@ -131,5 +130,6 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
 //        Validate.notEmpty(account.getLogin());
 //        Validate.notEmpty(account.getPassword());
 //        Validate.notEmpty(account.getEmail());
-//    }
+//
+
 }

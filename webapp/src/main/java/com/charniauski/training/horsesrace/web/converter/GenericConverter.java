@@ -22,6 +22,7 @@ public interface GenericConverter<T, D> {
         return toListDTO(entities,null);
     }
 
+
     default List<T> toListEntity(final Collection<D> dtos) {
         return dtos.stream()
                 .map(this::toEntity)

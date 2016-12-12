@@ -45,7 +45,7 @@ public class BetController extends AbstractController<Bet, BetDTO> {
         return new ResponseEntity<>(converter.toListDTO(all,language), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/{id}")
     public ResponseEntity<BetDTO> getById(
             @PathVariable Long id, HttpServletRequest request) {
@@ -60,7 +60,7 @@ public class BetController extends AbstractController<Bet, BetDTO> {
         return new ResponseEntity<>(converter.toDTO(bet,language), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER','ROLE_USER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/search/all/account/{login}")
     public ResponseEntity<List<BetDTO>> getAllByLogin(
             @PathVariable @NotBlank String login) {

@@ -19,8 +19,6 @@ public interface RaceDetailService extends GenericService<RaceDetail,Long> {
 
     List<RaceDetail> getAllByRaceCard(Long raceCardId);
 
-    RaceDetailWrapper getRaceDetailWrapper(Long raceDetailId);
-
     RaceDetailWrapper getAllDataForRaceDetail(Long raceDetailId);
 
 }

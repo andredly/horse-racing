@@ -49,7 +49,7 @@ public class RaceCardWrapper {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RaceCardWrapper)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         RaceCardWrapper that = (RaceCardWrapper) o;
 

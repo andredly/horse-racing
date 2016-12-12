@@ -3,6 +3,8 @@ package com.charniauski.training.horsesrace.web.converter;
 import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
 import com.charniauski.training.horsesrace.web.anotation.I18n;
 import com.charniauski.training.horsesrace.web.anotation.Language;
+import com.charniauski.training.horsesrace.web.corrector_dto.AbstractCorrector;
+import com.charniauski.training.horsesrace.web.corrector_dto.CorrectorDTOForRole;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -43,13 +45,14 @@ public abstract class AbstractConverter<T, D> implements GenericConverter<T, D> 
     @SuppressWarnings("unchecked")
     @Override
     public D toDTO(T entity) {
-        return (D) getBean(entity, clazzD, null);
+        return toDTO(entity, null);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public D toDTO(T entity, String language) {
-        return (D) getBean(entity, clazzD, language);
+        D dto = (D) getBean(entity, clazzD, language);
+        return (D) getCorrectorDTOForRole().getDTOForRole(dto,getCorrectorDTOForRole().getRole());
     }
 
 
@@ -95,4 +98,6 @@ public abstract class AbstractConverter<T, D> implements GenericConverter<T, D> 
             }
         }
     }
+
+    abstract CorrectorDTOForRole getCorrectorDTOForRole();
 }

@@ -217,7 +217,7 @@ public class AccountServiceTest {
         Account account1 = accountService.get(1L);
         accountWrapper.setAccount(account1);
         accountWrapper.setBets(betService.getAllByLogin(account1.getLogin()));
-        AccountWrapper accountWrapper1 = accountService.getAccountWrapper("log");
+        AccountWrapper accountWrapper1 = accountService.getAllDataForAccount("log");
         assertEquals(accountWrapper, accountWrapper1);
     }
 

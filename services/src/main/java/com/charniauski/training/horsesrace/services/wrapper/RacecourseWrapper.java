@@ -35,4 +35,25 @@ public class RacecourseWrapper {
                 ", raceCards=" + raceCards +
                 '}';
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RacecourseWrapper that = (RacecourseWrapper) o;
+
+        if (racecourse != null ? !racecourse.equals(that.racecourse) : that.racecourse != null) return false;
+        return raceCards != null ? raceCards.equals(that.raceCards) : that.raceCards == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = racecourse != null ? racecourse.hashCode() : 0;
+        result = 31 * result + (raceCards != null ? raceCards.hashCode() : 0);
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 package com.charniauski.training.horsesrace.web.dto.wrapper;
 
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
+import com.charniauski.training.horsesrace.web.dto.RaceCardDTO;
 import com.charniauski.training.horsesrace.web.dto.RacecourseDTO;
 
 import java.util.List;
@@ -10,22 +11,22 @@ import java.util.List;
  */
 public class RacecourseWrapperDTO {
     private RacecourseDTO racecourse;
-    private List<RaceCardWrapperDTO> raceCardWrappers;
+    private List<RaceCardDTO> raceCards;
 
 
     public void setRacecourse(RacecourseDTO racecourse) {
         this.racecourse = racecourse;
     }
 
-    public void setRaceCardWrappers(List<RaceCardWrapperDTO> raceCardWrappers) {
-        this.raceCardWrappers = raceCardWrappers;
+    public void setRaceCards(List<RaceCardDTO> raceCards) {
+        this.raceCards = raceCards;
     }
 
     @Override
     public String toString() {
         return "RacecourseWrapperDTO{" +
                 "racecourse=" + racecourse +
-                ", raceCardWrappers=" + raceCardWrappers +
+                ", raceCards=" + raceCards +
                 '}';
     }
 }

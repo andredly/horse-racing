@@ -20,6 +20,7 @@ import java.util.List;
 
 public abstract class AbstractController<T extends AbstractModel, D> {
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @SuppressWarnings("unchecked")
     @GetMapping
     public ResponseEntity<List<D>> getAll(HttpServletRequest request) {
@@ -28,6 +29,7 @@ public abstract class AbstractController<T extends AbstractModel, D> {
         return new ResponseEntity<>(getConverter().toListDTO(all,language), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @SuppressWarnings("unchecked")
     @GetMapping(value = "/{id}")
     public ResponseEntity<D> getById(

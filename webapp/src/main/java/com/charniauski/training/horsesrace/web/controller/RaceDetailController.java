@@ -58,6 +58,7 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
     }
 
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/all/raceCard/{raceCardId}")
     public ResponseEntity<List<RaceDetailDTO>> getAllByRaceCard(@PathVariable Long raceCardId) {
         List<RaceDetail> raceDetail = raceDetailService.getAllByRaceCard(raceCardId);

@@ -1,26 +1,15 @@
 package com.charniauski.training.horsesrace.web;
 
-import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
 import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.services.*;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.web.converter.AccountConverter;
-import com.charniauski.training.horsesrace.web.converter.fabric.ConverterFactory;
-import com.charniauski.training.horsesrace.web.converter.fabric.ConverterFactoryImpl;
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 public class SpringScopeTest {
@@ -99,9 +88,7 @@ public class SpringScopeTest {
 //        System.out.println(all);
 //        springContext.getBean("")
 //        Racecourse racecourse=racecourseServiceBean.get(1L);
-        RaceCard racecourse=raceCardServiceBean.get(1L);
-        ConverterFactory converterFactory=new ConverterFactoryImpl();
-        converterFactory.getConverter(AccountConverter.class);
+    
 
     }
 }

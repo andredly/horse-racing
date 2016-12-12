@@ -9,6 +9,7 @@ import com.charniauski.training.horsesrace.web.dto.HorseDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class HorseController extends AbstractController<Horse,HorseDTO>{
     @Inject
     private HorseConverter converter;
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/{nickName}")
     public ResponseEntity<HorseDTO> getByNickName(
             @PathVariable @NotBlank String nickName, HttpServletRequest request) {
@@ -39,6 +41,7 @@ public class HorseController extends AbstractController<Horse,HorseDTO>{
         return new ResponseEntity<>(converter.toDTO(horse, language), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/raceDetail/{raceDetailId}")
     public ResponseEntity<HorseDTO> getByRaceDetail(@PathVariable Long raceDetailId, HttpServletRequest request) {
         String language = request.getHeader("Language");

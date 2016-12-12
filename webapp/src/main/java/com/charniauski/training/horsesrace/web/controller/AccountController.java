@@ -4,9 +4,12 @@ import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.GenericService;
+import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import com.charniauski.training.horsesrace.web.converter.AccountConverter;
+import com.charniauski.training.horsesrace.web.converter.AccountWrapperConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.AccountDTO;
+import com.charniauski.training.horsesrace.web.dto.wrapper.AccountWrapperDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,9 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     @Inject
     private AccountConverter converter;
 
+    @Inject
+    private AccountWrapperConverter wrapperConverter;
+
     @Override
     public GenericConverter<Account, AccountDTO> getConverter() {
         return converter;
@@ -50,7 +56,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(getConverter().toListDTO(all,language), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/{id}")
     public ResponseEntity<AccountDTO> getById(
             @PathVariable Long id,HttpServletRequest request) {
@@ -63,6 +69,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(converter.toDTO(account,language), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAnonymous()")
     @PostMapping(value = "/create",produces = "application/json")
     public ResponseEntity<AccountDTO> createAccount(
             @RequestBody @Valid AccountDTO dto) {
@@ -85,9 +92,8 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/search/{login}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_BOOKMAKER')")
     public ResponseEntity<AccountDTO> getByLogin(
             @PathVariable @NotBlank String login) {
         if (isNotAuthorization(login)) {
@@ -122,4 +128,26 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         accountService.fakeDelete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "/search/alldata/{login}")
+    public ResponseEntity<AccountWrapperDTO> getAllDataByLogin(
+            @PathVariable @NotBlank String login) {
+        if (isNotAuthorization(login)) {
+            throw new AuthorizationServiceException("Access is denied");
+        }
+        AccountWrapper accountWrapper=accountService.getAllDataForAccount(login);
+        checkNull(accountWrapper.getAccount(), login);
+        return new ResponseEntity<>(wrapperConverter.toDTO(accountWrapper), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<AccountWrapperDTO>> getAllDataForAllAccounts(HttpServletRequest request) {
+        String language = request.getHeader("Language");
+        List<AccountWrapper> all = accountService.getAllDataForAllAccount();
+        return new ResponseEntity<>(wrapperConverter.toListDTO(all,language), HttpStatus.OK);
+    }
+
+
 }

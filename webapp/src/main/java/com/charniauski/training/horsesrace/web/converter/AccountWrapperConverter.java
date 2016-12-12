@@ -4,25 +4,35 @@ import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import com.charniauski.training.horsesrace.web.dto.wrapper.AccountWrapperDTO;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
+
 /**
  * Created by ivc4 on 25.11.2016.
  */
 @Component
-public class AccountWrapperConverter extends AbstractConverter<AccountWrapper, AccountWrapperDTO> {
+public class AccountWrapperConverter implements GenericConverter<AccountWrapper, AccountWrapperDTO> {
 
-    @SuppressWarnings("unchecked")
+    @Inject
+    private AccountConverter accountConverter;
+
+    @Inject
+    private BetConverter betConverter;
+
     @Override
     public AccountWrapper toEntity(AccountWrapperDTO dto) {
-        //// TODO: 11.12.2016
-        return null;
+        throw new UnsupportedOperationException();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public AccountWrapperDTO toDTO(AccountWrapper entity) {
-        return null;
+        return toDTO(entity, null);
+    }
+
+    @Override
+    public AccountWrapperDTO toDTO(AccountWrapper entity, String language) {
+        AccountWrapperDTO accountWrapperDTO = new AccountWrapperDTO();
+        accountWrapperDTO.setAccount(accountConverter.toDTO(entity.getAccount(), language));
+        accountWrapperDTO.setBets(betConverter.toListDTO(entity.getBets(), language));
+        return accountWrapperDTO;
     }
 }
-
-
-

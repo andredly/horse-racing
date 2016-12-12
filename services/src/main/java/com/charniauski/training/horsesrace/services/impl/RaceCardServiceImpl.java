@@ -52,24 +52,6 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         return raceCardDao.getAllByRacecourseAfterCurrentDate(racecourseId);
     }
 
-//    @Cached(timeToLiveSeconds = 100)
-//    @Override
-//    public List<RaceCard> getThreeNextAfterCurrentDate(Long racecourseId) {
-//        List<RaceCard> racecoursesAfterCurrentDate = getAllByRacecourseAfterCurrentDate(racecourseId);
-//        List<RaceCard> threeNextAfterCurrentDate = new ArrayList<>();
-//        if (racecoursesAfterCurrentDate.isEmpty()) {return threeNextAfterCurrentDate;}
-//        int size;
-//        if (racecoursesAfterCurrentDate.size() <= 3) {
-//            size = racecoursesAfterCurrentDate.size();
-//        } else {
-//            size = 3;
-//        }
-//        for (int i = 0; i < size; i++) {
-//            threeNextAfterCurrentDate.add(racecoursesAfterCurrentDate.get(i));
-//        }
-//        return threeNextAfterCurrentDate;
-//    }
-
     @Transactional
     @Override
     public Long save(RaceCard raceCard) {
@@ -101,25 +83,19 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
 
 
     @Override
-    public RaceCardWrapper getRaceCardWrapper(Long raceCardId) {
+    public RaceCardWrapper getAllDataForRaceCard(Long raceCardId) {
         RaceCard raceCard = get(raceCardId);
         Racecourse racecourse = racecourseService.get(raceCard.getRacecourseId());
         List<RaceDetail> raceDetails = raceDetailService.getAllByRaceCard(raceCardId);
         List<RaceDetailWrapper> raceDetailWrappers = new ArrayList<>();
         for (RaceDetail raceDetail : raceDetails) {
-            raceDetailWrappers.add(raceDetailService.getRaceDetailWrapper(raceDetail.getId()));
+            raceDetailWrappers.add(raceDetailService.getAllDataForRaceDetail(raceDetail.getId()));
         }
         RaceCardWrapper raceCardWrapper = new RaceCardWrapper();
         raceCardWrapper.setRaceCard(raceCard);
         raceCardWrapper.setRacecourse(racecourse);
         raceCardWrapper.setRaceDetailWrappers(raceDetailWrappers);
         return raceCardWrapper;
-    }
-
-
-    @Override
-    public RaceCardWrapper getAllDataForRaceCard(Long raceCardId) {
-        return getRaceCardWrapper(raceCardId);
     }
 
     @Override

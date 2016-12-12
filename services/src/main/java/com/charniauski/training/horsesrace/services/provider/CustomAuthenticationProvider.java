@@ -22,7 +22,7 @@ import java.util.Collection;
 @Service
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Inject
+//    @Inject
     AuthenticationMemcachedService authenticationCachingService;
 
     @Inject

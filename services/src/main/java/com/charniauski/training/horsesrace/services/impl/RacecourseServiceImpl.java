@@ -51,16 +51,23 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse, Long> imp
     }
 
     @Override
-    public RacecourseWrapper getRacecourseWithRaceCards(Long racecourseId) {
+    public RacecourseWrapper getAllDataForRacecourseWithRaceCardsAfterCurrentDate(Long racecourseId) {
         Racecourse racecourse=get(racecourseId);
-        //// TODO: 11.12.2016  getallByRacecourse
-        return null;
+        List<RaceCard> listRaceCards = raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId);
+        RacecourseWrapper racecourseWrapper=new RacecourseWrapper();
+        racecourseWrapper.setRacecourse(racecourse);
+        racecourseWrapper.setRaceCards(listRaceCards);
+        return racecourseWrapper;
     }
 
     @Override
-    public List<RacecourseWrapper> getAllRacecourseWithRaceCardsAfterCurrentDate(Long racecourseId) {
-        //// TODO: 11.12.2016
-        return null;
+    public List<RacecourseWrapper> getAllRacecourseWithRaceCardsAfterCurrentDate() {
+        List<Racecourse> list = getAllAfterCurrentDate();
+        List<RacecourseWrapper> racecourseWrappers=new ArrayList<>();
+        for (Racecourse racecourse:list){
+            racecourseWrappers.add(getAllDataForRacecourseWithRaceCardsAfterCurrentDate(racecourse.getId()));
+        }
+        return racecourseWrappers;
     }
 
 

@@ -179,15 +179,11 @@ public class RacecourseServiceTest {
 //    @Ignore
     @Test
     public void getRacecourseWrapperTest(){
-        RacecourseWrapper racecourseWrapper = racecourseService.getRacecourseWrapper(1L);
+        RacecourseWrapper racecourseWrapper = racecourseService.getAllDataForRacecourseWithRaceCardsAfterCurrentDate(1L);
         Racecourse racecourse=racecourseService.get(1L);
         List<RaceCard> raceCards=raceCardService.getAllByRacecourseAfterCurrentDate(1L);
-        List<RaceCardWrapper> raceCardWrappers=new ArrayList<>();
-        for (RaceCard raceCard:raceCards) {
-            raceCardWrappers.add(raceCardService.getRaceCardWrapper(raceCard.getId()));
-        }
         RacecourseWrapper racecourseWrapper1=new RacecourseWrapper();
-        racecourseWrapper1.setRaceCardWrappers(raceCardWrappers);
+        racecourseWrapper1.setRaceCards(raceCards);
         racecourseWrapper1.setRacecourse(racecourse);
         assertEquals(racecourseWrapper1,racecourseWrapper);
     }

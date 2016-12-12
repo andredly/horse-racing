@@ -36,6 +36,7 @@ public class RacecourseController extends AbstractController<Racecourse, Racecou
         return new ResponseEntity<>(converter.toDTO(racecourse), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/all/currentDate")
     public ResponseEntity<List<RacecourseDTO>> getAllAfterCurrentDate() {
         List<Racecourse> racecourses = racecourseService.getAllAfterCurrentDate();

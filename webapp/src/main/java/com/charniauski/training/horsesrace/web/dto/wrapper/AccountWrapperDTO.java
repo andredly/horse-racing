@@ -22,6 +22,14 @@ public class AccountWrapperDTO {
         this.bets = bets;
     }
 
+    public AccountDTO getAccount() {
+        return account;
+    }
+
+    public List<BetDTO> getBets() {
+        return bets;
+    }
+
     @Override
     public String toString() {
         return "AccountWrapperDTO{" +

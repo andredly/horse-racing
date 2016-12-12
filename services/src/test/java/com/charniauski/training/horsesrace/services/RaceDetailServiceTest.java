@@ -205,7 +205,7 @@ public class RaceDetailServiceTest {
 
     @Test
    public void getRaceDetailWrapperTest(){
-        RaceDetailWrapper raceDetailWrapper = raceDetailService.getRaceDetailWrapper(1L);
+        RaceDetailWrapper raceDetailWrapper = raceDetailService.getAllDataForRaceDetail(1L);
         RaceDetail raceDetail=raceDetailService.get(1L);
         Horse horse=horseService.get(raceDetail.getHorseId());
         Command command = commandService.get(raceDetail.getCommandId());

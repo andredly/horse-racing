@@ -41,13 +41,14 @@ public class EventController extends AbstractController<Event,EventDTO>{
         return new ResponseEntity<>(converter.toListDTO(all,language), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/search/all/raceDetail/{raceDetailId}")
     public ResponseEntity<List<EventDTO>> getAllByRaceDetail(@PathVariable Long raceDetailId) {
         List<Event> events = eventService.getAllByRaceDetail(raceDetailId);
         return new ResponseEntity<>(converter.toListDTO(events), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping(value = "/search/all/result/{resultEvent}")
     public ResponseEntity<List<EventDTO>> getAllByResultEvent(@PathVariable ResultEvent resultEvent) {
         List<Event> events = eventService.getAllByResultEvent(resultEvent);
@@ -62,7 +63,7 @@ public class EventController extends AbstractController<Event,EventDTO>{
     }
 
     @Override
-    public GenericConverter<Event,EventDTO> getConverter() {
+    public GenericConverter<Event,EventDTO > getConverter() {
         return converter;
     }
 

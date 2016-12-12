@@ -39,7 +39,7 @@ public class AccountWrapper {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AccountWrapper)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         AccountWrapper that = (AccountWrapper) o;
 
