@@ -1,6 +1,5 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
-import com.charniauski.training.horsesrace.datamodel.Horse;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class CommandDTO {

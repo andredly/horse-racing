@@ -82,9 +82,7 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     public List<AccountWrapper> getAllDataForAllAccount() {
         ArrayList<AccountWrapper> accountWrappers = new ArrayList<>();
         List<Account> accounts = getAll();
-        for (Account account : accounts) {
-            accountWrappers.add(getAllDataForAccount(account.getLogin()));
-        }
+        accounts.forEach(account -> accountWrappers.add(getAllDataForAccount(account.getLogin())));
         return accountWrappers;
     }
 

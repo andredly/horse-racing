@@ -38,7 +38,6 @@ public class RaceDetailDaoImpl extends AbstractDao<RaceDetail, Long> implements 
         String sql=String.format("SELECT * FROM race_card rc RIGHT JOIN race_detail ON" +
                 " rc.id = race_detail.race_card_id WHERE rc.id=%d;",raceCardId);
         List<RaceDetail> listEntity = getListEntity(sql, RaceDetail.class);
-        System.out.println("+++" +"+"+listEntity);
         return listEntity;
     }
 

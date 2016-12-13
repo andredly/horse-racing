@@ -73,11 +73,18 @@ public class RaceDetailController extends AbstractController<RaceDetail,RaceDeta
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/all-data/{raceDetailId}")
-    public ResponseEntity<RaceDetailWrapperDTO> getAllDataFromRaceDetail(
+    public ResponseEntity<RaceDetailWrapperDTO> getAllDataRaceDetail(
             @PathVariable Long raceDetailId) {
         RaceDetailWrapper raceDetailWrapper = raceDetailService.getAllDataForRaceDetail(raceDetailId);
         checkNull(raceDetailWrapper,raceDetailId);
         return new ResponseEntity<>(wrapperConverter.toDTO(raceDetailWrapper), HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
+    @GetMapping(value = "/all-data/race-card/{raceCardId}")
+    public ResponseEntity<List<RaceDetailWrapperDTO>> getAllDataAllRaceDetailsByRaceCard(@PathVariable Long raceCardId) {
+        List<RaceDetailWrapper> raceDetailWrappers = raceDetailService.getAllDataForRaceCardAllRaceDetail(raceCardId);
+        return new ResponseEntity<>(wrapperConverter.toListDTO(raceDetailWrappers), HttpStatus.OK);
     }
 
     @Override

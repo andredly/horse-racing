@@ -1,6 +1,7 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
+import com.charniauski.training.horsesrace.web.dto.*;
 import com.charniauski.training.horsesrace.web.serializer.JsonDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,14 +19,6 @@ public class BetDTO {
     @JsonSerialize(using = JsonDateSerializer.class)
     private Date dateBet;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotNull
-    private Long eventId;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotNull
-    private Long accountId;
-
     @NotNull
     @Min(0)
     private Double sum;
@@ -36,9 +29,9 @@ public class BetDTO {
 
     private Double calculate;
 
+    private EventDTO eventDTO;
 
-    public BetDTO() {
-    }
+    private AccountDTO accountDTO;
 
     public Long getId() {
         return id;
@@ -54,22 +47,6 @@ public class BetDTO {
 
     public void setDateBet(Date dateBet) {
         this.dateBet = dateBet;
-    }
-
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
-
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
     }
 
     public Double getSum() {
@@ -104,18 +81,19 @@ public class BetDTO {
         this.calculate = calculate;
     }
 
-    @Override
-    public String toString() {
-        return "Bet{" +
-                "id=" + id  +
-                ", dateBet=" + dateBet +
-                ", eventId=" + eventId +
-                ", accountId=" + accountId +
-                ", sum=" + sum +
-                ", coefficientBet=" + coefficientBet +
-                ", statusBet='" + statusBet + '\'' +
-                ", calculate=" + calculate +
-                '}';
+    public EventDTO getEventDTO() {
+        return eventDTO;
     }
 
+    public void setEventDTO(EventDTO eventDTO) {
+        this.eventDTO = eventDTO;
+    }
+
+    public AccountDTO getAccountDTO() {
+        return accountDTO;
+    }
+
+    public void setAccountDTO(AccountDTO accountDTO) {
+        this.accountDTO = accountDTO;
+    }
 }

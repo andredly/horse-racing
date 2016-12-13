@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
 import com.charniauski.training.horsesrace.web.anotation.I18n;
 import com.charniauski.training.horsesrace.web.anotation.Language;

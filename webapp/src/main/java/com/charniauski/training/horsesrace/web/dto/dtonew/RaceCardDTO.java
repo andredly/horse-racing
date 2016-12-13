@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
 import com.charniauski.training.horsesrace.web.serializer.JsonDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 public class RaceCardDTO {
 
@@ -26,12 +27,9 @@ public class RaceCardDTO {
     @NotBlank
     private String raceType;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotNull
-    private Long racecourseId;
+    private RacecourseDTO racecourseDTO;
 
-    public RaceCardDTO() {
-    }
+    private List<RaceDetailDTO> raceDetailDTOList;
 
     public Long getId() {
         return id;
@@ -65,24 +63,31 @@ public class RaceCardDTO {
         this.raceType = raceType;
     }
 
-    public Long getRacecourseId() {
-        return racecourseId;
+    public RacecourseDTO getRacecourseDTO() {
+        return racecourseDTO;
     }
 
-    public void setRacecourseId(Long racecourseId) {
-        this.racecourseId = racecourseId;
+    public void setRacecourseDTO(RacecourseDTO racecourseDTO) {
+        this.racecourseDTO = racecourseDTO;
     }
 
+    public List<RaceDetailDTO> getRaceDetailDTOList() {
+        return raceDetailDTOList;
+    }
+
+    public void setRaceDetailDTOList(List<RaceDetailDTO> raceDetailDTOList) {
+        this.raceDetailDTOList = raceDetailDTOList;
+    }
 
     @Override
     public String toString() {
-        return "RaceCard{" +
-                " id=" + id +
-                " dateStart=" + dateStart +
+        return "RaceCardDTO{" +
+                "id=" + id +
+                ", dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
                 ", raceType='" + raceType + '\'' +
-                ", racecourseId=" + racecourseId +
+                ", racecourseDTO=" + racecourseDTO +
+                ", raceDetailDTOList=" + raceDetailDTOList +
                 '}';
     }
-
 }

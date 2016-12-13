@@ -9,17 +9,12 @@ import java.util.List;
  */
 public class RaceDetailWrapperDTO {
     private RaceDetailDTO raceDetail;
-    private RaceCardDTO raceCard;
     private HorseDTO horse;
     private CommandDTO command;
     private List<EventDTO> events;
 
     public void setRaceDetail(RaceDetailDTO raceDetail) {
         this.raceDetail = raceDetail;
-    }
-
-    public void setRaceCard(RaceCardDTO raceCard) {
-        this.raceCard = raceCard;
     }
 
     public void setHorse(HorseDTO horse) {
@@ -39,10 +34,6 @@ public class RaceDetailWrapperDTO {
         return raceDetail;
     }
 
-    public RaceCardDTO getRaceCard() {
-        return raceCard;
-    }
-
     public HorseDTO getHorse() {
         return horse;
     }
@@ -59,7 +50,6 @@ public class RaceDetailWrapperDTO {
     public String toString() {
         return "RaceDetailWrapperDTO{" +
                 "raceDetail=" + raceDetail +
-                ", raceCard=" + raceCard +
                 ", horse=" + horse +
                 ", command=" + command +
                 ", events=" + events +

@@ -171,7 +171,6 @@ public class RaceCardServiceTest {
     public void getRaceCardWrapperTest(){
         RaceCardWrapper raceCardWrapper=new RaceCardWrapper();
         RaceCard raceCard=raceCardService.get(2L);
-        System.out.println(raceCard);
         raceCardWrapper.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
         raceCardWrapper.setRaceCard(raceCard);
         List<RaceDetail> raceDetails=raceDetailService.getAllByRaceCard(raceCard.getId());

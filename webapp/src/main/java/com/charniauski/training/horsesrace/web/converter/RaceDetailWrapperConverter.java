@@ -4,11 +4,14 @@ import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
+import com.charniauski.training.horsesrace.web.dto.EventDTO;
+import com.charniauski.training.horsesrace.web.dto.RaceDetailDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.AccountWrapperDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.RaceDetailWrapperDTO;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by ivc4 on 25.11.2016.
@@ -20,8 +23,6 @@ public class RaceDetailWrapperConverter implements GenericConverter<RaceDetailWr
     private HorseConverter horseConverter;
     @Inject
     private RaceDetailConverter raceDetailConverter;
-    @Inject
-    private RaceCardConverter raceCardConverter;
     @Inject
     private CommandConverter commandConverter;
     @Inject
@@ -41,10 +42,15 @@ public class RaceDetailWrapperConverter implements GenericConverter<RaceDetailWr
     public RaceDetailWrapperDTO toDTO(RaceDetailWrapper entity, String language) {
         RaceDetailWrapperDTO raceDetailWrapperDTO =new RaceDetailWrapperDTO();
         raceDetailWrapperDTO.setCommand(commandConverter.toDTO(entity.getCommand(),language));
-        raceDetailWrapperDTO.setEvents(eventConverter.toListDTO(entity.getEvents(),language));
+        List<EventDTO> eventDTOs = eventConverter.toListDTO(entity.getEvents(), language);
+        eventDTOs.forEach(eventDTO -> eventDTO.setRaceDetailId(null));
+        raceDetailWrapperDTO.setEvents(eventDTOs);
         raceDetailWrapperDTO.setHorse(horseConverter.toDTO(entity.getHorse(),language));
-        raceDetailWrapperDTO.setRaceCard(raceCardConverter.toDTO(entity.getRaceCard(),language));
-        raceDetailWrapperDTO.setRaceDetail(raceDetailConverter.toDTO(entity.getRaceDetail(),language));
+        RaceDetailDTO raceDetailDTO = raceDetailConverter.toDTO(entity.getRaceDetail(), language);
+        raceDetailDTO.setCommandId(null);
+        raceDetailDTO.setHorseId(null);
+        raceDetailDTO.setRaceCardId(null);
+        raceDetailWrapperDTO.setRaceDetail(raceDetailDTO);
         return raceDetailWrapperDTO;
     }
 }

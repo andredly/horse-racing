@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.web.serializer.JsonDateSerializer;
@@ -12,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ivc4 on 13.10.2016.
@@ -60,8 +61,7 @@ public class AccountDTO {
     @Size(min = 2, max = 256)
     private String address;
 
-    public AccountDTO() {
-    }
+    private List<BetDTO> dtoList;
 
     public Long getId() {
         return id;
@@ -95,7 +95,6 @@ public class AccountDTO {
         this.dateRegisterAccount = dateRegisterAccount;
     }
 
-
     public Status getStatus() {
         return status;
     }
@@ -120,11 +119,11 @@ public class AccountDTO {
         this.email = email;
     }
 
-    public Boolean getIsDelete() {
+    public Boolean getDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Boolean delete) {
+    public void setDelete(Boolean delete) {
         isDelete = delete;
     }
 
@@ -160,11 +159,19 @@ public class AccountDTO {
         this.address = address;
     }
 
+    public List<BetDTO> getDtoList() {
+        return dtoList;
+    }
+
+    public void setDtoList(List<BetDTO> dtoList) {
+        this.dtoList = dtoList;
+    }
+
     @Override
     public String toString() {
-        return "Account{" +
-                " id=" + id +
-                " login='" + login + '\'' +
+        return "AccountDTO{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", dateRegisterAccount=" + dateRegisterAccount +
                 ", status=" + status +
@@ -173,9 +180,9 @@ public class AccountDTO {
                 ", isDelete=" + isDelete +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", date=" + dateBirth +
+                ", dateBirth=" + dateBirth +
                 ", address='" + address + '\'' +
+                ", dtoList=" + dtoList +
                 '}';
     }
-
 }

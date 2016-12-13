@@ -20,8 +20,8 @@ import java.util.List;
 
 public abstract class AbstractController<T extends AbstractModel, D> {
 
-    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @SuppressWarnings("unchecked")
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping
     public ResponseEntity<List<D>> getAll(HttpServletRequest request) {
         String language = request.getHeader("Language");
@@ -29,8 +29,8 @@ public abstract class AbstractController<T extends AbstractModel, D> {
         return new ResponseEntity<>(getConverter().toListDTO(all,language), HttpStatus.OK);
     }
 
-    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @SuppressWarnings("unchecked")
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
     @GetMapping(value = "/{id}")
     public ResponseEntity<D> getById(
             @PathVariable Long id, HttpServletRequest request) {

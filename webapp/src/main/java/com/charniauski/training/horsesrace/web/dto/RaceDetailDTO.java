@@ -1,5 +1,7 @@
 package com.charniauski.training.horsesrace.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -7,12 +9,15 @@ public class RaceDetailDTO {
 
     private Long id;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotNull
     private Long raceCardId;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotNull
     private Long horseId;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotNull
     private Long commandId;
 
@@ -20,10 +25,8 @@ public class RaceDetailDTO {
     @Min(1)
     private Integer numberStartBox;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer horseResult;
-
-//    private List<Horse> horses;
-//    private RaceCard raceCard;
 
     public RaceDetailDTO() {
     }

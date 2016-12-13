@@ -2,11 +2,13 @@ package com.charniauski.training.horsesrace.web.converter;
 
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
+import com.charniauski.training.horsesrace.web.dto.RaceCardDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.RaceCardWrapperDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.RacecourseWrapperDTO;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by ivc4 on 25.11.2016.
@@ -36,7 +38,9 @@ public class RacecourseWrapperConverter implements GenericConverter<RacecourseWr
     public RacecourseWrapperDTO toDTO(RacecourseWrapper entity, String language) {
         RacecourseWrapperDTO racecourseWrapperDTO=new RacecourseWrapperDTO();
         racecourseWrapperDTO.setRacecourse(racecourseConverter.toDTO(entity.getRacecourse(),language));
-        racecourseWrapperDTO.setRaceCards(raceCardConverter.toListDTO(entity.getRaceCards(),language));
+        List<RaceCardDTO> raceCardDTOs = raceCardConverter.toListDTO(entity.getRaceCards(), language);
+        raceCardDTOs.forEach(raceCardDTO -> raceCardDTO.setRacecourseId(null));
+        racecourseWrapperDTO.setRaceCards(raceCardDTOs);
         return racecourseWrapperDTO;
     }
 }

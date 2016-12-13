@@ -1,5 +1,6 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
+import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.datamodel.enums.EventType;
 import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 import com.charniauski.training.horsesrace.web.serializer.JsonDateSerializer;
@@ -17,9 +18,7 @@ public class EventDTO {
 
     private Long id;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @NotNull
-    private Long raceDetailId;
+    private RaceDetailDTO raceDetailDTO;
 
     @NotNull
     private EventType eventType;
@@ -41,9 +40,6 @@ public class EventDTO {
     private ResultEvent resultEvent;
 
 
-    public EventDTO() {
-    }
-
     public Long getId() {
         return id;
     }
@@ -52,12 +48,12 @@ public class EventDTO {
         this.id = id;
     }
 
-    public Long getRaceDetailId() {
-        return raceDetailId;
+    public RaceDetailDTO getRaceDetailDTO() {
+        return raceDetailDTO;
     }
 
-    public void setRaceDetailId(Long raceDetailId) {
-        this.raceDetailId = raceDetailId;
+    public void setRaceDetailDTO(RaceDetailDTO raceDetailDTO) {
+        this.raceDetailDTO = raceDetailDTO;
     }
 
     public EventType getEventType() {
@@ -102,15 +98,14 @@ public class EventDTO {
 
     @Override
     public String toString() {
-        return "Event{" +
+        return "EventDTO{" +
                 "id=" + id +
-                ", raceDetailId=" + raceDetailId +
-                ", eventType='" + eventType + '\'' +
+                ", raceDetailDTO=" + raceDetailDTO +
+                ", eventType=" + eventType +
                 ", dateRegister=" + dateRegister +
                 ", coefficientEvent=" + coefficientEvent +
                 ", bookmaker='" + bookmaker + '\'' +
-                ", resultEvent='" + resultEvent + '\'' +
+                ", resultEvent=" + resultEvent +
                 '}';
     }
-
 }

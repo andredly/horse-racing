@@ -11,8 +11,6 @@ import java.util.List;
  * Created by Andre on 05.11.2016.
  */
 public class RaceCardWrapperDTO {
-
-    //// TODO: 12.12.2016 ???????
     private RaceCardDTO raceCard;
     private RacecourseDTO racecourse;
     private List<RaceDetailWrapperDTO> raceDetailWrappers;

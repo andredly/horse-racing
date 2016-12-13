@@ -130,7 +130,7 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/search/all-data/{login}")
+    @GetMapping(value = "/all-data/{login}")
     public ResponseEntity<AccountWrapperDTO> getAllDataByLogin(
             @PathVariable @NotBlank String login) {
         if (isNotAuthorization(login)) {
@@ -144,12 +144,10 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/all-data")
     public ResponseEntity<List<AccountWrapperDTO>> getAllDataForAllAccounts(HttpServletRequest request) {
         String language = request.getHeader("Language");
         List<AccountWrapper> all = accountService.getAllDataForAllAccount();
         return new ResponseEntity<>(wrapperConverter.toListDTO(all,language), HttpStatus.OK);
     }
-
-
 }

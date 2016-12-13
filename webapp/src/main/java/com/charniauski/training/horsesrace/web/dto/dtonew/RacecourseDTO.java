@@ -1,6 +1,8 @@
-package com.charniauski.training.horsesrace.web.dto;
+package com.charniauski.training.horsesrace.web.dto.dtonew;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import java.util.List;
 
 /**
  * Created by ivc4 on 19.10.2016.
@@ -15,7 +17,14 @@ public class RacecourseDTO {
     @NotBlank
     private String country;
 
-    public RacecourseDTO() {
+    private List<RaceCardDTO> raceCardDTOs;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,21 +43,21 @@ public class RacecourseDTO {
         this.country = country;
     }
 
-    public Long getId() {
-        return id;
+    public List<RaceCardDTO> getRaceCardDTOs() {
+        return raceCardDTOs;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRaceCardDTOs(List<RaceCardDTO> raceCardDTOs) {
+        this.raceCardDTOs = raceCardDTOs;
     }
 
     @Override
     public String toString() {
-        return "Racecourse{" +
+        return "RacecourseDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
+                ", raceCardDTOs=" + raceCardDTOs +
                 '}';
     }
-
 }

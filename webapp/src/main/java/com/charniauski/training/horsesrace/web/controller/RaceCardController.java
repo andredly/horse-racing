@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/race-cards")
-public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>{
+public class RaceCardController extends AbstractController<RaceCard, RaceCardDTO> {
 
     @Inject
     private RaceCardService raceCardService;
@@ -44,16 +44,24 @@ public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>
         return new ResponseEntity<>(converter.toListDTO(raceCards), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/all/{racecourseId}/current-date/three/all-data")
-    public ResponseEntity<List<RaceCardWrapperDTO>> getAllDataThreeNextAfterCurrentDate(@PathVariable Long racecourseId) {
+    @GetMapping(value = "/all-data/{racecourseId}/current-date/three")
+    public ResponseEntity<List<RaceCardWrapperDTO>> getAllDataThreeNextRaceCardsAfterCurrentDate(@PathVariable Long racecourseId) {
         List<RaceCardWrapper> raceCards = raceCardService.getAllDataForTreeRaceCardAfterCurrentDate(racecourseId);
         return new ResponseEntity<>(wrapperConverter.toListDTO(raceCards), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/search/all/{racecourseId}/current-date/all-data")
-    public ResponseEntity<List<RaceCardWrapperDTO>> getAllDataAfterCurrentDate(@PathVariable Long racecourseId) {
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
+    @GetMapping(value = "/all-data/{racecourseId}/current-date")
+    public ResponseEntity<List<RaceCardWrapperDTO>> getAllDataRaceCardsAfterCurrentDate(@PathVariable Long racecourseId) {
         List<RaceCardWrapper> raceCards = raceCardService.getAllDataForAllRaceCardAfterCurrentDate(racecourseId);
         return new ResponseEntity<>(wrapperConverter.toListDTO(raceCards), HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
+    @GetMapping(value = "/all-data/race-card/{raceCardId}")
+    public ResponseEntity<RaceCardWrapperDTO> getAllDataRaceCard(@PathVariable Long raceCardId) {
+        RaceCardWrapper raceCardWrapper = raceCardService.getAllDataForRaceCard(raceCardId);
+        return new ResponseEntity<>(wrapperConverter.toDTO(raceCardWrapper), HttpStatus.OK);
     }
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
@@ -61,12 +69,12 @@ public class RaceCardController extends AbstractController<RaceCard,RaceCardDTO>
     public ResponseEntity<Date> getByEventId(
             @PathVariable Long eventId) {
         Date date = raceCardService.getDateStartByEvent(eventId);
-        checkNull(date,eventId);
+        checkNull(date, eventId);
         return new ResponseEntity<>(date, HttpStatus.OK);
     }
 
     @Override
-    public GenericConverter<RaceCard,RaceCardDTO> getConverter() {
+    public GenericConverter<RaceCard, RaceCardDTO> getConverter() {
         return converter;
     }
 

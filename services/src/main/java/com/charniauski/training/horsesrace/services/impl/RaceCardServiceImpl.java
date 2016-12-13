@@ -88,9 +88,7 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         Racecourse racecourse = racecourseService.get(raceCard.getRacecourseId());
         List<RaceDetail> raceDetails = raceDetailService.getAllByRaceCard(raceCardId);
         List<RaceDetailWrapper> raceDetailWrappers = new ArrayList<>();
-        for (RaceDetail raceDetail : raceDetails) {
-            raceDetailWrappers.add(raceDetailService.getAllDataForRaceDetail(raceDetail.getId()));
-        }
+        raceDetails.forEach(rd -> raceDetailWrappers.add(raceDetailService.getAllDataForRaceDetail(rd.getId())));
         RaceCardWrapper raceCardWrapper = new RaceCardWrapper();
         raceCardWrapper.setRaceCard(raceCard);
         raceCardWrapper.setRacecourse(racecourse);
@@ -101,10 +99,8 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
     @Override
     public List<RaceCardWrapper> getAllDataForAllRaceCardAfterCurrentDate(Long racecourseId) {
         List<RaceCard> list = getAllByRacecourseAfterCurrentDate(racecourseId);
-        List<RaceCardWrapper> raceCardWrapperList=new ArrayList<>();
-        for (RaceCard raceCard:list){
-            raceCardWrapperList.add(getAllDataForRaceCard(raceCard.getId()));
-        }
+        List<RaceCardWrapper> raceCardWrapperList = new ArrayList<>();
+        list.forEach(rc -> raceCardWrapperList.add(getAllDataForRaceCard(rc.getId())));
         return raceCardWrapperList;
     }
 
@@ -112,7 +108,9 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
     public List<RaceCardWrapper> getAllDataForTreeRaceCardAfterCurrentDate(Long racecourseId) {
         List<RaceCardWrapper> list = getAllDataForAllRaceCardAfterCurrentDate(racecourseId);
         List<RaceCardWrapper> threeNextAfterCurrentDate = new ArrayList<>();
-        if (list.isEmpty()) {return threeNextAfterCurrentDate;}
+        if (list.isEmpty()) {
+            return threeNextAfterCurrentDate;
+        }
         int size;
         if (list.size() <= 3) {
             size = list.size();

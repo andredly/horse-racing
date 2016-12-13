@@ -1,10 +1,12 @@
 package com.charniauski.training.horsesrace.web.converter;
 
 import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
+import com.charniauski.training.horsesrace.web.dto.BetDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.AccountWrapperDTO;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by ivc4 on 25.11.2016.
@@ -32,7 +34,9 @@ public class AccountWrapperConverter implements GenericConverter<AccountWrapper,
     public AccountWrapperDTO toDTO(AccountWrapper entity, String language) {
         AccountWrapperDTO accountWrapperDTO = new AccountWrapperDTO();
         accountWrapperDTO.setAccount(accountConverter.toDTO(entity.getAccount(), language));
-        accountWrapperDTO.setBets(betConverter.toListDTO(entity.getBets(), language));
+        List<BetDTO> betDTOs = betConverter.toListDTO(entity.getBets(), language);
+        betDTOs.forEach(betDTO -> betDTO.setAccountId(null));
+        accountWrapperDTO.setBets(betDTOs);
         return accountWrapperDTO;
     }
 }

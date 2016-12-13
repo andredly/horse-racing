@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,14 +74,20 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
         Horse horse = horseService.get(raceDetail.getHorseId());
         Command command = commandService.get(raceDetail.getCommandId());
         List<Event> events = eventService.getAllByRaceDetail(raceDetailId);
-        RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
         RaceDetailWrapper raceDetailWrapper = new RaceDetailWrapper();
-        raceDetailWrapper.setRaceCard(raceCard);
         raceDetailWrapper.setHorse(horse);
         raceDetailWrapper.setCommand(command);
         raceDetailWrapper.setEvents(events);
         raceDetailWrapper.setRaceDetail(raceDetail);
         return raceDetailWrapper;
+    }
+
+    @Override
+    public List<RaceDetailWrapper> getAllDataForRaceCardAllRaceDetail(Long raceCardId) {
+        List<RaceDetail> list = getAllByRaceCard(raceCardId);
+        List<RaceDetailWrapper> raceDetailWrappers = new ArrayList<>();
+        list.forEach(rd -> raceDetailWrappers.add(getAllDataForRaceDetail(rd.getId())));
+        return raceDetailWrappers;
     }
 
     @Transactional

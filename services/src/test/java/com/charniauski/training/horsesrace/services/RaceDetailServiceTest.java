@@ -161,9 +161,7 @@ public class RaceDetailServiceTest {
         testRaceDetail.setCommandId(4L);
         testRaceDetail.setNumberStartBox(10);
         Long id = raceDetailService.save(testRaceDetail);
-        System.out.println(id);
         RaceDetail raceDetail1 = raceDetailService.getByRaceCardAndHorse(2L, 4L);
-        System.out.println(raceDetail1.getId());
         RaceDetail raceDetail = raceDetailService.get(id);
         assertEquals(raceDetail, raceDetail1);
         raceDetailService.delete(raceDetail.getId());
@@ -215,7 +213,6 @@ public class RaceDetailServiceTest {
         raceDetailWrapper1.setCommand(command);
         raceDetailWrapper1.setEvents(allByRaceDetail);
         raceDetailWrapper1.setHorse(horse);
-        raceDetailWrapper1.setRaceCard(raceCard);
         raceDetailWrapper1.setRaceDetail(raceDetail);
         assertEquals(raceDetailWrapper1,raceDetailWrapper);
     }
