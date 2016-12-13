@@ -14,6 +14,4 @@
 
 	<bean id="xstream" class="com.thoughtworks.xstream.XStream"/>
 
-	<bean id="transactionManager" class="com.charniauski.training.horsesrace.services.transactionmanagerfake.TransactionManager"/>
-
 </beans>

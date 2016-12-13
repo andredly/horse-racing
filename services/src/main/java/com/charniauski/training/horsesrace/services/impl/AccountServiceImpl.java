@@ -3,12 +3,10 @@ package com.charniauski.training.horsesrace.services.impl;
 import com.charniauski.training.horsesrace.daoapi.AccountDao;
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
-import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.cacherequest.Cached;
-import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,11 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 
 /**
@@ -66,24 +61,6 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     @Override
     public List<Account> getAllByStatus(Status status) {
         return accountDao.getAllByStatus(status);
-    }
-
-    @Override
-    public AccountWrapper getAllDataForAccount(String login) {
-        Account account = getByLogin(login);
-        List<Bet> bets = betService.getAllByLogin(account.getLogin());
-        AccountWrapper accountWrapper = new AccountWrapper();
-        accountWrapper.setAccount(account);
-        accountWrapper.setBets(bets);
-        return accountWrapper;
-    }
-
-    @Override
-    public List<AccountWrapper> getAllDataForAllAccount() {
-        ArrayList<AccountWrapper> accountWrappers = new ArrayList<>();
-        List<Account> accounts = getAll();
-        accounts.forEach(account -> accountWrappers.add(getAllDataForAccount(account.getLogin())));
-        return accountWrappers;
     }
 
     @Transactional

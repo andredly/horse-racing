@@ -1,7 +1,9 @@
 package com.charniauski.training.horsesrace.services;
 
-import com.charniauski.training.horsesrace.datamodel.*;
-import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
+import com.charniauski.training.horsesrace.datamodel.Command;
+import com.charniauski.training.horsesrace.datamodel.Event;
+import com.charniauski.training.horsesrace.datamodel.Horse;
+import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import org.junit.*;
@@ -39,15 +41,13 @@ public class RaceDetailServiceTest {
     @Inject
     private CommandService commandService;
     @Inject
-    private RaceCardService raceCardService;
-    @Inject
     private EventService eventService;
 
     private RaceDetail testRaceDetail;
     private Long testRaceDetailId;
 
     @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
+    public static void getBaseCreator(BaseCreator baseCreator) {
 //        baseCreator.createRelationDB();
     }
 
@@ -93,10 +93,10 @@ public class RaceDetailServiceTest {
     @Test
     public void saveInsertTest() {
         Long id = null;
-            testRaceDetail.setHorseId(3L);
-            testRaceDetail.setNumberStartBox(12);
-            testRaceDetail.setCommandId(3L);
-            id = raceDetailService.save(testRaceDetail);
+        testRaceDetail.setHorseId(3L);
+        testRaceDetail.setNumberStartBox(12);
+        testRaceDetail.setCommandId(3L);
+        id = raceDetailService.save(testRaceDetail);
         RaceDetail raceDetail = raceDetailService.get(id);
         assertNotNull(raceDetail);
         testRaceDetail.setId(id);
@@ -108,7 +108,7 @@ public class RaceDetailServiceTest {
     public void saveUpdateTest() {
         assertNotNull(testRaceDetailId);
         testRaceDetail.setId(testRaceDetailId);
-            raceDetailService.save(testRaceDetail);
+        raceDetailService.save(testRaceDetail);
         RaceDetail raceDetail = raceDetailService.get(testRaceDetailId);
         assertEquals(testRaceDetail, raceDetail);
     }
@@ -202,19 +202,18 @@ public class RaceDetailServiceTest {
 
 
     @Test
-   public void getRaceDetailWrapperTest(){
+    public void getRaceDetailWrapperTest() {
         RaceDetailWrapper raceDetailWrapper = raceDetailService.getAllDataForRaceDetail(1L);
-        RaceDetail raceDetail=raceDetailService.get(1L);
-        Horse horse=horseService.get(raceDetail.getHorseId());
+        RaceDetail raceDetail = raceDetailService.get(1L);
+        Horse horse = horseService.get(raceDetail.getHorseId());
         Command command = commandService.get(raceDetail.getCommandId());
         List<Event> allByRaceDetail = eventService.getAllByRaceDetail(1L);
-        RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
-        RaceDetailWrapper raceDetailWrapper1=new RaceDetailWrapper();
+        RaceDetailWrapper raceDetailWrapper1 = new RaceDetailWrapper();
         raceDetailWrapper1.setCommand(command);
         raceDetailWrapper1.setEvents(allByRaceDetail);
         raceDetailWrapper1.setHorse(horse);
         raceDetailWrapper1.setRaceDetail(raceDetail);
-        assertEquals(raceDetailWrapper1,raceDetailWrapper);
+        assertEquals(raceDetailWrapper1, raceDetailWrapper);
     }
 
 }

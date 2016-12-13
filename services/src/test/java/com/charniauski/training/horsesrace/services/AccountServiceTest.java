@@ -5,7 +5,6 @@ import com.charniauski.training.horsesrace.daoapi.AccountDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
-import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -208,17 +207,6 @@ public class AccountServiceTest {
         List<Account> allAccountsByStatus = accountService.getAllByStatus(Status.ROLE_USER);
         assertEquals(2, allAccountsByStatus.size());
         allAccountsByStatus.forEach(account -> assertEquals(Status.ROLE_USER, account.getStatus()));
-    }
-
-
-    @Test
-    public void getAccountWrapperTest() {
-        AccountWrapper accountWrapper = new AccountWrapper();
-        Account account1 = accountService.get(1L);
-        accountWrapper.setAccount(account1);
-        accountWrapper.setBets(betService.getAllByLogin(account1.getLogin()));
-        AccountWrapper accountWrapper1 = accountService.getAllDataForAccount("log");
-        assertEquals(accountWrapper, accountWrapper1);
     }
 
 

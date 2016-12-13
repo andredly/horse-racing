@@ -1,12 +1,12 @@
 package com.charniauski.training.horsesrace.services;
 
 
-import com.charniauski.training.horsesrace.datamodel.Account;
-import com.charniauski.training.horsesrace.datamodel.Bet;
-import com.charniauski.training.horsesrace.datamodel.Event;
+import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
+import com.charniauski.training.horsesrace.services.wrapper.BetWrapper;
+import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -37,7 +37,19 @@ public class BetServiceTest {
     private BetService betService;
 
     @Inject
+    private HorseService horseService;
+
+    @Inject
+    private RaceCardService raceCardService;
+
+    @Inject
+    private RaceDetailService raceDetailService;
+
+    @Inject
     private AccountService accountService;
+
+    @Inject
+    private RacecourseService racecourseService;
 
     @Inject
     private BaseCreator baseCreator;
@@ -96,7 +108,7 @@ public class BetServiceTest {
 
     @Test
     public void saveInsertTest() {
-        testBet.setEventId(1L);
+        testBet.setEventId(2L);
         testBet.setCoefficientBet(1.0);
         testBet.setStatusBet(StatusBet.ACTIVE);
         testBet.setAccountId(2L);
@@ -108,36 +120,18 @@ public class BetServiceTest {
         testBet.setId(id);
         assertEquals(testBet, bet);
         bet.setId(id);
-//        betService.delete(bet);
+        betService.delete(bet.getId());
     }
 
-//    @Test(expected = DateTimeException.class)
-//    public void saveInsertTrowDateTimeExceptionTest() {
-//        Long id = null;
-//        if (testBet.getId() == null) {
-//            testBet.setEventId(1L);
-//            testBet.setCoefficientBet(1.0);
-//            testBet.setStatusBet(StatusBet.ACTIVE);
-//            testBet.setAccountId(2L);
-//            testBet.setSum(20.0);
-//            id = betDao.insert(testBet);
-//        } else {
-//        }
-//        Bet bet = betDao.get(id);
-//        assertNotNull(bet);
-//        testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
-//        testBet.setId(id);
-//        assertEquals(testBet, bet);
-//        betDao.delete(id);
-//
-//    }
 
     @Test
     public void saveUpdateTest() {
         assertNotNull(testBetId);
-        testBet.setId(testBetId);
+        testBet.setId(3L);
+        testBet.setAccountId(2L);
+        betService.get(testBetId);
         betService.save(testBet);
-        Bet bet = betService.get(testBetId);
+        Bet bet = betService.get(3L);
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         assertEquals(testBet, bet);
     }
@@ -174,15 +168,14 @@ public class BetServiceTest {
         betService.saveAll(arrayList);
         Bet bet = betService.get(6L);
         Bet bet2 = betService.get(7L);
-        List<Bet> all = betService.getAll();
         testBet.setId(bet.getId());
         testBet2.setId(bet2.getId());
         testBet.setDateBet(new Date(testBet.getDateBet().getTime()));
         testBet2.setDateBet(new Date(testBet2.getDateBet().getTime()));
         assertEquals(testBet, bet);
         assertEquals(testBet2, bet2);
-//        betService.delete(bet);
-//        betService.delete(bet2);
+//        betService.delete(bet.getId());
+//        betService.delete(bet2.getId());
     }
 
     @Test
@@ -231,4 +224,21 @@ public class BetServiceTest {
         betService.delete(bet1.getId());
     }
 
+    @Test
+    public void getBetWrapperTest() {
+        BetWrapper betWrapper = betService.getAllDataForBet(1L);
+        Bet bet = betService.get(1L);
+        BetWrapper betWrapper1 = new BetWrapper();
+        betWrapper1.setBet(bet);
+        Event event = eventService.get(bet.getEventId());
+        betWrapper1.setEvent(event);
+        RaceDetail raceDetail = raceDetailService.get(event.getRaceDetailId());
+        betWrapper1.setRaceDetail(raceDetail);
+        RaceCard raceCard = raceCardService.get(raceDetail.getRaceCardId());
+        betWrapper1.setRaceCard(raceCard);
+        betWrapper1.setHorse(horseService.get(raceDetail.getHorseId()));
+        betWrapper1.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
+        assertNotNull(betWrapper);
+        assertEquals(betWrapper, betWrapper1);
+    }
 }

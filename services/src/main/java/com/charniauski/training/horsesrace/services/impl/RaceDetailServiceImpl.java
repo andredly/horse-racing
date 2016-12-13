@@ -71,13 +71,10 @@ public class RaceDetailServiceImpl extends AbstractService<RaceDetail, Long> imp
     @Override
     public RaceDetailWrapper getAllDataForRaceDetail(Long raceDetailId) {
         RaceDetail raceDetail = get(raceDetailId);
-        Horse horse = horseService.get(raceDetail.getHorseId());
-        Command command = commandService.get(raceDetail.getCommandId());
-        List<Event> events = eventService.getAllByRaceDetail(raceDetailId);
         RaceDetailWrapper raceDetailWrapper = new RaceDetailWrapper();
-        raceDetailWrapper.setHorse(horse);
-        raceDetailWrapper.setCommand(command);
-        raceDetailWrapper.setEvents(events);
+        raceDetailWrapper.setHorse(horseService.get(raceDetail.getHorseId()));
+        raceDetailWrapper.setCommand(commandService.get(raceDetail.getCommandId()));
+        raceDetailWrapper.setEvents(eventService.getAllByRaceDetail(raceDetailId));
         raceDetailWrapper.setRaceDetail(raceDetail);
         return raceDetailWrapper;
     }

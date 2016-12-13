@@ -85,13 +85,12 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
     @Override
     public RaceCardWrapper getAllDataForRaceCard(Long raceCardId) {
         RaceCard raceCard = get(raceCardId);
-        Racecourse racecourse = racecourseService.get(raceCard.getRacecourseId());
+        RaceCardWrapper raceCardWrapper = new RaceCardWrapper();
+        raceCardWrapper.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
         List<RaceDetail> raceDetails = raceDetailService.getAllByRaceCard(raceCardId);
         List<RaceDetailWrapper> raceDetailWrappers = new ArrayList<>();
         raceDetails.forEach(rd -> raceDetailWrappers.add(raceDetailService.getAllDataForRaceDetail(rd.getId())));
-        RaceCardWrapper raceCardWrapper = new RaceCardWrapper();
         raceCardWrapper.setRaceCard(raceCard);
-        raceCardWrapper.setRacecourse(racecourse);
         raceCardWrapper.setRaceDetailWrappers(raceDetailWrappers);
         return raceCardWrapper;
     }

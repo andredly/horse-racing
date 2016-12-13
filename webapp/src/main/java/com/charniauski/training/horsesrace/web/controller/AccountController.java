@@ -4,12 +4,9 @@ import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.GenericService;
-import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import com.charniauski.training.horsesrace.web.converter.AccountConverter;
-import com.charniauski.training.horsesrace.web.converter.AccountWrapperConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.AccountDTO;
-import com.charniauski.training.horsesrace.web.dto.wrapper.AccountWrapperDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +32,6 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
     @Inject
     private AccountConverter converter;
 
-    @Inject
-    private AccountWrapperConverter wrapperConverter;
 
     @Override
     public GenericConverter<Account, AccountDTO> getConverter() {
@@ -129,25 +124,5 @@ public class AccountController extends AbstractController<Account, AccountDTO> {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/all-data/{login}")
-    public ResponseEntity<AccountWrapperDTO> getAllDataByLogin(
-            @PathVariable @NotBlank String login) {
-        if (isNotAuthorization(login)) {
-            throw new AuthorizationServiceException("Access is denied");
-        }
-        Account account = accountService.getByLogin(login);
-        checkNull(account, login);
-        AccountWrapper accountWrapper=accountService.getAllDataForAccount(login);
-        checkNull(accountWrapper.getAccount(), login);
-        return new ResponseEntity<>(wrapperConverter.toDTO(accountWrapper), HttpStatus.OK);
-    }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
-    @GetMapping(value = "/all-data")
-    public ResponseEntity<List<AccountWrapperDTO>> getAllDataForAllAccounts(HttpServletRequest request) {
-        String language = request.getHeader("Language");
-        List<AccountWrapper> all = accountService.getAllDataForAllAccount();
-        return new ResponseEntity<>(wrapperConverter.toListDTO(all,language), HttpStatus.OK);
-    }
 }

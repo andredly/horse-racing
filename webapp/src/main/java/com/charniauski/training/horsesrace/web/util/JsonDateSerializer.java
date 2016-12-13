@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.web.serializer;
+package com.charniauski.training.horsesrace.web.util;
 
 import java.io.IOException;
 

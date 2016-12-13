@@ -2,6 +2,7 @@ package com.charniauski.training.horsesrace.services;
 
 import com.charniauski.training.horsesrace.datamodel.Bet;
 import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
+import com.charniauski.training.horsesrace.services.wrapper.BetWrapper;
 
 import java.util.List;
 
@@ -18,4 +19,7 @@ public interface BetService extends GenericService<Bet,Long> {
 
     Bet getByAccountAndEvent(String login, Long eventId);
 
+    BetWrapper getAllDataForBet(Long id);
+
+    List<BetWrapper> getAllDataByLogin(String login);
 }

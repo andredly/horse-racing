@@ -2,7 +2,7 @@ package com.charniauski.training.horsesrace.web.dto;
 
 import com.charniauski.training.horsesrace.datamodel.enums.EventType;
 import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
-import com.charniauski.training.horsesrace.web.serializer.JsonDateSerializer;
+import com.charniauski.training.horsesrace.web.util.JsonDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -30,6 +30,7 @@ public class EventDTO {
     @JsonSerialize(using = JsonDateSerializer.class)
     private Date dateRegister;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotNull
     @Min(0)
     private Double coefficientEvent;

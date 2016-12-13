@@ -1,6 +1,6 @@
 package com.charniauski.training.horsesrace.web.dto;
 
-import com.charniauski.training.horsesrace.web.serializer.JsonDateSerializer;
+import com.charniauski.training.horsesrace.web.util.JsonDateSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

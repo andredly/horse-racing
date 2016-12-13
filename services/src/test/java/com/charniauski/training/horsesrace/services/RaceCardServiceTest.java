@@ -100,9 +100,9 @@ public class RaceCardServiceTest {
     @Test
     public void saveUpdateTest() {
         assertNotNull(testRaceCardId);
-        testRaceCard.setId(testRaceCardId);
+        testRaceCard.setId(3L);
         raceCardService.save(testRaceCard);
-        RaceCard raceCard = raceCardService.get(testRaceCardId);
+        RaceCard raceCard = raceCardService.get(3L);
         testRaceCard.setDateStart(new Date(testRaceCard.getDateStart().getTime()));
         assertEquals(testRaceCard, raceCard);
     }

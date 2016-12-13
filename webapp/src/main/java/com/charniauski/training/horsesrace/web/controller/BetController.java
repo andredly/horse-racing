@@ -6,9 +6,12 @@ import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.GenericService;
+import com.charniauski.training.horsesrace.services.wrapper.BetWrapper;
 import com.charniauski.training.horsesrace.web.converter.BetConverter;
+import com.charniauski.training.horsesrace.web.converter.BetWrapperConverter;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import com.charniauski.training.horsesrace.web.dto.BetDTO;
+import com.charniauski.training.horsesrace.web.dto.wrapper.BetWrapperDTO;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +39,9 @@ public class BetController extends AbstractController<Bet, BetDTO> {
 
     @Inject
     private AccountService accountService;
+
+    @Inject
+    private BetWrapperConverter wrapperConverter;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BOOKMAKER')")
     @GetMapping
@@ -102,6 +108,35 @@ public class BetController extends AbstractController<Bet, BetDTO> {
         Bet bet = betService.getByAccountAndEvent(login, eventId);
         checkNull(bet, login, eventId);
         return new ResponseEntity<>(converter.toDTO(bet), HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "/all-data/{id}")
+    public ResponseEntity<BetWrapperDTO> getAllDataById(
+            @PathVariable @NotBlank Long id, HttpServletRequest request) {
+        String language = request.getHeader("Language");
+        Bet bet = betService.get(id);
+        checkNull(bet, id);
+        Account account = accountService.get(bet.getAccountId());
+        checkNull(account, id);
+        if (isNotAuthorization(account.getLogin())) {
+            throw new AuthorizationServiceException("Access is denied");
+        }
+        BetWrapper betWrapper=betService.getAllDataForBet(id);
+        checkNull(betWrapper, id);
+        return new ResponseEntity<>(wrapperConverter.toDTO(betWrapper,language), HttpStatus.OK);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "/all-data/all/{login}")
+    public ResponseEntity<List<BetWrapperDTO>> getAllDataByLogin(
+            @PathVariable @NotBlank String login,  HttpServletRequest request) {
+        String language = request.getHeader("Language");
+        if (isNotAuthorization(login)) {
+            throw new AuthorizationServiceException("Access is denied");
+        }
+        List<BetWrapper> all = betService.getAllDataByLogin(login);
+        return new ResponseEntity<>(wrapperConverter.toListDTO(all,language), HttpStatus.OK);
     }
 
     @Override

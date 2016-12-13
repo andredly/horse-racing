@@ -30,9 +30,9 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
     @Inject
     private EventDao eventDao;
 
+
     @Inject
     private RaceDetailService raceDetailService;
-
 
     @Override
     public GenericDao<Event, Long> getGenericDao() {
@@ -81,5 +81,6 @@ public class EventServiceImpl extends AbstractService<Event,Long> implements Eve
     public List<Event> getAllByResultEventAndRaceDetail(ResultEvent resultEvent, Long raceDetail) {
         return eventDao.getAllByResultEventAndRaceDetail(resultEvent,raceDetail);
     }
+
 
 }
