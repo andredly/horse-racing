@@ -1,7 +1,7 @@
 package com.charniauski.training.horsesrace.web.corrector_dto;
 
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
-import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
+import com.charniauski.training.horsesrace.web.security.SecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

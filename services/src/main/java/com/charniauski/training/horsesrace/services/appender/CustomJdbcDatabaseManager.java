@@ -183,6 +183,7 @@ public class CustomJdbcDatabaseManager extends AbstractDatabaseManager {
 
         protected FactoryData(final int bufferSize, final ConnectionSource connectionSource, final String tableName,
                               final ColumnConfig[] columnConfigs) {
+//            super(bufferSize);
             super(bufferSize);
             this.connectionSource = connectionSource;
             this.tableName = tableName;

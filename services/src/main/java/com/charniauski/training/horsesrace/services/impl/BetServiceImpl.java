@@ -123,6 +123,7 @@ public class BetServiceImpl extends AbstractService<Bet, Long> implements BetSer
     @Override
     public BetWrapper getAllDataForBet(Long id) {
         Bet bet = get(id);
+        if (bet==null){throw new NoSuchEntityException("Bet not found");}
         BetWrapper betWrapper = new BetWrapper();
         betWrapper.setBet(bet);
         Event event = eventService.get(bet.getEventId());

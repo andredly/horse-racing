@@ -7,6 +7,7 @@ import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.cacherequest.Cached;
+import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
 import org.slf4j.Logger;
@@ -53,8 +54,10 @@ public class RacecourseServiceImpl extends AbstractService<Racecourse, Long> imp
     @Override
     public RacecourseWrapper getAllDataForRacecourseWithRaceCardsAfterCurrentDate(Long racecourseId) {
         RacecourseWrapper racecourseWrapper = new RacecourseWrapper();
+        Racecourse racecourse = get(racecourseId);
+        if (racecourse==null){throw new NoSuchEntityException("Racecourse not found");}
         racecourseWrapper.setRaceCards(raceCardService.getAllByRacecourseAfterCurrentDate(racecourseId));
-        racecourseWrapper.setRacecourse(get(racecourseId));
+        racecourseWrapper.setRacecourse(racecourse);
         return racecourseWrapper;
     }
 

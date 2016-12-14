@@ -85,6 +85,7 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
     @Override
     public RaceCardWrapper getAllDataForRaceCard(Long raceCardId) {
         RaceCard raceCard = get(raceCardId);
+        if (raceCard==null){throw new NoSuchEntityException("RaceCard not found");}
         RaceCardWrapper raceCardWrapper = new RaceCardWrapper();
         raceCardWrapper.setRacecourse(racecourseService.get(raceCard.getRacecourseId()));
         List<RaceDetail> raceDetails = raceDetailService.getAllByRaceCard(raceCardId);

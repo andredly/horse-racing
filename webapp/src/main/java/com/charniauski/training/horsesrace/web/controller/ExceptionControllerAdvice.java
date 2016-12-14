@@ -53,6 +53,16 @@ public class ExceptionControllerAdvice {
     }
 
 
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorMessage handleException(NullPointerException ex) {
+        LOGGER.error(ex.getMessage(), ex);
+        return new ErrorMessage(ex.getMessage());
+    }
+
+
+
     @ExceptionHandler(NoSuchEntityException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody

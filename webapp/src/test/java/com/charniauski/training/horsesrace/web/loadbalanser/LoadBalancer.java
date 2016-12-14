@@ -1,14 +1,9 @@
 package com.charniauski.training.horsesrace.web.loadbalanser;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.net.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 class LoadBalancer {
 
@@ -19,7 +14,7 @@ class LoadBalancer {
     public static void main(String args[]) throws IOException {
 
         int localPort = 8081;
-        List<RemoteServer> remoteServers = new ArrayList<>();
+        final List<RemoteServer> remoteServers = new ArrayList<>();
         remoteServers.add(new RemoteServer("localhost", 8080));
         remoteServers.add(new RemoteServer("localhost", 8082));
 //        remoteServers.add(new RemoteServer("localhost", 8083));
@@ -27,22 +22,43 @@ class LoadBalancer {
 
         try (ServerSocket serverSocket = new ServerSocket(localPort)) {
             System.out.println("STARTED LOAD BALANSE SERVER ON " + "localhost" + " PORT " + localPort);
-            for (RemoteServer remoteServer : remoteServers) {
-                System.out.println("--> FOR SERVER " + remoteServer.getHost() + " PORT " + remoteServer.getPort());
+            Iterator<RemoteServer> iterator = remoteServers.iterator();
+            while (iterator.hasNext()){
+                RemoteServer next = iterator.next();
+                try {
+                    URL url = new URL("http://" + next.getHost() + ":" + next.getPort());
+                    url.openConnection().connect();
+                    System.out.println("-->CONNECT FOR SERVER " + next.getHost() + " PORT " + next.getPort());
+                } catch (Exception e) {
+                    System.out.println("NO CONNECT FOR SERVER " + next.getHost() + " PORT " + next.getPort());
+                    iterator.remove();
+                }
             }
 
             while (flag) {
                 Socket in = serverSocket.accept();
-                severPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
-                if (numberServer < remoteServers.size() - 1) {
+                Future future = severPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
+                try {
+                    future.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    numberServer = getNumberServer(remoteServers, numberServer);
+                    severPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
                     numberServer++;
-                } else {
-                    numberServer = 0;
                 }
+                numberServer = getNumberServer(remoteServers, numberServer);
             }
         } catch (final IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int getNumberServer(List<RemoteServer> remoteServers, int numberServer) {
+        if (numberServer < remoteServers.size() - 1) {
+            numberServer++;
+        } else {
+            numberServer = 0;
+        }
+        return numberServer;
     }
 
 
@@ -80,15 +96,19 @@ class LoadBalancer {
         }
 
         @Override
-        public Void call() {
+        public Void call() throws IOException {
+
             try {
                 out = new Socket(remoteHost, remotePort);
             } catch (IOException e) {
-                e.printStackTrace();
+                in = null;
+                throw new IOException();
             }
+
             dataTransferPool.submit(new DataTransfer(in, out));
             dataTransferPool.submit(new DataTransfer(out, in));
             return null;
         }
     }
+
 }

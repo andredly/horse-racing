@@ -147,17 +147,17 @@ CREATE TABLE "racecourse" (
 ) WITH (
 OIDS=FALSE
 );
-
-CREATE TABLE "logging" (
-  ID SERIAL NOT NULL,
-  EVENT_DATE TIMESTAMP DEFAULT NULL,
-  LEVEL varchar DEFAULT NULL,
-  LOGGER varchar DEFAULT NULL,
-  MSG varchar DEFAULT NULL,
-  THROWABLE varchar DEFAULT NULL,
-  PRIMARY KEY (ID)
-);
-
+--
+-- CREATE TABLE "logging" (
+--   ID SERIAL NOT NULL,
+--   EVENT_DATE TIMESTAMP DEFAULT NULL,
+--   LEVEL varchar DEFAULT NULL,
+--   LOGGER varchar DEFAULT NULL,
+--   MSG varchar DEFAULT NULL,
+--   THROWABLE varchar DEFAULT NULL,
+--   PRIMARY KEY (ID)
+-- );
+--
 
 
 ALTER TABLE "race_card" ADD CONSTRAINT "race_card_fk0" FOREIGN KEY ("racecourse_id") REFERENCES "racecourse"("id");

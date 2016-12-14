@@ -20,6 +20,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import static org.terracotta.modules.ehcache.ToolkitInstanceFactoryImpl.LOGGER;
+
 /**
  * Created by Andre on 31.10.2016.
  */

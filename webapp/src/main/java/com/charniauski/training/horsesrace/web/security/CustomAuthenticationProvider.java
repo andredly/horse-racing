@@ -1,9 +1,8 @@
-package com.charniauski.training.horsesrace.services.provider;
+package com.charniauski.training.horsesrace.web.security;
 
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.authcaching.AuthenticationMemcachedService;
-import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,8 +20,8 @@ import java.util.Collection;
 @Service
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-//    @Inject
-    AuthenticationMemcachedService authenticationCachingService;
+    @Inject
+    private AuthenticationMemcachedService authenticationCachingService;
 
     @Inject
     private AccountService accountService;

@@ -3,7 +3,7 @@ package com.charniauski.training.horsesrace.web.controller;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.localthread.SecurityContextHolder;
+import com.charniauski.training.horsesrace.web.security.SecurityContextHolder;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

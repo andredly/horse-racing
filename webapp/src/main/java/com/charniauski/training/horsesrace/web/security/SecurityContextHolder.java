@@ -1,4 +1,4 @@
-package com.charniauski.training.horsesrace.services.localthread;
+package com.charniauski.training.horsesrace.web.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
