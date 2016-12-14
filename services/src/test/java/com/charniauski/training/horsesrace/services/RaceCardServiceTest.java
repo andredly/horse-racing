@@ -20,6 +20,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -182,5 +184,14 @@ public class RaceCardServiceTest {
         RaceCardWrapper raceCardWrapper1 = raceCardService.getAllDataForRaceCard(2L);
         assertNotNull(raceCardWrapper1);
         assertEquals(raceCardWrapper,raceCardWrapper1);
+    }
+
+    @Test
+    public void getAllForIntervalTimeTest() throws ParseException {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
+        Date first=simpleDateFormat.parse("2016-12-13 10:12 AM MSK");
+        Date last=simpleDateFormat.parse("2016-12-20 10:12 AM MSK");
+        List<RaceCard> list = raceCardService.getAllForIntervalTime(first, last);
+        assertEquals(list.size(),3);
     }
 }

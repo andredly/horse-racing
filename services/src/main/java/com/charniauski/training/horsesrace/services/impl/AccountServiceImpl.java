@@ -29,23 +29,19 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
     @Inject
     private AccountDao accountDao;
 
-
-    @Inject
-    private BetService betService;
-
     @Override
     public GenericDao<Account, Long> getGenericDao() {
         return accountDao;
     }
 
-    @Cached(timeToLiveSeconds = 10)
+    @Cached(timeToLiveSeconds = 5)
     @Override
     public Account getByLogin(String login) {
 //        validateSetLogin(login);
         return accountDao.getByLogin(login);
     }
 
-    @Cached(timeToLiveSeconds = 100)
+    @Cached(timeToLiveSeconds = 5)
     @Override
     public Status getStatusByLogin(String login) {
 //        validateSetLogin(login);

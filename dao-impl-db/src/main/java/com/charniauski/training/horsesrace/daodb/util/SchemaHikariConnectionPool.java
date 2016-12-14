@@ -1,13 +1,18 @@
 package com.charniauski.training.horsesrace.daodb.util;
 
-import com.jolbox.bonecp.BoneCPDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.lang3.Validate;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SchemaNameAwareConnectionPool extends BoneCPDataSource {
+public class SchemaHikariConnectionPool extends HikariDataSource {
+
+    public SchemaHikariConnectionPool(HikariConfig configuration) {
+        super(configuration);
+    }
 
     private String schema;
 

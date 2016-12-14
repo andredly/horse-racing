@@ -20,4 +20,8 @@ public interface RaceCardService extends GenericService<RaceCard,Long> {
     List<RaceCardWrapper> getAllDataForTreeRaceCardAfterCurrentDate(Long racecourseId);
 
     RaceCardWrapper getAllDataForRaceCard(Long raceCardId);
+
+    List<RaceCard> getAllForIntervalTime(Date firstDate, Date lastDate);
+
+    List<RaceCardWrapper> getAllDataForIntervalTime(Date firstDate, Date lastDate);
 }

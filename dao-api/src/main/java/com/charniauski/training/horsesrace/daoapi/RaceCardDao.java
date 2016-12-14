@@ -14,4 +14,6 @@ public interface RaceCardDao extends GenericDao<RaceCard, Long>{
 
     RaceCard getByEvent(Long eventId);
 
+    List<RaceCard> getAllForIntervalTime(Date firstDate, Date lastDate );
+
 }

@@ -103,7 +103,7 @@ public class CustomJdbcDatabaseManager extends AbstractDatabaseManager {
             }
 
             if (this.isBatchSupported) {
-                this.statement.addBatch();
+//                this.statement.addBatch();
             } else if (this.statement.executeUpdate() == 0) {
                 throw new AppenderLoggingException(
                         "No records inserted in database table for log event in JDBC manager.");
@@ -121,7 +121,7 @@ public class CustomJdbcDatabaseManager extends AbstractDatabaseManager {
         try {
             if (this.connection != null && !this.connection.isClosed()) {
                 if (this.isBatchSupported) {
-//                    this.statement.addBatch();
+                    this.statement.addBatch();
                     this.statement.executeBatch();
                 }
                 this.connection.commit();

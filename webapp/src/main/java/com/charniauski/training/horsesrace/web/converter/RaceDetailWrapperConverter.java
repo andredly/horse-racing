@@ -1,12 +1,8 @@
 package com.charniauski.training.horsesrace.web.converter;
 
-import com.charniauski.training.horsesrace.datamodel.RaceCard;
-import com.charniauski.training.horsesrace.datamodel.RaceDetail;
-import com.charniauski.training.horsesrace.services.wrapper.AccountWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
 import com.charniauski.training.horsesrace.web.dto.EventDTO;
 import com.charniauski.training.horsesrace.web.dto.RaceDetailDTO;
-import com.charniauski.training.horsesrace.web.dto.wrapper.AccountWrapperDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.RaceDetailWrapperDTO;
 import org.springframework.stereotype.Component;
 

@@ -49,6 +49,14 @@ public class RaceCardDaoImpl extends AbstractDao<RaceCard,Long> implements RaceC
         return get(raceDetail.getRaceCardId());
     }
 
+    @Override
+    public List<RaceCard> getAllForIntervalTime(Date firstDate, Date lastDate) {
+        System.out.println(readCollection());
+        return readCollection().stream().filter(rc->rc.getDateStart()
+                .after(firstDate)&&rc.getDateStart().before(lastDate))
+                .collect(Collectors.toList());
+    }
+
     public Long next() { return sequence.getAndIncrement(); }
 
     public AtomicLong getSequence() {

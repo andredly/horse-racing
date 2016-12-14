@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,6 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
 
     @Inject
     private RaceDetailService raceDetailService;
-
 
     @Override
     public GenericDao<RaceCard, Long> getGenericDao() {
@@ -93,6 +93,19 @@ public class RaceCardServiceImpl extends AbstractService<RaceCard, Long> impleme
         raceCardWrapper.setRaceCard(raceCard);
         raceCardWrapper.setRaceDetailWrappers(raceDetailWrappers);
         return raceCardWrapper;
+    }
+
+    @Override
+    public List<RaceCard> getAllForIntervalTime(Date firstDate, Date lastDate) {
+        return raceCardDao.getAllForIntervalTime(firstDate,lastDate);
+    }
+
+    @Override
+    public List<RaceCardWrapper> getAllDataForIntervalTime(Date firstDate, Date lastDate) {
+        List<RaceCard> list = getAllForIntervalTime(firstDate,lastDate);
+        List<RaceCardWrapper> raceCardWrapperList = new ArrayList<>();
+        list.forEach(rc -> raceCardWrapperList.add(getAllDataForRaceCard(rc.getId())));
+        return raceCardWrapperList;
     }
 
     @Override
