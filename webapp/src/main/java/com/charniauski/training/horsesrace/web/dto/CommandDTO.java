@@ -1,6 +1,5 @@
 package com.charniauski.training.horsesrace.web.dto;
 
-import com.charniauski.training.horsesrace.datamodel.Horse;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class CommandDTO {
@@ -15,9 +14,6 @@ public class CommandDTO {
 
     @NotBlank
     private String urlImageColor;
-
-    public CommandDTO() {
-    }
 
     public Long getId() {
         return id;

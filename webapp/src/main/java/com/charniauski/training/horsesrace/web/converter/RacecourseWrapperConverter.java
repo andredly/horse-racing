@@ -1,9 +1,7 @@
 package com.charniauski.training.horsesrace.web.converter;
 
-import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
 import com.charniauski.training.horsesrace.web.dto.RaceCardDTO;
-import com.charniauski.training.horsesrace.web.dto.wrapper.RaceCardWrapperDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.RacecourseWrapperDTO;
 import org.springframework.stereotype.Component;
 

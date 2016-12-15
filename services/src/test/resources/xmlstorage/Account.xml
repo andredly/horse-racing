@@ -2,7 +2,7 @@
   <Account>
     <id>1</id>
     <login>log</login>
-    <password>pas</password>
+    <password>cGFz</password>
     <dateRegisterAccount class="sql-timestamp">2016-11-13 14:15:38.91</dateRegisterAccount>
     <status>ROLE_ADMIN</status>
     <balance>10.0</balance>
@@ -15,8 +15,8 @@
   </Account>
    <Account>
     <id>2</id>
-    <login>log1</login>
-    <password>pas1</password>
+    <login>log2</login>
+    <password>cGFzMg==</password>
     <dateRegisterAccount class="sql-timestamp">2016-11-13 14:15:38.91</dateRegisterAccount>
     <status>ROLE_USER</status>
     <balance>100.0</balance>
@@ -29,8 +29,8 @@
   </Account>
    <Account>
     <id>3</id>
-    <login>log2</login>
-    <password>pas2</password>
+    <login>log3</login>
+    <password>cGFzMw==</password>
     <dateRegisterAccount class="sql-timestamp">2016-11-13 14:15:38.91</dateRegisterAccount>
     <status>ROLE_USER</status>
     <balance>110.0</balance>

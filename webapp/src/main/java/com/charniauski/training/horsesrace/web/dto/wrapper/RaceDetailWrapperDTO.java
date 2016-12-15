@@ -1,6 +1,9 @@
 package com.charniauski.training.horsesrace.web.dto.wrapper;
 
-import com.charniauski.training.horsesrace.web.dto.*;
+import com.charniauski.training.horsesrace.web.dto.CommandDTO;
+import com.charniauski.training.horsesrace.web.dto.EventDTO;
+import com.charniauski.training.horsesrace.web.dto.HorseDTO;
+import com.charniauski.training.horsesrace.web.dto.RaceDetailDTO;
 
 import java.util.List;
 

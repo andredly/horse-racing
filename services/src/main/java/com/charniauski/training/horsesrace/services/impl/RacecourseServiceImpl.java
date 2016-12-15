@@ -2,13 +2,11 @@ package com.charniauski.training.horsesrace.services.impl;
 
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.daoapi.RacecourseDao;
-import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.RaceCardService;
 import com.charniauski.training.horsesrace.services.RacecourseService;
 import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

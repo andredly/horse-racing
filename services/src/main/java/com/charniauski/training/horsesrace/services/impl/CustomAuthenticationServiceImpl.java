@@ -5,11 +5,9 @@ import com.charniauski.training.horsesrace.services.AccountService;
 import com.charniauski.training.horsesrace.services.CustomAuthenticationService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 
 @Service
 public class CustomAuthenticationServiceImpl implements CustomAuthenticationService {
@@ -24,8 +22,6 @@ public class CustomAuthenticationServiceImpl implements CustomAuthenticationServ
             return false;
         }
         GrantedAuthority authority = new SimpleGrantedAuthority(account.getStatus().name());
-        User user = new User(account.getLogin(),
-                account.getPassword(), Arrays.asList(authority));
         return true;
     }
 

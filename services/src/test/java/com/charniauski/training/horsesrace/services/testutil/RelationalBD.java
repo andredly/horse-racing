@@ -38,7 +38,7 @@ public class RelationalBD implements BaseCreator {
 //        ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("service-context.xml");
 //        SchemaNameAwareBasicDataSource bean = springContext.getBean(SchemaNameAwareBasicDataSource.class);
 
-        Connection connection = null;
+        Connection connection;
 
         try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);

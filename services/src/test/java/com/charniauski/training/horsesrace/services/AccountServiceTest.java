@@ -7,7 +7,6 @@ import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -42,18 +41,11 @@ public class AccountServiceTest {
     @Inject
     private BaseCreator baseCreator;
 
-    @Inject
-    private BetService betService;
-
     private Account testAccount;
 
     private Long testAccountId;
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
-    }
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
     @BeforeClass

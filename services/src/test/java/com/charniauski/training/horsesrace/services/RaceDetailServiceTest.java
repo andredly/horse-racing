@@ -6,9 +6,11 @@ import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -46,11 +48,6 @@ public class RaceDetailServiceTest {
     private RaceDetail testRaceDetail;
     private Long testRaceDetailId;
 
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator) {
-//        baseCreator.createRelationDB();
-    }
-
     @BeforeClass
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
@@ -59,10 +56,6 @@ public class RaceDetailServiceTest {
         baseCreator1.createXMLDB();
     }
 
-    @AfterClass
-    public static void deleteTestData() {
-//        System.out.println("deleteTestData");
-    }
 
     @Before
     public void prepareMethodData() {
@@ -92,11 +85,10 @@ public class RaceDetailServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
         testRaceDetail.setHorseId(3L);
         testRaceDetail.setNumberStartBox(12);
         testRaceDetail.setCommandId(3L);
-        id = raceDetailService.save(testRaceDetail);
+        Long id = raceDetailService.save(testRaceDetail);
         RaceDetail raceDetail = raceDetailService.get(id);
         assertNotNull(raceDetail);
         testRaceDetail.setId(id);

@@ -4,9 +4,11 @@ import com.charniauski.training.horsesrace.datamodel.Event;
 import com.charniauski.training.horsesrace.datamodel.enums.EventType;
 import com.charniauski.training.horsesrace.datamodel.enums.ResultEvent;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -39,10 +41,6 @@ public class EventServiceTest {
     private Event testEvent;
     private Long testEventId;
 
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
-//        baseCreator.createRelationDB();
-    }
     @BeforeClass
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
@@ -51,10 +49,6 @@ public class EventServiceTest {
         baseCreator1.createXMLDB();
     }
 
-    @AfterClass
-    public static void deleteTestData() {
-//        System.out.println("deleteTestData");
-    }
 
     @Before
     public void prepareMethodData() {
@@ -86,11 +80,10 @@ public class EventServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
         testEvent.setEventType(EventType.PLACE3);
         testEvent.setResultEvent(ResultEvent.UNKNOWN);
         testEvent.setRaceDetailId(1L);
-        id = eventService.save(testEvent);
+        Long id = eventService.save(testEvent);
         Event event = eventService.get(id);
         assertNotNull(event);
         testEvent.setDateRegister(new Date(testEvent.getDateRegister().getTime()));
@@ -103,7 +96,7 @@ public class EventServiceTest {
     public void saveUpdateTest() {
         assertNotNull(testEventId);
         testEvent.setId(testEventId);
-        Long save = eventService.save(testEvent);
+        eventService.save(testEvent);
         Event event = eventService.get(testEventId);
         testEvent.setDateRegister(new Date(event.getDateRegister().getTime()));
         assertEquals(testEvent, event);

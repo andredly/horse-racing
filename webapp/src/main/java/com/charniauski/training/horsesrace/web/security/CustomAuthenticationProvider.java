@@ -14,13 +14,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Arrays;
+import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Collections;
 
 @Service
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Inject
+    //    @Inject
     private AuthenticationMemcachedService authenticationCachingService;
 
     @Inject
@@ -32,10 +34,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (username.equals("")) {
             return null;
         }
+
         String password = String.valueOf(auth.getCredentials());
         if (username.equals("")) {
             return null;
         }
+        password = DatatypeConverter.printBase64Binary(password.getBytes(StandardCharsets.UTF_8));
         if (authenticationCachingService != null) {
             UsernamePasswordAuthenticationToken token = authenticationCachingService.get(username + password);
             if (token != null) {
@@ -45,20 +49,18 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
         Account account = accountService.getByLogin(username);
         if (account == null) {
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-            return token;
+            return new UsernamePasswordAuthenticationToken(username, password);
         }
         if (account.getLogin().equals(username) && account.getPassword().equals(password)) {
             GrantedAuthority authority = new SimpleGrantedAuthority(account.getStatus().name());
-            addLocalThread(username, password, Arrays.asList(authority));
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, Arrays.asList(authority));
+            addLocalThread(username, password, Collections.singletonList(authority));
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, Collections.singletonList(authority));
             if (authenticationCachingService != null) {
                 authenticationCachingService.put(username + password, token);
             }
             return token;
         } else {
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-            return token;
+            return new UsernamePasswordAuthenticationToken(username, password);
         }
     }
 

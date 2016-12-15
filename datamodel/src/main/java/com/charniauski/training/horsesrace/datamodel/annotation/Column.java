@@ -20,9 +20,6 @@ public @interface Column {
         DataType(int typeSQL) {
             this.typeSQL=typeSQL;
         }
-        public int getTypeSQL() {
-            return typeSQL;
-        }
     }
     DataType dataType() default DataType.BIGINT;
     boolean isAutoIncrement() default false;

@@ -3,7 +3,6 @@ package com.charniauski.training.horsesrace.web.converter;
 import com.charniauski.training.horsesrace.daodb.util.NullAwareBeanUtilsBean;
 import com.charniauski.training.horsesrace.web.anotation.I18n;
 import com.charniauski.training.horsesrace.web.anotation.Language;
-import com.charniauski.training.horsesrace.web.corrector_dto.AbstractCorrector;
 import com.charniauski.training.horsesrace.web.corrector_dto.CorrectorDTOForRole;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;

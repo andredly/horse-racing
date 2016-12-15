@@ -4,9 +4,11 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.datamodel.Horse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -38,10 +40,6 @@ public class HorseServiceTest {
     private Horse testHorse;
 
     private Long testHorseId;
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
-//        baseCreator.createRelationDB();
-    }
 
     @BeforeClass
     public static void prepareTestData() {
@@ -51,10 +49,6 @@ public class HorseServiceTest {
         baseCreator1.createXMLDB();
     }
 
-    @AfterClass
-    public static void deleteTestData() {
-//        System.out.println("deleteTestData");
-    }
 
     @Before
     public void prepareMethodData() {
@@ -86,9 +80,8 @@ public class HorseServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
         testHorse.setNickName("TestNickName1");
-        id = horseService.save(testHorse);
+        Long id = horseService.save(testHorse);
         Horse horse = horseService.get(id);
         assertNotNull(horse);
         testHorse.setId(id);

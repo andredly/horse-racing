@@ -2,19 +2,18 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:sec="http://www.springframework.org/schema/security"
-             xmlns:aop="http://www.springframework.org/schema/aop"
              xmlns:context="http://www.springframework.org/schema/context"
              xsi:schemaLocation="http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security.xsd
       http://www.springframework.org/schema/beans
-      http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+      http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
 
 
         <http auto-config="true" authentication-manager-ref="auth" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
             <csrf disabled="true"/>
+            <intercept-url pattern="/**" access="isAnonymous() or isAuthenticated()"/>
             <http-basic/>
         </http>
 
@@ -28,8 +27,7 @@
     <context:component-scan base-package="com.charniauski.training.horsesrace.web.security" />
 
     <authentication-manager id="auth">
-        <authentication-provider ref="customAuthenticationProvider">
-        </authentication-provider>
+        <authentication-provider ref="customAuthenticationProvider"/>
     </authentication-manager>
 
 

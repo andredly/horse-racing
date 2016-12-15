@@ -1,15 +1,26 @@
 package com.charniauski.training.horsesrace.web.loadbalanser;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
-import java.net.*;
-import java.util.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class LoadBalancer {
 
-    private static ExecutorService dataTransferPool = Executors.newCachedThreadPool();
-    private static ExecutorService severPool = Executors.newCachedThreadPool();
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoadBalancer.class);
+
+    private static final ExecutorService dataTransferPool = Executors.newCachedThreadPool();
+    private static final ExecutorService severPool = Executors.newCachedThreadPool();
     private static boolean flag = true;
+    private static AtomicInteger atomicInteger = new AtomicInteger();
 
     public static void main(String args[]) throws IOException {
 
@@ -21,18 +32,24 @@ class LoadBalancer {
         int numberServer = 0;
 
         try (ServerSocket serverSocket = new ServerSocket(localPort)) {
-            System.out.println("STARTED LOAD BALANSE SERVER ON " + "localhost" + " PORT " + localPort);
+            LOGGER.info("STARTED LOAD BALANSE SERVER ON localhost PORT {}", localPort);
             Iterator<RemoteServer> iterator = remoteServers.iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 RemoteServer next = iterator.next();
                 try {
                     URL url = new URL("http://" + next.getHost() + ":" + next.getPort());
                     url.openConnection().connect();
-                    System.out.println("-->CONNECT FOR SERVER " + next.getHost() + " PORT " + next.getPort());
+                    LOGGER.info("-->CONNECT FOR SERVER={} PORT={}", next.getHost(), next.getPort());
                 } catch (Exception e) {
-                    System.out.println("NO CONNECT FOR SERVER " + next.getHost() + " PORT " + next.getPort());
+                    LOGGER.info("NO CONNECT FOR SERVER={} PORT={} ", next.getHost(), next.getPort());
                     iterator.remove();
                 }
+            }
+            if (remoteServers.isEmpty()) {
+                LOGGER.info("NO CONNECT FOR ALL SERVERS! SERVER STOP.");
+                System.exit(0);
+            }else {
+                LOGGER.info("SERVER working.....");
             }
 
             while (flag) {
@@ -84,8 +101,8 @@ class LoadBalancer {
 
 
     private static class Task implements Callable {
-        private String remoteHost;
-        private int remotePort;
+        private final String remoteHost;
+        private final int remotePort;
         private Socket out;
         private Socket in;
 

@@ -24,6 +24,7 @@ public class AccountDTO {
     @Size(min = 2, max = 30)
     private String login;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotBlank
     @Size(min = 6, max = 16)
     private String password;
@@ -60,9 +61,6 @@ public class AccountDTO {
     @NotBlank
     @Size(min = 2, max = 256)
     private String address;
-
-    public AccountDTO() {
-    }
 
     public Long getId() {
         return id;

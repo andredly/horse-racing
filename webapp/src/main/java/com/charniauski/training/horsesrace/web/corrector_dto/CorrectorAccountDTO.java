@@ -13,10 +13,12 @@ public class CorrectorAccountDTO extends AbstractCorrector<AccountDTO, Status>{
     public AccountDTO getDTOForRole(AccountDTO entity, Status role) {
         if (!role.equals(Status.ROLE_ADMIN)&&!role.equals(Status.ROLE_BOOKMAKER)) {
             entity.setDateRegisterAccount(null);
+            entity.setPassword(null);
             entity.setStatus(null);
             entity.setIsDelete(null);
             return entity;
         }
+        entity.setPassword(null);
         return entity;
     }
 }

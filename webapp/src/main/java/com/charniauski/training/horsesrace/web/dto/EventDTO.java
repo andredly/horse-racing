@@ -41,10 +41,6 @@ public class EventDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private ResultEvent resultEvent;
 
-
-    public EventDTO() {
-    }
-
     public Long getId() {
         return id;
     }

@@ -9,7 +9,6 @@ import com.charniauski.training.horsesrace.web.converter.RaceCardConverter;
 import com.charniauski.training.horsesrace.web.converter.RaceCardWrapperConverter;
 import com.charniauski.training.horsesrace.web.dto.RaceCardDTO;
 import com.charniauski.training.horsesrace.web.dto.wrapper.RaceCardWrapperDTO;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

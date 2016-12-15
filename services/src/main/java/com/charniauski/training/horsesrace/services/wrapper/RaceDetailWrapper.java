@@ -1,6 +1,9 @@
 package com.charniauski.training.horsesrace.services.wrapper;
 
-import com.charniauski.training.horsesrace.datamodel.*;
+import com.charniauski.training.horsesrace.datamodel.Command;
+import com.charniauski.training.horsesrace.datamodel.Event;
+import com.charniauski.training.horsesrace.datamodel.Horse;
+import com.charniauski.training.horsesrace.datamodel.RaceDetail;
 
 import java.util.List;
 

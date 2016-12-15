@@ -13,7 +13,7 @@ public class AuthenticationMemcachedServiceImp implements AuthenticationMemcache
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationMemcachedServiceImp.class);
 
-    private MemcachedClient memcachedClient;
+    private final MemcachedClient memcachedClient;
     @Value("${timeToLiveSecondsAuth}")
     private int timeToLiveSecondsAuth;
 

@@ -30,9 +30,6 @@ public class RaceCardDTO {
     @NotNull
     private Long racecourseId;
 
-    public RaceCardDTO() {
-    }
-
     public Long getId() {
         return id;
     }

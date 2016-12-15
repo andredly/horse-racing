@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.web.filter;
 
 import com.charniauski.training.horsesrace.services.CustomAuthenticationService;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -14,7 +13,6 @@ import java.util.Enumeration;
 
 public class BasicAuthFilter implements Filter {
     private CustomAuthenticationService customAuthenticationService;
-    private ApplicationContext appContext;
 
     @Override
     public void init(FilterConfig config) throws ServletException {

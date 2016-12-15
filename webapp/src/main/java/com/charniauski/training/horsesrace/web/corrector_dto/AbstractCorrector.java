@@ -22,6 +22,7 @@ public abstract class AbstractCorrector<D,R> implements CorrectorDTOForRole<D,R>
         for (GrantedAuthority grantedAuthority : loggedUserDetails.getAuthorities()) {
             status =Status.valueOf(grantedAuthority.getAuthority());
         }
+        //noinspection unchecked
         return (R)status;
     }
 

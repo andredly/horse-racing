@@ -4,8 +4,8 @@ package com.charniauski.training.horsesrace.web.loadbalanser;
  * Created by ivc4 on 07.12.2016.
  */
 public class RemoteServer {
-    private String host;
-    private int port;
+    private final String host;
+    private final int port;
 
     public RemoteServer(String host, int port) {
         this.host = host;

@@ -28,8 +28,6 @@ public class RaceDetailDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer horseResult;
 
-    public RaceDetailDTO() {
-    }
 
     public Long getId() {
         return id;

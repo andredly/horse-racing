@@ -6,10 +6,11 @@ import com.charniauski.training.horsesrace.datamodel.enums.StatusBet;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
 import com.charniauski.training.horsesrace.services.wrapper.BetWrapper;
-import com.charniauski.training.horsesrace.services.wrapper.RaceDetailWrapper;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -60,22 +61,12 @@ public class BetServiceTest {
     private Bet testBet;
     private Long testBetId;
 
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
-//        baseCreator.createRelationDB();
-    }
-
     @BeforeClass
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         BaseCreator baseCreator1 = (BaseCreator) springContext.getBean("baseCreator");
         baseCreator1.createRelationDB();
         baseCreator1.createXMLDB();
-    }
-
-    @AfterClass
-    public static void deleteTestData() {
-//        System.out.println("deleteTestData");
     }
 
     @Before

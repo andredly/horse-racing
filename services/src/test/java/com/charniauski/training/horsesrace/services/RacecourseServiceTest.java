@@ -5,11 +5,12 @@ import com.charniauski.training.horsesrace.datamodel.RaceCard;
 import com.charniauski.training.horsesrace.datamodel.Racecourse;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
-import com.charniauski.training.horsesrace.services.wrapper.RaceCardWrapper;
 import com.charniauski.training.horsesrace.services.wrapper.RacecourseWrapper;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -37,11 +38,6 @@ public class RacecourseServiceTest {
 
     private Racecourse testRacecourse;
 
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
-//        baseCreator.createRelationDB();
-    }
-
     @BeforeClass
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
@@ -54,12 +50,6 @@ public class RacecourseServiceTest {
     private RaceCardService raceCardService;
 
     private Long testRacecourseId;
-
-
-    @AfterClass
-    public static void deleteTestData() {
-
-    }
 
     @Before
     public void prepareMethodData() {

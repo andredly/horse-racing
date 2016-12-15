@@ -2,8 +2,6 @@ package com.charniauski.training.horsesrace.services;
 
 
 import com.charniauski.training.horsesrace.daoapi.GenericDao;
-import com.charniauski.training.horsesrace.services.cacherequest.Cached;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

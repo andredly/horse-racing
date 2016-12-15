@@ -20,7 +20,6 @@ import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 
 /**
  * Created by Andre on 19.10.2016.

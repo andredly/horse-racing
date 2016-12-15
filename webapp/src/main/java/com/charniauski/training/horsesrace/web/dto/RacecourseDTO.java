@@ -15,8 +15,6 @@ public class RacecourseDTO {
     @NotBlank
     private String country;
 
-    public RacecourseDTO() {
-    }
 
     public String getName() {
         return name;

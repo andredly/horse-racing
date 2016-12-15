@@ -1,10 +1,10 @@
 
 INSERT INTO account (login,password, data_register_account,status,balance,email,first_name,last_name,date_birth,address,is_delete)
-VALUES ('log','pas','10.12.2016','ROLE_ADMIN',100.0,'a@r.ru','first1','last1','10.12.2016','address1',false);
+VALUES ('log','cGFz','10.12.2016','ROLE_ADMIN',100.0,'a@r.ru','first1','last1','10.12.2016','address1',false);
 INSERT INTO account (login,password, data_register_account,status,balance,email,first_name,last_name,date_birth,address,is_delete)
-VALUES ('log2','pas2','10.03.2016','ROLE_USER',50.0,'a@r1.ru','first2','last2','10.12.2016','address2',false);
+VALUES ('log2','cGFzMg==','10.03.2016','ROLE_USER',50.0,'a@r1.ru','first2','last2','10.12.2016','address2',false);
 INSERT INTO account (login,password, data_register_account,status,balance,email,first_name,last_name,date_birth,address,is_delete)
-VALUES ('log3','pas3','10.02.2016','ROLE_USER',30.0,'a@r2.ru','first3','last3','10.12.2016','address2',false);
+VALUES ('log3','cGFzMw==','10.02.2016','ROLE_USER',30.0,'a@r2.ru','first3','last3','10.12.2016','address2',false);
 
 -- INSERT INTO "client" (id,first_name, last_name,date_birth,address) VALUES (1,'Fedor','Gvin','10.12.2016','les');
 
@@ -25,9 +25,9 @@ VALUES ('faster4',2,62,'серый','gray','henk4');
 INSERT INTO racecourse (name, country) VALUES ('germ','g');
 INSERT INTO racecourse (name, country) VALUES ('germ1','g');
 
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.12.15 11:00',NULL ,'1000',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.12.15 11:10',NULL ,'1500',1);
-INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.12.15 11:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.12.16 11:00',NULL ,'1000',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.12.16 11:10',NULL ,'1500',1);
+INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.12.16 11:10',NULL ,'1500',1);
 INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.06 23:10',NULL ,'1500',1);
 INSERT INTO race_card (date_start,date_finish,race_type,racecourse_id) VALUES ('2016.11.30 12:10',NULL ,'1500',2);
 

@@ -36,10 +36,6 @@ public class HorseDTO {
     @NotBlank
     private String owner;
 
-
-    public HorseDTO() {
-    }
-
     public Long getId() {
         return id;
     }

@@ -4,9 +4,11 @@ package com.charniauski.training.horsesrace.services;
 import com.charniauski.training.horsesrace.datamodel.Command;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.services.testutil.BaseCreator;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -39,11 +41,6 @@ public class CommandServiceTest {
     private Long testCommandId;
 
 
-    @Parameterized.Parameters
-    public static void getBaseCreator(BaseCreator baseCreator){
-//        baseCreator.createRelationDB();
-    }
-
     @BeforeClass
     public static void prepareTestData() {
         ClassPathXmlApplicationContext springContext = new ClassPathXmlApplicationContext("test-applicationContext.xml");
@@ -52,24 +49,20 @@ public class CommandServiceTest {
         baseCreator1.createXMLDB();
     }
 
-    @AfterClass
-    public static void deleteTestData() {
-//        System.out.println("deleteTestData");
-    }
 
     @Before
     public void prepareMethodData() {
-      baseCreator.createXMLDB();
+        baseCreator.createXMLDB();
         testCommand = new Command();
         testCommand.setJockey("Joi");
         testCommand.setTrainer("Join");
         testCommand.setUrlImageColor("HTTP-");
-        testCommandId=3L;
+        testCommandId = 3L;
     }
 
     @After
     public void deleteMethodData() {
-        testCommand=null;
+        testCommand = null;
         testCommandId = null;
     }
 
@@ -83,11 +76,10 @@ public class CommandServiceTest {
 
     @Test
     public void saveInsertTest() {
-        Long id = null;
-            testCommand.setJockey("Joi1");
-            testCommand.setTrainer("Join1");
-            testCommand.setUrlImageColor("HTTP-1");
-            id = commandService.save(testCommand);
+        testCommand.setJockey("Joi1");
+        testCommand.setTrainer("Join1");
+        testCommand.setUrlImageColor("HTTP-1");
+        Long id = commandService.save(testCommand);
         Command command = commandService.get(id);
         assertNotNull(command);
         testCommand.setId(id);
@@ -100,7 +92,7 @@ public class CommandServiceTest {
     public void saveUpdateTest() {
         assertNotNull(testCommandId);
         testCommand.setId(testCommandId);
-            commandService.save(testCommand);
+        commandService.save(testCommand);
         Command command = commandService.get(testCommandId);
         assertEquals(testCommand, command);
     }
@@ -146,10 +138,10 @@ public class CommandServiceTest {
     }
 
     @Test
-    public void getByTrainerAndJockeyAndUrlTest(){
+    public void getByTrainerAndJockeyAndUrlTest() {
         Command command = commandService.get(1L);
         Command command1 = commandService.getByTrainerAndJockeyAndUrl("jon", "uri", "http1");
-        assertEquals(command,command1);
+        assertEquals(command, command1);
     }
 
 }

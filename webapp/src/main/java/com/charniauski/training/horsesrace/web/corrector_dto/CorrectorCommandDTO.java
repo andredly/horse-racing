@@ -1,7 +1,6 @@
 package com.charniauski.training.horsesrace.web.corrector_dto;
 
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
-import com.charniauski.training.horsesrace.web.dto.BetDTO;
 import com.charniauski.training.horsesrace.web.dto.CommandDTO;
 import org.springframework.stereotype.Component;
 

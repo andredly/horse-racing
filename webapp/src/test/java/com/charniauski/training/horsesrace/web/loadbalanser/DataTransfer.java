@@ -15,7 +15,7 @@ class DataTransfer implements Runnable {
     }
 
     public void run() {
-        byte[] buffer = new byte[60];
+        byte[] buffer = new byte[50];
         int numberRead;
         OutputStream toClient;
         InputStream fromClient;
@@ -23,16 +23,23 @@ class DataTransfer implements Runnable {
         try {
             toClient = outgoing.getOutputStream();
             fromClient = incoming.getInputStream();
-            while (true) {
-                numberRead = fromClient.read(buffer, 0, 50);
-                if (numberRead == -1) {
-                    incoming.close();
-                    outgoing.close();
-                }
+//            while (true) {
+//                numberRead = fromClient.read(buffer, 0, 50);
+//                if (numberRead == -1) {
+//                    incoming.close();
+//                    outgoing.close();
+//                }
+//                toClient.write(buffer, 0, numberRead);
+//            }
+
+            while ((numberRead = fromClient.read(buffer, 0, 50))!=-1) {
                 toClient.write(buffer, 0, numberRead);
             }
+            incoming.close();
+            outgoing.close();
 
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException e) {
+
         }
 
     }

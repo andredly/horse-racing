@@ -3,8 +3,8 @@ package com.charniauski.training.horsesrace.web.controller;
 import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
-import com.charniauski.training.horsesrace.web.security.SecurityContextHolder;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
+import com.charniauski.training.horsesrace.web.security.SecurityContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -80,9 +80,9 @@ public abstract class AbstractController<T extends AbstractModel, D> {
 
     }
 
-    public abstract GenericConverter<T, D> getConverter();
+    protected abstract GenericConverter<T, D> getConverter();
 
-    public abstract GenericService getGenericService();
+    protected abstract GenericService getGenericService();
 
     void checkNull(Object checkObject, Object... arg) {
         if (checkObject == null) {

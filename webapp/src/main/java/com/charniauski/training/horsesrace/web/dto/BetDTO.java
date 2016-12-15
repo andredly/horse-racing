@@ -37,9 +37,6 @@ public class BetDTO {
     private Double calculate;
 
 
-    public BetDTO() {
-    }
-
     public Long getId() {
         return id;
     }

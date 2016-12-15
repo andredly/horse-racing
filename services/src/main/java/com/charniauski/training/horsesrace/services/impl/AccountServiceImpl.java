@@ -5,7 +5,6 @@ import com.charniauski.training.horsesrace.daoapi.GenericDao;
 import com.charniauski.training.horsesrace.datamodel.Account;
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
 import com.charniauski.training.horsesrace.services.AccountService;
-import com.charniauski.training.horsesrace.services.BetService;
 import com.charniauski.training.horsesrace.services.cacherequest.Cached;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -82,11 +83,15 @@ public class AccountServiceImpl extends AbstractService<Account, Long> implement
             if (oldAccount != null) {
                 throw new IllegalArgumentException("Login " + account.getLogin() + " already exists");
             }
+            String password = DatatypeConverter.printBase64Binary(account.getPassword().getBytes(StandardCharsets.UTF_8));
+            account.setPassword(password);
             account.setDateRegisterAccount(new Timestamp(new Date().getTime()));
             account.setBalance(0.0);
             accountId = accountDao.insert(account);
             LOGGER.info("Create Account={}", account.getLogin());
         } else {
+            String password = DatatypeConverter.printBase64Binary(account.getPassword().getBytes(StandardCharsets.UTF_8));
+            account.setPassword(password);
             accountDao.update(account);
             accountId = account.getId();
             LOGGER.info("Update Account={}", account.getLogin());

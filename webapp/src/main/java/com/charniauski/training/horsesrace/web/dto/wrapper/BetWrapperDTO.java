@@ -1,6 +1,5 @@
 package com.charniauski.training.horsesrace.web.dto.wrapper;
 
-import com.charniauski.training.horsesrace.datamodel.*;
 import com.charniauski.training.horsesrace.web.dto.*;
 
 public class BetWrapperDTO {
