@@ -18,9 +18,9 @@ public class XMLDB implements BaseCreator {
     @Override
     public void createXMLDB() {
         try {
-            File file = new File("D://xmlstorage");
+            File file = new File("c://xmlstorage");
             if (file.exists()&&file.mkdir()) {FileUtils.cleanDirectory(file);}
-            FileUtils.copyDirectoryToDirectory(new File("src/test/resources/xmlstorage"),new File("D://"));
+            FileUtils.copyDirectoryToDirectory(new File("src/test/resources/xmlstorage"),new File("c://"));
         } catch (IOException e) {
             e.printStackTrace();
         }

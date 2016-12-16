@@ -23,10 +23,12 @@ public class SimpleCache implements Cacheable {
     private int timeToLiveSeconds;
     @Value("${maxEntriesLocalHeap}")
     private int maxEntriesLocalHeap;
+    @Value("${serialiseFilePath}")
+    private String serialiseFilePath;
 
     @PostConstruct
     void init() throws IOException {
-        deserialize("D://server_cache/cache.dat");
+        deserialize(serialiseFilePath);
     }
 
 //    private static final int DEFAULT_TIME_TO_LIFE_SECOND = 5 * 60;
@@ -154,11 +156,13 @@ public class SimpleCache implements Cacheable {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public void serialize(String path) throws IOException {
         stopClear();
         stopCaching();
         File file = new File(path);
+        file.getParentFile().mkdirs();
         if (!file.exists()) {
             file.createNewFile();
         } else {

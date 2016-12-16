@@ -43,7 +43,7 @@ public abstract class AbstractService<T extends AbstractModel, PK> implements Ge
     }
 
     @SuppressWarnings("unchecked")
-    @Cached(timeToLiveSeconds = 10)
+    @Cached(timeToLiveSeconds = 60)
     @Override
     public T get(PK id) {
         return getGenericDao().get(id);
