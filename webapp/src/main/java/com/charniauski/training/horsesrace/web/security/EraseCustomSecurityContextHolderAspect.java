@@ -18,6 +18,7 @@ public class EraseCustomSecurityContextHolderAspect implements Advice {
 
     @After("annotatedPreAuthorizeMethods()")
     public void beforeControllerMappingMethods(JoinPoint joinPoint) {
+
         CustomSecurityContextHolder.removeLoggedUserDetails();
     }
 }

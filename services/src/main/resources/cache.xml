@@ -9,7 +9,7 @@
 
 
     <context:property-placeholder
-            ignore-unresolvable="true" location="classpath:cache-request.properties"/>
+            ignore-unresolvable="true" location="classpath:cache_request.properties"/>
     <context:property-placeholder
             ignore-unresolvable="true" location="classpath:authcaching.properties"/>
 

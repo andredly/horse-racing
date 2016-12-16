@@ -5,6 +5,6 @@
     <description>Holds application context for testing of the domain module.</description>
 
     <!-- Imports the uuid generator bean definitions -->
-<!--<bean id="baseCreator" class="com.charniauski.training.horsesrace.services.testutil.RelationalBD"/>-->
-    <bean id="baseCreator" class="com.charniauski.training.horsesrace.services.testutil.XMLDB"/>
+<bean id="baseCreator" class="com.charniauski.training.horsesrace.services.testutil.RelationalBD"/>
+    <!--<bean id="baseCreator" class="com.charniauski.training.horsesrace.services.testutil.XMLDB"/>-->
 </beans>
