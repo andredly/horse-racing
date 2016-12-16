@@ -16,6 +16,8 @@ public class SchemaHikariConnectionPool extends HikariDataSource {
 
     private String schema;
 
+
+
     /**
      * @return the schema
      */

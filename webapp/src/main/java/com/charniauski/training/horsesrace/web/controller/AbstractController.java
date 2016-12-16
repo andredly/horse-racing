@@ -4,7 +4,7 @@ import com.charniauski.training.horsesrace.datamodel.AbstractModel;
 import com.charniauski.training.horsesrace.services.GenericService;
 import com.charniauski.training.horsesrace.services.exception.NoSuchEntityException;
 import com.charniauski.training.horsesrace.web.converter.GenericConverter;
-import com.charniauski.training.horsesrace.web.security.SecurityContextHolder;
+import com.charniauski.training.horsesrace.web.security.CustomSecurityContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -91,7 +91,7 @@ public abstract class AbstractController<T extends AbstractModel, D> {
     }
 
     boolean isNotAuthorization(String login)  {
-        UserDetails loggedUserDetails = SecurityContextHolder.getLoggedUserDetails();
+        UserDetails loggedUserDetails = CustomSecurityContextHolder.getLoggedUserDetails();
         if (loggedUserDetails==null){return true;}
         for (GrantedAuthority grantedAuthority : loggedUserDetails.getAuthorities()) {
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {

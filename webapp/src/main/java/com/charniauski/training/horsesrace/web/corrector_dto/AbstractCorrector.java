@@ -1,7 +1,7 @@
 package com.charniauski.training.horsesrace.web.corrector_dto;
 
 import com.charniauski.training.horsesrace.datamodel.enums.Status;
-import com.charniauski.training.horsesrace.web.security.SecurityContextHolder;
+import com.charniauski.training.horsesrace.web.security.CustomSecurityContextHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,7 +16,7 @@ public abstract class AbstractCorrector<D,R> implements CorrectorDTOForRole<D,R>
     }
 
     public R getRole(){
-        UserDetails loggedUserDetails = SecurityContextHolder.getLoggedUserDetails();
+        UserDetails loggedUserDetails = CustomSecurityContextHolder.getLoggedUserDetails();
         if (loggedUserDetails==null) {return null;}
         Status status = null;
         for (GrantedAuthority grantedAuthority : loggedUserDetails.getAuthorities()) {

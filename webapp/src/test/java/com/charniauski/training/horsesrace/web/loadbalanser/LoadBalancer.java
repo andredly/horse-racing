@@ -7,20 +7,16 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 class LoadBalancer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadBalancer.class);
 
     private static final ExecutorService dataTransferPool = Executors.newCachedThreadPool();
-    private static final ExecutorService severPool = Executors.newCachedThreadPool();
+    private static final ExecutorService serverSocketPool = Executors.newCachedThreadPool();
     private static boolean flag = true;
-    private static AtomicInteger atomicInteger = new AtomicInteger();
 
     public static void main(String args[]) throws IOException {
 
@@ -29,6 +25,7 @@ class LoadBalancer {
         remoteServers.add(new RemoteServer("localhost", 8080));
         remoteServers.add(new RemoteServer("localhost", 8082));
 //        remoteServers.add(new RemoteServer("localhost", 8083));
+        List<RemoteServer> crashServers=new ArrayList<>();
         int numberServer = 0;
 
         try (ServerSocket serverSocket = new ServerSocket(localPort)) {
@@ -45,27 +42,48 @@ class LoadBalancer {
                     iterator.remove();
                 }
             }
-            if (remoteServers.isEmpty()) {
-                LOGGER.info("NO CONNECT FOR ALL SERVERS! SERVER STOP.");
-                System.exit(0);
-            }else {
-                LOGGER.info("SERVER working.....");
-            }
 
             while (flag) {
+                checkLiveServers(remoteServers);
                 Socket in = serverSocket.accept();
-                Future future = severPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
+                Future future = serverSocketPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
                 try {
                     future.get();
                 } catch (InterruptedException | ExecutionException e) {
+                    RemoteServer remoteServer = remoteServers.get(numberServer);
+                    crashServers.add(remoteServer);
+                    LOGGER.error("SERVER {} is crash",remoteServer);
                     numberServer = getNumberServer(remoteServers, numberServer);
-                    severPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
+                    serverSocketPool.submit(new Task(remoteServers.get(numberServer).getHost(), remoteServers.get(numberServer).getPort(), in));
+                    checkLiveServers(remoteServers);
+                    remoteServers.remove(remoteServer);
+                    LOGGER.error("Server {} temp remove from list servers",remoteServer);
+                    Timer timer=new Timer();
+                    timer.schedule(new TimerTask() {
+                        RemoteServer crash=remoteServer;
+                        @Override
+                        public void run() {
+                            remoteServers.add(crash);
+                            crashServers.remove(crash);
+                            LOGGER.info("Server {} add in list servers and try connecting...",crash);
+                            LOGGER.info("SERVER {} working.....",remoteServers);
+                        }
+                    },10000);
                     numberServer++;
                 }
                 numberServer = getNumberServer(remoteServers, numberServer);
             }
         } catch (final IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void checkLiveServers(List<RemoteServer> remoteServers) {
+        if (remoteServers.isEmpty()) {
+            LOGGER.info("NO CONNECT FOR ALL SERVERS! SERVER STOP.");
+            System.exit(0);
+        }else {
+//            LOGGER.info("SERVER {} working.....",remoteServers);
         }
     }
 
@@ -81,7 +99,7 @@ class LoadBalancer {
 
     public void serverStop() {
         flag = false;
-        closePool(severPool);
+        closePool(serverSocketPool);
         closePool(dataTransferPool);
     }
 

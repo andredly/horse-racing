@@ -20,11 +20,15 @@ public class CacheAspect {
     public void anyGetMethod() {
     }
 
+    @Pointcut(value = "execution(* com.charniauski.training.horsesrace.services.impl.AbstractService.get(..))")
+    public void onlyGetMethod() {
+    }
+
     @Pointcut(value = "@annotation(cached)", argNames = "cached")
     protected void annotatedCachedMethods(Cached cached) {
     }
 
-    @Around(value = "anyGetMethod()&&annotatedCachedMethods(cached)", argNames = "joinPoint,cached")
+    @Around(value = "(anyGetMethod()||onlyGetMethod())&&annotatedCachedMethods(cached)", argNames = "joinPoint,cached")
     public Object around(ProceedingJoinPoint joinPoint, Cached cached) throws Throwable {
         KeyGenerator keyGenerator = cached.keyGeneratorClass().newInstance();
         String key = keyGenerator.generate(joinPoint);

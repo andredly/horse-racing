@@ -25,7 +25,7 @@
     <!--<bean id="authenticationMemcachedService" class="com.charniauski.training.horsesrace.services.authcaching.AuthenticationMemcachedServiceImp">-->
         <!--<constructor-arg ref="memcachedClient"/>-->
     <!--</bean>-->
-<!---->
+
     <!--ehcache-->
     <!--<bean class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.ConfigEhCache"/>-->
     <!--<bean id="cache" class="com.charniauski.training.horsesrace.services.cacherequest.ehcache.CacheAdapterEhcache"/>-->

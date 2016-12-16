@@ -15,7 +15,7 @@ import java.lang.management.ManagementFactory;
  * parameter -Dcom.sun.management.jmxremote to startup JMX (and e.g. connect
  * with jconsole).
  */
-public class StartJetty {
+public class StartJetty8083 {
     /**
      * Main function, starts the jetty server.
      *
@@ -23,10 +23,9 @@ public class StartJetty {
      */
     public static void main(String[] args) {
 
-        startInstance(8080);
-         startInstance(8082);
-        // startInstance(8083);
-        // startInstance(8084);
+//        startInstance(8080);
+//         startInstance(8082);
+         startInstance(8083);
     }
 
     private static void startInstance(int port) {
@@ -55,7 +54,7 @@ public class StartJetty {
 
         try {
             server.start();
-            // server.join();
+             server.join();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(100);

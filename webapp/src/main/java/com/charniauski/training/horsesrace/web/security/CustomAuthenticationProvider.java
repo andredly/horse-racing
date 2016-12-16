@@ -35,6 +35,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             return null;
         }
 
+
         String password = String.valueOf(auth.getCredentials());
         if (username.equals("")) {
             return null;
@@ -72,6 +73,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private void addLocalThread(String username, String password, Collection<GrantedAuthority> authority) {
         UserDetails userDetails = new User(username, password, authority);
-        SecurityContextHolder.setLoggedUserDetails(userDetails);
+        CustomSecurityContextHolder.setLoggedUserDetails(userDetails);
     }
 }
