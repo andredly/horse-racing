@@ -34,10 +34,10 @@ public class SimpleCache implements Cacheable {
         deserialize(serialiseFilePath);
     }
 
-    @PreDestroy
-    void destroy() throws IOException {
-        serialize(serialiseFilePath);
-    }
+//    @PreDestroy
+//    void destroy() throws IOException {
+//        serialize(serialiseFilePath);
+//    }
 
 //    private static final int DEFAULT_TIME_TO_LIFE_SECOND = 5 * 60;
 //    private static final int DEFAULT_SIZE = 1000;

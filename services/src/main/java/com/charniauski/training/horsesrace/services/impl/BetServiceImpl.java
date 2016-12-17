@@ -71,7 +71,7 @@ public class BetServiceImpl extends AbstractService<Bet, Long> implements BetSer
             bet.setDateBet(new Timestamp(new Date().getTime()));
             if (bet.getDateBet().after(dateStart)) throw new DateTimeException("Date bet after date start");
             betId = betDao.insert(bet);
-            LOGGER.info("Bet id={} for account with login={}  is save", bet.getId(), account.getLogin());
+            LOGGER.info("Bet id={} for account with login={}  is save", betId, account.getLogin());
         } else {
             betDao.update(bet);
             betId = bet.getId();
