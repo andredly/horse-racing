@@ -13,7 +13,6 @@
 
         <http auto-config="true" authentication-manager-ref="auth" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
             <csrf disabled="true"/>
-            <intercept-url pattern="/**" access="isAnonymous() or isAuthenticated()"/>
             <http-basic/>
         </http>
 
