@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.*;
 import java.util.Map;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 //@Service
 public class SimpleCache implements Cacheable {
@@ -25,10 +27,16 @@ public class SimpleCache implements Cacheable {
     private int maxEntriesLocalHeap;
     @Value("${serialiseFilePath}")
     private String serialiseFilePath;
+    private ReentrantLock reentrantLock;
 
     @PostConstruct
     void init() throws IOException {
         deserialize(serialiseFilePath);
+    }
+
+    @PreDestroy
+    void destroy() throws IOException {
+        serialize(serialiseFilePath);
     }
 
 //    private static final int DEFAULT_TIME_TO_LIFE_SECOND = 5 * 60;
@@ -49,9 +57,10 @@ public class SimpleCache implements Cacheable {
 
     public SimpleCache() {
         cache = new ConcurrentHashMap<>();
-        this.executorService = Executors.newCachedThreadPool();
+        this.executorService = Executors.newSingleThreadExecutor();
         this.flagClearCache = false;
         this.flagStopCaching = false;
+        this.reentrantLock = new ReentrantLock();
         LOGGER.info("Start caching request");
     }
 
@@ -132,14 +141,6 @@ public class SimpleCache implements Cacheable {
         executorService.submit(new ClearCache());
     }
 
-    private void startClear() {
-        flagStopCaching = true;
-        if (executorService == null) {
-            this.executorService = Executors.newSingleThreadExecutor();
-        }
-        this.clear();
-    }
-
     private void stopClear() {
         flagClearCache = true;
         if (executorService != null) {
@@ -175,8 +176,6 @@ public class SimpleCache implements Cacheable {
 
     @SuppressWarnings("unchecked")
     public Map<String, Object[]> deserialize(String path) throws IOException {
-//        stopClear();
-//        stopCaching();
         File file = new File(path);
         if (!file.exists()) {
             return cache;
@@ -189,8 +188,6 @@ public class SimpleCache implements Cacheable {
                 e.printStackTrace();
             }
         }
-//        startCaching();
-//        startClear();
         return cache;
     }
 
@@ -208,6 +205,10 @@ public class SimpleCache implements Cacheable {
         @Override
         public Void call() throws Exception {
             flagClearCache = true;
+            if (reentrantLock.isLocked()) {
+                return null;
+            }
+            reentrantLock.lock();
             Map<String, Object[]> newMap = new ConcurrentHashMap<>(cache);
             for (Map.Entry<String, Object[]> map : newMap.entrySet()) {
                 Object[] valueAndTime = map.getValue();
@@ -220,6 +221,7 @@ public class SimpleCache implements Cacheable {
             newMap.clear();
             LOGGER.info("Cache cleaning is completed");
             flagClearCache = false;
+            reentrantLock.unlock();
             return null;
         }
     }
