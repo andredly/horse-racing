@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.*;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -209,16 +210,15 @@ public class SimpleCache implements Cacheable {
                 return null;
             }
             reentrantLock.lock();
-            Map<String, Object[]> newMap = new ConcurrentHashMap<>(cache);
-            for (Map.Entry<String, Object[]> map : newMap.entrySet()) {
-                Object[] valueAndTime = map.getValue();
+            for (String key : cache.keySet()) {
+                Object[] valueAndTime = cache.get(key);
                 Long timePutValue = (Long) valueAndTime[1];
                 if (System.currentTimeMillis() > timePutValue) {
-                    LOGGER.debug("Clear {}", map.getValue()[0]);
-                    cache.remove(map.getKey());
+                    LOGGER.debug("Delete in cache {}", cache.get(key)[0]);
+
+                    cache.remove(key);
                 }
             }
-            newMap.clear();
             LOGGER.info("Cache cleaning is completed");
             flagClearCache = false;
             reentrantLock.unlock();
