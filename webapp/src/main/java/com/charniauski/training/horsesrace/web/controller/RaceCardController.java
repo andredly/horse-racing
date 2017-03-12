@@ -16,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -88,5 +90,14 @@ public class RaceCardController extends AbstractController<RaceCard, RaceCardDTO
     @Override
     public GenericService getGenericService() {
         return raceCardService;
+    }
+
+
+    @PreAuthorize("isAnonymous() or isAuthenticated()")
+    @GetMapping(value = "/1")
+    public ResponseEntity<List<RaceCardWrapperDTO>> getTest(
+            @RequestParam String param) {
+        List<String> list= Arrays.asList("one","two");
+        return null;
     }
 }

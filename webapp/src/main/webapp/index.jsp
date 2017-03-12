@@ -1,18 +1,14 @@
-<%@ page import="java.util.Date" %><%--
-  Created by IntelliJ IDEA.
-  User: ivc4
-  Date: 15.12.2016
-  Time: 8:44
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Hello!</title>
+    <title>SO question 4112686</title>
+    <%--<script src="http://code.jquery.com/jquery-latest.min.js"></script>--%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="resources/filename.js">    </script>
+
 </head>
 <body>
-<br>
-<h3>Hello Horses racing!</h3><br>
-<strong>Current Time is</strong>: <%=new Date() %>
+<button id="somebutton">press here</button>
+<div id="somediv"></div>
 </body>
 </html>
